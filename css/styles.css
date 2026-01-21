@@ -834,8 +834,6 @@ p {
     width: auto;
     max-width: 160px;
     object-fit: contain;
-    filter: grayscale(100%) brightness(0.8);
-    opacity: 0.6;
 }
 
 /* Fade edges for smooth appearance */
