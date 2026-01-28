@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initScrollAnimations();
     initCounters();
-    initCursorGlow();
+
     initVSLPlayer();
     initSmoothScroll();
     initFormHandling();
@@ -23,30 +23,30 @@ function initNavigation() {
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     const navLinksItems = document.querySelectorAll('.nav-link');
-    
+
     // Scroll behavior for navigation
     let lastScroll = 0;
-    
+
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        
+
         // Add/remove scrolled class
         if (currentScroll > 50) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
-        
+
         lastScroll = currentScroll;
     });
-    
+
     // Mobile menu toggle
     navToggle?.addEventListener('click', () => {
         navToggle.classList.toggle('open');
         navLinks.classList.toggle('open');
         document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
-    
+
     // Close mobile menu on link click
     navLinksItems.forEach(link => {
         link.addEventListener('click', () => {
@@ -55,18 +55,18 @@ function initNavigation() {
             document.body.style.overflow = '';
         });
     });
-    
+
     // Active link on scroll
     const sections = document.querySelectorAll('section[id]');
-    
+
     function updateActiveLink() {
         const scrollPosition = window.scrollY + 100;
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             const sectionId = section.getAttribute('id');
-            
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 navLinksItems.forEach(link => {
                     link.classList.remove('active');
@@ -77,7 +77,7 @@ function initNavigation() {
             }
         });
     }
-    
+
     window.addEventListener('scroll', updateActiveLink);
     updateActiveLink();
 }
@@ -88,13 +88,13 @@ function initNavigation() {
 
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    
+
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.1
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -104,7 +104,7 @@ function initScrollAnimations() {
             }
         });
     }, observerOptions);
-    
+
     animatedElements.forEach(element => {
         observer.observe(element);
     });
@@ -116,13 +116,13 @@ function initScrollAnimations() {
 
 function initCounters() {
     const counters = document.querySelectorAll('.stat-number[data-count]');
-    
+
     const observerOptions = {
         root: null,
         rootMargin: '0px',
         threshold: 0.5
     };
-    
+
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -131,7 +131,7 @@ function initCounters() {
             }
         });
     }, observerOptions);
-    
+
     counters.forEach(counter => {
         counterObserver.observe(counter);
     });
@@ -141,74 +141,28 @@ function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-count'));
     const duration = 2000; // 2 seconds
     const startTime = performance.now();
-    
+
     function updateCounter(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function (ease-out)
         const easeOut = 1 - Math.pow(1 - progress, 3);
-        
+
         const current = Math.floor(easeOut * target);
         element.textContent = current.toLocaleString();
-        
+
         if (progress < 1) {
             requestAnimationFrame(updateCounter);
         } else {
             element.textContent = target.toLocaleString();
         }
     }
-    
+
     requestAnimationFrame(updateCounter);
 }
 
-/* ============================================
-   Cursor Glow Effect
-   ============================================ */
 
-function initCursorGlow() {
-    const cursorGlow = document.getElementById('cursorGlow');
-    
-    if (!cursorGlow) return;
-    
-    // Only enable on desktop
-    if (window.innerWidth < 1024) {
-        cursorGlow.style.display = 'none';
-        return;
-    }
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    function animate() {
-        // Smooth follow
-        currentX += (mouseX - currentX) * 0.1;
-        currentY += (mouseY - currentY) * 0.1;
-        
-        cursorGlow.style.left = `${currentX}px`;
-        cursorGlow.style.top = `${currentY}px`;
-        
-        requestAnimationFrame(animate);
-    }
-    
-    animate();
-    
-    // Hide when mouse leaves window
-    document.addEventListener('mouseleave', () => {
-        cursorGlow.style.opacity = '0';
-    });
-    
-    document.addEventListener('mouseenter', () => {
-        cursorGlow.style.opacity = '0.3';
-    });
-}
 
 /* ============================================
    VSL Video Player
@@ -217,9 +171,9 @@ function initCursorGlow() {
 function initVSLPlayer() {
     const playBtn = document.getElementById('playBtn');
     const vslVideo = document.getElementById('vslVideo');
-    
+
     if (!playBtn || !vslVideo) return;
-    
+
     playBtn.addEventListener('click', () => {
         // Replace placeholder with video embed
         // You can replace this with your actual video URL
@@ -232,7 +186,7 @@ function initVSLPlayer() {
                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
             ></iframe>
         `;
-        
+
         vslVideo.innerHTML = videoEmbed;
         vslVideo.style.background = '#000';
     });
@@ -244,21 +198,21 @@ function initVSLPlayer() {
 
 function initSmoothScroll() {
     const links = document.querySelectorAll('a[href^="#"]');
-    
+
     links.forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-            
+
             if (href === '#') return;
-            
+
             const target = document.querySelector(href);
-            
+
             if (target) {
                 e.preventDefault();
-                
+
                 const navHeight = document.getElementById('nav')?.offsetHeight || 0;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -274,15 +228,15 @@ function initSmoothScroll() {
 
 function initFormHandling() {
     const form = document.getElementById('contactForm');
-    
+
     if (!form) return;
-    
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
+
         // Show loading state
         submitBtn.innerHTML = `
             <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -292,15 +246,15 @@ function initFormHandling() {
             <span>Sending...</span>
         `;
         submitBtn.disabled = true;
-        
+
         // Collect form data
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        
+
         // Simulate API call (replace with actual endpoint)
         try {
             await new Promise(resolve => setTimeout(resolve, 2000));
-            
+
             // Success state
             submitBtn.innerHTML = `
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -309,17 +263,17 @@ function initFormHandling() {
                 <span>Message Sent!</span>
             `;
             submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
-            
+
             // Reset form
             form.reset();
-            
+
             // Reset button after delay
             setTimeout(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.style.background = '';
                 submitBtn.disabled = false;
             }, 3000);
-            
+
         } catch (error) {
             // Error state
             submitBtn.innerHTML = `
@@ -332,27 +286,27 @@ function initFormHandling() {
             `;
             submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
             submitBtn.disabled = false;
-            
+
             setTimeout(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.style.background = '';
             }, 3000);
         }
     });
-    
+
     // Input animations
     const inputs = form.querySelectorAll('input, select, textarea');
-    
+
     inputs.forEach(input => {
         input.addEventListener('focus', () => {
             input.parentElement.classList.add('focused');
         });
-        
+
         input.addEventListener('blur', () => {
             input.parentElement.classList.remove('focused');
         });
     });
-    
+
     // Smart auto-expand textarea
     const textarea = form.querySelector('textarea');
     if (textarea) {
@@ -362,7 +316,7 @@ function initFormHandling() {
             // Set height to scrollHeight (content height)
             const newHeight = Math.min(textarea.scrollHeight, 400); // max-height from CSS
             textarea.style.height = newHeight + 'px';
-            
+
             // Show scrollbar if content exceeds max height
             if (textarea.scrollHeight > 400) {
                 textarea.style.overflowY = 'auto';
@@ -370,7 +324,7 @@ function initFormHandling() {
                 textarea.style.overflowY = 'hidden';
             }
         }
-        
+
         textarea.addEventListener('input', autoExpand);
         textarea.addEventListener('focus', autoExpand);
         // Initial call to set correct height if there's default content
@@ -384,11 +338,11 @@ function initFormHandling() {
 
 function initParallax() {
     const parallaxElements = document.querySelectorAll('.hero-orb');
-    
+
     if (window.innerWidth < 768) return;
-    
+
     let ticking = false;
-    
+
     window.addEventListener('scroll', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
@@ -398,10 +352,10 @@ function initParallax() {
             ticking = true;
         }
     });
-    
+
     function updateParallax() {
         const scrolled = window.pageYOffset;
-        
+
         parallaxElements.forEach((element, index) => {
             const speed = (index + 1) * 0.1;
             const yPos = scrolled * speed;
@@ -457,7 +411,7 @@ function isInViewport(element) {
 // Lazy load images
 document.addEventListener('DOMContentLoaded', () => {
     const lazyImages = document.querySelectorAll('img[data-src]');
-    
+
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -469,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
-        
+
         lazyImages.forEach(img => imageObserver.observe(img));
     } else {
         // Fallback for older browsers
@@ -493,11 +447,7 @@ function preloadResource(url, type) {
    ============================================ */
 
 window.addEventListener('resize', debounce(() => {
-    // Reinitialize cursor glow on resize
-    const cursorGlow = document.getElementById('cursorGlow');
-    if (cursorGlow) {
-        cursorGlow.style.display = window.innerWidth >= 1024 ? 'block' : 'none';
-    }
+
 }, 250));
 
 /* ============================================

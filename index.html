@@ -25,7 +25,7 @@
 
 <body>
     <!-- Cursor Glow Effect -->
-    <div class="cursor-glow" id="cursorGlow"></div>
+
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
@@ -37,7 +37,6 @@
             <div class="nav-links" id="navLinks">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#services" class="nav-link">Services</a>
-                <a href="#results" class="nav-link">Results</a>
                 <a href="#about" class="nav-link">About</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
@@ -69,10 +68,7 @@
         </div>
 
         <div class="hero-content">
-            <div class="hero-badge animate-fade-up">
-                <span class="badge-dot"></span>
-                <span>Trusted by 100+ Local Businesses</span>
-            </div>
+            <span class="hero-badge animate-fade-up">Trusted by 100+ Local Businesses</span>
 
             <h1 class="hero-title animate-fade-up delay-1">
                 <span class="title-line">We Help Businesses</span>
@@ -115,12 +111,7 @@
             </div>
         </div>
 
-        <div class="hero-scroll">
-            <span>Scroll to explore</span>
-            <div class="scroll-indicator">
-                <div class="scroll-dot"></div>
-            </div>
-        </div>
+
     </section>
 
     <!-- Logo Carousel Section -->
@@ -183,267 +174,210 @@
     <section class="problem-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag animate-on-scroll">The Problem</span>
-                <h2 class="section-title animate-on-scroll">
-                    Most Local Businesses Are <span class="text-gradient">Invisible</span> Online
-                </h2>
+                <span class="hero-badge animate-on-scroll">The Problem...</span>
+                <h2 class="section-title animate-on-scroll"
+                    data-text-type="Most Local Businesses Are <span class='text-red invisible-fade'>Invisible</span> Online"
+                    data-loop="false" data-cursor="|" data-typing-speed="50"></h2>
             </div>
 
-            <div class="problem-grid">
-                <div class="problem-card animate-on-scroll">
-                    <div class="problem-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 6v6l4 2" />
-                        </svg>
+            <div class="problem-grid-spotlight">
+                <!-- Card 1: Wasting Time -->
+                <div class="spotlight-card animate-on-scroll" data-color="red">
+                    <div class="spotlight-bg"></div>
+                    <div class="spotlight-content">
+                        <div class="badge-wrapper">
+                            <div class="badge-glow"></div>
+                            <div class="badge-blur"></div>
+                            <div class="badge-icon red">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 6v6l4 2" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="connecting-line red"></div>
+                        <h3><span class="text-red">Wasting Time</span> on Ineffective Marketing</h3>
+                        <p>Hours spent on social media with no real results. Random posts that get zero engagement.</p>
                     </div>
-                    <h3>Wasting Time on Ineffective Marketing</h3>
-                    <p>Hours spent on social media with no real results. Random posts that get zero engagement.</p>
                 </div>
 
-                <div class="problem-card animate-on-scroll">
-                    <div class="problem-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                        </svg>
+                <!-- Card 2: Burning Cash -->
+                <div class="spotlight-card animate-on-scroll" data-color="amber">
+                    <div class="spotlight-bg"></div>
+                    <div class="spotlight-content">
+                        <div class="badge-wrapper">
+                            <div class="badge-glow"></div>
+                            <div class="badge-blur"></div>
+                            <div class="badge-icon amber">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="connecting-line amber"></div>
+                        <h3>Burning Cash on Ads That <span class="text-red">Don't</span> Convert</h3>
+                        <p>Boosted posts and poorly targeted ads that drain your budget without bringing customers.</p>
                     </div>
-                    <h3>Burning Cash on Ads That Don't Convert</h3>
-                    <p>Boosted posts and poorly targeted ads that drain your budget without bringing customers.</p>
                 </div>
 
-                <div class="problem-card animate-on-scroll">
-                    <div class="problem-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                            <circle cx="9" cy="7" r="4" />
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                        </svg>
+                <!-- Card 3: Competitors -->
+                <div class="spotlight-card animate-on-scroll" data-color="cyan">
+                    <div class="spotlight-bg"></div>
+                    <div class="spotlight-content">
+                        <div class="badge-wrapper">
+                            <div class="badge-glow"></div>
+                            <div class="badge-blur"></div>
+                            <div class="badge-icon cyan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="connecting-line cyan"></div>
+                        <h3>Competitors <span class="text-red">Stealing</span> Your Customers</h3>
+                        <p>While you figure out marketing, your competitors are actively targeting and winning your
+                            ideal clients.</p>
                     </div>
-                    <h3>Competitors Stealing Your Customers</h3>
-                    <p>While you figure out marketing, your competitors are actively targeting and winning your ideal
-                        clients.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="services-section" id="services">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag animate-on-scroll">Our Services</span>
-                <h2 class="section-title animate-on-scroll">
-                    Everything You Need to <span class="text-gradient">Dominate</span> Your Market
-                </h2>
-                <p class="section-subtitle animate-on-scroll">
-                    We don't just run ads. We build complete growth systems that turn strangers into customers.
-                </p>
+            <!-- Header -->
+            <div class="services-header">
+                <div class="hero-badge">OUR SERVICES</div>
+                <h2>Everything You Need to <span class="text-gradient text-glow">Dominate</span> Your Market</h2>
+                <p class="services-subtitle">We don't just run ads. We build complete growth systems that turn strangers
+                    into customers.</p>
             </div>
 
+            <!-- Services Grid -->
             <div class="services-grid">
-                <div class="service-card animate-on-scroll" data-service="ads">
-                    <div class="service-number">01</div>
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                            <line x1="8" y1="21" x2="16" y2="21" />
-                            <line x1="12" y1="17" x2="12" y2="21" />
-                        </svg>
+                <!-- Service 1 -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-orb">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            </svg>
+                        </div>
                     </div>
-                    <h3 class="service-title">Ad Management</h3>
-                    <p class="service-desc">High-converting Facebook & Instagram ad campaigns that reach your ideal
-                        customers at the perfect moment.</p>
+                    <div class="service-line"></div>
+                    <div class="service-number">01</div>
+                    <h3 class="service-title">Ad <span class="highlight">Management</span></h3>
+                    <p class="service-description">High-converting Facebook & Instagram ad campaigns that reach your
+                        ideal customers at the perfect moment.</p>
                     <ul class="service-features">
                         <li>Custom audience targeting</li>
                         <li>A/B tested creatives</li>
                         <li>Daily optimization</li>
                         <li>Detailed reporting</li>
                     </ul>
-                    <a href="#contact" class="service-link">
+                    <a href="#contact" class="service-cta">
                         <span>Learn More</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                        <span class="arrow">→</span>
                     </a>
                 </div>
 
-                <div class="service-card service-card-featured animate-on-scroll" data-service="leads">
-                    <div class="service-badge">Most Popular</div>
-                    <div class="service-number">02</div>
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                        </svg>
+                <!-- Service 2 -->
+                <div class="service-card animate-on-scroll">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="service-orb">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
                     </div>
-                    <h3 class="service-title">Lead Generation</h3>
-                    <p class="service-desc">Fill your pipeline with qualified leads ready to buy. We capture, nurture,
-                        and deliver customers to you.</p>
+                    <div class="service-line"></div>
+                    <div class="service-number">02</div>
+                    <h3 class="service-title">Lead <span class="highlight">Generation</span></h3>
+                    <p class="service-description">Fill your pipeline with qualified leads ready to buy. We nurture,
+                        retarget, and deliver customers to you.</p>
                     <ul class="service-features">
                         <li>Lead capture funnels</li>
                         <li>Automated follow-up</li>
                         <li>CRM integration</li>
                         <li>Lead qualification</li>
                     </ul>
-                    <a href="#contact" class="service-link">
+                    <a href="#contact" class="service-cta">
                         <span>Learn More</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                        <span class="arrow">→</span>
                     </a>
                 </div>
 
-                <div class="service-card animate-on-scroll" data-service="web">
-                    <div class="service-number">03</div>
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                            <path d="M2 17l10 5 10-5" />
-                            <path d="M2 12l10 5 10-5" />
-                        </svg>
+                <!-- Service 3 -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-orb">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                </path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                        </div>
                     </div>
-                    <h3 class="service-title">Website & Landing Pages</h3>
-                    <p class="service-desc">Convert more visitors into paying customers with optimized websites and
-                        high-converting landing pages.</p>
+                    <div class="service-line"></div>
+                    <div class="service-number">03</div>
+                    <h3 class="service-title">Website & <span class="highlight">Landing Pages</span></h3>
+                    <p class="service-description">Convert more visitors into paying customers with optimized websites
+                        and high-converting landing pages.</p>
                     <ul class="service-features">
                         <li>Conversion optimization</li>
                         <li>Mobile-first design</li>
                         <li>Speed optimization</li>
                         <li>A/B testing</li>
                     </ul>
-                    <a href="#contact" class="service-link">
+                    <a href="#contact" class="service-cta">
                         <span>Learn More</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                        <span class="arrow">→</span>
                     </a>
                 </div>
 
-                <div class="service-card animate-on-scroll" data-service="social">
-                    <div class="service-number">04</div>
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                        </svg>
+                <!-- Service 4 -->
+                <div class="service-card animate-on-scroll">
+                    <div class="service-orb">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z">
+                                </path>
+                                <circle cx="12" cy="17" r="1"></circle>
+                                <path d="M9 7h6"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <h3 class="service-title">Social Media Management</h3>
-                    <p class="service-desc">Build a powerful online presence with engaging content and strategic posting
-                        that grows your brand.</p>
+                    <div class="service-line"></div>
+                    <div class="service-number">04</div>
+                    <h3 class="service-title">Social Media <span class="highlight">Management</span></h3>
+                    <p class="service-description">Build a powerful online presence with engaging content and strategic
+                        posting that grows your brand.</p>
                     <ul class="service-features">
                         <li>Content creation</li>
                         <li>Strategic posting</li>
                         <li>Community management</li>
                         <li>Brand development</li>
                     </ul>
-                    <a href="#contact" class="service-link">
+                    <a href="#contact" class="service-cta">
                         <span>Learn More</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                        <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Results Section -->
-    <section class="results" id="results">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag animate-on-scroll">Proven Results</span>
-                <h2 class="section-title animate-on-scroll">
-                    Real Results for <span class="text-gradient">Real Businesses</span>
-                </h2>
-                <p class="section-subtitle animate-on-scroll">
-                    We don't just promise results — we deliver them. Here's what our clients have achieved.
-                </p>
-            </div>
 
-            <div class="results-showcase">
-                <div class="result-card animate-on-scroll">
-                    <div class="result-header">
-                        <span class="result-industry">Fitness Studio</span>
-                        <span class="result-location">Miami, FL</span>
-                    </div>
-                    <div class="result-stats">
-                        <div class="result-stat">
-                            <span class="result-number">312%</span>
-                            <span class="result-label">Revenue Increase</span>
-                        </div>
-                        <div class="result-stat">
-                            <span class="result-number">147</span>
-                            <span class="result-label">New Members</span>
-                        </div>
-                    </div>
-                    <p class="result-quote">"Adzio completely transformed our business. We went from struggling to fill
-                        classes to having a waitlist within 3 months."</p>
-                    <div class="result-author">
-                        <div class="author-avatar">JM</div>
-                        <div class="author-info">
-                            <span class="author-name">Jessica Martinez</span>
-                            <span class="author-role">Owner, FlexFit Studio</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="result-card animate-on-scroll">
-                    <div class="result-header">
-                        <span class="result-industry">Med Spa</span>
-                        <span class="result-location">Austin, TX</span>
-                    </div>
-                    <div class="result-stats">
-                        <div class="result-stat">
-                            <span class="result-number">$127K</span>
-                            <span class="result-label">Revenue in 90 Days</span>
-                        </div>
-                        <div class="result-stat">
-                            <span class="result-number">4.2x</span>
-                            <span class="result-label">Return on Ad Spend</span>
-                        </div>
-                    </div>
-                    <p class="result-quote">"The ROI has been incredible. Every dollar we spend with Adzio comes back
-                        4x. They truly understand our market."</p>
-                    <div class="result-author">
-                        <div class="author-avatar">DR</div>
-                        <div class="author-info">
-                            <span class="author-name">Dr. Rachel Kim</span>
-                            <span class="author-role">Founder, Glow Aesthetics</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="result-card animate-on-scroll">
-                    <div class="result-header">
-                        <span class="result-industry">Restaurant</span>
-                        <span class="result-location">Denver, CO</span>
-                    </div>
-                    <div class="result-stats">
-                        <div class="result-stat">
-                            <span class="result-number">89%</span>
-                            <span class="result-label">Booking Increase</span>
-                        </div>
-                        <div class="result-stat">
-                            <span class="result-number">2.1K</span>
-                            <span class="result-label">Monthly Reach</span>
-                        </div>
-                    </div>
-                    <p class="result-quote">"We're now fully booked most weekends. Adzio's targeted campaigns brought in
-                        exactly the customers we wanted."</p>
-                    <div class="result-author">
-                        <div class="author-avatar">MC</div>
-                        <div class="author-info">
-                            <span class="author-name">Marcus Chen</span>
-                            <span class="author-role">Owner, The Golden Fork</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Process Section -->
     <section class="process">
@@ -640,78 +574,110 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
+        <!-- Decorative Glows -->
+        <div class="footer-glow glow-1"></div>
+        <div class="footer-glow glow-2"></div>
+
+        <div class="footer-content">
+            <!-- Main Horizontal Section -->
+            <div class="footer-main">
+                <!-- Brand Section -->
                 <div class="footer-brand">
-                    <a href="#" class="footer-logo">
-                        <img src="assets/logo.png" alt="AD Marketing" class="logo-img">
-                    </a>
-                    <p class="footer-tagline">Helping local businesses get seen, booked, and growing.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter/X">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M4 4l11.733 16H20L8.267 4z" />
-                                <path d="M4 20l6.768-6.768M15.232 10.232L20 4" />
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path
-                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                                <rect x="2" y="9" width="4" height="12" />
-                                <circle cx="4" cy="4" r="2" />
-                            </svg>
-                        </a>
+                    <div class="footer-logo">
+                        <img src="assets/logo.png" alt="Adzio Logo">
                     </div>
+                    <p class="footer-tagline">Helping local businesses get seen, booked, and growing.</p>
                 </div>
 
-                <div class="footer-links">
+                <!-- Navigation - Horizontal -->
+                <nav class="footer-nav">
+                    <!-- Company Links -->
                     <div class="footer-column">
                         <h4>Company</h4>
-                        <a href="#about">About Us</a>
-                        <a href="#services">Services</a>
-                        <a href="#results">Results</a>
-                        <a href="#contact">Contact</a>
+                        <ul class="footer-links">
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
                     </div>
+
+                    <!-- Services Links -->
                     <div class="footer-column">
                         <h4>Services</h4>
-                        <a href="#services">Ad Management</a>
-                        <a href="#services">Lead Generation</a>
-                        <a href="#services">Website Design</a>
-                        <a href="#services">Social Media</a>
+                        <ul class="footer-links">
+                            <li><a href="#services">Ad Management</a></li>
+                            <li><a href="#services">Lead Generation</a></li>
+                            <li><a href="#services">Website Design</a></li>
+                            <li><a href="#services">Social Media</a></li>
+                        </ul>
                     </div>
-                    <div class="footer-column">
-                        <h4>Contact</h4>
-                        <a href="mailto:hello@adzio.io">hello@adzio.io</a>
-                        <a href="tel:+15551234567">(555) 123-4567</a>
-                        <span>Mon-Fri: 9am - 6pm EST</span>
+                </nav>
+
+                <!-- Contact Info -->
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <a href="mailto:Marketing@Adzio.io">Marketing@Adzio.io</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                        </div>
+                        <a href="tel:7326546635">(732) 654-6635</a>
+                    </div>
+                    <div class="contact-names">
+                        Devyn Schroeder & Anton Veliu
                     </div>
                 </div>
             </div>
 
+            <!-- Footer Bottom -->
             <div class="footer-bottom">
-                <p>&copy; 2026 Adzio. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                <div class="footer-left">
+                    <p class="footer-copyright">© 2025 Adzio.io. All rights reserved.</p>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="Instagram">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank"
+                        rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="X (Twitter)">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
+    <script src="js/text-type.js"></script>
     <script src="js/hero-rays.js"></script>
     <script src="js/main.js"></script>
 </body>
