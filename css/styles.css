@@ -716,14 +716,105 @@ p {
 /* Hero Stats */
 .hero-stats {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: var(--spacing-xl);
     flex-wrap: wrap;
+    padding-bottom: 4rem;
 }
 
 .stat {
     text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Glowing Circle Container */
+.stat::before {
+    content: '';
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1.5rem;
+}
+
+/* Vertical Line extending down */
+.stat::after {
+    content: '';
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 80px;
+    opacity: 0.6;
+}
+
+/* First stat - Green */
+.stat:nth-child(1)::before {
+    border: 3px solid #10b981;
+    box-shadow:
+        0 0 20px rgba(16, 185, 129, 0.6),
+        0 0 40px rgba(16, 185, 129, 0.4),
+        0 0 60px rgba(16, 185, 129, 0.2),
+        inset 0 0 20px rgba(16, 185, 129, 0.1);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+}
+
+.stat:nth-child(1)::after {
+    background: linear-gradient(to bottom, #10b981, transparent);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+/* Second stat (divider doesn't get effects) is at index 2, skip it */
+/* Third stat - Cyan/Blue */
+.stat:nth-child(3)::before {
+    border: 3px solid #06b6d4;
+    box-shadow:
+        0 0 20px rgba(6, 182, 212, 0.6),
+        0 0 40px rgba(6, 182, 212, 0.4),
+        0 0 60px rgba(6, 182, 212, 0.2),
+        inset 0 0 20px rgba(6, 182, 212, 0.1);
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+}
+
+.stat:nth-child(3)::after {
+    background: linear-gradient(to bottom, #06b6d4, transparent);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Fifth stat - Orange/Yellow */
+.stat:nth-child(5)::before {
+    border: 3px solid #f59e0b;
+    box-shadow:
+        0 0 20px rgba(245, 158, 11, 0.6),
+        0 0 40px rgba(245, 158, 11, 0.4),
+        0 0 60px rgba(245, 158, 11, 0.2),
+        inset 0 0 20px rgba(245, 158, 11, 0.1);
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+}
+
+.stat:nth-child(5)::after {
+    background: linear-gradient(to bottom, #f59e0b, transparent);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+/* Number wrapper to position inside circle */
+.stat-number-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .stat-number {
@@ -747,13 +838,16 @@ p {
     display: block;
     font-size: 0.875rem;
     color: var(--text-muted);
-    margin-top: 0.25rem;
+    margin-top: 240px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .stat-divider {
     width: 1px;
-    height: 50px;
+    height: 140px;
     background: var(--border-color);
+    margin-top: 0;
 }
 
 /* Hero Scroll Indicator */
