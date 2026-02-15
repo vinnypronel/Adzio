@@ -190,11 +190,16 @@ p {
     background: var(--accent-gradient);
     color: var(--bg-primary);
     box-shadow: 0 4px 20px var(--accent-glow);
+    border: 2px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px var(--accent-glow);
+    background: var(--bg-primary);
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px rgba(59, 165, 181, 0.25);
+    transform: scale(1.05);
 }
 
 .btn-primary::before {
@@ -207,7 +212,7 @@ p {
 }
 
 .btn-primary:hover::before {
-    opacity: 1;
+    opacity: 0;
 }
 
 .btn-ghost {
@@ -1676,23 +1681,21 @@ p {
 
 .process-timeline {
     position: relative;
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
+/* Gradient energy line - hidden, centered layout uses connectors */
 .process-line {
-    position: absolute;
-    left: 40px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    display: none;
 }
 
 .process-step {
     display: flex;
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3rem;
     position: relative;
 }
 
@@ -1700,35 +1703,188 @@ p {
     margin-bottom: 0;
 }
 
-.step-number {
-    width: 60px;
-    height: 60px;
-    background: var(--bg-card);
-    border: 2px solid var(--accent-primary);
+/* ---- Glowing Node ---- */
+.step-node {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.step-node-glow {
+    position: absolute;
+    inset: -1.5rem;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.step-node-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+.step-node-core {
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.step-node-core svg {
+    width: 2rem;
+    height: 2rem;
+    stroke: white;
+}
+
+/* ---- Step Color: ORANGE ---- */
+[data-step-color="orange"] .step-node-glow {
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.4) 0%, transparent 70%);
+}
+
+[data-step-color="orange"] .step-node-ring {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+}
+
+[data-step-color="orange"] .step-node-core {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+}
+
+[data-step-color="orange"] .step-connector {
+    background: linear-gradient(to bottom, #ef4444, #f97316);
+}
+
+[data-step-color="orange"] .step-card {
+    border-color: rgba(239, 68, 68, 0.15);
+}
+
+[data-step-color="orange"] .step-label {
+    color: #ef4444;
+}
+
+/* ---- Step Color: GOLD ---- */
+[data-step-color="gold"] .step-node-glow {
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.4) 0%, transparent 70%);
+}
+
+[data-step-color="gold"] .step-node-ring {
+    background: linear-gradient(135deg, #f59e0b, #eab308);
+}
+
+[data-step-color="gold"] .step-node-core {
+    background: linear-gradient(135deg, #f59e0b, #eab308);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+}
+
+[data-step-color="gold"] .step-connector {
+    background: linear-gradient(to bottom, #f59e0b, #eab308);
+}
+
+[data-step-color="gold"] .step-card {
+    border-color: rgba(245, 158, 11, 0.15);
+}
+
+[data-step-color="gold"] .step-label {
+    color: #f59e0b;
+}
+
+/* ---- Step Color: CYAN ---- */
+[data-step-color="cyan"] .step-node-glow {
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%);
+}
+
+[data-step-color="cyan"] .step-node-ring {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+[data-step-color="cyan"] .step-node-core {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+}
+
+[data-step-color="cyan"] .step-connector {
+    background: linear-gradient(to bottom, #06b6d4, #3b82f6);
+}
+
+[data-step-color="cyan"] .step-card {
+    border-color: rgba(6, 182, 212, 0.15);
+}
+
+[data-step-color="cyan"] .step-label {
+    color: #06b6d4;
+}
+
+/* ---- Step Color: EMERALD ---- */
+[data-step-color="emerald"] .step-node-glow {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%);
+}
+
+[data-step-color="emerald"] .step-node-ring {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+[data-step-color="emerald"] .step-node-core {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+}
+
+[data-step-color="emerald"] .step-connector {
+    background: linear-gradient(to bottom, #10b981, #059669);
+}
+
+[data-step-color="emerald"] .step-card {
+    border-color: rgba(16, 185, 129, 0.15);
+}
+
+[data-step-color="emerald"] .step-label {
+    color: #10b981;
+}
+
+/* ---- Connector Line between node and card ---- */
+.step-connector {
+    width: 3px;
+    height: 2.5rem;
+    opacity: 0.5;
+    border-radius: 2px;
+}
+
+/* ---- Glass Card ---- */
+.step-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    max-width: 420px;
+    width: 100%;
+}
+
+.step-label {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--accent-primary);
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
 }
 
-.step-content {
-    padding-top: var(--spacing-md);
+.step-card h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
 }
 
-.step-content h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--spacing-sm);
-}
-
-.step-content p {
-    font-size: 1rem;
+.step-card p {
+    font-size: 0.95rem;
+    color: #a1a1aa;
+    line-height: 1.7;
 }
 
 /* ============================================
@@ -1855,7 +2011,7 @@ p {
 
 .cta {
     position: relative;
-    padding: var(--spacing-3xl) 0;
+    padding: var(--spacing-2xl) 0;
     overflow: hidden;
 }
 
@@ -1869,8 +2025,7 @@ p {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 80% 40% at 20% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(59, 165, 181, 0.08) 0%, transparent 60%);
 }
 
 .cta-pattern {
@@ -1878,63 +2033,68 @@ p {
 }
 
 .cta-content {
-    max-width: 700px;
+    max-width: 620px;
     margin: 0 auto;
     text-align: center;
 }
 
 .cta-title {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    font-size: 2.2rem;
 }
 
 .cta-subtitle {
-    font-size: 1.05rem;
-    margin-bottom: var(--spacing-xl);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
 }
 
 .contact-form {
-    background: #1e1e1e;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-xl);
+    background: linear-gradient(145deg, rgba(30, 30, 35, 0.95), rgba(20, 20, 25, 0.98));
+    border: 1px solid rgba(59, 165, 181, 0.15);
+    border-radius: 16px;
+    padding: 1.75rem;
     text-align: left;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .form-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    gap: 0.75rem;
 }
 
 .form-group {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 0.75rem;
 }
 
 .form-group label {
     display: block;
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 0.875rem 1rem;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    padding: 0.7rem 0.85rem;
+    background: rgba(20, 20, 25, 0.9);
+    border: 1px solid rgba(59, 165, 181, 0.1);
+    border-radius: 10px;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--text-primary);
     transition: border-color 0.2s ease;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.2);
 }
 
 .form-group input:focus,
@@ -1942,16 +2102,17 @@ p {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: rgba(15, 15, 20, 1);
+    box-shadow: 0 0 0 3px rgba(59, 165, 181, 0.1);
 }
 
 /* Smart textarea - auto-expands with content */
 .form-group textarea {
     resize: none;
-    min-height: 100px;
+    min-height: 80px;
     max-height: 400px;
     overflow-y: hidden;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .form-group select {
@@ -1959,7 +2120,7 @@ p {
     appearance: none;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23a1a1aa" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 1rem center;
+    background-position: right 0.85rem center;
 }
 
 .form-group select option {
@@ -1967,13 +2128,22 @@ p {
     color: var(--text-primary);
 }
 
+/* Submit button override for contact form */
+.contact-form .btn-primary {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    margin-top: 0.25rem;
+}
+
 .form-note {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: var(--spacing-md);
-    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
 }
 
@@ -2338,17 +2508,16 @@ p {
     }
 
     .process-line {
-        left: 30px;
+        display: none;
     }
 
-    .step-number {
+    .step-node {
         width: 60px;
         height: 60px;
-        font-size: 1.2rem;
     }
 
-    .process-step {
-        gap: var(--spacing-md);
+    .step-card {
+        padding: 1.25rem 1.5rem;
     }
 
     .footer-links {

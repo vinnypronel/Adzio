@@ -9,6 +9,17 @@ A premium, modern marketing agency website rework done with HTML, CSS, and JavaS
 - **Smooth Animations** - Scroll-triggered animations, floating elements, and micro-interactions
 - **Fully Responsive** - Mobile-first design that looks great on all devices
 - **Performance Optimized** - Lazy loading, reduced motion support, and efficient animations
+- **Logo Carousel** - Dual-row infinite scrolling carousel showcasing 15+ business platform logos with automatic off-screen pausing
+- **Animated Counters** - Hero section stats (500+ Leads, 3x ROI, 98% Satisfaction) animate up from zero when scrolled into view
+- **Typewriter Effect** - Dynamic text typing animation in the hero section with a CSS-powered blinking cursor
+- **Contact Form** - Full lead capture form with real-time input focus states and auto-expanding textarea
+- **Process Timeline** - Interactive 4-step process section with a connecting vertical line and numbered steps
+- **Problem Spotlight Cards** - Three animated cards highlighting client pain points with glowing icon badges
+- **About Section Stats Card** - Growth visualization with animated bar chart
+- **Service Cards** - Four detailed service offerings with feature lists and instant hover scale effects
+- **Sticky Header** - Navigation bar with scroll-aware background change and active section highlighting
+- **Instant Hover Effects** - All footer links, nav links, and social icons respond instantly with scale-up transforms on hover
+- **Footer** - Organized footer with quick links, contact information, legal links, and social media icons linking to Instagram, Facebook, LinkedIn, and Twitter
 
 
 ## Tech Stack
@@ -48,10 +59,3 @@ A premium, modern marketing agency website rework done with HTML, CSS, and JavaS
 - **Tablet**: 768px - 1023px
 - **Mobile**: 480px - 767px
 - **Small Mobile**: Below 480px
-
-## Support
-
-For questions contact @vinnypronel050@gmail.com
-
-Built with ❤️ for Adzio
-
