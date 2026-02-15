@@ -16,8 +16,75 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/styles.css?v=11.0">
+    <link rel="stylesheet" href="css/animations.css?v=11.0">
+
+    <!-- Hero Stats Style Override (Immediate Fix) -->
+    <style>
+        /* Number + Symbol centered inside circles */
+        .stat-number-wrapper {
+            position: absolute !important;
+            top: 0 !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 110px !important;
+            height: 110px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0px !important;
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif !important;
+            font-size: 2rem !important;
+            font-weight: 800 !important;
+            color: #fff !important;
+            line-height: 1 !important;
+        }
+
+        .stat-suffix {
+            font-family: 'Syne', sans-serif !important;
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            line-height: 1 !important;
+            margin-top: 2px !important;
+        }
+
+        /* Stat labels */
+        .stat-label {
+            display: block !important;
+            font-family: 'Syne', sans-serif !important;
+            font-size: 1.8rem !important;
+            font-weight: 900 !important;
+            margin-top: 20px !important;
+            text-transform: uppercase !important;
+            letter-spacing: -0.03em !important;
+            line-height: 1.1 !important;
+            text-align: center !important;
+        }
+
+        .stat:nth-child(1) .stat-label {
+            color: #10b981 !important;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4) !important;
+        }
+
+        .stat:nth-child(3) .stat-label {
+            color: #06b6d4 !important;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.4) !important;
+        }
+
+        .stat:nth-child(5) .stat-label {
+            color: #f59e0b !important;
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.4) !important;
+        }
+
+        /* Shorter glow lines */
+        .stat::after {
+            height: 15px !important;
+        }
+    </style>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logo.png">
@@ -685,7 +752,7 @@
     <!-- Scripts -->
     <script src="js/text-type.js"></script>
     <script src="js/hero-rays.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=11.0"></script>
 </body>
 
 </html>

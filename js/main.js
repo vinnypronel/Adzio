@@ -12,7 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initFormHandling();
     initParallax();
+    initCarouselPause();
 });
+
+// Pause logo carousel when off-screen to save GPU
+function initCarouselPause() {
+    const tracks = document.querySelectorAll('.slide-track');
+    if (!tracks.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+        });
+    }, { threshold: 0 });
+
+    tracks.forEach(track => obs.observe(track));
+}
 
 /* ============================================
    Navigation
@@ -27,18 +42,15 @@ function initNavigation() {
     // Scroll behavior for navigation
     let lastScroll = 0;
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', throttle(() => {
         const currentScroll = window.pageYOffset;
 
-        // Add/remove scrolled class
         if (currentScroll > 50) {
             nav.classList.add('scrolled');
         } else {
             nav.classList.remove('scrolled');
         }
-
-        lastScroll = currentScroll;
-    });
+    }, 100), { passive: true });
 
     // Mobile menu toggle
     navToggle?.addEventListener('click', () => {
@@ -78,7 +90,7 @@ function initNavigation() {
         });
     }
 
-    window.addEventListener('scroll', updateActiveLink);
+    window.addEventListener('scroll', throttle(updateActiveLink, 100), { passive: true });
     updateActiveLink();
 }
 
@@ -99,8 +111,11 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optionally unobserve after animation
-                // observer.unobserve(entry.target);
+                observer.unobserve(entry.target);
+                // Remove transition after animation completes to free up browser resources
+                setTimeout(() => {
+                    entry.target.style.transition = 'none';
+                }, 1000);
             }
         });
     }, observerOptions);
@@ -209,7 +224,6 @@ function initSmoothScroll() {
 
             if (target) {
                 e.preventDefault();
-
                 const navHeight = document.getElementById('nav')?.offsetHeight || 0;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
 
@@ -338,30 +352,34 @@ function initFormHandling() {
 
 function initParallax() {
     const parallaxElements = document.querySelectorAll('.hero-orb');
+    const heroSection = document.querySelector('.hero');
 
-    if (window.innerWidth < 768) return;
+    if (window.innerWidth < 768 || !heroSection) return;
 
     let ticking = false;
+    let heroVisible = true;
+
+    // Only run parallax when hero is on screen
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            heroVisible = entries[0].isIntersecting;
+        }, { threshold: 0 });
+        obs.observe(heroSection);
+    }
 
     window.addEventListener('scroll', () => {
-        if (!ticking) {
+        if (!ticking && heroVisible) {
             requestAnimationFrame(() => {
-                updateParallax();
+                const scrolled = window.pageYOffset;
+                parallaxElements.forEach((element, index) => {
+                    const speed = (index + 1) * 0.1;
+                    element.style.transform = `translateY(${scrolled * speed}px)`;
+                });
                 ticking = false;
             });
             ticking = true;
         }
-    });
-
-    function updateParallax() {
-        const scrolled = window.pageYOffset;
-
-        parallaxElements.forEach((element, index) => {
-            const speed = (index + 1) * 0.1;
-            const yPos = scrolled * speed;
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    }
+    }, { passive: true });
 }
 
 /* ============================================
@@ -443,34 +461,14 @@ function preloadResource(url, type) {
 }
 
 /* ============================================
-   Initialize on Window Resize
-   ============================================ */
-
-window.addEventListener('resize', debounce(() => {
-
-}, 250));
-
-/* ============================================
    Page Visibility API
    ============================================ */
 
 document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        // Pause animations when tab is not visible
-        document.body.classList.add('animations-paused');
-    } else {
-        document.body.classList.remove('animations-paused');
-    }
+    // Pause/resume carousel animations on tab visibility
+    const tracks = document.querySelectorAll('.slide-track');
+    tracks.forEach(t => {
+        t.style.animationPlayState = document.hidden ? 'paused' : 'running';
+    });
 });
-
-// Add global style for pausing animations
-const style = document.createElement('style');
-style.textContent = `
-    .animations-paused *,
-    .animations-paused *::before,
-    .animations-paused *::after {
-        animation-play-state: paused !important;
-    }
-`;
-document.head.appendChild(style);
 

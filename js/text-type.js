@@ -71,11 +71,8 @@ class TextType {
     }
 
     startCursorBlink() {
-        let visible = true;
-        setInterval(() => {
-            visible = !visible;
-            this.cursorSpan.style.opacity = visible ? '1' : '0';
-        }, this.cursorBlinkDuration);
+        // Use CSS animation instead of setInterval for zero JS overhead
+        this.cursorSpan.style.animation = `cursorBlink ${this.cursorBlinkDuration * 2}ms step-end infinite`;
     }
 
     startTyping() {

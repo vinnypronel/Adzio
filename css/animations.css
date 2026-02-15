@@ -9,7 +9,7 @@
 .animate-on-scroll {
     opacity: 0;
     transform: translateY(30px);
-    transition: 
+    transition:
         opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
         transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -20,12 +20,29 @@
 }
 
 /* Staggered delays for grid items */
-.animate-on-scroll:nth-child(1) { transition-delay: 0s; }
-.animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
-.animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
-.animate-on-scroll:nth-child(4) { transition-delay: 0.3s; }
-.animate-on-scroll:nth-child(5) { transition-delay: 0.4s; }
-.animate-on-scroll:nth-child(6) { transition-delay: 0.5s; }
+.animate-on-scroll:nth-child(1) {
+    transition-delay: 0s;
+}
+
+.animate-on-scroll:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.animate-on-scroll:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.animate-on-scroll:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+.animate-on-scroll:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+.animate-on-scroll:nth-child(6) {
+    transition-delay: 0.5s;
+}
 
 /* ============================================
    Hero Entrance Animations
@@ -37,18 +54,36 @@
     animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-.delay-6 { animation-delay: 0.6s; }
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.delay-3 {
+    animation-delay: 0.3s;
+}
+
+.delay-4 {
+    animation-delay: 0.4s;
+}
+
+.delay-5 {
+    animation-delay: 0.5s;
+}
+
+.delay-6 {
+    animation-delay: 0.6s;
+}
 
 @keyframes fadeUp {
     from {
         opacity: 0;
         transform: translateY(40px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -56,8 +91,13 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideInLeft {
@@ -65,6 +105,7 @@
         opacity: 0;
         transform: translateX(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -76,6 +117,7 @@
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -87,6 +129,7 @@
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -98,21 +141,28 @@
    ============================================ */
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(0deg);
     }
+
     25% {
         transform: translateY(-10px) rotate(1deg);
     }
+
     75% {
         transform: translateY(10px) rotate(-1deg);
     }
 }
 
 @keyframes floatSlow {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-20px);
     }
@@ -131,18 +181,24 @@
    ============================================ */
 
 @keyframes glow {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 20px var(--accent-glow);
     }
+
     50% {
         box-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-glow);
     }
 }
 
 @keyframes glowPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.5;
     }
+
     50% {
         opacity: 1;
     }
@@ -160,18 +216,17 @@
     0% {
         background-position: -200% center;
     }
+
     100% {
         background-position: 200% center;
     }
 }
 
 .text-shimmer {
-    background: linear-gradient(
-        90deg,
-        var(--text-primary) 0%,
-        var(--accent-primary) 50%,
-        var(--text-primary) 100%
-    );
+    background: linear-gradient(90deg,
+            var(--text-primary) 0%,
+            var(--accent-primary) 50%,
+            var(--text-primary) 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -181,20 +236,45 @@
 
 /* Typing effect */
 @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
 }
 
 @keyframes blinkCursor {
-    from, to { border-color: transparent; }
-    50% { border-color: var(--accent-primary); }
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: var(--accent-primary);
+    }
+}
+
+@keyframes cursorBlink {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
 }
 
 .typing {
     overflow: hidden;
     white-space: nowrap;
     border-right: 3px solid var(--accent-primary);
-    animation: 
+    animation:
         typing 3s steps(30, end),
         blinkCursor 0.75s step-end infinite;
 }
@@ -207,6 +287,7 @@
     0% {
         transform: translateX(-100%) skewX(-15deg);
     }
+
     100% {
         transform: translateX(200%) skewX(-15deg);
     }
@@ -219,12 +300,10 @@
     left: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
     animation: buttonShine 3s ease-in-out infinite;
 }
 
@@ -234,6 +313,7 @@
         transform: scale(0);
         opacity: 1;
     }
+
     100% {
         transform: scale(4);
         opacity: 0;
@@ -263,9 +343,12 @@
    ============================================ */
 
 @keyframes cardHover {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-5px);
     }
@@ -286,15 +369,23 @@
    ============================================ */
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
         animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
+
     50% {
         transform: translateY(-25%);
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -302,7 +393,9 @@
 }
 
 @keyframes ping {
-    75%, 100% {
+
+    75%,
+    100% {
         transform: scale(2);
         opacity: 0;
     }
@@ -325,13 +418,23 @@
    ============================================ */
 
 @keyframes progressFill {
-    from { width: 0%; }
-    to { width: var(--progress); }
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: var(--progress);
+    }
 }
 
 @keyframes countUp {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .progress-bar {
@@ -343,8 +446,13 @@
    ============================================ */
 
 @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .marquee {
@@ -380,6 +488,7 @@
     from {
         clip-path: inset(0 100% 0 0);
     }
+
     to {
         clip-path: inset(0 0 0 0);
     }
@@ -389,6 +498,7 @@
     from {
         clip-path: inset(100% 0 0 0);
     }
+
     to {
         clip-path: inset(0 0 0 0);
     }
@@ -435,15 +545,20 @@
    ============================================ */
 
 @keyframes morphBlob {
-    0%, 100% {
+
+    0%,
+    100% {
         border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     }
+
     25% {
         border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
     }
+
     50% {
         border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
     }
+
     75% {
         border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%;
     }
@@ -472,6 +587,7 @@
         transform: translateY(100%);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -483,23 +599,66 @@
    ============================================ */
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
 }
 
 @keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(3deg); }
-    75% { transform: rotate(-3deg); }
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(3deg);
+    }
+
+    75% {
+        transform: rotate(-3deg);
+    }
 }
 
 @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    14% { transform: scale(1.1); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.1); }
-    70% { transform: scale(1); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    14% {
+        transform: scale(1.1);
+    }
+
+    28% {
+        transform: scale(1);
+    }
+
+    42% {
+        transform: scale(1.1);
+    }
+
+    70% {
+        transform: scale(1);
+    }
 }
 
 .shake {
@@ -519,6 +678,7 @@
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -526,16 +686,15 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    
+
     .animate-on-scroll {
         opacity: 1;
         transform: none;
     }
-    
+
     .animate-fade-up {
         opacity: 1;
         transform: none;
         animation: none;
     }
 }
-

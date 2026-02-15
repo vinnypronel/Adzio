@@ -131,6 +131,7 @@
             this.targetY = 0.5;
             this.running = false;
             this.raf = null;
+            this.heroVisible = true;
             this.init();
         }
 
@@ -156,7 +157,6 @@
                 height: 100%;
                 z-index: -1;
                 pointer-events: none;
-                mix-blend-mode: screen;
                 opacity: 0.8;
             `;
             this.container.insertBefore(this.canvas, this.container.firstChild);
@@ -222,9 +222,10 @@
 
         events() {
             document.addEventListener('mousemove', e => {
+                if (!this.heroVisible) return;
                 this.targetX = e.clientX / window.innerWidth;
                 this.targetY = e.clientY / window.innerHeight;
-            });
+            }, { passive: true });
 
             document.addEventListener('touchmove', e => {
                 if (e.touches[0]) {
@@ -238,19 +239,35 @@
             document.addEventListener('visibilitychange', () => {
                 document.hidden ? this.stop() : this.run();
             });
+
+            // Stop rendering when hero is scrolled off-screen
+            const heroEl = this.container;
+            if (heroEl && 'IntersectionObserver' in window) {
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        this.heroVisible = entry.isIntersecting;
+                        if (entry.isIntersecting && !this.running) {
+                            this.run();
+                        } else if (!entry.isIntersecting && this.running) {
+                            this.stop();
+                        }
+                    });
+                }, { threshold: 0 });
+                obs.observe(heroEl);
+            }
         }
 
         resize() {
             const w = this.container.clientWidth;
             const h = this.container.clientHeight;
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
             this.canvas.width = w * dpr;
             this.canvas.height = h * dpr;
             this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
         }
 
         frame(ts) {
-            if (!this.running) return;
+            if (!this.running || !this.heroVisible) return;
 
             const gl = this.gl;
             const time = (ts - this.start) * 0.001;
@@ -275,11 +292,13 @@
         run() {
             if (this.running) return;
             this.running = true;
+            if (this.canvas) this.canvas.style.display = 'block';
             this.raf = requestAnimationFrame(t => this.frame(t));
         }
 
         stop() {
             this.running = false;
+            if (this.canvas) this.canvas.style.display = 'none';
             if (this.raf) cancelAnimationFrame(this.raf);
         }
     }
