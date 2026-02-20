@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormHandling();
     initParallax();
     initCarouselPause();
+    initGlowRotation();
 });
 
 // Pause logo carousel when off-screen to save GPU
@@ -27,6 +28,24 @@ function initCarouselPause() {
     }, { threshold: 0 });
 
     tracks.forEach(track => obs.observe(track));
+}
+
+// Rotate glow elements when on-screen to save GPU
+function initGlowRotation() {
+    const glimmers = document.querySelectorAll('.badge-glow, .step-node-glow, .step-node-ring');
+    if (!glimmers.length) return;
+
+    const rotationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-spinning');
+            } else {
+                entry.target.classList.remove('is-spinning');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    glimmers.forEach(g => rotationObserver.observe(g));
 }
 
 /* ============================================
@@ -54,13 +73,14 @@ function initNavigation() {
 
     // Mobile menu toggle
     navToggle?.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
         navToggle.classList.toggle('open');
-        navLinks.classList.toggle('open');
-        document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+        document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // Close mobile menu on link click
-    navLinksItems.forEach(link => {
+    // Close mobile menu on any link click that navigates
+    const allNavLinks = document.querySelectorAll('#navLinks a, .nav-cta');
+    allNavLinks.forEach(link => {
         link.addEventListener('click', () => {
             navToggle?.classList.remove('open');
             navLinks?.classList.remove('open');
@@ -113,9 +133,10 @@ function initScrollAnimations() {
                 entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
                 // Remove transition after animation completes to free up browser resources
+                // Must be longer than max stagger delay (0.6s) + transition duration (0.8s)
                 setTimeout(() => {
                     entry.target.style.transition = 'none';
-                }, 1000);
+                }, 2000);
             }
         });
     }, observerOptions);
@@ -154,7 +175,7 @@ function initCounters() {
 
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-count'));
-    const duration = 2000; // 2 seconds
+    const duration = parseInt(element.getAttribute('data-duration')) || 2000; // 2 seconds default
     const startTime = performance.now();
 
     function updateCounter(currentTime) {
@@ -185,26 +206,57 @@ function animateCounter(element) {
 
 function initVSLPlayer() {
     const playBtn = document.getElementById('playBtn');
-    const vslVideo = document.getElementById('vslVideo');
+    const vslThumbnail = document.getElementById('vslThumbnail');
+    const vslModal = document.getElementById('vslModal');
+    const vslModalVideo = document.getElementById('vslModalVideo');
+    const vslModalClose = document.getElementById('vslModalClose');
+    const vslModalOverlay = document.getElementById('vslModalOverlay');
 
-    if (!playBtn || !vslVideo) return;
+    if (!playBtn || !vslModal || !vslModalVideo) return;
 
-    playBtn.addEventListener('click', () => {
-        // Replace placeholder with video embed
-        // You can replace this with your actual video URL
-        const videoEmbed = `
-            <iframe 
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&modestbranding=1" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-            ></iframe>
-        `;
+    // Play/Pause thumbnail video on scroll
+    if (vslThumbnail && 'IntersectionObserver' in window) {
+        const thumbnailObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Try to play but catch if autoplay is blocked by browser
+                    vslThumbnail.play().catch(e => console.log('Thumbnail autoplay prevented:', e));
+                } else {
+                    vslThumbnail.pause();
+                }
+            });
+        }, { threshold: 0.1 });
+        thumbnailObserver.observe(vslThumbnail);
+    }
 
-        vslVideo.innerHTML = videoEmbed;
-        vslVideo.style.background = '#000';
-    });
+    const openModal = () => {
+        vslModal.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        if (vslThumbnail) vslThumbnail.pause(); // Pause thumbnail
+        vslModalVideo.currentTime = 0; // Reset video to start
+        vslModalVideo.play();
+    };
+
+    const closeModal = () => {
+        vslModal.classList.remove('is-open');
+        document.body.style.overflow = ''; // Restore scrolling
+        vslModalVideo.pause();
+
+        // Only play thumbnail again if it's currently in the viewport
+        if (vslThumbnail && isInViewport(vslThumbnail)) {
+            vslThumbnail.play().catch(e => console.log('Thumbnail play prevented:', e));
+        }
+    };
+
+    // Events
+    playBtn.addEventListener('click', openModal);
+
+    // Close modal handlers
+    if (vslModalClose) vslModalClose.addEventListener('click', closeModal);
+    if (vslModalOverlay) vslModalOverlay.addEventListener('click', closeModal);
+
+    // Close modal when video ends
+    vslModalVideo.addEventListener('ended', closeModal);
 }
 
 /* ============================================
@@ -269,24 +321,32 @@ function initFormHandling() {
         try {
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            // Success state
-            submitBtn.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Message Sent!</span>
-            `;
-            submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+            // Success state - Replace form with success screen
+            const userName = data.name || 'Friend';
+            const nameSpan = document.getElementById('successName');
+            if (nameSpan) nameSpan.textContent = userName;
 
-            // Reset form
-            form.reset();
+            // Fade out form and fade in success screen
+            form.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            form.style.opacity = '0';
+            form.style.transform = 'translateY(-20px)';
 
-            // Reset button after delay
             setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-            }, 3000);
+                form.style.display = 'none';
+
+                // Also hide the CTA headers to focus on the success message
+                const ctaTitle = document.querySelector('.cta-title');
+                const ctaSubtitle = document.querySelector('.cta-subtitle');
+                if (ctaTitle) ctaTitle.style.display = 'none';
+                if (ctaSubtitle) ctaSubtitle.style.display = 'none';
+
+                const successScreen = document.getElementById('formSuccess');
+                if (successScreen) {
+                    successScreen.style.display = 'block';
+                    // Scroll to top of CTA section so user sees the success message
+                    successScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 400);
 
         } catch (error) {
             // Error state
