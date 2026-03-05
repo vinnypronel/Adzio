@@ -13,21 +13,116 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormHandling();
     initParallax();
     initCarouselPause();
+    initCarouselHover();
+    initNavParallax();
     initGlowRotation();
+    initLottieAnimations();
 });
 
-// Pause logo carousel when off-screen to save GPU
+/* ============================================
+   Nav Scroll — CSS scroll-driven animation
+   ============================================ */
+
+// The actual scrolling animation is now handled entirely by CSS:
+//   @keyframes nav-slide + animation-timeline: scroll(root block)
+//   Both running on the GPU compositor thread — zero JS during scroll.
+//
+// This function only:
+//   1. Sets --nav-from / --nav-to CSS vars on load + resize
+//   2. Tracks _navScrollProgress for the hover-morph _navReframe
+//   3. Fires the .scrolled boundary class event (once, at docked threshold)
+//   4. Provides _navReframe for applyFrame to use while .nav-morphing
+//
+function initNavParallax() {
+    const wrap = document.getElementById('navWrap');
+    if (!wrap) return;
+
+    const REST_W = 200;
+    const DOCKED_LEFT = 16;
+    const SCROLL_DIST = 150;
+
+    window._navDockedW = 110;
+    window._navScrollProgress = 0;
+    window._navCurW = REST_W;
+
+    // Update the CSS variables that @keyframes nav-slide reads
+    function updateVars() {
+        const vw = window.innerWidth;
+        document.documentElement.style.setProperty('--nav-from', `${-(REST_W / 2)}px`);
+        document.documentElement.style.setProperty('--nav-to', `${DOCKED_LEFT - vw / 2}px`);
+    }
+    updateVars();
+    window.addEventListener('resize', updateVars, { passive: true });
+
+    // Track progress + fire boundary class — zero transform writes here
+    let wasScrolled = null;
+    window.addEventListener('scroll', () => {
+        const raw = window.scrollY / SCROLL_DIST;
+        const progress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
+        window._navScrollProgress = progress;
+
+        const isScrolled = progress >= 1;
+        if (isScrolled !== wasScrolled) {
+            wasScrolled = isScrolled;
+            window._navScrolled = isScrolled;
+            wrap.classList.toggle('scrolled', isScrolled);
+            if (typeof window._navStartAnim === 'function') window._navStartAnim(false);
+        }
+    }, { passive: true });
+
+    // Called by applyFrame during hover morph (animation:none active via .nav-morphing)
+    // so the nav stays centred for any width at the current scroll position.
+    window._navReframe = function (navW) {
+        const vw = window.innerWidth;
+        const centred = -(navW / 2);
+        const docked = DOCKED_LEFT - vw / 2;
+        const p = window._navScrollProgress;
+        wrap.style.transform = `translate3d(${(centred + (docked - centred) * p).toFixed(2)}px, 0, 0)`;
+    };
+}
+
+// Uses a CSS class instead of inline styles so the CSS hover rule isn't overridden
 function initCarouselPause() {
     const tracks = document.querySelectorAll('.slide-track');
     if (!tracks.length) return;
 
     const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+            entry.target.classList.toggle('is-paused-offscreen', !entry.isIntersecting);
         });
     }, { threshold: 0 });
 
     tracks.forEach(track => obs.observe(track));
+}
+
+// Hover: pause carousel + scale hovered logo
+// Only the row that contains the hovered logo is paused — the other row keeps running.
+function initCarouselHover() {
+    const slider = document.querySelector('.logo-slider');
+    if (!slider) return;
+
+    // Scale up + pause ONLY the track that contains the hovered slide
+    const slides = slider.querySelectorAll('.slide');
+    slides.forEach(slide => {
+        slide.addEventListener('mouseenter', () => {
+            // Find this slide's own track and pause only it
+            const parentTrack = slide.closest('.slide-track');
+            if (parentTrack) parentTrack.style.animationPlayState = 'paused';
+            // Scale up this logo
+            slide.style.transition = 'transform 0.2s ease';
+            slide.style.transform = 'scale(1.35)';
+            slide.style.zIndex = '10';
+        });
+        slide.addEventListener('mouseleave', () => {
+            // Resume only this slide's track
+            const parentTrack = slide.closest('.slide-track');
+            if (parentTrack) parentTrack.style.animationPlayState = 'running';
+            // Scale back down
+            slide.style.transition = 'transform 0.2s ease';
+            slide.style.transform = 'scale(1)';
+            slide.style.zIndex = '';
+        });
+    });
 }
 
 // Rotate glow elements when on-screen to save GPU
@@ -53,65 +148,14 @@ function initGlowRotation() {
    ============================================ */
 
 function initNavigation() {
+    // 'nav' element doesn't exist in this page (uses navWrap) — guard to prevent
+    // TypeError crashes that were throwing on every scroll event and causing lag.
     const nav = document.getElementById('nav');
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    const navLinksItems = document.querySelectorAll('.nav-link');
-
-    // Scroll behavior for navigation
-    let lastScroll = 0;
+    if (!nav) return;  // bail out entirely — the morphing navbar handles its own state
 
     window.addEventListener('scroll', throttle(() => {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
+        nav.classList.toggle('scrolled', window.pageYOffset > 50);
     }, 100), { passive: true });
-
-    // Mobile menu toggle
-    navToggle?.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.classList.toggle('open');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-
-    // Close mobile menu on any link click that navigates
-    const allNavLinks = document.querySelectorAll('#navLinks a, .nav-cta');
-    allNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle?.classList.remove('open');
-            navLinks?.classList.remove('open');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // Active link on scroll
-    const sections = document.querySelectorAll('section[id]');
-
-    function updateActiveLink() {
-        const scrollPosition = window.scrollY + 100;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLinksItems.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }
-
-    window.addEventListener('scroll', throttle(updateActiveLink, 100), { passive: true });
-    updateActiveLink();
 }
 
 /* ============================================
@@ -528,7 +572,48 @@ document.addEventListener('visibilitychange', () => {
     // Pause/resume carousel animations on tab visibility
     const tracks = document.querySelectorAll('.slide-track');
     tracks.forEach(t => {
-        t.style.animationPlayState = document.hidden ? 'paused' : 'running';
+        t.classList.toggle('is-paused-offscreen', document.hidden);
     });
 });
 
+/* ============================================
+   Lottie Animations
+   ============================================ */
+
+function initLottieAnimations() {
+    // Phone Animation
+    const phoneContainer = document.getElementById('lottie-phone');
+    const phoneContact = document.getElementById('phone-contact');
+
+    if (phoneContainer && phoneContact && typeof phoneAnimationData !== 'undefined') {
+        const phoneAnim = lottie.loadAnimation({
+            container: phoneContainer,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            animationData: phoneAnimationData
+        });
+
+        phoneContact.addEventListener('mouseenter', () => {
+            phoneAnim.goToAndPlay(0, true);
+        });
+    }
+
+    // Inbox Animation
+    const inboxContainer = document.getElementById('lottie-inbox');
+    const inboxContact = document.getElementById('inbox-contact');
+
+    if (inboxContainer && inboxContact && typeof inboxAnimationData !== 'undefined') {
+        const inboxAnim = lottie.loadAnimation({
+            container: inboxContainer,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            animationData: inboxAnimationData
+        });
+
+        inboxContact.addEventListener('mouseenter', () => {
+            inboxAnim.goToAndPlay(0, true);
+        });
+    }
+}

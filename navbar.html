@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AD – Navbar</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #050d12;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .nav-wrap {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+    }
+
+    .nav-svg-container {
+      position: relative;
+      transition: filter 0.4s ease;
+    }
+
+    .nav-wrap:hover .nav-svg-container {
+      filter: drop-shadow(0 0 12px rgba(0, 210, 200, 0.4)) drop-shadow(0 0 30px rgba(0, 210, 200, 0.15));
+    }
+
+    .nav-bg {
+      display: block;
+    }
+
+    .nav-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-row {
+      width: 100%;
+      height: 50px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-style: italic;
+      color: #fff;
+      user-select: none;
+    }
+
+    .corner-dot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      transition: background 0.3s, box-shadow 0.3s;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .nav-wrap:hover .corner-dot {
+      background: #00d2c8;
+      box-shadow: 0 0 10px #00d2c8;
+    }
+
+    .nav-links-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease 0.15s;
+    }
+
+    .nav-wrap:hover .nav-links-row {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-item {
+      cursor: pointer;
+      flex: 1;
+      overflow: hidden;
+      height: 38px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-item-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(-19px);
+    }
+
+    .slide-hover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      height: 38px;
+      justify-content: center;
+    }
+
+    .slide-rest {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      height: 38px;
+      justify-content: center;
+    }
+
+    /* REST state: white */
+    .slide-rest .nav-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .slide-rest .nav-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      flex-shrink: 0;
+    }
+
+    /* HOVER state: teal */
+    .slide-hover .nav-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1;
+      color: #00d2c8;
+    }
+
+    .slide-hover .nav-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #00d2c8;
+      flex-shrink: 0;
+    }
+
+    .nav-item:hover .nav-item-inner {
+      transform: translateY(19px);
+    }
+
+    .nav-item.active .slide-rest .nav-label {
+      color: #00d2c8;
+    }
+
+    .nav-item.active .slide-rest .nav-dot {
+      background: #00d2c8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="nav-wrap" id="navWrap">
+    <div class="nav-svg-container" id="navContainer">
+      <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
+        <path id="navFill" fill="#0d1a1f" stroke="none" />
+        <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5" />
+      </svg>
+      <div class="nav-content">
+        <div class="logo-row">
+          <!-- Replace src with your logo file path -->
+          <img src="your-logo.png" alt="AD" style="height:22px;filter:brightness(0) invert(1)"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="logo-text">AD</span>
+          <div class="corner-dot" id="dot"></div>
+        </div>
+        <div class="nav-links-row">
+
+          <div class="nav-item active">
+            <div class="nav-item-inner">
+              <div class="slide-hover"><span class="nav-label">Home</span>
+                <div class="nav-dot"></div>
+              </div>
+              <div class="slide-rest">
+                <div class="nav-dot"></div><span class="nav-label">Home</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <div class="nav-item-inner">
+              <div class="slide-hover"><span class="nav-label">Services</span>
+                <div class="nav-dot"></div>
+              </div>
+              <div class="slide-rest">
+                <div class="nav-dot"></div><span class="nav-label">Services</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <div class="nav-item-inner">
+              <div class="slide-hover"><span class="nav-label">About</span>
+                <div class="nav-dot"></div>
+              </div>
+              <div class="slide-rest">
+                <div class="nav-dot"></div><span class="nav-label">About</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <div class="nav-item-inner">
+              <div class="slide-hover"><span class="nav-label">Contact</span>
+                <div class="nav-dot"></div>
+              </div>
+              <div class="slide-rest">
+                <div class="nav-dot"></div><span class="nav-label">Contact</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <div class="nav-item-inner">
+              <div class="slide-hover"><span class="nav-label">Book a Call</span>
+                <div class="nav-dot"></div>
+              </div>
+              <div class="slide-rest">
+                <div class="nav-dot"></div><span class="nav-label">Book a Call</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const wrap = document.getElementById('navWrap');
+    const container = document.getElementById('navContainer');
+    const svgEl = document.getElementById('navSvg');
+    const fillPath = document.getElementById('navFill');
+    const strokePath = document.getElementById('navStroke');
+    const dot = document.getElementById('dot');
+
+    const DURATION = 500;
+    const CR = 14, TAB_CR = 10, STEP_R = 8, TAB_H = 50;
+    const REST_W = 200, REST_H = 50;
+    const EXP_W = 640, EXP_H = 110;
+    const TAB_W_EXP = 130;
+    const DOT_INSET = 22;
+
+    function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function buildPath(W, H, tabW) {
+      const cx = W / 2, tL = cx - tabW / 2, tR = cx + tabW / 2;
+      if (Math.abs(tabW - W) < 2) {
+        return `M ${CR} 0 L ${W - CR} 0 Q ${W} 0 ${W} ${CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${CR} Q 0 0 ${CR} 0 Z`;
+      }
+      return `M ${tL + TAB_CR} 0 L ${tR - TAB_CR} 0 Q ${tR} 0 ${tR} ${TAB_CR} L ${tR} ${TAB_H - STEP_R} Q ${tR} ${TAB_H} ${tR + STEP_R} ${TAB_H} L ${W - CR} ${TAB_H} Q ${W} ${TAB_H} ${W} ${TAB_H + CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${TAB_H + CR} Q 0 ${TAB_H} ${CR} ${TAB_H} L ${tL - STEP_R} ${TAB_H} Q ${tL} ${TAB_H} ${tL} ${TAB_H - STEP_R} L ${tL} ${TAB_CR} Q ${tL} 0 ${tL + TAB_CR} 0 Z`;
+    }
+
+    let curW = REST_W, curH = REST_H, curTabW = REST_W;
+
+    function applyFrame(W, H, tabW) {
+      curW = W; curH = H; curTabW = tabW;
+      container.style.width = W + 'px';
+      container.style.height = H + 'px';
+      svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svgEl.setAttribute('width', W);
+      svgEl.setAttribute('height', H);
+      const d = buildPath(W, H, tabW);
+      fillPath.setAttribute('d', d);
+      strokePath.setAttribute('d', d);
+      dot.style.left = (W / 2 + tabW / 2 - DOT_INSET) + 'px';
+    }
+
+    let animFrame = null, startTime = null;
+    let startW, startH, startTabW, endW, endH, endTabW;
+
+    function animate(ts) {
+      if (!startTime) startTime = ts;
+      const t = Math.min((ts - startTime) / DURATION, 1);
+      const e = ease(t);
+      applyFrame(lerp(startW, endW, e), lerp(startH, endH, e), lerp(startTabW, endTabW, e));
+      if (t < 1) animFrame = requestAnimationFrame(animate);
+    }
+
+    function startAnim(toHover) {
+      startW = curW; startH = curH; startTabW = curTabW;
+      endW = toHover ? EXP_W : REST_W;
+      endH = toHover ? EXP_H : REST_H;
+      endTabW = toHover ? TAB_W_EXP : REST_W;
+      if (animFrame) cancelAnimationFrame(animFrame);
+      startTime = null;
+      animFrame = requestAnimationFrame(animate);
+    }
+
+    wrap.addEventListener('mouseenter', () => startAnim(true));
+    wrap.addEventListener('mouseleave', () => startAnim(false));
+
+    applyFrame(REST_W, REST_H, REST_W);
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

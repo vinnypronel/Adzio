@@ -22,8 +22,10 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=49.0">
+    <link rel="stylesheet" href="css/styles.css?v=76.0">
     <link rel="stylesheet" href="css/animations.css?v=39.0">
+    <!-- Lottie Player -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
         /* Number + Symbol centered inside circles */
         .stat-number-wrapper {
@@ -109,34 +111,74 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="nav" id="nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="assets/logo.png" alt="AD Marketing" class="logo-img">
-            </a>
-
-            <div class="nav-links" id="navLinks">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-
-            <div class="nav-actions">
-                <a href="#contact" class="btn btn-primary nav-cta">
-                    <span>Book a Call</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                </a>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+    <div class="nav-wrap" id="navWrap">
+        <div class="nav-svg-container" id="navContainer">
+            <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
+                <path id="navFill" fill="#0d1a1f" stroke="none" />
+                <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5" />
+            </svg>
+            <div class="nav-content">
+                <div class="logo-row">
+                    <a href="#home" style="display:flex;align-items:center;">
+                        <img src="assets/logo.png" alt="AD" class="nav-logo-img">
+                    </a>
+                    <div class="corner-dot" id="dot"></div>
+                </div>
+                <div class="nav-links-row">
+                    <a href="#home" class="nav-item active" data-section="home">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Home</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Home</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#services" class="nav-item" data-section="services">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Services</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Services</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#about" class="nav-item" data-section="about">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">About</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">About</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#contact" class="nav-item" data-section="contact">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Contact</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Contact</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#contact" class="nav-item nav-item--cta">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Book a Call</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Book a Call</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -356,6 +398,7 @@
             <div class="services-grid">
                 <!-- Service 1 -->
                 <div class="service-card animate-on-scroll fly-in-left">
+                    <div class="popular-badge">Most Popular</div>
                     <div class="service-orb">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24">
@@ -385,7 +428,6 @@
 
                 <!-- Service 2 -->
                 <div class="service-card animate-on-scroll fly-in-left">
-                    <div class="popular-badge">Most Popular</div>
                     <div class="service-orb">
                         <div class="service-icon">
                             <svg viewBox="0 0 24 24">
@@ -799,22 +841,12 @@
 
                 <!-- Contact Info -->
                 <div class="footer-contact">
-                    <a href="mailto:Marketing@Adzio.io" class="contact-item">
-                        <div class="contact-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
+                    <a href="mailto:Marketing@Adzio.io" class="contact-item" id="inbox-contact">
+                        <div class="contact-icon" id="lottie-inbox"></div>
                         <span>Marketing@Adzio.io</span>
                     </a>
-                    <a href="tel:7326546635" class="contact-item">
-                        <div class="contact-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                        </div>
+                    <a href="tel:7326546635" class="contact-item" id="phone-contact">
+                        <div class="contact-icon" id="lottie-phone"></div>
                         <span>(732) 654-6635</span>
                     </a>
                     <div class="contact-names">
@@ -826,7 +858,7 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <div class="footer-left">
-                    <p class="footer-copyright">Â© 2025 Adzio.io. All rights reserved.</p>
+                    <p class="footer-copyright">© 2025 Adzio.io. All rights reserved.</p>
                     <div class="footer-legal">
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms of Service</a>
@@ -876,10 +908,141 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="js/text-type.js"></script>
     <script src="js/hero-rays.js"></script>
-    <script src="js/main.js?v=29.0"></script>
+    <script src="js/inbox-animation-data.js?v=1007"></script>
+    <script src="js/phone-animation-data.js?v=1007"></script>
+    <script src="js/main.js?v=49.0"></script>
+
+    <!-- Navbar Morphing Script -->
+    <script>
+        (function () {
+            const wrap = document.getElementById('navWrap');
+            const container = document.getElementById('navContainer');
+            const svgEl = document.getElementById('navSvg');
+            const fillPath = document.getElementById('navFill');
+            const strokePath = document.getElementById('navStroke');
+            const dot = document.getElementById('dot');
+
+            const DURATION = 500;
+            const CR = 14, TAB_CR = 10, STEP_R = 8, TAB_H = 50;
+            const REST_W = 200, REST_H = 50;
+            const EXP_W = 640, EXP_H = 110;
+            const TAB_W_EXP = 130;
+            const DOT_INSET = 22;
+
+            function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function buildPath(W, H, tabW) {
+                const cx = W / 2, tL = cx - tabW / 2, tR = cx + tabW / 2;
+                if (Math.abs(tabW - W) < 2) {
+                    return `M ${CR} 0 L ${W - CR} 0 Q ${W} 0 ${W} ${CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${CR} Q 0 0 ${CR} 0 Z`;
+                }
+                return `M ${tL + TAB_CR} 0 L ${tR - TAB_CR} 0 Q ${tR} 0 ${tR} ${TAB_CR} L ${tR} ${TAB_H - STEP_R} Q ${tR} ${TAB_H} ${tR + STEP_R} ${TAB_H} L ${W - CR} ${TAB_H} Q ${W} ${TAB_H} ${W} ${TAB_H + CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${TAB_H + CR} Q 0 ${TAB_H} ${CR} ${TAB_H} L ${tL - STEP_R} ${TAB_H} Q ${tL} ${TAB_H} ${tL} ${TAB_H - STEP_R} L ${tL} ${TAB_CR} Q ${tL} 0 ${tL + TAB_CR} 0 Z`;
+            }
+
+            let curW = REST_W, curH = REST_H, curTabW = REST_W;
+
+            function applyFrame(W, H, tabW) {
+                curW = W; curH = H; curTabW = tabW;
+                // width on wrap keeps the left:50% anchor correct during expansion
+                wrap.style.width = W + 'px';
+                container.style.width = W + 'px';
+                container.style.height = H + 'px';
+                svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+                svgEl.setAttribute('width', W);
+                svgEl.setAttribute('height', H);
+                const d = buildPath(W, H, tabW);
+                fillPath.setAttribute('d', d);
+                strokePath.setAttribute('d', d);
+                dot.style.left = (W / 2 + tabW / 2 - DOT_INSET) + 'px';
+                // Tell the scroll handler the real current nav width, then re-centre
+                window._navCurW = W;
+                if (typeof window._navReframe === 'function') window._navReframe(W);
+            }
+
+            let animFrame = null, startTime = null;
+            let startW, startH, startTabW, endW, endH, endTabW;
+
+            function animate(ts) {
+                if (!startTime) {
+                    startTime = ts;
+                    wrap.classList.add('nav-morphing');  // suspend CSS scroll animation during morph
+                }
+                const t = Math.min((ts - startTime) / DURATION, 1);
+                const e = ease(t);
+                applyFrame(lerp(startW, endW, e), lerp(startH, endH, e), lerp(startTabW, endTabW, e));
+                if (t < 1) {
+                    animFrame = requestAnimationFrame(animate);
+                } else {
+                    animFrame = null;
+                    startTime = null;
+                    // When closing back to REST_W at scroll=0: clear inline transform so
+                    // CSS scroll-driven animation takes full control again
+                    if (Math.round(endW) === REST_W && !window._navScrolled) {
+                        wrap.style.transform = '';
+                        wrap.classList.remove('nav-morphing');
+                    }
+                    // Otherwise (expanded or scrolled/docked): keep nav-morphing so JS
+                    // maintains the transform — CSS animation would use wrong REST_W centering
+                }
+            }
+
+            function startAnim(toHover) {
+                startW = curW; startH = curH; startTabW = curTabW;
+                if (window._navScrolled && toHover) {
+                    // Docked left: expand as a flat horizontal pill (no raised tab)
+                    endW = EXP_W; endH = REST_H; endTabW = EXP_W;
+                } else if (window._navScrolled) {
+                    // Docked left: collapse to compact logo pill
+                    const dw = window._navDockedW || REST_W;
+                    endW = dw; endH = REST_H; endTabW = dw;
+                } else {
+                    endW = toHover ? EXP_W : REST_W;
+                    endH = toHover ? EXP_H : REST_H;
+                    endTabW = toHover ? TAB_W_EXP : REST_W;
+                }
+                if (animFrame) cancelAnimationFrame(animFrame);
+                startTime = null;
+                animFrame = requestAnimationFrame(animate);
+            }
+
+            wrap.addEventListener('mouseenter', () => startAnim(true));
+            wrap.addEventListener('mouseleave', () => startAnim(false));
+
+            applyFrame(REST_W, REST_H, REST_W);
+
+            // Expose for scroll parallax system
+            window._navApplyFrame = applyFrame;
+            window._navCancelAnim = function () {
+                if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; startTime = null; }
+            };
+            window._navStartAnim = startAnim;
+
+            // Active link tracking on click
+            document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+
+            // Active link tracking via IntersectionObserver (scroll-based)
+            const sections = document.querySelectorAll('section[id]');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        document.querySelectorAll('.nav-item[data-section]').forEach(i => {
+                            i.classList.toggle('active', i.dataset.section === id);
+                        });
+                    }
+                });
+            }, { threshold: 0.4 });
+            sections.forEach(s => observer.observe(s));
+        })();
+    </script>
 </body>
 
 </html>
