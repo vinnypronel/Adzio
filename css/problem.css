@@ -1,0 +1,528 @@
+/* ============================================
+   NEW PROBLEM SECTION STYLES
+   ============================================ */
+
+:root {
+    --teal: #00e5c8;
+    --red: #ff3c3c;
+    --gold: #f5a623;
+    --gray: #6b7a90;
+}
+
+/* ════════════════════════════════
+   PIN SECTION
+   The wrapper is tall — GSAP pins
+   the panel and scrubs slides
+════════════════════════════════ */
+#pin-panel {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    background-image:
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: top center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+}
+
+
+/* removed old grid */
+
+/* glow */
+#bg-glow {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(0, 229, 200, 0.06) 0%, transparent 65%);
+}
+
+/* pips */
+#pips {
+    position: absolute;
+    right: 14px;
+    left: auto !important;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.pip {
+    width: 4px;
+    height: 24px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: height 0.4s ease, background 0.4s ease;
+}
+
+.pip.active {
+    height: 44px;
+    background: var(--teal);
+}
+
+/* scroll hint */
+#scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+#scroll-hint span {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+}
+
+.arrow {
+    width: 16px;
+    height: 16px;
+    border-right: 2px solid var(--teal);
+    border-bottom: 2px solid var(--teal);
+    transform: rotate(45deg);
+    animation: ab 1.5s ease-in-out infinite;
+}
+
+@keyframes ab {
+
+    0%,
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+
+    50% {
+        opacity: 0.25;
+        margin-top: 5px;
+    }
+}
+
+/* ════════════════════════════════
+   SLIDES
+   Stacked absolutely, GSAP moves them
+════════════════════════════════ */
+.slide-problem {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8vw;
+    z-index: 2;
+    pointer-events: none;
+    /* visibility and opacity controlled entirely by GSAP */
+}
+
+/* ── Slide 0 — full screen statement ── */
+#slide-0 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 10vw;
+}
+
+.s0-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 16vw, 18rem);
+    line-height: 0.88;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 0;
+    display: block;
+}
+
+.s0-label .the {
+    display: block;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+    color: transparent;
+    line-height: 0.9;
+}
+
+.s0-label .problem {
+    display: block;
+    color: var(--teal);
+    line-height: 0.88;
+}
+
+.s0-title {
+    display: none;
+}
+
+.s0-bottom {
+    margin-top: 52px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    gap: 40px;
+}
+
+.s0-desc {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.8;
+    max-width: 420px;
+}
+
+.s0-stat {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.s0-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1;
+    color: var(--teal);
+    display: block;
+}
+
+.s0-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+    display: block;
+}
+
+/* ── Slides 1-3 ── */
+.pain-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 80px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.pain-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.pain-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 22px;
+}
+
+.pain-heading em {
+    font-style: normal;
+}
+
+.pain-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.82;
+    max-width: 400px;
+}
+
+.pain-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-ring {
+    width: clamp(130px, 16vw, 210px);
+    height: clamp(130px, 16vw, 210px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.icon-ring svg {
+    width: 34%;
+    height: 34%;
+}
+
+.icon-ring::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    opacity: 0.15;
+}
+
+.icon-ring::after {
+    content: '';
+    position: absolute;
+    inset: -34px;
+    border-radius: 50%;
+    border: 1px dashed currentColor;
+    opacity: 0.08;
+}
+
+.ghost-num {
+    position: absolute;
+    right: 5vw;
+    bottom: 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(7rem, 16vw, 15rem);
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+/* themes */
+#slide-1 .pain-tag {
+    background: rgba(255, 60, 60, 0.15);
+    color: var(--red);
+}
+
+#slide-1 .pain-heading em {
+    color: var(--red);
+}
+
+#slide-1 .icon-ring {
+    background: rgba(255, 60, 60, 0.12);
+    color: var(--red);
+    box-shadow: 0 0 70px rgba(255, 60, 60, 0.18);
+}
+
+#slide-2 .pain-tag {
+    background: rgba(245, 166, 35, 0.15);
+    color: var(--gold);
+}
+
+#slide-2 .pain-heading em {
+    color: var(--gold);
+}
+
+#slide-2 .icon-ring {
+    background: rgba(245, 166, 35, 0.12);
+    color: var(--gold);
+    box-shadow: 0 0 70px rgba(245, 166, 35, 0.18);
+}
+
+#slide-3 .pain-tag {
+    background: rgba(0, 229, 200, 0.12);
+    color: var(--teal);
+}
+
+#slide-3 .pain-heading em {
+    color: var(--teal);
+}
+
+#slide-3 .icon-ring {
+    background: rgba(0, 229, 200, 0.09);
+    color: var(--teal);
+    box-shadow: 0 0 70px rgba(0, 229, 200, 0.18);
+}
+
+#slide-4 .pain-tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#slide-4 .pain-heading em {
+    color: var(--white);
+}
+
+#slide-4 .icon-ring {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 0 120px rgba(255, 255, 255, 0.06);
+}
+
+#slide-4 .icon-ring::before {
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+#slide-4 .icon-ring::after {
+    border-color: rgba(255, 255, 255, 0.09);
+}
+
+/* ── Slide 4 — Invisible Online ── */
+#slide-1 {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10vw;
+    justify-content: center;
+}
+
+/* make the slide-1 content fill width with title left, card floated right */
+#slide-1 .s4-title {
+    width: 100%;
+}
+
+#slide-1 .s4-grid {
+    position: absolute;
+    right: 10vw;
+    bottom: clamp(60px, 8vh, 100px);
+    margin-left: 0;
+    width: clamp(200px, 20vw, 270px);
+}
+
+.s4-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.32);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.s4-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4.5rem, 12vw, 14rem);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    margin-bottom: 0;
+}
+
+.s4-title .line-ghost {
+    display: block;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.15);
+    color: transparent;
+}
+
+.s4-title .line-solid {
+    display: block;
+    color: var(--white);
+}
+
+.s4-title .line-red {
+    display: block;
+    color: var(--red);
+}
+
+.s4-grid {
+    margin-top: 44px;
+    display: block;
+    width: clamp(180px, 22vw, 260px);
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.s4-card {
+    background: var(--bg-card);
+    padding: clamp(16px, 2.5vw, 28px);
+    position: relative;
+    min-width: 0;
+    /* prevent grid blowout */
+    overflow: hidden;
+}
+
+.s4-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.s4-card:nth-child(1)::before {
+    background: var(--red);
+}
+
+.s4-card:nth-child(2)::before {
+    background: var(--gold);
+}
+
+.s4-card:nth-child(3)::before {
+    background: var(--teal);
+}
+
+.s4-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    line-height: 1;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.s4-card:nth-child(1) .s4-card-num {
+    color: var(--red);
+}
+
+.s4-card:nth-child(2) .s4-card-num {
+    color: var(--gold);
+}
+
+.s4-card:nth-child(3) .s4-card-num {
+    color: var(--teal);
+}
+
+.s4-card-label {
+    font-size: clamp(0.58rem, 1vw, 0.68rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.s4-card-desc {
+    font-size: clamp(0.78rem, 1.1vw, 0.88rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+@media (max-width: 900px) {
+    .pain-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+
+    .pain-visual {
+        order: -1;
+    }
+
+    .pain-body {
+        max-width: 100%;
+    }
+
+    #pips {
+        right: 10px;
+        left: auto !important;
+    }
+}

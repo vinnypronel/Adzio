@@ -18,12 +18,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=76.0">
+    <link rel="stylesheet" href="css/styles.css?v=78.0">
     <link rel="stylesheet" href="css/animations.css?v=39.0">
+    <link rel="stylesheet" href="css/problem.css?v=1.0">
+    <link rel="stylesheet" href="css/process.css?v=8.0">
     <!-- Lottie Player -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
@@ -145,7 +147,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#about" class="nav-item" data-section="about">
+                    <a href="about-us.html" class="nav-item" data-section="about">
                         <div class="nav-item-inner">
                             <div class="slide-hover"><span class="nav-label">About</span>
                                 <div class="nav-dot"></div>
@@ -167,11 +169,19 @@
                     </a>
                     <a href="#contact" class="nav-item nav-item--cta">
                         <div class="nav-item-inner">
-                            <div class="slide-hover"><span class="nav-label">Book a Call</span>
+                            <div class="slide-hover">
+                                <span class="nav-label nav-label--stacked">
+                                    <span class="stack-word">Book</span><span class="stack-word">a</span><span
+                                        class="stack-word">Call</span>
+                                </span>
                                 <div class="nav-dot"></div>
                             </div>
                             <div class="slide-rest">
-                                <div class="nav-dot"></div><span class="nav-label">Book a Call</span>
+                                <div class="nav-dot"></div>
+                                <span class="nav-label nav-label--stacked">
+                                    <span class="stack-word">Book</span><span class="stack-word">a</span><span
+                                        class="stack-word">Call</span>
+                                </span>
                             </div>
                         </div>
                     </a>
@@ -309,76 +319,128 @@
     </section>
 
     <!-- Problem Section -->
-    <section class="problem-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="hero-badge animate-on-scroll">The Problem...</span>
-                <h2 class="section-title animate-on-scroll"
-                    data-text-type="Most Local Businesses Are <span class='text-red invisible-fade'>Invisible</span> Online"
-                    data-loop="false" data-cursor="|" data-typing-speed="50"></h2>
-            </div>
+    <section class="problem-section" id="problem">
+        <div id="pin-wrapper">
+            <div id="pin-panel">
 
-            <div class="problem-grid-spotlight">
-                <!-- Card 1: Wasting Time -->
-                <div class="spotlight-card animate-on-scroll" data-color="red">
-                    <div class="spotlight-bg"></div>
-                    <div class="spotlight-content">
-                        <div class="badge-wrapper">
-                            <div class="badge-glow"></div>
-                            <div class="badge-blur"></div>
-                            <div class="badge-icon red">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div id="bg-glow"></div>
+
+                <div id="pips">
+                    <div class="pip"></div>
+                    <div class="pip"></div>
+                    <div class="pip"></div>
+                    <div class="pip"></div>
+                    <div class="pip"></div>
+                </div>
+
+                <div id="scroll-hint">
+                    <span>Scroll</span>
+                    <div class="arrow"></div>
+                </div>
+
+                <!-- SLIDE 0 — The Problem title -->
+                <div class="slide-problem" id="slide-0">
+                    <p class="s0-label">
+                        <span class="the">THE</span>
+                        <span class="problem">PROBLEM</span>
+                    </p>
+                    <div class="s0-bottom">
+                        <p class="s0-desc">Every day without the right strategy costs you customers, cash, and ground to
+                            your competitors. What follows is exactly what's killing your growth.</p>
+                        <div class="s0-stat">
+                            <span class="s0-stat-num">91%</span>
+                            <span class="s0-stat-label">of clicks go to the top 3 ads</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 1 — Invisible Online (directly after problem) -->
+                <div class="slide-problem" id="slide-1">
+                    <p class="s4-label">— MOST BUSINESSES ARE...</p>
+                    <div class="s4-title">
+                        <span class="line-ghost">INVISIBLE</span>
+                        <span class="line-solid">TO THE</span>
+                        <span class="line-red">CUSTOMERS</span>
+                    </div>
+                    <div class="s4-grid">
+                        <div class="s4-card">
+                            <span class="s4-card-num">97%</span>
+                            <span class="s4-card-label">Never found</span>
+                            <p class="s4-card-desc">Of people search online before buying — if you're not showing up,
+                                they're buying from someone else.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 — Time Drain -->
+                <div class="slide-problem" id="slide-2">
+                    <div class="pain-inner">
+                        <div>
+                            <span class="pain-tag">01 · Time Drain</span>
+                            <h2 class="pain-heading">Hours spent on <em>marketing that goes nowhere</em></h2>
+                            <p class="pain-body">You're burning your most valuable resource — time — on random posts and
+                                boosted content that earns zero engagement and drives zero revenue.</p>
+                        </div>
+                        <div class="pain-visual">
+                            <div class="icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
-                                    <path d="M12 6v6l4 2" />
+                                    <polyline points="12 6 12 12 16 14" />
                                 </svg>
                             </div>
                         </div>
-                        <div class="connecting-line red"></div>
-                        <h3><span class="text-red">Wasting Time</span> on Ineffective Marketing</h3>
-                        <p>Hours spent on social media with no real results. Random posts that get zero engagement.</p>
                     </div>
+                    <div class="ghost-num">01</div>
                 </div>
 
-                <!-- Card 2: Burning Cash -->
-                <div class="spotlight-card animate-on-scroll" data-color="amber">
-                    <div class="spotlight-bg"></div>
-                    <div class="spotlight-content">
-                        <div class="badge-wrapper">
-                            <div class="badge-glow"></div>
-                            <div class="badge-blur"></div>
-                            <div class="badge-icon amber">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                <!-- SLIDE 3 — Budget Burn -->
+                <div class="slide-problem" id="slide-3">
+                    <div class="pain-inner">
+                        <div>
+                            <span class="pain-tag">02 · Budget Burn</span>
+                            <h2 class="pain-heading">Ad spend that <em>vanishes without converting</em></h2>
+                            <p class="pain-body">Untargeted campaigns drain your budget daily. Without precision
+                                targeting you're paying to reach people who will never buy — handing revenue to your
+                                competitors.</p>
+                        </div>
+                        <div class="pain-visual">
+                            <div class="icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="1" x2="12" y2="23" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                                 </svg>
                             </div>
                         </div>
-                        <div class="connecting-line amber"></div>
-                        <h3>Burning Cash on Ads That <span class="text-red">Don't</span> Convert</h3>
-                        <p>Boosted posts and poorly targeted ads that drain your budget without bringing customers.</p>
                     </div>
+                    <div class="ghost-num">02</div>
                 </div>
 
-                <!-- Card 3: Competitors -->
-                <div class="spotlight-card animate-on-scroll" data-color="cyan">
-                    <div class="spotlight-bg"></div>
-                    <div class="spotlight-content">
-                        <div class="badge-wrapper">
-                            <div class="badge-glow"></div>
-                            <div class="badge-blur"></div>
-                            <div class="badge-icon cyan">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- SLIDE 4 — Lost Customers -->
+                <div class="slide-problem" id="slide-4">
+                    <div class="pain-inner">
+                        <div>
+                            <span class="pain-tag">03 · Lost Customers</span>
+                            <h2 class="pain-heading">Competitors <em>winning your customers</em> right now</h2>
+                            <p class="pain-body">While you figure this out, competitors run sharp targeted campaigns
+                                stealing your ideal clients before you get a chance. Every scroll is a lost sale.</p>
+                        </div>
+                        <div class="pain-visual">
+                            <div class="icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                                     <circle cx="9" cy="7" r="4" />
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
                             </div>
                         </div>
-                        <div class="connecting-line cyan"></div>
-                        <h3>Competitors <span class="text-red">Stealing</span> Your Customers</h3>
-                        <p>While you figure out marketing, your competitors are actively targeting and winning your
-                            ideal clients.</p>
                     </div>
+                    <div class="ghost-num">03</div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -518,173 +580,162 @@
 
 
     <!-- Process Section -->
-    <section class="process">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag animate-on-scroll">Our Process</span>
-                <h2 class="section-title animate-on-scroll">
-                    From <span class="text-gradient">Strategy</span> to <span class="text-gradient">Success</span>
-                </h2>
-                <p class="section-subtitle animate-on-scroll">
-                    Our proven 4-step process delivers consistent results for every client.
-                </p>
-            </div>
+    <section class="process-section" id="process">
+        <div id="process-pin-wrapper">
+            <div id="process-pin-panel">
 
-            <div class="process-timeline">
-                <div class="process-line"></div>
+                <div id="process-bg-glow"></div>
 
-                <div class="process-step animate-on-scroll" data-step-color="orange">
-                    <div class="step-node">
-                        <div class="step-node-glow"></div>
-                        <div class="step-node-ring"></div>
-                        <div class="step-node-core">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path
-                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="step-card">
-                        <div class="step-label">Step 01</div>
-                        <h3>Discovery Call</h3>
-                        <p>We learn about your business, goals, target customers, and current challenges. No sales
-                            pitch,
-                            just a real conversation.</p>
-                    </div>
+                <div id="process-pips">
+                    <div class="process-pip"></div>
+                    <div class="process-pip"></div>
+                    <div class="process-pip"></div>
+                    <div class="process-pip"></div>
+                    <div class="process-pip"></div>
+                    <div class="process-pip"></div>
                 </div>
 
-                <div class="process-step animate-on-scroll" data-step-color="gold">
-                    <div class="step-node">
-                        <div class="step-node-glow"></div>
-                        <div class="step-node-ring"></div>
-                        <div class="step-node-core">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="step-card">
-                        <div class="step-label">Step 02</div>
-                        <h3>Custom Strategy</h3>
-                        <p>We create a tailored marketing plan designed specifically for your business and market. No
-                            cookie-cutter templates.</p>
-                    </div>
+                <div id="process-scroll-hint"><span>Scroll</span>
+                    <div class="process-arrow"></div>
                 </div>
 
-                <div class="process-step animate-on-scroll" data-step-color="cyan">
-                    <div class="step-node">
-                        <div class="step-node-glow"></div>
-                        <div class="step-node-ring"></div>
-                        <div class="step-node-core">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="step-card">
-                        <div class="step-label">Step 03</div>
-                        <h3>Launch &amp; Optimize</h3>
-                        <p>We launch your campaigns and continuously optimize based on real data. You see results within
-                            the
-                            first week.</p>
-                    </div>
-                </div>
-
-                <div class="process-step animate-on-scroll" data-step-color="emerald">
-                    <div class="step-node">
-                        <div class="step-node-glow"></div>
-                        <div class="step-node-ring"></div>
-                        <div class="step-node-core">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="20" x2="12" y2="10" />
-                                <line x1="18" y1="20" x2="18" y2="4" />
-                                <line x1="6" y1="20" x2="6" y2="16" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="step-card">
-                        <div class="step-label">Step 04</div>
-                        <h3>Scale &amp; Grow</h3>
-                        <p>Once we find what works, we scale it. More leads, more customers, more revenue each month
-                            after
-                            month.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <span class="section-tag animate-on-scroll">About Adzio</span>
-                    <h2 class="section-title animate-on-scroll">
-                        We're Not Just Another <span class="text-gradient">Marketing Agency</span>
-                    </h2>
-                    <p class="about-text animate-on-scroll">
-                        Adzio was founded with one mission: help local businesses compete and win in the digital age.
-                        We've seen too many great businesses struggle because they couldn't figure out online marketing.
+                <!-- SLIDE 0 — OUR PROCESS (mirrors THE PROBLEM) -->
+                <div class="process-slide" id="process-slide-0">
+                    <p class="process-s0-label">
+                        <span class="our">OUR</span>
+                        <span class="process">PROCESS</span>
                     </p>
-                    <p class="about-text animate-on-scroll">
-                        That's why we built a system that delivers results without the complexity. We handle everything,
-                        including
-                        strategy, creatiivity, targeting, and optimization so you can focus on what you do best:
-                    </p>
-                    <p class="about-text animate-on-scroll">
-                        Running. Your. Business.
-                    </p>
-                    <div class="about-features animate-on-scroll">
-                        <div class="about-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Data-driven strategies</span>
-                        </div>
-                        <div class="about-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Transparent reporting</span>
-                        </div>
-                        <div class="about-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>No long-term contracts</span>
-                        </div>
-                        <div class="about-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                            <span>Dedicated account manager</span>
+                    <div class="process-s0-bottom">
+                        <p class="process-s0-desc">A proven 4-step system that turns your ad spend into consistent,
+                            compounding revenue — tailored to your business, not a template.</p>
+                        <div class="process-s0-stat">
+                            <span class="process-s0-stat-num">4</span>
+                            <span class="process-s0-stat-label">Steps to results</span>
                         </div>
                     </div>
                 </div>
-                <div class="about-visual animate-on-scroll">
-                    <div class="about-image">
-                        <div class="about-pattern"></div>
-                        <div class="about-stats-card">
-                            <div class="stats-header">Growth This Month</div>
-                            <div class="stats-number">+247%</div>
-                            <div class="stats-chart">
-                                <div class="chart-bar" style="--height: 20%"></div>
-                                <div class="chart-bar" style="--height: 35%"></div>
-                                <div class="chart-bar" style="--height: 25%"></div>
-                                <div class="chart-bar" style="--height: 50%"></div>
-                                <div class="chart-bar" style="--height: 45%"></div>
-                                <div class="chart-bar" style="--height: 70%"></div>
-                                <div class="chart-bar" style="--height: 85%"></div>
+
+                <!-- SLIDE 1 — intro step overview (mirrors INVISIBLE slide) -->
+                <div class="process-slide" id="process-slide-1">
+                    <p class="process-s1-label">— HERE IS HOW WE DO IT...</p>
+                    <div class="process-s1-title">
+                        <span class="line-solid">FROM</span>
+                        <span class="line-solid">STRATEGY</span>
+                        <span class="line-green">TO SUCCESS</span>
+                    </div>
+                    <div class="process-s1-card">
+                        <div class="process-s1-card-item">
+                            <span class="process-s1-card-num">01</span>
+                            <span class="process-s1-card-label">Discovery<br>Call</span>
+                        </div>
+                        <div class="process-s1-card-item">
+                            <span class="process-s1-card-num">02</span>
+                            <span class="process-s1-card-label">Custom Strategy</span>
+                        </div>
+                        <div class="process-s1-card-item">
+                            <span class="process-s1-card-num">03</span>
+                            <span class="process-s1-card-label">Launch &amp; Optimize</span>
+                        </div>
+                        <div class="process-s1-card-item">
+                            <span class="process-s1-card-num">04</span>
+                            <span class="process-s1-card-label">Scale &amp;<br>Grow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 — Discovery Call -->
+                <div class="process-slide" id="process-slide-2">
+                    <div class="process-pain-inner">
+                        <div>
+                            <span class="process-pain-tag">01 · Discovery Call</span>
+                            <h2 class="process-pain-heading">We start with a <em>real conversation</em></h2>
+                            <p class="process-pain-body">We learn about your business, goals, target customers, and
+                                current challenges. No sales pitch — just an honest look at where you are and where you
+                                want to go.</p>
+                        </div>
+                        <div class="process-pain-visual">
+                            <div class="process-icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                                </svg>
                             </div>
                         </div>
                     </div>
+                    <div class="process-ghost-num">01</div>
                 </div>
+
+                <!-- SLIDE 3 — Custom Strategy -->
+                <div class="process-slide" id="process-slide-3">
+                    <div class="process-pain-inner">
+                        <div>
+                            <span class="process-pain-tag">02 · Custom Strategy</span>
+                            <h2 class="process-pain-heading">A plan built <em>around your business</em></h2>
+                            <p class="process-pain-body">We create a tailored marketing plan designed specifically for
+                                your business and market. No cookie-cutter templates — every campaign is built from
+                                scratch for your goals.</p>
+                        </div>
+                        <div class="process-pain-visual">
+                            <div class="process-icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-ghost-num">02</div>
+                </div>
+
+                <!-- SLIDE 4 — Launch & Optimize -->
+                <div class="process-slide" id="process-slide-4">
+                    <div class="process-pain-inner">
+                        <div>
+                            <span class="process-pain-tag">03 · Launch &amp; Optimize</span>
+                            <h2 class="process-pain-heading">Live campaigns, <em>real results fast</em></h2>
+                            <p class="process-pain-body">We launch your campaigns and continuously optimize based on
+                                real data. You see results within the first week — not months of waiting while your
+                                budget drains away.</p>
+                        </div>
+                        <div class="process-pain-visual">
+                            <div class="process-icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-dasharray="60"
+                                        stroke-dashoffset="-60" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-ghost-num">03</div>
+                </div>
+
+                <!-- SLIDE 5 — Scale & Grow -->
+                <div class="process-slide" id="process-slide-5">
+                    <div class="process-pain-inner">
+                        <div>
+                            <span class="process-pain-tag">04 · Scale &amp; Grow</span>
+                            <h2 class="process-pain-heading">Find what works, <em>then scale it</em></h2>
+                            <p class="process-pain-body">Once we find what works, we scale it. More leads, more
+                                customers, more revenue — every single month. Your growth compounds as we double down on
+                                what's winning.</p>
+                        </div>
+                        <div class="process-pain-visual">
+                            <div class="process-icon-ring">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="20" x2="18" y2="10" />
+                                    <line x1="12" y1="20" x2="12" y2="4" />
+                                    <line x1="6" y1="20" x2="6" y2="14" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-ghost-num">04</div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -809,32 +860,24 @@
             <div class="footer-main">
                 <!-- Brand Section -->
                 <div class="footer-brand">
-                    <div class="footer-logo">
+                    <a href="index.html#home" class="footer-logo">
                         <img src="assets/logo.png" alt="Adzio Logo">
-                    </div>
-                    <p class="footer-tagline">Helping local businesses get seen, booked, and growing.</p>
+                    </a>
+                    <p class="footer-tagline">Helping local businesses grow, get seen, and booked!</p>
                 </div>
 
                 <!-- Navigation - Horizontal -->
                 <nav class="footer-nav">
                     <!-- Company Links -->
                     <div class="footer-column">
-                        <h4>Company</h4>
+                        <h4>Sitemap</h4>
                         <ul class="footer-links">
-                            <li><a href="#about">About Us</a></li>
+                            <li><a href="index.html#home">Home</a></li>
+                            <li><a href="about-us.html">About Us</a></li>
                             <li><a href="#services">Services</a></li>
                             <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Services Links -->
-                    <div class="footer-column">
-                        <h4>Services</h4>
-                        <ul class="footer-links">
-                            <li><a href="#services">Ad Management</a></li>
-                            <li><a href="#services">Lead Generation</a></li>
-                            <li><a href="#services">Website Design</a></li>
-                            <li><a href="#services">Social Media</a></li>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#terms">Terms of Service</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -858,10 +901,8 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <div class="footer-left">
-                    <p class="footer-copyright">© 2025 Adzio.io. All rights reserved.</p>
+                    <p class="footer-copyright">© 2026 Adzio.io. All rights reserved.</p>
                     <div class="footer-legal">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
                     </div>
                 </div>
 
@@ -912,7 +953,11 @@
     <script src="js/hero-rays.js"></script>
     <script src="js/inbox-animation-data.js?v=1007"></script>
     <script src="js/phone-animation-data.js?v=1007"></script>
-    <script src="js/main.js?v=49.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/main.js?v=50.0"></script>
+    <script src="js/problem.js?v=1.0"></script>
+    <script src="js/process.js?v=2.0"></script>
 
     <!-- Navbar Morphing Script -->
     <script>
@@ -930,6 +975,7 @@
             const EXP_W = 640, EXP_H = 110;
             const TAB_W_EXP = 130;
             const DOT_INSET = 22;
+            const DOCKED_EXP_W = 80, DOCKED_EXP_H = 380;
 
             function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
             function lerp(a, b, t) { return a + (b - a) * t; }
@@ -992,8 +1038,8 @@
             function startAnim(toHover) {
                 startW = curW; startH = curH; startTabW = curTabW;
                 if (window._navScrolled && toHover) {
-                    // Docked left: expand as a flat horizontal pill (no raised tab)
-                    endW = EXP_W; endH = REST_H; endTabW = EXP_W;
+                    // Docked left: expand downward vertically (slightly narrower, much taller)
+                    endW = DOCKED_EXP_W; endH = DOCKED_EXP_H; endTabW = DOCKED_EXP_W;
                 } else if (window._navScrolled) {
                     // Docked left: collapse to compact logo pill
                     const dw = window._navDockedW || REST_W;

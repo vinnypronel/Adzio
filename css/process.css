@@ -1,0 +1,753 @@
+/* ============================================
+   PROCESS SECTION - STYLES
+   ============================================ */
+
+/* ════ PROCESS PIN ════ */
+#process-pin-wrapper {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+#process-pin-panel {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    background-image:
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: top center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+}
+
+#process-bg-glow {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(0, 229, 200, 0.06) 0%, transparent 65%);
+    transition: background 0.7s ease;
+}
+
+#process-pips {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.process-pip {
+    width: 4px;
+    height: 24px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: height 0.4s ease, background 0.4s ease;
+}
+
+.process-pip.active {
+    height: 44px;
+    background: var(--teal);
+}
+
+#process-scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+#process-scroll-hint span {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+}
+
+.process-arrow {
+    width: 16px;
+    height: 16px;
+    border-right: 2px solid var(--teal);
+    border-bottom: 2px solid var(--teal);
+    transform: rotate(45deg);
+    animation: process-ab 1.5s ease-in-out infinite;
+}
+
+@keyframes process-ab {
+
+    0%,
+    100% {
+        opacity: 1;
+        margin-top: 0
+    }
+
+    50% {
+        opacity: .25;
+        margin-top: 5px
+    }
+}
+
+/* ════ SLIDES ════ */
+.process-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8vw;
+    z-index: 2;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+/* ── Slide 0 — OUR PROCESS title — exact same as THE PROBLEM slide ── */
+#process-slide-0 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 10vw;
+}
+
+.process-s0-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 15vw, 18rem);
+    line-height: 0.75;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 0;
+    display: block;
+}
+
+.process-s0-label .our {
+    display: block;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+    color: transparent;
+    line-height: 0.75;
+    margin-bottom: -0.22em;
+}
+
+.process-s0-label .process {
+    display: block;
+    color: var(--teal);
+    line-height: 0.75;
+}
+
+.process-s0-bottom {
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    gap: 20px;
+}
+
+.process-s0-desc {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.8;
+    max-width: 420px;
+}
+
+.process-s0-stat {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.process-s0-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: var(--teal);
+    display: block;
+}
+
+.process-s0-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+    display: block;
+}
+
+/* ── Slides 1-4 — pain-inner layout, exact clone ── */
+.process-pain-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 80px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.process-pain-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.process-pain-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 22px;
+}
+
+.process-pain-heading em {
+    font-style: normal;
+}
+
+.process-pain-body {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.process-pain-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.process-icon-ring {
+    width: clamp(130px, 16vw, 210px);
+    height: clamp(130px, 16vw, 210px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.process-icon-ring svg {
+    width: 34%;
+    height: 34%;
+}
+
+.process-icon-ring::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    opacity: 0.15;
+}
+
+.process-icon-ring::after {
+    content: '';
+    position: absolute;
+    inset: -34px;
+    border-radius: 50%;
+    border: 1px dashed currentColor;
+    opacity: 0.08;
+}
+
+.process-ghost-num {
+    position: absolute;
+    right: 5vw;
+    bottom: 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(7rem, 16vw, 15rem);
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+/* colour themes — orange, gold, blue, green */
+#process-slide-1 .process-pain-tag {
+    background: rgba(255, 107, 53, 0.15);
+    color: #ff6b35;
+}
+
+#process-slide-1 .process-pain-heading em {
+    color: #ff6b35;
+}
+
+#process-slide-1 .process-icon-ring {
+    background: rgba(255, 107, 53, 0.12);
+    color: #ff6b35;
+    box-shadow: 0 0 70px rgba(255, 107, 53, 0.2);
+}
+
+#process-slide-2 .process-pain-tag {
+    background: rgba(245, 166, 35, 0.15);
+    color: var(--gold);
+}
+
+#process-slide-2 .process-pain-heading em {
+    color: var(--gold);
+}
+
+#process-slide-2 .process-icon-ring {
+    background: rgba(245, 166, 35, 0.12);
+    color: var(--gold);
+    box-shadow: 0 0 70px rgba(245, 166, 35, 0.18);
+}
+
+#process-slide-3 .process-pain-tag {
+    background: rgba(74, 184, 255, 0.15);
+    color: #4ab8ff;
+}
+
+#process-slide-3 .process-pain-heading em {
+    color: #4ab8ff;
+}
+
+#process-slide-3 .process-icon-ring {
+    background: rgba(74, 184, 255, 0.12);
+    color: #4ab8ff;
+    box-shadow: 0 0 70px rgba(74, 184, 255, 0.18);
+}
+
+#process-slide-4 .process-pain-tag {
+    background: rgba(0, 214, 143, 0.12);
+    color: #00d68f;
+}
+
+#process-slide-4 .process-pain-heading em {
+    color: #00d68f;
+}
+
+#process-slide-4 .process-icon-ring {
+    background: rgba(0, 214, 143, 0.09);
+    color: #00d68f;
+    box-shadow: 0 0 70px rgba(0, 214, 143, 0.18);
+}
+
+#process-slide-5 .process-pain-tag {
+    background: rgba(0, 214, 143, 0.12);
+    color: #00d68f;
+}
+
+#process-slide-5 .process-pain-heading em {
+    color: #00d68f;
+}
+
+#process-slide-5 .process-icon-ring {
+    background: rgba(0, 214, 143, 0.09);
+    color: #00d68f;
+    box-shadow: 0 0 70px rgba(0, 214, 143, 0.18);
+}
+
+/* ── Slide 1 — intro step, mirrors "INVISIBLE" slide exactly ── */
+#process-slide-1 {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10vw;
+    justify-content: center;
+}
+
+.process-s1-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.32);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.process-s1-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 15vw, 18rem);
+    line-height: 0.75;
+    letter-spacing: 0.01em;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.process-s1-title .line-ghost {
+    display: block;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
+    color: transparent;
+    line-height: 0.85;
+    margin-bottom: 0;
+}
+
+.process-s1-title .line-solid {
+    display: block;
+    color: var(--white);
+    line-height: 0.85;
+    margin-bottom: 0;
+}
+
+.process-s1-title .line-orange {
+    display: block;
+    color: #ff6b35;
+    line-height: 0.85;
+}
+
+.process-s1-title .line-green {
+    display: block;
+    color: #00e676;
+    /* Bright vibrant green for victory */
+    line-height: 0.85;
+    margin-bottom: 0;
+}
+
+.process-s1-card {
+    position: absolute;
+    right: 14vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(130px, 11vw, 165px);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.process-s1-card-item {
+    background: var(--bg-primary);
+    padding: clamp(30px, 4vh, 45px) clamp(14px, 1.2vw, 20px);
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.process-s1-card-item:last-child {
+    border-bottom: none;
+}
+
+.process-s1-card-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.process-s1-card-item:nth-child(1)::before {
+    background: #ff6b35;
+}
+
+.process-s1-card-item:nth-child(2)::before {
+    background: var(--gold);
+}
+
+.process-s1-card-item:nth-child(3)::before {
+    background: #4ab8ff;
+}
+
+.process-s1-card-item:nth-child(4)::before {
+    background: #00d68f;
+}
+
+.process-s1-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 2.2vw, 2rem);
+    line-height: 1;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.process-s1-card-item:nth-child(1) .process-s1-card-num {
+    color: #ff6b35;
+}
+
+.process-s1-card-item:nth-child(2) .process-s1-card-num {
+    color: var(--gold);
+}
+
+.process-s1-card-item:nth-child(3) .process-s1-card-num {
+    color: #4ab8ff;
+}
+
+.process-s1-card-item:nth-child(4) .process-s1-card-num {
+    color: #00d68f;
+}
+
+.process-s1-card-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: block;
+}
+
+/* ── icon animations ── */
+@keyframes processIconRing {
+    0% {
+        transform: rotate(0)
+    }
+
+    8% {
+        transform: rotate(-20deg)
+    }
+
+    18% {
+        transform: rotate(20deg)
+    }
+
+    28% {
+        transform: rotate(-14deg)
+    }
+
+    38% {
+        transform: rotate(14deg)
+    }
+
+    48% {
+        transform: rotate(-7deg)
+    }
+
+    58% {
+        transform: rotate(7deg)
+    }
+
+    68% {
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(0)
+    }
+}
+
+@keyframes processIconStar {
+    0% {
+        transform: rotate(0deg) scale(0.7);
+        opacity: 0.3;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes processIconPulse {
+    0% {
+        transform: scale(1)
+    }
+
+    20% {
+        transform: scaleX(1.2) scaleY(1.25)
+    }
+
+    40% {
+        transform: scaleX(0.85) scaleY(0.88)
+    }
+
+    60% {
+        transform: scaleX(1.1) scaleY(1.12)
+    }
+
+    80% {
+        transform: scaleX(0.96)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+@keyframes processDrawLine {
+    0% {
+        stroke-dashoffset: -60;
+        opacity: 0.2;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes processBarLeft {
+    0% {
+        transform: scaleY(0.15);
+        opacity: 0.2;
+    }
+
+    30% {
+        transform: scaleY(1.15);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scaleY(0.6);
+    }
+
+    70% {
+        transform: scaleY(1.05);
+    }
+
+    85% {
+        transform: scaleY(0.85);
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes processBarMid {
+    0% {
+        transform: scaleY(0.15);
+        opacity: 0.2;
+    }
+
+    35% {
+        transform: scaleY(1.2);
+        opacity: 1;
+    }
+
+    55% {
+        transform: scaleY(0.7);
+    }
+
+    75% {
+        transform: scaleY(1.08);
+    }
+
+    88% {
+        transform: scaleY(0.9);
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes processBarRight {
+    0% {
+        transform: scaleY(0.15);
+        opacity: 0.2;
+    }
+
+    40% {
+        transform: scaleY(1.25);
+        opacity: 1;
+    }
+
+    60% {
+        transform: scaleY(0.65);
+    }
+
+    80% {
+        transform: scaleY(1.1);
+    }
+
+    92% {
+        transform: scaleY(0.88);
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes processGlowPop {
+    0% {
+        opacity: .15;
+        transform: scale(1)
+    }
+
+    45% {
+        opacity: .55;
+        transform: scale(1.1)
+    }
+
+    100% {
+        opacity: .15;
+        transform: scale(1)
+    }
+}
+
+#process-slide-2 .process-icon-ring.icon-animate svg {
+    animation: processIconRing 1.1s ease-in-out forwards;
+}
+
+#process-slide-3 .process-icon-ring.icon-animate svg {
+    animation: processIconStar 0.9s ease-out forwards;
+}
+
+#process-slide-4 .process-icon-ring.icon-animate polyline {
+    animation: processDrawLine 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+#process-slide-5 .process-icon-ring line {
+    transform-origin: center bottom;
+    transform-box: fill-box;
+}
+
+#process-slide-5 .process-icon-ring.icon-animate line:nth-child(1) {
+    animation: processBarLeft 1s cubic-bezier(.34, 1.2, .64, 1) 0ms forwards;
+}
+
+#process-slide-5 .process-icon-ring.icon-animate line:nth-child(2) {
+    animation: processBarMid 1s cubic-bezier(.34, 1.2, .64, 1) 120ms forwards;
+}
+
+#process-slide-5 .process-icon-ring.icon-animate line:nth-child(3) {
+    animation: processBarRight 1s cubic-bezier(.34, 1.2, .64, 1) 240ms forwards;
+}
+
+.process-icon-ring.icon-animate::before {
+    animation: processGlowPop 1s ease-out forwards;
+}
+
+@media (max-width: 900px) {
+    .process-pain-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+
+    .process-pain-visual {
+        order: -1;
+    }
+
+    .process-pain-body {
+        max-width: 100%;
+    }
+
+    #process-pips {
+        right: 14px;
+    }
+}

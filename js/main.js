@@ -56,17 +56,24 @@ function initNavParallax() {
 
     // Track progress + fire boundary class — zero transform writes here
     let wasScrolled = null;
+    let ticking = false;
     window.addEventListener('scroll', () => {
-        const raw = window.scrollY / SCROLL_DIST;
-        const progress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
-        window._navScrollProgress = progress;
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const raw = window.scrollY / SCROLL_DIST;
+                const progress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
+                window._navScrollProgress = progress;
 
-        const isScrolled = progress >= 1;
-        if (isScrolled !== wasScrolled) {
-            wasScrolled = isScrolled;
-            window._navScrolled = isScrolled;
-            wrap.classList.toggle('scrolled', isScrolled);
-            if (typeof window._navStartAnim === 'function') window._navStartAnim(false);
+                const isScrolled = progress >= 1;
+                if (isScrolled !== wasScrolled) {
+                    wasScrolled = isScrolled;
+                    window._navScrolled = isScrolled;
+                    wrap.classList.toggle('scrolled', isScrolled);
+                    if (typeof window._navStartAnim === 'function') window._navStartAnim(false);
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
     }, { passive: true });
 
@@ -74,10 +81,17 @@ function initNavParallax() {
     // so the nav stays centred for any width at the current scroll position.
     window._navReframe = function (navW) {
         const vw = window.innerWidth;
-        const centred = -(navW / 2);
-        const docked = DOCKED_LEFT - vw / 2;
         const p = window._navScrollProgress;
-        wrap.style.transform = `translate3d(${(centred + (docked - centred) * p).toFixed(2)}px, 0, 0)`;
+        if (p >= 1) {
+            // Docked: pin the LEFT EDGE at DOCKED_LEFT (16px).
+            // The logo is flex-start aligned with fixed padding, so keeping
+            // the left edge still keeps the logo still regardless of nav width.
+            wrap.style.transform = `translate3d(${(DOCKED_LEFT - vw / 2).toFixed(2)}px, 0, 0)`;
+        } else {
+            const centred = -(navW / 2);
+            const docked = DOCKED_LEFT - vw / 2;
+            wrap.style.transform = `translate3d(${(centred + (docked - centred) * p).toFixed(2)}px, 0, 0)`;
+        }
     };
 }
 

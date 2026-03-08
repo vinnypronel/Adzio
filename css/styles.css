@@ -84,6 +84,7 @@ body {
         linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
     background-size: 60px 60px;
     background-position: top center;
+    background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -284,7 +285,7 @@ p {
     top: 16px;
     left: 50%;
     z-index: 1000;
-    will-change: transform;
+    will-change: transform, width, height;
     /* Runs on compositor thread — perfectly synced with scroll, no JS needed */
     animation: nav-slide linear both;
     animation-timeline: scroll(root block);
@@ -302,6 +303,7 @@ p {
 .nav-svg-container {
     position: relative;
     transition: filter 0.4s ease;
+    will-change: transform, width, height;
 }
 
 .nav-wrap:hover .nav-svg-container {
@@ -443,6 +445,14 @@ p {
     transform: translateY(19px);
 }
 
+.nav-item:hover .slide-rest {
+    opacity: 0;
+}
+
+.slide-rest {
+    transition: opacity 0.2s ease;
+}
+
 /* CTA item — teal only on hover, white at rest like all other items */
 .nav-item--cta .slide-hover .nav-label {
     color: #00d2c8;
@@ -455,6 +465,28 @@ p {
 
 .nav-item.active .slide-rest .nav-dot {
     background: #fff;
+}
+
+/* Stacked label (e.g. "Book / a Call") */
+.nav-label--stacked {
+    white-space: nowrap !important;
+}
+
+.nav-label--stacked .stack-word:not(:last-child)::after {
+    content: " ";
+}
+
+.nav-wrap.scrolled:hover .nav-label--stacked {
+    text-align: center;
+}
+
+.nav-wrap.scrolled:hover .nav-label--stacked .stack-word {
+    display: block;
+    line-height: 1.1;
+}
+
+.nav-wrap.scrolled:hover .nav-label--stacked .stack-word::after {
+    content: none;
 }
 
 /* ============================================
@@ -482,6 +514,51 @@ p {
     align-items: center;
     justify-content: flex-start;
     gap: 0;
+}
+
+/* ── Docked hover: expand downward, stack vertically ── */
+.nav-wrap.scrolled:hover .nav-content {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    /* ensure it fills SVG */
+}
+
+.nav-wrap.scrolled:hover .logo-row {
+    width: 100% !important;
+    height: 50px !important;
+    min-width: 0 !important;
+    flex: 0 0 50px !important;
+    justify-content: flex-start !important;
+    padding: 0 10px 0 14px !important;
+}
+
+.nav-wrap.scrolled:hover .nav-links-row {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    height: calc(100% - 50px) !important;
+    /* Rest of height */
+    justify-content: flex-start !important;
+    /* Groupped towards top */
+    align-items: center !important;
+    padding: 24px 6px 10px !important;
+    /* Pull up near logo, give top breathing room */
+    gap: 24px !important;
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+.nav-wrap.scrolled:hover .nav-item {
+    display: flex !important;
+    flex: 0 0 40px !important;
+    /* Fixed height for 1 item */
+    height: 40px !important;
+    width: 100% !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    /* Hide un-hovered slide */
 }
 
 
@@ -2494,8 +2571,17 @@ p {
     max-width: 280px;
 }
 
+.footer-logo {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.1);
+}
+
 .footer-logo img {
-    height: 40px;
+    height: 60px;
     width: auto;
     margin-bottom: 12px;
 }
