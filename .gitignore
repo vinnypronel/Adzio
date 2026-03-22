@@ -1,2 +1,7 @@
 .agent/
 docs/
+
+# Python
+*.pyc
+__pycache__/
+*.py
