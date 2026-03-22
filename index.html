@@ -26,8 +26,10 @@
     <link rel="stylesheet" href="css/animations.css?v=39.0">
     <link rel="stylesheet" href="css/problem.css?v=1.0">
     <link rel="stylesheet" href="css/process.css?v=8.0">
-    <!-- Lottie Player -->
+    <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         /* Number + Symbol centered inside circles */
         .stat-number-wrapper {
@@ -201,40 +203,46 @@
         </div>
 
         <div class="hero-content">
-            <h1 class="hero-title animate-fade-up delay-1">
-                <span class="title-line">We Help Businesses</span>
-                <span class="title-line title-gradient">Get Seen & Booked</span>
-            </h1>
+            <div class="hero-split">
+                <div class="hero-left-col">
+                    <h1 class="hero-title animate-fade-up delay-1">
+                        <span class="title-line">We Help Businesses</span>
+                        <span class="title-line title-gradient">Get Seen & Booked</span>
+                    </h1>
 
-            <p class="hero-subtitle animate-fade-up delay-2">
-                Stop losing customers to competitors. Our targeted ads and proven
-                marketing strategies will GUARANTEE you more local customers every month.
-                You focus on what you do best. We’ll handle the growth.
-            </p>
+                    <p class="hero-subtitle animate-fade-up delay-2">
+                        Stop losing customers to competitors. Our targeted ads and proven
+                        marketing strategies will GUARANTEE you more local customers every month.
+                        You focus on what you do best. We'll handle the growth.
+                    </p>
 
-            <div class="hero-cta animate-fade-up delay-3">
-                <a href="#contact" class="btn btn-primary btn-lg">
-                    <span>Get Your Free Strategy Call</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                </a>
-                <a href="#services" class="btn btn-ghost btn-lg">
-                    <span>See Our Services</span>
-                </a>
-            </div>
+                    <div class="hero-cta animate-fade-up delay-3">
+                        <a href="#contact" class="btn btn-primary btn-lg">
+                            <span>Get Your Free Strategy Call</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a href="#services" class="btn btn-ghost btn-lg">
+                            <span>See Our Services</span>
+                        </a>
+                    </div>
+                </div>
 
-            <!-- VSL Container Section -->
-            <div class="hero-vsl animate-fade-up delay-4">
-                <div class="vsl-wrapper">
-                    <video autoplay muted loop playsinline class="vsl-thumbnail-video" id="vslThumbnail">
-                        <source src="Adzio%20VSL.mov" type="video/mp4">
-                    </video>
-                    <button class="vsl-play-btn" id="playBtn" aria-label="Play Video">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                    </button>
+                <div class="hero-right-col">
+                    <!-- VSL Section -->
+                    <div class="hero-vsl">
+                        <div id="vsl-main-element" class="vsl-wrapper">
+                            <video autoplay muted loop playsinline class="vsl-thumbnail-video" id="vslThumbnail">
+                                <source src="Adzio%20VSL.mov" type="video/mp4">
+                            </video>
+                            <button class="vsl-play-btn" id="playBtn" aria-label="Play Video">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1089,6 +1097,7 @@
             sections.forEach(s => observer.observe(s));
         })();
     </script>
+    <script src="js/vsl-scroll.js"></script>
 </body>
 
 </html>

@@ -272,7 +272,8 @@ function initVSLPlayer() {
 
     if (!playBtn || !vslModal || !vslModalVideo) return;
 
-    // Play/Pause thumbnail video on scroll
+    // Play/Pause thumbnail video on scroll - Disabled in favor of GSAP scroll transition
+    /*
     if (vslThumbnail && 'IntersectionObserver' in window) {
         const thumbnailObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -286,6 +287,7 @@ function initVSLPlayer() {
         }, { threshold: 0.1 });
         thumbnailObserver.observe(vslThumbnail);
     }
+    */
 
     const openModal = () => {
         vslModal.classList.add('is-open');
