@@ -95,7 +95,7 @@
     color: var(--gray);
 }
 
-.arrow {
+.scroll-arrow {
     width: 16px;
     height: 16px;
     border-right: 2px solid var(--teal);
@@ -290,17 +290,44 @@
     opacity: 0.08;
 }
 
+.icon-ring svg,
+.icon-ring polyline,
+.icon-ring path,
+.icon-ring line,
+.icon-ring circle {
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+.icon-money-stem,
+.icon-money-curve,
+.icon-people-body,
+.icon-people-signal {
+    stroke-dasharray: 64;
+    stroke-dashoffset: 64;
+}
+
+.icon-money-stem {
+    stroke-dasharray: 21;
+    stroke-dashoffset: 21;
+}
+
+.icon-money-curve {
+    stroke-dasharray: 28;
+    stroke-dashoffset: 28;
+}
+
+.icon-people-head {
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+.icon-clock-hand {
+    transform-origin: 12px 12px;
+}
+
 .ghost-num {
-    position: absolute;
-    right: 5vw;
-    bottom: 40px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(7rem, 16vw, 15rem);
-    line-height: 1;
-    color: rgba(255, 255, 255, 0.03);
-    pointer-events: none;
-    user-select: none;
-    z-index: 1;
+    display: none;
 }
 
 /* themes */
@@ -370,6 +397,185 @@
 
 #slide-4 .icon-ring::after {
     border-color: rgba(255, 255, 255, 0.09);
+}
+
+@keyframes problemGlowPop {
+    0% {
+        opacity: 0.15;
+        transform: scale(1);
+    }
+
+    45% {
+        opacity: 0.38;
+        transform: scale(1.07);
+    }
+
+    100% {
+        opacity: 0.15;
+        transform: scale(1);
+    }
+}
+
+@keyframes problemIconClock {
+    0% {
+        transform: scale(0.96);
+        opacity: 0.7;
+    }
+
+    45% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes problemDrawStroke {
+    0% {
+        stroke-dashoffset: var(--draw-len, 64);
+        opacity: 0.15;
+    }
+
+    18% {
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes problemIconMoneyPop {
+    0% {
+        transform: scale(0.92);
+        opacity: 0.4;
+    }
+
+    55% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes problemClockMinuteSweep {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes problemClockHourSweep {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes problemHeadPop {
+    0% {
+        transform: scale(0.55);
+        opacity: 0.15;
+    }
+
+    60% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes problemPeopleSettle {
+    0% {
+        transform: translateY(6px) scale(0.94);
+        opacity: 0.2;
+    }
+
+    55% {
+        transform: translateY(-2px) scale(1.04);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+#slide-2 .icon-ring.icon-animate svg {
+    animation: problemIconClock 0.9s ease-out forwards;
+}
+
+#slide-2 .icon-ring.icon-animate .icon-clock-hand--minute {
+    animation: problemClockMinuteSweep 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#slide-2 .icon-ring.icon-animate .icon-clock-hand--hour {
+    animation: problemClockHourSweep 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#slide-3 .icon-ring.icon-animate svg {
+    animation: problemIconMoneyPop 0.9s ease-out forwards;
+}
+
+#slide-3 .icon-ring.icon-animate .icon-money-stem {
+    --draw-len: 21;
+    animation: problemDrawStroke 0.95s ease-out forwards;
+}
+
+#slide-3 .icon-ring.icon-animate .icon-money-curve {
+    --draw-len: 28;
+    animation: problemDrawStroke 0.95s ease-out forwards;
+}
+
+#slide-4 .icon-ring.icon-animate svg {
+    animation: problemPeopleSettle 0.95s ease-out forwards;
+}
+
+#slide-4 .icon-ring.icon-animate .icon-people-head--main {
+    animation: problemHeadPop 0.55s ease-out forwards;
+}
+
+#slide-4 .icon-ring.icon-animate .icon-people-body--main {
+    animation: problemDrawStroke 0.8s ease-out 80ms forwards;
+}
+
+#slide-4 .icon-ring.icon-animate .icon-people-head--alt {
+    animation: problemHeadPop 0.5s ease-out 150ms forwards;
+}
+
+#slide-4 .icon-ring.icon-animate .icon-people-body--alt {
+    animation: problemDrawStroke 0.75s ease-out 190ms forwards;
+}
+
+#slide-4 .icon-ring.icon-animate .icon-people-signal--one {
+    animation: problemDrawStroke 0.55s ease-out 280ms forwards;
+}
+
+#slide-4 .icon-ring.icon-animate .icon-people-signal--two {
+    animation: problemDrawStroke 0.6s ease-out 360ms forwards;
+}
+
+.icon-ring.icon-animate::before {
+    animation: problemGlowPop 1s ease-out forwards;
 }
 
 /* ── Slide 4 — Invisible Online ── */

@@ -41,24 +41,20 @@ function initNavParallax() {
     const DOCKED_LEFT = 16;
     const SCROLL_DIST = 150;
 
-    window._navDockedW = 110;
+    window._navDockedW = 96;
     window._navScrollProgress = 0;
     window._navCurW = REST_W;
 
     // Update the CSS variables that @keyframes nav-slide reads
-    const DOCKED_RIGHT_MARGIN = 24;
     function updateVars() {
         const vw = window.innerWidth;
-        const navW = 120; // REST_W
-        const EXP_W = 420;
         const anchorL = vw * 0.17; // Starts above the 'e' in 'Help'
-        const DOCKED_RIGHT_MARGIN = 24;
-        const anchorR = vw - DOCKED_RIGHT_MARGIN - (navW / 2); // Ends at top right corner flush
-        
+        const anchorDocked = DOCKED_LEFT + (window._navDockedW / 2); // Compact pill docks flush to the top-left
+
         document.documentElement.style.setProperty('--nav-shift-from', `${anchorL}px`);
-        document.documentElement.style.setProperty('--nav-shift-to', `${anchorR}px`);
+        document.documentElement.style.setProperty('--nav-shift-to', `${anchorDocked}px`);
         window._navShiftFrom = anchorL;
-        window._navShiftTo = anchorR;
+        window._navShiftTo = anchorDocked;
     }
     updateVars();
     window.addEventListener('resize', updateVars, { passive: true });
@@ -89,13 +85,12 @@ function initNavParallax() {
     // Called by applyFrame during hover morph (animation:none active via .nav-morphing)
     // so the nav stays centred for any width at the current scroll position.
     window._navReframe = function (navW) {
-        const vw = window.innerWidth;
         const p = window._navScrollProgress || 0;
         const anchorL = window._navShiftFrom || 0;
-        const anchorR = window._navShiftTo || 0;
-        const currentTarget = p >= 1 ? anchorR : anchorL + (anchorR - anchorL) * p;
+        const dockedLeft = DOCKED_LEFT + ((navW || window._navDockedW || REST_W) / 2);
+        const currentTarget = p >= 1 ? dockedLeft : anchorL + (dockedLeft - anchorL) * p;
         
-        // Disable scroll animation when at bottom of page or while paused
+        // Keep the left edge pinned while the nav morphs between compact and expanded docked states.
         wrap.style.transform = `translate3d(calc(${currentTarget}px - 50%), 0, 0)`;
     };
 }

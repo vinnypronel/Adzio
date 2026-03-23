@@ -274,16 +274,7 @@
 }
 
 .process-ghost-num {
-    position: absolute;
-    right: 5vw;
-    bottom: 40px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(7rem, 16vw, 15rem);
-    line-height: 1;
-    color: rgba(255, 255, 255, 0.03);
-    pointer-events: none;
-    user-select: none;
-    z-index: 1;
+    display: none;
 }
 
 /* colour themes — orange, gold, blue, green */

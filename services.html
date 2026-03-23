@@ -1,0 +1,659 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adzio Services | Growth Systems Built for Local Businesses</title>
+    <meta name="description"
+        content="Explore Adzio's ad management, lead generation, landing page, and social media services built to help local businesses get seen and booked.">
+
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png?v=2">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css?v=99.4">
+    <link rel="stylesheet" href="css/animations.css?v=39.0">
+    <link rel="stylesheet" href="css/services-page.css?v=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+    <div class="nav-wrap" id="navWrap">
+        <div class="nav-svg-container" id="navContainer">
+            <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
+                <path id="navFill" fill="#0d1a1f" stroke="none"></path>
+                <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5"></path>
+            </svg>
+            <div class="nav-content">
+                <div class="logo-row">
+                    <a href="index.html#home" style="display:flex;align-items:center;">
+                        <img src="assets/logo.png" alt="AD" class="nav-logo-img">
+                    </a>
+                    <div class="corner-dot" id="dot"></div>
+                </div>
+                <div class="nav-links-row">
+                    <a href="index.html#home" class="nav-item" data-section="home">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Home</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Home</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="services.html#services-overview" class="nav-item active" data-section="services">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Services</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Services</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="about-us.html" class="nav-item" data-section="about">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">About</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">About</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="index.html#contact" class="nav-item" data-section="contact">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover"><span class="nav-label">Contact</span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div><span class="nav-label">Contact</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="index.html#contact" class="nav-item nav-item--cta">
+                        <div class="nav-item-inner">
+                            <div class="slide-hover">
+                                <span class="nav-label nav-label--stacked">
+                                    <span class="stack-word">Book</span><span class="stack-word">a</span><span
+                                        class="stack-word">Call</span>
+                                </span>
+                                <div class="nav-dot"></div>
+                            </div>
+                            <div class="slide-rest">
+                                <div class="nav-dot"></div>
+                                <span class="nav-label nav-label--stacked">
+                                    <span class="stack-word">Book</span><span class="stack-word">a</span><span
+                                        class="stack-word">Call</span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="services-page-main">
+        <section class="services-hero" id="services-overview">
+            <div class="services-shell">
+                <div class="services-hero-grid">
+                    <div class="services-hero-copy">
+                        <div class="services-kicker">Our Services</div>
+                        <h1 class="services-title animate-on-scroll">Growth systems built to turn attention into booked jobs.</h1>
+                        <p class="services-lead animate-on-scroll">
+                            This page gives each service its own space so we can go deeper on the strategy, the
+                            deliverables, and the visuals that make the offer feel custom to the business we are
+                            pitching. We can swap in client-specific images, screenshots, and proof anywhere in these
+                            sections.
+                        </p>
+                        <div class="services-jump-links animate-on-scroll">
+                            <a class="services-jump-link" href="services.html#ad-management">
+                                <span class="services-jump-link-title">Ad Management</span>
+                                <span class="services-jump-link-copy">Campaign architecture, creative testing, and daily budget steering.</span>
+                            </a>
+                            <a class="services-jump-link" href="services.html#lead-generation">
+                                <span class="services-jump-link-title">Lead Generation</span>
+                                <span class="services-jump-link-copy">Funnels, CRM flows, nurture logic, and handoff systems.</span>
+                            </a>
+                            <a class="services-jump-link" href="services.html#landing-pages">
+                                <span class="services-jump-link-title">Website & Landing Pages</span>
+                                <span class="services-jump-link-copy">Conversion-focused pages designed to turn clicks into calls.</span>
+                            </a>
+                            <a class="services-jump-link" href="services.html#social-media-management">
+                                <span class="services-jump-link-title">Social Media Management</span>
+                                <span class="services-jump-link-copy">Content systems that make the brand look active, sharp, and trusted.</span>
+                            </a>
+                        </div>
+                        <div class="services-cta-row animate-on-scroll">
+                            <a href="index.html#contact" class="btn btn-primary btn-lg">
+                                <span>Build My Strategy</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <a href="about-us.html" class="btn btn-ghost btn-lg">
+                                <span>Meet The Team</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="services-hero-visual animate-on-scroll">
+                        <div class="hero-orbital-stage">
+                            <div class="hero-stat-card hero-stat-card--one">
+                                <strong>Paid Media Engine</strong>
+                                <span>Audience research, creative testing, and platform-native optimization that compounds every week.</span>
+                            </div>
+                            <div class="hero-stat-card hero-stat-card--two">
+                                <strong>Lead Flow System</strong>
+                                <span>We connect forms, automations, and follow-up into one cleaner pipeline that closes faster.</span>
+                            </div>
+                            <div class="hero-stat-card hero-stat-card--three">
+                                <strong>Offer Positioning</strong>
+                                <span>Copy, visuals, and landing pages tailored to what makes the business stand out locally.</span>
+                            </div>
+                            <div class="hero-center-callout">
+                                <span>4</span>
+                                <small>Core systems</small>
+                            </div>
+                            <div class="hero-logo-chip hero-logo-chip--meta">
+                                <img src="business-logos/meta.png" alt="Meta">
+                                <span>Paid Social</span>
+                            </div>
+                            <div class="hero-logo-chip hero-logo-chip--google">
+                                <img src="business-logos/google.png" alt="Google">
+                                <span>Search Intent</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-detail" id="ad-management">
+            <div class="services-shell">
+                <div class="service-detail-grid">
+                    <div class="service-copy animate-on-scroll">
+                        <div class="service-index">01 / Ad Management</div>
+                        <h2>We build campaigns that find the right buyers fast.</h2>
+                        <p>
+                            This section is ready for business-specific ad creatives, offer screenshots, and market
+                            angles. Right now it sells the system: audience mapping, creative iteration, and constant
+                            optimization designed to generate more qualified inbound volume every month.
+                        </p>
+                        <ul class="service-points">
+                            <li>Full-funnel campaign setup across Meta and Google with platform-specific creative direction.</li>
+                            <li>Testing cycles for hooks, offers, headlines, and visuals so spend keeps moving toward winners.</li>
+                            <li>Daily monitoring on budget pacing, lead quality, and acquisition cost trends.</li>
+                        </ul>
+                        <div class="service-proof-row">
+                            <div class="service-proof-pill">Audience Research</div>
+                            <div class="service-proof-pill">Creative Testing</div>
+                            <div class="service-proof-pill">Daily Optimization</div>
+                        </div>
+                        <div class="services-cta-row">
+                            <a href="index.html#contact" class="btn btn-primary">Talk About Your Ads</a>
+                        </div>
+                    </div>
+
+                    <div class="service-media service-media--ads animate-on-scroll">
+                        <div class="service-canvas"></div>
+                        <div class="media-chip media-chip--one">
+                            <img src="business-logos/meta.png" alt="Meta">
+                            <span>Meta Ads</span>
+                        </div>
+                        <div class="media-chip media-chip--two">
+                            <img src="business-logos/google.png" alt="Google">
+                            <span>Google Ads</span>
+                        </div>
+                        <div class="panel-card panel-card--ads">
+                            <div class="ads-board-head">
+                                <strong>Campaign Lift</strong>
+                                <span>Always Testing</span>
+                            </div>
+                            <div class="ads-bars" aria-hidden="true">
+                                <span style="--height:32%;--delay:0s;"></span>
+                                <span style="--height:54%;--delay:0.2s;"></span>
+                                <span style="--height:68%;--delay:0.4s;"></span>
+                                <span style="--height:88%;--delay:0.6s;"></span>
+                                <span style="--height:74%;--delay:0.8s;"></span>
+                            </div>
+                            <div class="ads-metric">
+                                <strong>CTR Up</strong>
+                                <span>Better hooks, cleaner traffic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-detail service-detail--reverse" id="lead-generation">
+            <div class="services-shell">
+                <div class="service-detail-grid">
+                    <div class="service-copy animate-on-scroll">
+                        <div class="service-index">02 / Lead Generation</div>
+                        <h2>We turn interest into a usable pipeline your team can actually work.</h2>
+                        <p>
+                            This is where we can personalize the page with CRM screenshots, funnel wireframes, or
+                            intake-step visuals for a specific business. The layout is already built to support that
+                            deeper story while keeping the offer clear.
+                        </p>
+                        <ul class="service-points">
+                            <li>Lead capture paths built around the fastest route from click to qualified inquiry.</li>
+                            <li>Follow-up sequences that keep leads warm while the business is busy doing the actual work.</li>
+                            <li>Clear qualification checkpoints so the sales side gets better conversations instead of random form fills.</li>
+                        </ul>
+                        <div class="service-proof-row">
+                            <div class="service-proof-pill">Funnels</div>
+                            <div class="service-proof-pill">CRM Handoffs</div>
+                            <div class="service-proof-pill">Automation Logic</div>
+                        </div>
+                        <div class="services-cta-row">
+                            <a href="index.html#contact" class="btn btn-primary">Map My Lead Flow</a>
+                        </div>
+                    </div>
+
+                    <div class="service-media service-media--leads animate-on-scroll">
+                        <div class="service-canvas"></div>
+                        <div class="media-chip media-chip--one">
+                            <img src="business-logos/hubspot.png" alt="HubSpot">
+                            <span>CRM Sync</span>
+                        </div>
+                        <div class="media-chip media-chip--two">
+                            <img src="business-logos/salesforce.png" alt="Salesforce">
+                            <span>Lead Routing</span>
+                        </div>
+                        <div class="panel-card panel-card--lead-main">
+                            <div class="lead-flow">
+                                <div class="lead-stage">
+                                    <strong>Traffic In</strong>
+                                    <span>Ads, search, and retargeting bring in interested prospects.</span>
+                                </div>
+                                <div class="lead-stage">
+                                    <strong>Qualification</strong>
+                                    <span>Forms and nurture logic sort casual visitors from high-intent leads.</span>
+                                </div>
+                                <div class="lead-stage">
+                                    <strong>Booked Calls</strong>
+                                    <span>Clean handoff into the business with context attached.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-detail" id="landing-pages">
+            <div class="services-shell">
+                <div class="service-detail-grid">
+                    <div class="service-copy animate-on-scroll">
+                        <div class="service-index">03 / Website & Landing Pages</div>
+                        <h2>We build pages that make the next step feel obvious.</h2>
+                        <p>
+                            This section is ideal for swapping in real mockups, before-and-after page designs, or
+                            niche-specific visual references. The structure is already there so each client can see
+                            exactly how the page will feel tailored to their business.
+                        </p>
+                        <ul class="service-points">
+                            <li>Offer-first landing pages built to support paid traffic and increase conversion rate.</li>
+                            <li>Mobile-friendly experiences that stay clean and readable when traffic comes from ads.</li>
+                            <li>Design systems that can evolve into full websites, not just single campaign pages.</li>
+                        </ul>
+                        <div class="service-proof-row">
+                            <div class="service-proof-pill">Conversion Design</div>
+                            <div class="service-proof-pill">Mobile First</div>
+                            <div class="service-proof-pill">A/B Test Ready</div>
+                        </div>
+                        <div class="services-cta-row">
+                            <a href="index.html#contact" class="btn btn-primary">Build My Landing Page</a>
+                        </div>
+                    </div>
+
+                    <div class="service-media service-media--landing animate-on-scroll">
+                        <div class="service-canvas"></div>
+                        <div class="media-chip media-chip--one">
+                            <img src="business-logos/shopify.png" alt="Shopify">
+                            <span>Web Builds</span>
+                        </div>
+                        <div class="media-chip media-chip--two">
+                            <img src="business-logos/stripe.png" alt="Stripe">
+                            <span>Checkout Ready</span>
+                        </div>
+                        <div class="browser-shell">
+                            <div class="browser-topbar">
+                                <span class="browser-dot browser-dot--accent"></span>
+                                <span class="browser-dot"></span>
+                                <span class="browser-dot"></span>
+                            </div>
+                            <div class="browser-body">
+                                <div class="browser-hero">
+                                    <strong>Turn visitors into booked appointments</strong>
+                                    <span>Conversion-led layout</span>
+                                </div>
+                                <div class="browser-cards" aria-hidden="true">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone-shell">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <strong>Mobile booking flow</strong>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-detail service-detail--reverse" id="social-media-management">
+            <div class="services-shell">
+                <div class="service-detail-grid">
+                    <div class="service-copy animate-on-scroll">
+                        <div class="service-index">04 / Social Media Management</div>
+                        <h2>We make the brand look alive, sharp, and worth trusting before the call even happens.</h2>
+                        <p>
+                            This area can take custom photo sets, branded reels, or content examples for a specific
+                            niche. The idea is to show that social is not random posting. It is trust-building,
+                            positioning, and visual proof that the business is active and credible.
+                        </p>
+                        <ul class="service-points">
+                            <li>Content calendars matched to offers, seasonality, and what customers actually care about.</li>
+                            <li>Reels, post concepts, and branded visuals that carry the same message as the paid traffic.</li>
+                            <li>Community-facing content that keeps the business visible between campaigns and follow-up.</li>
+                        </ul>
+                        <div class="service-proof-row">
+                            <div class="service-proof-pill">Content Systems</div>
+                            <div class="service-proof-pill">Brand Consistency</div>
+                            <div class="service-proof-pill">Organic Trust</div>
+                        </div>
+                        <div class="services-cta-row">
+                            <a href="index.html#contact" class="btn btn-primary">Plan My Content</a>
+                            <a href="services.html#services-overview" class="btn btn-ghost">Back To Overview</a>
+                        </div>
+                    </div>
+
+                    <div class="service-media service-media--social animate-on-scroll">
+                        <div class="service-canvas"></div>
+                        <div class="media-chip media-chip--one">
+                            <img src="business-logos/meta.png" alt="Meta">
+                            <span>Reels</span>
+                        </div>
+                        <div class="media-chip media-chip--two">
+                            <img src="business-logos/notion.png" alt="Notion">
+                            <span>Content Plan</span>
+                        </div>
+                        <div class="media-chip media-chip--three">
+                            <img src="business-logos/slack.png" alt="Slack">
+                            <span>Approval Flow</span>
+                        </div>
+                        <div class="content-board">
+                            <div class="social-phone">
+                                <div class="phone-notch"></div>
+                                <div class="social-reel">
+                                    <strong>New offer launch</strong>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="social-stack">
+                                <div class="social-copy-card">
+                                    <strong>Weekly Posting Rhythm</strong>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="social-metric-card">
+                                    <strong>Brand Visibility</strong>
+                                    <em>Daily</em>
+                                    <span>Always looks active, current, and trustworthy.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services-cta-panel">
+            <div class="services-shell">
+                <div class="services-cta-shell animate-on-scroll">
+                    <h2>Ready to turn this into a custom growth page for your business?</h2>
+                    <p>
+                        We can now plug in niche-specific copy, screenshots, creative examples, before-and-after
+                        visuals, and any personalized imagery you want for each service. The structure is live, and we
+                        can keep sharpening it section by section.
+                    </p>
+                    <div class="services-cta-row">
+                        <a href="index.html#contact" class="btn btn-primary btn-lg">
+                            <span>Book Your Free Strategy Call</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <a href="index.html#services" class="btn btn-ghost btn-lg">
+                            <span>Back To Home Services</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-glow glow-1"></div>
+        <div class="footer-glow glow-2"></div>
+
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="index.html#home" class="footer-logo">
+                        <img src="assets/logo.png" alt="Adzio Logo">
+                    </a>
+                    <p class="footer-tagline">Helping local businesses grow, get seen, and booked!</p>
+                </div>
+
+                <nav class="footer-nav">
+                    <div class="footer-column">
+                        <h4>Sitemap</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html#home">Home</a></li>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="services.html#services-overview">Services</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#terms">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="mailto:Marketing@Adzio.io" class="contact-item" id="inbox-contact">
+                        <div class="contact-icon" id="lottie-inbox"></div>
+                        <span>Marketing@Adzio.io</span>
+                    </a>
+                    <a href="tel:7326546635" class="contact-item" id="phone-contact">
+                        <div class="contact-icon" id="lottie-phone"></div>
+                        <span>(732) 654-6635</span>
+                    </a>
+                    <div class="contact-names">
+                        Devyn Schroeder & Anton Veliu
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-left">
+                    <p class="footer-copyright">&copy; 2026 Adzio.io. All rights reserved.</p>
+                    <div class="footer-legal"></div>
+                </div>
+
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="Instagram">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank"
+                        rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/AdzioMarketing" class="social-link" aria-label="X (Twitter)">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/inbox-animation-data.js?v=1007"></script>
+    <script src="js/phone-animation-data.js?v=1007"></script>
+    <script src="js/main.js?v=50.2"></script>
+
+    <script>
+        (function () {
+            const wrap = document.getElementById('navWrap');
+            const container = document.getElementById('navContainer');
+            const svgEl = document.getElementById('navSvg');
+            const fillPath = document.getElementById('navFill');
+            const strokePath = document.getElementById('navStroke');
+            const dot = document.getElementById('dot');
+
+            const DURATION = 500;
+            const CR = 14, TAB_CR = 10, STEP_R = 8, TAB_H = 46;
+            const REST_W = 120, REST_H = 50;
+            const EXP_W = 420, EXP_H = 110;
+            const TAB_W_EXP = 112;
+            const DOT_INSET = 30;
+            const DOCKED_EXP_H = 264;
+
+            function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function buildPath(W, H, tabW) {
+                const cx = W / 2, tL = cx - tabW / 2, tR = cx + tabW / 2;
+                if (Math.abs(tabW - W) < 2) {
+                    return `M ${CR} 0 L ${W - CR} 0 Q ${W} 0 ${W} ${CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${CR} Q 0 0 ${CR} 0 Z`;
+                }
+                return `M ${tL + TAB_CR} 0 L ${tR - TAB_CR} 0 Q ${tR} 0 ${tR} ${TAB_CR} L ${tR} ${TAB_H - STEP_R} Q ${tR} ${TAB_H} ${tR + STEP_R} ${TAB_H} L ${W - CR} ${TAB_H} Q ${W} ${TAB_H} ${W} ${TAB_H + CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${TAB_H + CR} Q 0 ${TAB_H} ${CR} ${TAB_H} L ${tL - STEP_R} ${TAB_H} Q ${tL} ${TAB_H} ${tL} ${TAB_H - STEP_R} L ${tL} ${TAB_CR} Q ${tL} 0 ${tL + TAB_CR} 0 Z`;
+            }
+
+            let curW = REST_W, curH = REST_H, curTabW = REST_W;
+
+            function applyFrame(W, H, tabW) {
+                curW = W;
+                curH = H;
+                curTabW = tabW;
+                wrap.style.width = W + 'px';
+                container.style.width = W + 'px';
+                container.style.height = H + 'px';
+                svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+                svgEl.setAttribute('width', W);
+                svgEl.setAttribute('height', H);
+                const d = buildPath(W, H, tabW);
+                fillPath.setAttribute('d', d);
+                strokePath.setAttribute('d', d);
+                dot.style.left = (W / 2 + tabW / 2 - DOT_INSET) + 'px';
+                window._navCurW = W;
+                if (typeof window._navReframe === 'function') window._navReframe(W);
+            }
+
+            let animFrame = null, startTime = null;
+            let startW, startH, startTabW, endW, endH, endTabW;
+
+            function animate(ts) {
+                if (!startTime) {
+                    startTime = ts;
+                    wrap.classList.add('nav-morphing');
+                }
+                const t = Math.min((ts - startTime) / DURATION, 1);
+                const e = ease(t);
+                applyFrame(lerp(startW, endW, e), lerp(startH, endH, e), lerp(startTabW, endTabW, e));
+                if (t < 1) {
+                    animFrame = requestAnimationFrame(animate);
+                } else {
+                    animFrame = null;
+                    startTime = null;
+                    if (Math.round(endW) === REST_W && !window._navScrolled) {
+                        wrap.style.transform = '';
+                        wrap.classList.remove('nav-morphing');
+                    }
+                }
+            }
+
+            function startAnim(toHover) {
+                startW = curW;
+                startH = curH;
+                startTabW = curTabW;
+                if (window._navScrolled && toHover) {
+                    const dw = window._navDockedW || REST_W;
+                    endW = dw;
+                    endH = DOCKED_EXP_H;
+                    endTabW = dw;
+                    wrap.classList.add('nav-vertical');
+                } else if (window._navScrolled) {
+                    const dw = window._navDockedW || REST_W;
+                    endW = dw;
+                    endH = REST_H;
+                    endTabW = dw;
+                    wrap.classList.remove('nav-vertical');
+                } else {
+                    endW = toHover ? EXP_W : REST_W;
+                    endH = toHover ? EXP_H : REST_H;
+                    endTabW = toHover ? TAB_W_EXP : REST_W;
+                    wrap.classList.remove('nav-vertical');
+                }
+                if (animFrame) cancelAnimationFrame(animFrame);
+                startTime = null;
+                animFrame = requestAnimationFrame(animate);
+            }
+
+            wrap.addEventListener('mouseenter', () => startAnim(true));
+            wrap.addEventListener('mouseleave', () => startAnim(false));
+
+            applyFrame(REST_W, REST_H, REST_W);
+
+            window._navApplyFrame = applyFrame;
+            window._navCancelAnim = function () {
+                if (animFrame) {
+                    cancelAnimationFrame(animFrame);
+                    animFrame = null;
+                    startTime = null;
+                }
+            };
+            window._navStartAnim = startAnim;
+        })();
+    </script>
+</body>
+
+</html>

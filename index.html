@@ -22,93 +22,14 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=98.0">
+    <link rel="stylesheet" href="css/styles.css?v=99.4">
     <link rel="stylesheet" href="css/animations.css?v=39.0">
-    <link rel="stylesheet" href="css/problem.css?v=1.0">
-    <link rel="stylesheet" href="css/process.css?v=8.0">
+    <link rel="stylesheet" href="css/problem.css?v=1.6">
+    <link rel="stylesheet" href="css/process.css?v=8.1">
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <style>
-        /* Number + Symbol centered inside circles */
-        .stat-number-wrapper {
-            position: absolute !important;
-            top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 110px !important;
-            height: 110px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 0px !important;
-        }
-
-        .stat-number {
-            font-family: 'Syne', sans-serif !important;
-            font-size: 2rem !important;
-            font-weight: 800 !important;
-            color: #fff !important;
-            line-height: 1 !important;
-        }
-
-        .stat-suffix {
-            font-family: 'Syne', sans-serif !important;
-            font-size: 2.5rem !important;
-            font-weight: 700 !important;
-            line-height: 1 !important;
-            margin-top: 2px !important;
-        }
-
-        /* Hero Stats layout*/
-        .hero-stats {
-            gap: 5rem !important;
-            padding-top: 2rem !important;
-            flex-wrap: nowrap !important;
-            justify-content: center !important;
-            display: flex !important;
-        }
-
-        .stat {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            position: relative !important;
-            min-width: 360px !important;
-        }
-
-        /* Stat labels */
-        .stat-label {
-            margin-top: 128px !important;
-            display: block !important;
-            font-family: 'Archivo', sans-serif !important;
-            font-size: 1.1rem !important;
-            font-weight: 900 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-            line-height: 1.2 !important;
-            text-align: center !important;
-            white-space: nowrap !important;
-            color: var(--dust-grey) !important;
-        }
-
-
-        /* glow lines */
-        .stat::after {
-            content: '' !important;
-            position: absolute !important;
-            top: 110px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 2px !important;
-            height: 15px !important;
-            opacity: 0.8 !important;
-            z-index: 1 !important;
-        }
-    </style>
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
@@ -139,7 +60,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#services" class="nav-item" data-section="services">
+                    <a href="services.html#services-overview" class="nav-item" data-section="services">
                         <div class="nav-item-inner">
                             <div class="slide-hover"><span class="nav-label">Services</span>
                                 <div class="nav-dot"></div>
@@ -204,7 +125,7 @@
 
         <div class="hero-content" style="max-width:100%;padding:0 3%;">
             <div class="hero-split">
-                <div class="hero-left-col" style="flex:0 0 500px;max-width:500px;margin-top:60px;">
+                <div class="hero-left-col" style="flex:0 0 500px;max-width:500px;margin-top:24px;">
                     <h1 class="hero-title animate-fade-up delay-1">
                         <span class="title-line">We Help Businesses</span>
                         <span class="title-line title-gradient">Get Seen & Booked</span>
@@ -223,7 +144,7 @@
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </a>
-                        <a href="#services" class="btn btn-ghost btn-lg">
+                        <a href="services.html#services-overview" class="btn btn-ghost btn-lg">
                             <span>See Our Services</span>
                         </a>
                     </div>
@@ -231,7 +152,7 @@
 
                 <div class="hero-right-col" style="flex:1;display:flex;justify-content:flex-end;margin-top:-100px;">
                     <!-- VSL Section -->
-                    <div class="hero-vsl" style="width:100%;max-width:700px;">
+                    <div class="hero-vsl" style="width:100%;max-width:900px;">
                         <div id="vsl-main-element" class="vsl-wrapper">
                             <video autoplay muted loop playsinline class="vsl-thumbnail-video" id="vslThumbnail">
                                 <source src="Adzio%20VSL.mov" type="video/mp4">
@@ -247,22 +168,77 @@
             </div>
 
             <div class="hero-stats animate-fade-up delay-5">
-                <div class="stat">
-                    <div class="stat-number-wrapper">
-                        <span class="stat-number" data-count="300">0</span><span class="stat-suffix">+</span>
+                <div class="stat stat--leads">
+                    <div class="stat-visual">
+                        <div class="stat-ring stat-ring--top" aria-hidden="true"></div>
+                        <div class="stat-ring stat-ring--bottom" aria-hidden="true"></div>
+                        <div class="stat-ring stat-ring--halo" aria-hidden="true"></div>
+                        <div class="stat-sphere" aria-hidden="true"></div>
+                        <div class="stat-particles" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="stat-core-glow" aria-hidden="true"></div>
+                        <div class="stat-bars" aria-hidden="true">
+                            <span style="--bar-height:36%;--delay:0s;"></span>
+                            <span style="--bar-height:58%;--delay:0.2s;"></span>
+                            <span style="--bar-height:78%;--delay:0.4s;"></span>
+                            <span style="--bar-height:100%;--delay:0.6s;"></span>
+                        </div>
+                        <div class="stat-side-icon stat-side-icon--lead" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M4 12.5V9.5C4 8.95 4.45 8.5 5 8.5H8.2L14.5 5.5V16.5L8.2 13.5H5C4.45 13.5 4 13.05 4 12.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+                                <path d="M16.5 9.5C17.6 10.1 18.3 11.25 18.3 12.5C18.3 13.75 17.6 14.9 16.5 15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                                <path d="M18.8 7.6C20.4 8.7 21.35 10.52 21.35 12.5C21.35 14.48 20.4 16.3 18.8 17.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-count="300">0</span><span class="stat-suffix">+</span>
+                        </div>
                     </div>
                     <span class="stat-label">Leads Generated Monthly</span>
                 </div>
-                <div class="stat">
-                    <div class="stat-number-wrapper">
-                        <span class="stat-number" data-count="2" data-duration="600">0</span><span
-                            class="stat-suffix">x</span>
+                <div class="stat stat--roi">
+                    <div class="stat-visual">
+                        <div class="stat-wire stat-wire--one" aria-hidden="true"></div>
+                        <div class="stat-wire stat-wire--two" aria-hidden="true"></div>
+                        <div class="stat-wire stat-wire--three" aria-hidden="true"></div>
+                        <div class="stat-core-glow" aria-hidden="true"></div>
+                        <div class="stat-side-icon stat-side-icon--roi" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M4 16L9.5 10.5L13 14L20 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M15.5 7H20V11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M8 20L6.6 17.2L4 15.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-count="2" data-duration="600">0</span><span
+                                class="stat-suffix">x</span>
+                        </div>
                     </div>
                     <span class="stat-label">Average ROI Increase</span>
                 </div>
-                <div class="stat">
-                    <div class="stat-number-wrapper">
-                        <span class="stat-number" data-count="94">0</span><span class="stat-suffix">%</span>
+                <div class="stat stat--satisfaction">
+                    <div class="stat-visual">
+                        <div class="stat-gauge stat-gauge--outer" aria-hidden="true"></div>
+                        <div class="stat-gauge stat-gauge--middle" aria-hidden="true"></div>
+                        <div class="stat-gauge stat-gauge--inner" aria-hidden="true"></div>
+                        <div class="stat-gauge-halo stat-gauge-halo--one" aria-hidden="true"></div>
+                        <div class="stat-gauge-halo stat-gauge-halo--two" aria-hidden="true"></div>
+                        <div class="stat-eq" aria-hidden="true">
+                            <span style="--eq-height:38%;--delay:0s;"></span>
+                            <span style="--eq-height:58%;--delay:0.18s;"></span>
+                            <span style="--eq-height:82%;--delay:0.32s;"></span>
+                            <span style="--eq-height:50%;--delay:0.44s;"></span>
+                            <span style="--eq-height:68%;--delay:0.56s;"></span>
+                        </div>
+                        <div class="stat-core-glow" aria-hidden="true"></div>
+                        <div class="stat-number-wrapper">
+                            <span class="stat-number" data-count="94">0</span><span class="stat-suffix">%</span>
+                        </div>
                     </div>
                     <span class="stat-label">Client Satisfaction</span>
                 </div>
@@ -343,7 +319,7 @@
 
                 <div id="scroll-hint">
                     <span>Scroll</span>
-                    <div class="arrow"></div>
+                    <div class="scroll-arrow"></div>
                 </div>
 
                 <!-- SLIDE 0 — The Problem title -->
@@ -393,8 +369,13 @@
                             <div class="icon-ring">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <polyline points="12 6 12 12 16 14" />
+                                    <circle cx="12" cy="12" r="10" class="icon-clock-face" />
+                                    <g class="icon-clock-hand icon-clock-hand--hour">
+                                        <line x1="12" y1="12" x2="12" y2="8.2" />
+                                    </g>
+                                    <g class="icon-clock-hand icon-clock-hand--minute">
+                                        <line x1="12" y1="12" x2="15.3" y2="13.9" />
+                                    </g>
                                 </svg>
                             </div>
                         </div>
@@ -416,8 +397,8 @@
                             <div class="icon-ring">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="1" x2="12" y2="23" />
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                    <line x1="12" y1="1.5" x2="12" y2="22.5" class="icon-money-stem" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" class="icon-money-curve" />
                                 </svg>
                             </div>
                         </div>
@@ -438,10 +419,12 @@
                             <div class="icon-ring">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                    <circle cx="9" cy="7" r="4" />
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    <circle cx="8.2" cy="8.1" r="2.8" class="icon-people-head icon-people-head--main" />
+                                    <path d="M3.6 18.6c0-2.55 2.05-4.6 4.6-4.6h1c2.55 0 4.6 2.05 4.6 4.6" class="icon-people-body icon-people-body--main" />
+                                    <circle cx="15.7" cy="9.1" r="2.1" class="icon-people-head icon-people-head--alt" />
+                                    <path d="M12.9 18.5c0-2.05 1.65-3.7 3.7-3.7h.55c2.05 0 3.7 1.65 3.7 3.7" class="icon-people-body icon-people-body--alt" />
+                                    <path d="M18.35 4.9c1.2.45 2.1 1.45 2.45 2.7" class="icon-people-signal icon-people-signal--one" />
+                                    <path d="M19.5 3.2c1.85.65 3.25 2.2 3.75 4.15" class="icon-people-signal icon-people-signal--two" />
                                 </svg>
                             </div>
                         </div>
@@ -490,9 +473,14 @@
                         <li>Daily optimization</li>
                         <li>Detailed reporting</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="services.html#ad-management" class="service-cta">
                         <span>Learn More</span>
-                        <span class="arrow">&rarr;</span>
+                        <span class="service-cta-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
                     </a>
                 </div>
 
@@ -517,9 +505,14 @@
                         <li>CRM integration</li>
                         <li>Lead qualification</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="services.html#lead-generation" class="service-cta">
                         <span>Learn More</span>
-                        <span class="arrow">&rarr;</span>
+                        <span class="service-cta-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
                     </a>
                 </div>
 
@@ -547,9 +540,14 @@
                         <li>Speed optimization</li>
                         <li>A/B testing</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="services.html#landing-pages" class="service-cta">
                         <span>Learn More</span>
-                        <span class="arrow">&rarr;</span>
+                        <span class="service-cta-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
                     </a>
                 </div>
 
@@ -576,9 +574,14 @@
                         <li>Community management</li>
                         <li>Brand development</li>
                     </ul>
-                    <a href="#contact" class="service-cta">
+                    <a href="services.html#social-media-management" class="service-cta">
                         <span>Learn More</span>
-                        <span class="arrow">&rarr;</span>
+                        <span class="service-cta-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -882,7 +885,7 @@
                         <ul class="footer-links">
                             <li><a href="index.html#home">Home</a></li>
                             <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="#services">Services</a></li>
+                            <li><a href="services.html#services-overview">Services</a></li>
                             <li><a href="#contact">Contact</a></li>
                             <li><a href="#privacy">Privacy Policy</a></li>
                             <li><a href="#terms">Terms of Service</a></li>
@@ -963,8 +966,8 @@
     <script src="js/phone-animation-data.js?v=1007"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js?v=50.0"></script>
-    <script src="js/problem.js?v=1.0"></script>
+    <script src="js/main.js?v=50.2"></script>
+    <script src="js/problem.js?v=1.3"></script>
 
 
     <!-- Navbar Morphing Script -->
@@ -978,12 +981,12 @@
             const dot = document.getElementById('dot');
 
             const DURATION = 500;
-            const CR = 14, TAB_CR = 10, STEP_R = 8, TAB_H = 50;
+            const CR = 14, TAB_CR = 10, STEP_R = 8, TAB_H = 46;
             const REST_W = 120, REST_H = 50;
             const EXP_W = 420, EXP_H = 110;
-            const TAB_W_EXP = 130;
-            const DOT_INSET = 22;
-            const DOCKED_EXP_W = 80, DOCKED_EXP_H = 380;
+            const TAB_W_EXP = 112;
+            const DOT_INSET = 30;
+            const DOCKED_EXP_H = 264;
 
             function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
             function lerp(a, b, t) { return a + (b - a) * t; }
@@ -1046,8 +1049,9 @@
             function startAnim(toHover) {
                 startW = curW; startH = curH; startTabW = curTabW;
                 if (window._navScrolled && toHover) {
-                    // Docked left: expand downward vertically (slightly narrower, much taller)
-                    endW = DOCKED_EXP_W; endH = DOCKED_EXP_H; endTabW = DOCKED_EXP_W;
+                    // Docked state keeps a fixed width and only expands downward.
+                    const dw = window._navDockedW || REST_W;
+                    endW = dw; endH = DOCKED_EXP_H; endTabW = dw;
                     wrap.classList.add('nav-vertical');
                 } else if (window._navScrolled) {
                     // Docked left: collapse to compact logo pill
