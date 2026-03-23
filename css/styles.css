@@ -280,7 +280,7 @@ p {
 
 .nav-wrap {
     position: fixed;
-    top: 10px;
+    top: 24px;
     left: 0;
     /* Anchor left edge to 0, translation does the rest */
     z-index: 1000;
