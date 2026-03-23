@@ -14,18 +14,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!vslContainer || !vslElement) return;
 
     const config = {
-        pipWidth: 320,
-        pipTop: 24,
-        pipRight: 24,
-        pipRadius: 20,
+        pipWidth: 150,
+        pipTop: 5,
+        pipRight: 5,
+        pipRadius: 12,
         transitionDistance: 700
     };
 
     if (window.innerWidth < 1024) {
-        config.pipWidth = 260; // Adjusted for tablet/smaller desktop
+        config.pipWidth = 130;
     }
     if (window.innerWidth < 768) {
-        config.pipWidth = 200; // Mobile
+        config.pipWidth = 110;
     }
 
     let startGeom = null;
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const curH = startGeom.h + (tH - startGeom.h) * progress;
         const curX = startGeom.x + (tX - startGeom.x) * progress;
         const curY = 0 + (tY - 0) * progress; // Starts at viewport top (0)
-        const curR = progress * config.pipRadius;
+        const curR = config.pipRadius; // Always keep rounded corners
 
         // Apply styles directly for max performance and precision
         gsap.set(vslElement, {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create the ScrollTrigger
     ScrollTrigger.create({
-        trigger: vslContainer,
+        trigger: document.body,
         start: "top top",
         end: `+=${config.transitionDistance}`,
         scrub: true,

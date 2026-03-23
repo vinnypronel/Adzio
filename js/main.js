@@ -37,7 +37,7 @@ function initNavParallax() {
     const wrap = document.getElementById('navWrap');
     if (!wrap) return;
 
-    const REST_W = 200;
+    const REST_W = 120;
     const DOCKED_LEFT = 16;
     const SCROLL_DIST = 150;
 
@@ -46,10 +46,19 @@ function initNavParallax() {
     window._navCurW = REST_W;
 
     // Update the CSS variables that @keyframes nav-slide reads
+    const DOCKED_RIGHT_MARGIN = 24;
     function updateVars() {
         const vw = window.innerWidth;
-        document.documentElement.style.setProperty('--nav-from', `${-(REST_W / 2)}px`);
-        document.documentElement.style.setProperty('--nav-to', `${DOCKED_LEFT - vw / 2}px`);
+        const navW = 120; // REST_W
+        const EXP_W = 420;
+        const anchorL = vw * 0.17; // Starts above the 'e' in 'Help'
+        const DOCKED_RIGHT_MARGIN = 24;
+        const anchorR = vw - DOCKED_RIGHT_MARGIN - (navW / 2); // Ends at top right corner flush
+        
+        document.documentElement.style.setProperty('--nav-shift-from', `${anchorL}px`);
+        document.documentElement.style.setProperty('--nav-shift-to', `${anchorR}px`);
+        window._navShiftFrom = anchorL;
+        window._navShiftTo = anchorR;
     }
     updateVars();
     window.addEventListener('resize', updateVars, { passive: true });
@@ -81,17 +90,13 @@ function initNavParallax() {
     // so the nav stays centred for any width at the current scroll position.
     window._navReframe = function (navW) {
         const vw = window.innerWidth;
-        const p = window._navScrollProgress;
-        if (p >= 1) {
-            // Docked: pin the LEFT EDGE at DOCKED_LEFT (16px).
-            // The logo is flex-start aligned with fixed padding, so keeping
-            // the left edge still keeps the logo still regardless of nav width.
-            wrap.style.transform = `translate3d(${(DOCKED_LEFT - vw / 2).toFixed(2)}px, 0, 0)`;
-        } else {
-            const centred = -(navW / 2);
-            const docked = DOCKED_LEFT - vw / 2;
-            wrap.style.transform = `translate3d(${(centred + (docked - centred) * p).toFixed(2)}px, 0, 0)`;
-        }
+        const p = window._navScrollProgress || 0;
+        const anchorL = window._navShiftFrom || 0;
+        const anchorR = window._navShiftTo || 0;
+        const currentTarget = p >= 1 ? anchorR : anchorL + (anchorR - anchorL) * p;
+        
+        // Disable scroll animation when at bottom of page or while paused
+        wrap.style.transform = `translate3d(calc(${currentTarget}px - 50%), 0, 0)`;
     };
 }
 

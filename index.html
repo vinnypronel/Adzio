@@ -22,7 +22,7 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=78.0">
+    <link rel="stylesheet" href="css/styles.css?v=98.0">
     <link rel="stylesheet" href="css/animations.css?v=39.0">
     <link rel="stylesheet" href="css/problem.css?v=1.0">
     <link rel="stylesheet" href="css/process.css?v=8.0">
@@ -123,9 +123,9 @@
             </svg>
             <div class="nav-content">
                 <div class="logo-row">
-                    <a href="#home" style="display:flex;align-items:center;">
+                    <div style="display:flex;align-items:center;">
                         <img src="assets/logo.png" alt="AD" class="nav-logo-img">
-                    </a>
+                    </div>
                     <div class="corner-dot" id="dot"></div>
                 </div>
                 <div class="nav-links-row">
@@ -202,9 +202,9 @@
             <div class="hero-orb hero-orb-3"></div>
         </div>
 
-        <div class="hero-content">
+        <div class="hero-content" style="max-width:100%;padding:0 3%;">
             <div class="hero-split">
-                <div class="hero-left-col">
+                <div class="hero-left-col" style="flex:0 0 500px;max-width:500px;margin-top:60px;">
                     <h1 class="hero-title animate-fade-up delay-1">
                         <span class="title-line">We Help Businesses</span>
                         <span class="title-line title-gradient">Get Seen & Booked</span>
@@ -229,9 +229,9 @@
                     </div>
                 </div>
 
-                <div class="hero-right-col">
+                <div class="hero-right-col" style="flex:1;display:flex;justify-content:flex-end;margin-top:-100px;">
                     <!-- VSL Section -->
-                    <div class="hero-vsl">
+                    <div class="hero-vsl" style="width:100%;max-width:700px;">
                         <div id="vsl-main-element" class="vsl-wrapper">
                             <video autoplay muted loop playsinline class="vsl-thumbnail-video" id="vslThumbnail">
                                 <source src="Adzio%20VSL.mov" type="video/mp4">
@@ -965,7 +965,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/main.js?v=50.0"></script>
     <script src="js/problem.js?v=1.0"></script>
-    <script src="js/process.js?v=2.0"></script>
+
 
     <!-- Navbar Morphing Script -->
     <script>
@@ -979,8 +979,8 @@
 
             const DURATION = 500;
             const CR = 14, TAB_CR = 10, STEP_R = 8, TAB_H = 50;
-            const REST_W = 200, REST_H = 50;
-            const EXP_W = 640, EXP_H = 110;
+            const REST_W = 120, REST_H = 50;
+            const EXP_W = 420, EXP_H = 110;
             const TAB_W_EXP = 130;
             const DOT_INSET = 22;
             const DOCKED_EXP_W = 80, DOCKED_EXP_H = 380;
@@ -1048,14 +1048,17 @@
                 if (window._navScrolled && toHover) {
                     // Docked left: expand downward vertically (slightly narrower, much taller)
                     endW = DOCKED_EXP_W; endH = DOCKED_EXP_H; endTabW = DOCKED_EXP_W;
+                    wrap.classList.add('nav-vertical');
                 } else if (window._navScrolled) {
                     // Docked left: collapse to compact logo pill
                     const dw = window._navDockedW || REST_W;
                     endW = dw; endH = REST_H; endTabW = dw;
+                    wrap.classList.remove('nav-vertical');
                 } else {
                     endW = toHover ? EXP_W : REST_W;
                     endH = toHover ? EXP_H : REST_H;
                     endTabW = toHover ? TAB_W_EXP : REST_W;
+                    wrap.classList.remove('nav-vertical');
                 }
                 if (animFrame) cancelAnimationFrame(animFrame);
                 startTime = null;
