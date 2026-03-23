@@ -259,8 +259,8 @@ p {
    ============================================ */
 
 :root {
-    --nav-shift-from: 0px; 
-    --nav-shift-to: 0px; 
+    --nav-shift-from: 0px;
+    --nav-shift-to: 0px;
 }
 
 /* JS sets --nav-from and --nav-to dynamically in index.html/main.js */
@@ -272,6 +272,7 @@ p {
     from {
         transform: translate3d(calc(-50% + var(--nav-shift-from, 0px)), 0, 0);
     }
+
     to {
         transform: translate3d(calc(-50% + var(--nav-shift-to, 0px)), 0, 0);
     }
@@ -279,8 +280,9 @@ p {
 
 .nav-wrap {
     position: fixed;
-    top: 24px;
-    left: 0; /* Anchor left edge to 0, translation does the rest */
+    top: 10px;
+    left: 0;
+    /* Anchor left edge to 0, translation does the rest */
     z-index: 1000;
     will-change: transform, width, height;
     animation: nav-slide linear forwards;
@@ -339,7 +341,8 @@ p {
 
 .corner-dot {
     position: absolute;
-    top: 25px; /* Fixed height so it stays in the pill even when expanded vertically */
+    top: 25px;
+    /* Fixed height so it stays in the pill even when expanded vertically */
     transform: translateY(-50%);
     width: 7px;
     height: 7px;
@@ -378,19 +381,23 @@ p {
     gap: 16px;
     padding: 0 0 20px 0;
 }
+
 .nav-wrap.nav-vertical .nav-item {
     height: auto;
     width: 100%;
     overflow: visible;
 }
+
 .nav-wrap.nav-vertical .slide-hover,
 .nav-wrap.nav-vertical .slide-rest {
     height: auto;
 }
+
 .nav-wrap.nav-vertical .nav-item-inner {
     transform: translateX(-15px);
     flex-direction: row;
 }
+
 .nav-wrap.nav-vertical .nav-item:hover .nav-item-inner {
     transform: translateX(10px);
 }
@@ -567,7 +574,8 @@ p {
     align-items: center !important;
     padding: 24px 6px 10px !important;
     /* Pull up near logo, give top breathing room */
-    gap: 12px !important; /* Matches REST state for consistency */
+    gap: 12px !important;
+    /* Matches REST state for consistency */
     width: 100% !important;
     overflow: hidden !important;
 }
@@ -600,7 +608,8 @@ p {
 
 .hero-content {
     width: 100%;
-    max-width: 100%; /* Full width */
+    max-width: 100%;
+    /* Full width */
     margin: 0 auto;
     padding: 0 2%;
     position: relative;
@@ -624,10 +633,12 @@ p {
 }
 
 .hero-right-col {
-    flex: 1; /* Takes ALL remaining space */
+    flex: 1;
+    /* Takes ALL remaining space */
     display: flex;
     justify-content: flex-end;
-    margin-right: -2%; /* Flush to edge */
+    margin-right: -2%;
+    /* Flush to edge */
 }
 
 .hero-title {
@@ -648,6 +659,7 @@ p {
     gap: 1.5rem;
     justify-content: flex-start;
 }
+
 .hero-gradient {
     position: absolute;
     inset: 0;
@@ -718,10 +730,13 @@ p {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.5;
         transform: scale(1.2);
@@ -746,7 +761,8 @@ body.vsl-active .hero-vsl {
 /* VSL Transition Container */
 .hero-vsl {
     width: 100%;
-    max-width: none; /* No max-width constraint */
+    max-width: none;
+    /* No max-width constraint */
     position: relative;
     z-index: 10;
 }
@@ -775,7 +791,7 @@ body.vsl-active .hero-vsl {
     pointer-events: auto;
     background: #000;
     border: 1px solid var(--dark-cyan);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(17,157,164,0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(17, 157, 164, 0.3);
     max-width: none !important;
     border-radius: 12px;
     overflow: hidden;
@@ -987,7 +1003,8 @@ body.vsl-active .hero-vsl {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px; /* Tighter spacing for 500px width */
+    gap: 12px;
+    /* Tighter spacing for 500px width */
     padding: 0 10px;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1072,7 +1089,8 @@ body.vsl-active .hero-vsl {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 15%; /* Slightly larger for visibility */
+    width: 15%;
+    /* Slightly larger for visibility */
     height: auto;
     aspect-ratio: 1/1;
     min-width: 44px;
@@ -1097,7 +1115,8 @@ body.vsl-active .hero-vsl {
 }
 
 .hero-vsl .vsl-play-btn svg {
-    width: 40%; /* Scale with button container */
+    width: 40%;
+    /* Scale with button container */
     height: 32px;
     margin-left: 6px;
     /* Offset to natively center the play triangle */
@@ -2771,7 +2790,8 @@ body.vsl-active .hero-vsl {
 .footer-left {
     display: flex;
     align-items: center;
-    gap: 20px; /* Reduced from 30px to fit 500px width */
+    gap: 20px;
+    /* Reduced from 30px to fit 500px width */
     flex-wrap: wrap;
 }
 
