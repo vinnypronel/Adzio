@@ -41,7 +41,7 @@ function initNavParallax() {
     const DOCKED_LEFT = 16;
     const SCROLL_DIST = 150;
 
-    window._navDockedW = 96;
+    window._navDockedW = 90;
     window._navScrollProgress = 0;
     window._navCurW = REST_W;
 
