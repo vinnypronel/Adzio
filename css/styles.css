@@ -683,7 +683,7 @@ p {
    ============================================ */
 
 .hero {
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -699,14 +699,17 @@ p {
     padding: 0 clamp(24px, 3vw, 56px);
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
 }
 
 .hero-split {
     display: grid;
     grid-template-columns: minmax(460px, 530px) minmax(0, 1fr);
-    align-items: start;
-    gap: clamp(24px, 2.7vw, 48px);
+    align-items: center;
+    gap: clamp(20px, 2.2vw, 40px);
     width: 100%;
+    min-height: calc(100svh - clamp(104px, 7.5vw, 122px) - 80px);
 }
 
 .hero-left-col {
@@ -721,8 +724,8 @@ p {
     min-width: 0;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
-    margin-top: clamp(-100px, -6vw, -28px);
+    align-items: center;
+    margin-top: clamp(-74px, -4vw, -12px);
 }
 
 .hero-title {
@@ -848,7 +851,7 @@ body.vsl-active .hero-vsl {
 /* VSL Transition Container */
 .hero-vsl {
     width: 100%;
-    max-width: 1080px;
+    max-width: none;
     position: relative;
     z-index: 10;
     margin-left: auto;
@@ -1221,7 +1224,7 @@ body.vsl-active .hero-vsl {
     align-items: end;
     justify-content: center;
     gap: clamp(1.25rem, 2vw, 2.5rem);
-    padding: 1.1rem 0 4.1rem;
+    padding: clamp(2.5rem, 5vh, 4rem) 0 4.1rem;
 }
 
 @media (max-width: 1600px) {
@@ -1231,7 +1234,7 @@ body.vsl-active .hero-vsl {
 
     .hero-split {
         grid-template-columns: minmax(440px, 510px) minmax(0, 1fr);
-        gap: clamp(20px, 2.2vw, 34px);
+        gap: clamp(18px, 2vw, 30px);
     }
 
     .hero-left-col {
@@ -1239,11 +1242,7 @@ body.vsl-active .hero-vsl {
     }
 
     .hero-right-col {
-        margin-top: clamp(-84px, -5.6vw, -24px);
-    }
-
-    .hero-vsl {
-        max-width: 980px;
+        margin-top: clamp(-60px, -3.8vw, -10px);
     }
 }
 
@@ -1259,6 +1258,7 @@ body.vsl-active .hero-vsl {
     .hero-split {
         grid-template-columns: minmax(430px, 500px) minmax(0, 1fr);
         gap: clamp(16px, 1.6vw, 22px);
+        min-height: calc(100svh - clamp(96px, 7vw, 112px) - 80px);
     }
 
     .hero-left-col {
@@ -1285,11 +1285,7 @@ body.vsl-active .hero-vsl {
     }
 
     .hero-right-col {
-        margin-top: clamp(-64px, -4.5vw, -18px);
-    }
-
-    .hero-vsl {
-        max-width: 900px;
+        margin-top: clamp(-42px, -3vw, -8px);
     }
 }
 
@@ -1301,6 +1297,7 @@ body.vsl-active .hero-vsl {
     .hero-split {
         grid-template-columns: minmax(420px, 500px) minmax(0, 1fr);
         gap: 16px;
+        min-height: calc(100svh - clamp(96px, 7vw, 112px) - 80px);
     }
 
     .hero-left-col {
@@ -1328,11 +1325,7 @@ body.vsl-active .hero-vsl {
     }
 
     .hero-right-col {
-        margin-top: -28px;
-    }
-
-    .hero-vsl {
-        max-width: 820px;
+        margin-top: -12px;
     }
 }
 
