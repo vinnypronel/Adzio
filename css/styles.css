@@ -1657,77 +1657,70 @@ body.vsl-active .hero-vsl {
     z-index: 2;
 }
 
+/* ── Satisfaction gauge: clean dashboard style ── */
+
+/* Kill all glow/pulse on the satisfaction stat */
+.stat--satisfaction .stat-visual::before { display: none; }
+.stat--satisfaction .stat-core-glow { display: none; }
+
+/* Outer progress arc — 94% cyan, 6% cream */
 .stat-gauge--outer {
-    inset: 11%;
+    inset: 3%;
     background:
-        conic-gradient(from 210deg,
-            rgba(23, 38, 47, 0.92) 0deg 26deg,
-            rgba(103, 236, 255, 0.96) 26deg 206deg,
-            rgba(255, 230, 178, 0.96) 206deg 322deg,
-            rgba(23, 38, 47, 0.92) 322deg 360deg);
+        conic-gradient(from 228deg,
+            #67ecff 0deg 338deg,
+            rgba(235, 215, 170, 0.9) 338deg 360deg);
     -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 22px), #000 calc(100% - 21px));
     mask: radial-gradient(farthest-side, transparent calc(100% - 22px), #000 calc(100% - 21px));
-    filter: drop-shadow(0 0 18px rgba(59, 165, 181, 0.4));
-    animation: stat-gauge-spin 16s linear infinite;
+    filter: none;
+    border-radius: 50%;
+    z-index: 4;
 }
 
+/* Subtle outer glow ring behind the arc */
+.stat-gauge-halo--one {
+    inset: 1%;
+    border: none;
+    background: transparent;
+    box-shadow: inset 0 0 0 3px rgba(103, 236, 255, 0.12), 0 0 28px rgba(59, 165, 181, 0.25);
+    animation: none;
+    z-index: 1;
+}
+
+/* Chrome border between outer arc and tick ring */
+.stat-gauge-halo--two {
+    inset: 16%;
+    border: 2px solid rgba(70, 85, 95, 0.45);
+    box-shadow: none;
+    animation: none;
+    z-index: 3;
+}
+
+/* Tick marks ring — clock-face style */
 .stat-gauge--middle {
     inset: 18%;
     background:
         repeating-conic-gradient(from 0deg,
-            rgba(103, 236, 255, 0.94) 0deg 9deg,
-            transparent 9deg 18deg,
-            rgba(255, 230, 178, 0.72) 18deg 25deg,
-            transparent 25deg 34deg);
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));
-    mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));
-    opacity: 0.78;
-    animation: stat-gauge-spin 22s linear infinite reverse;
+            rgba(130, 160, 170, 0.55) 0deg 2.5deg,
+            transparent 2.5deg 12deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
+    opacity: 1;
+    z-index: 3;
 }
 
+/* Inner dark face */
 .stat-gauge--inner {
-    inset: 29%;
-    background: radial-gradient(circle, rgba(12, 20, 27, 0.98) 0%, rgba(6, 10, 16, 0.96) 72%, rgba(111, 244, 255, 0.08) 100%);
-    border: 1px solid rgba(111, 244, 255, 0.16);
-    box-shadow: inset 0 0 18px rgba(111, 244, 255, 0.06), 0 0 22px rgba(59, 165, 181, 0.1);
-}
-
-.stat-gauge-halo--one {
-    inset: 8%;
-    border: 1px solid rgba(111, 244, 255, 0.12);
-    box-shadow: 0 0 16px rgba(111, 244, 255, 0.12);
-    animation: stat-gauge-spin 22s linear infinite;
-}
-
-.stat-gauge-halo--two {
-    inset: 15%;
-    border: 1px solid rgba(111, 244, 255, 0.08);
-    opacity: 0.65;
-    animation: stat-gauge-spin 16s linear infinite reverse;
-}
-
-.stat-eq {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 54px;
-    height: 40px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 4px;
-    transform: translate(-50%, -50%);
+    inset: 28%;
+    background: radial-gradient(circle, rgba(14, 22, 30, 1) 0%, rgba(8, 14, 20, 1) 70%, rgba(20, 30, 38, 1) 100%);
+    border: 2px solid rgba(55, 70, 80, 0.5);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
     z-index: 5;
 }
 
-.stat-eq span {
-    width: 6px;
-    height: var(--eq-height);
-    border-radius: 999px;
-    background: linear-gradient(180deg, rgba(174, 255, 255, 0.92), rgba(46, 160, 191, 0.45));
-    box-shadow: 0 0 12px rgba(59, 165, 181, 0.5);
-    animation: stat-eq-pulse 1.8s ease-in-out infinite;
-    animation-delay: var(--delay);
+/* Hide equalizer bars */
+.stat-eq {
+    display: none;
 }
 
 .stat-side-icon {
@@ -1769,8 +1762,18 @@ body.vsl-active .hero-vsl {
     background: radial-gradient(circle, rgba(255, 136, 242, 0.14) 0%, rgba(111, 244, 255, 0.16) 46%, transparent 74%);
 }
 
-.stat--satisfaction .stat-visual::before {
-    background: radial-gradient(circle, rgba(111, 244, 255, 0.2) 0%, rgba(255, 231, 180, 0.14) 42%, transparent 76%);
+/* Bottom connector line from gauge to label */
+.stat--satisfaction .stat-visual::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 18px;
+    background: linear-gradient(180deg, rgba(103, 236, 255, 0.5), transparent);
+    z-index: 10;
 }
 
 @keyframes stat-core-breathe {
@@ -3295,20 +3298,14 @@ body.vsl-active .hero-vsl {
 
 .footer {
     background: #0a0a0f;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: none;
     position: relative;
     overflow: hidden;
 }
 
 /* Subtle glow effect at top */
 .footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 184, 255, 0.5), transparent);
+    content: none;
 }
 
 /* Decorative Glows - using radial gradient instead of blur for performance */
@@ -3336,7 +3333,7 @@ body.vsl-active .hero-vsl {
 .footer-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 34px 40px 0;
+    padding: 28px 40px 14px;
     position: relative;
     z-index: 1;
 }
@@ -3347,9 +3344,9 @@ body.vsl-active .hero-vsl {
     justify-content: space-between;
     align-items: flex-start;
     gap: 48px;
-    margin-bottom: 28px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 /* Brand Section */
@@ -3436,8 +3433,7 @@ body.vsl-active .hero-vsl {
     display: flex;
     flex-direction: column;
     gap: 22px;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
 }
 
 .contact-item {
@@ -3500,6 +3496,7 @@ body.vsl-active .hero-vsl {
     color: #d7dde4;
     margin-top: 8px;
     line-height: 1.3;
+    align-self: center;
 }
 
 /* Footer Bottom */
@@ -3507,9 +3504,8 @@ body.vsl-active .hero-vsl {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 12px 0 16px;
-    margin-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 10px 0 0;
+    margin-top: 20px;
 }
 
 .footer-left {
@@ -3546,7 +3542,7 @@ body.vsl-active .hero-vsl {
     display: flex;
     gap: 14px;
     margin-top: 16px;
-    justify-content: center;
+    align-self: center;
 }
 
 .social-link {
