@@ -703,7 +703,7 @@ p {
 
 .hero-content {
     width: 100%;
-    max-width: 100%;
+    max-width: 1820px;
     margin: 0 auto;
     padding: 0 clamp(12px, 1.6vw, 22px) 0 clamp(24px, 3vw, 56px);
     position: relative;
@@ -714,9 +714,10 @@ p {
 
 .hero-split {
     display: grid;
-    grid-template-columns: minmax(460px, 530px) minmax(0, 1fr);
+    grid-template-columns: minmax(500px, 560px) minmax(860px, 1120px);
     align-items: center;
-    gap: clamp(20px, 2.2vw, 40px);
+    justify-content: space-between;
+    gap: clamp(18px, 1.8vw, 28px);
     width: 100%;
     min-height: calc(100svh - clamp(70px, 5.2vw, 88px) - 80px);
 }
@@ -725,7 +726,7 @@ p {
     width: 100%;
     max-width: 530px;
     text-align: left;
-    margin-top: clamp(12px, 1.8vw, 26px);
+    margin-top: clamp(30px, 3.1vw, 52px);
     padding-left: clamp(8px, 1.8vw, 24px);
 }
 
@@ -736,6 +737,8 @@ p {
     align-items: flex-start;
     align-self: start;
     margin-top: clamp(-52px, -3.8vw, -26px);
+    width: min(60vw, 1120px);
+    justify-self: end;
 }
 
 .hero-title {
@@ -861,7 +864,7 @@ body.vsl-active .hero-vsl {
 /* VSL Transition Container */
 .hero-vsl {
     width: 100%;
-    max-width: none;
+    max-width: min(60vw, 1120px);
     position: relative;
     z-index: 10;
     margin-left: auto;
@@ -1237,22 +1240,51 @@ body.vsl-active .hero-vsl {
     padding: clamp(2.5rem, 5vh, 4rem) 0 4.1rem;
 }
 
+@media (min-width: 1850px) {
+    .hero-content {
+        max-width: 1840px;
+        padding-right: 14px;
+    }
+
+    .hero-split {
+        grid-template-columns: minmax(520px, 560px) minmax(900px, 1140px);
+        gap: 24px;
+    }
+
+    .hero-left-col {
+        margin-top: 32px;
+    }
+
+    .hero-right-col,
+    .hero-vsl {
+        width: 1120px;
+        max-width: 1120px;
+    }
+}
+
 @media (max-width: 1600px) {
     .hero-content {
+        max-width: 1600px;
         padding: 0 clamp(12px, 1.5vw, 18px) 0 clamp(22px, 2.4vw, 42px);
     }
 
     .hero-split {
-        grid-template-columns: minmax(440px, 510px) minmax(0, 1fr);
-        gap: clamp(18px, 2vw, 30px);
+        grid-template-columns: minmax(470px, 520px) minmax(760px, 980px);
+        gap: clamp(16px, 1.7vw, 24px);
     }
 
     .hero-left-col {
         max-width: 510px;
+        margin-top: clamp(24px, 2.6vw, 42px);
     }
 
     .hero-right-col {
         margin-top: clamp(-46px, -3.2vw, -22px);
+        width: min(58vw, 980px);
+    }
+
+    .hero-vsl {
+        max-width: min(58vw, 980px);
     }
 }
 
@@ -1262,17 +1294,19 @@ body.vsl-active .hero-vsl {
     }
 
     .hero-content {
+        max-width: 1366px;
         padding: 0 clamp(10px, 1.2vw, 16px) 0 clamp(20px, 2vw, 32px);
     }
 
     .hero-split {
-        grid-template-columns: minmax(430px, 500px) minmax(0, 1fr);
+        grid-template-columns: minmax(430px, 500px) minmax(680px, 860px);
         gap: clamp(16px, 1.6vw, 22px);
         min-height: calc(100svh - clamp(64px, 5vw, 78px) - 80px);
     }
 
     .hero-left-col {
         max-width: 500px;
+        margin-top: clamp(22px, 2.3vw, 34px);
         padding-left: clamp(4px, 1vw, 12px);
     }
 
@@ -1296,6 +1330,11 @@ body.vsl-active .hero-vsl {
 
     .hero-right-col {
         margin-top: clamp(-38px, -2.6vw, -18px);
+        width: min(56vw, 860px);
+    }
+
+    .hero-vsl {
+        max-width: min(56vw, 860px);
     }
 }
 
@@ -1305,14 +1344,14 @@ body.vsl-active .hero-vsl {
     }
 
     .hero-split {
-        grid-template-columns: minmax(420px, 500px) minmax(0, 1fr);
+        grid-template-columns: minmax(410px, 480px) minmax(580px, 720px);
         gap: 16px;
         min-height: calc(100svh - clamp(64px, 5vw, 78px) - 80px);
     }
 
     .hero-left-col {
         max-width: 500px;
-        margin-top: 12px;
+        margin-top: 24px;
         padding-left: 0;
     }
 
@@ -1336,6 +1375,11 @@ body.vsl-active .hero-vsl {
 
     .hero-right-col {
         margin-top: -18px;
+        width: min(58vw, 720px);
+    }
+
+    .hero-vsl {
+        max-width: min(58vw, 720px);
     }
 }
 
