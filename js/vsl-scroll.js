@@ -1,6 +1,6 @@
 /**
- * VSL Scroll-Mapped Transition (v10 - Right-Aligned Hero Start)
- * Ribbit.dk style: Large Right Hero -> Small Fixed PiP
+ * VSL Scroll-Mapped Transition (v11 - Top-Right Corner Locked)
+ * Large hero VSL -> Small fixed PiP, anchored to the top-right the whole time.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const config = {
         pipWidth: 150,
-        pipTop: 5,
-        pipRight: 5,
+        pipTop: 8,
+        pipRight: 8,
         pipRadius: 12,
         transitionDistance: 700
     };
@@ -29,20 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let startGeom = null;
+    let activeProgress = 0;
+
+    const captureStartGeom = () => {
+        const rect = vslContainer.getBoundingClientRect();
+        const heroWidth = rect.width;
+        const heroHeight = rect.height || (heroWidth * 9) / 16;
+
+        startGeom = {
+            w: heroWidth,
+            h: heroHeight
+        };
+
+        // Preserve the original hero footprint so the layout doesn't collapse
+        // while the actual VSL stays fixed in the corner.
+        vslContainer.style.height = `${heroHeight}px`;
+    };
 
     const applyState = (p) => {
         const progress = Math.min(Math.max(p, 0), 1);
+        activeProgress = progress;
 
-        // 1. Hero State (Docked)
-        if (progress <= 0) {
-            document.body.classList.remove('vsl-active');
-            vslElement.classList.remove('vsl-pip-active');
-            vslElement.style.cssText = ''; // Hard reset to CSS defaults
-            startGeom = null;
-            return;
+        if (!startGeom) {
+            captureStartGeom();
         }
 
-        // 2. Active Transition / Fixed State
         if (!document.body.classList.contains('vsl-active')) {
             document.body.classList.add('vsl-active');
         }
@@ -50,47 +61,28 @@ document.addEventListener('DOMContentLoaded', () => {
             vslElement.classList.add('vsl-pip-active');
         }
 
-        // Capture initial position in hero context if not already done
-        if (!startGeom) {
-            // Temporarily revert to hero state to get accurate original bounds
-            vslElement.classList.remove('vsl-pip-active');
-            const rect = vslElement.getBoundingClientRect();
-            vslElement.classList.add('vsl-pip-active');
-            
-            startGeom = {
-                w: rect.width,
-                h: rect.height,
-                x: rect.left,
-                y: rect.top + window.scrollY // Page relative, but transition trigger is at 0
-            };
-        }
-
-        // Target (PiP) coordinates
+        // Target (PiP) size
         const tW = config.pipWidth;
         const tH = (config.pipWidth * 9) / 16;
-        const tX = window.innerWidth - config.pipWidth - config.pipRight;
-        const tY = config.pipTop;
 
-        // LERP values
+        // Resize only; keep the element anchored to the same corner for the entire scrub.
         const curW = startGeom.w + (tW - startGeom.w) * progress;
         const curH = startGeom.h + (tH - startGeom.h) * progress;
-        const curX = startGeom.x + (tX - startGeom.x) * progress;
-        const curY = 0 + (tY - 0) * progress; // Starts at viewport top (0)
-        const curR = config.pipRadius; // Always keep rounded corners
 
-        // Apply styles directly for max performance and precision
         gsap.set(vslElement, {
             width: curW,
             height: curH,
-            left: curX,
-            top: curY,
-            borderRadius: curR,
+            top: config.pipTop,
+            right: config.pipRight,
+            left: 'auto',
+            borderRadius: config.pipRadius,
             margin: 0,
             transform: 'none',
             x: 0,
             y: 0,
             position: 'fixed',
-            zIndex: 9999
+            zIndex: 9999,
+            transformOrigin: 'top right'
         });
     };
 
@@ -101,16 +93,26 @@ document.addEventListener('DOMContentLoaded', () => {
         end: `+=${config.transitionDistance}`,
         scrub: true,
         onUpdate: (self) => applyState(self.progress),
+        onRefreshInit: () => {
+            startGeom = null;
+            captureStartGeom();
+            applyState(activeProgress);
+        },
         onLeave: () => applyState(1), // Lock to PiP state on deep scrolls
         onEnterBack: () => applyState(1),
-        onLeaveBack: () => applyState(0) // Return to hero
+        onLeaveBack: () => applyState(0)
     });
 
     // Handle Window Resize
     window.addEventListener('resize', () => {
+        startGeom = null;
+        captureStartGeom();
         ScrollTrigger.refresh();
-        startGeom = null; // Re-capture on next scroll
+        applyState(activeProgress);
     });
+
+    captureStartGeom();
+    applyState(0);
 
     // Modal behavior persistent
     vslElement.addEventListener('click', () => {

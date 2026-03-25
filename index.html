@@ -20,12 +20,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=100.0">
+    <link rel="stylesheet" href="css/styles.css?v=101.2">
     <link rel="stylesheet" href="css/animations.css?v=39.0">
-    <link rel="stylesheet" href="css/problem.css?v=1.6">
-    <link rel="stylesheet" href="css/process.css?v=8.1">
+    <link rel="stylesheet" href="css/problem.css?v=2.1">
+    <link rel="stylesheet" href="css/process.css?v=8.2">
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -248,57 +249,39 @@
 
     <!-- Logo Carousel Section -->
     <section class="logo-slider">
-        <h2 class="slider-label"><span class="text-gradient">Driving Revenue</span> through the World's Leading
-            Platforms</h2>
+        <div class="logo-slider-shell">
+            <h2 class="slider-label"><span class="text-gradient">Driving Revenue</span> through the World's Leading
+                Platforms</h2>
 
-        <!-- Top Row - scrolls left (first 10 logos) -->
-        <div class="slide-track slide-track-top">
-            <div class="slide"><img src="business-logos/google.png" alt="Google"></div>
-            <div class="slide"><img src="business-logos/meta.png" alt="Meta"></div>
-            <div class="slide"><img src="business-logos/amazon.png" alt="Amazon"></div>
-            <div class="slide"><img src="business-logos/microsoft.png" alt="Microsoft"></div>
-            <div class="slide"><img src="business-logos/apple.png" alt="Apple"></div>
-            <div class="slide"><img src="business-logos/stripe.png" alt="Stripe"></div>
-            <div class="slide"><img src="business-logos/shopify.png" alt="Shopify"></div>
-            <div class="slide"><img src="business-logos/salesforce.png" alt="Salesforce"></div>
-            <div class="slide"><img src="business-logos/hubspot.png" alt="HubSpot"></div>
-            <div class="slide"><img src="business-logos/quickbooks.png" alt="QuickBooks"></div>
-            <!-- Duplicated for seamless infinite loop -->
-            <div class="slide"><img src="business-logos/google.png" alt="Google"></div>
-            <div class="slide"><img src="business-logos/meta.png" alt="Meta"></div>
-            <div class="slide"><img src="business-logos/amazon.png" alt="Amazon"></div>
-            <div class="slide"><img src="business-logos/microsoft.png" alt="Microsoft"></div>
-            <div class="slide"><img src="business-logos/apple.png" alt="Apple"></div>
-            <div class="slide"><img src="business-logos/stripe.png" alt="Stripe"></div>
-            <div class="slide"><img src="business-logos/shopify.png" alt="Shopify"></div>
-            <div class="slide"><img src="business-logos/salesforce.png" alt="Salesforce"></div>
-            <div class="slide"><img src="business-logos/hubspot.png" alt="HubSpot"></div>
-            <div class="slide"><img src="business-logos/quickbooks.png" alt="QuickBooks"></div>
-        </div>
+            <div class="logo-slider-viewport">
+                <div class="slide-track slide-track-top" data-carousel-row="top">
+                    <div class="slide"><img src="business-logos/google.png" alt="Google"></div>
+                    <div class="slide"><img src="business-logos/meta.png" alt="Meta"></div>
+                    <div class="slide"><img src="business-logos/amazon.png" alt="Amazon"></div>
+                    <div class="slide"><img src="business-logos/microsoft.png" alt="Microsoft"></div>
+                    <div class="slide"><img src="business-logos/apple.png" alt="Apple"></div>
+                    <div class="slide"><img src="business-logos/stripe.png" alt="Stripe"></div>
+                    <div class="slide"><img src="business-logos/shopify.png" alt="Shopify"></div>
+                    <div class="slide"><img src="business-logos/salesforce.png" alt="Salesforce"></div>
+                    <div class="slide"><img src="business-logos/hubspot.png" alt="HubSpot"></div>
+                    <div class="slide"><img src="business-logos/quickbooks.png" alt="QuickBooks"></div>
+                </div>
+            </div>
 
-        <!-- Bottom Row - scrolls right (next 10 logos) -->
-        <div class="slide-track slide-track-bottom">
-            <div class="slide"><img src="business-logos/visa.png" alt="Visa"></div>
-            <div class="slide"><img src="business-logos/mastercard.png" alt="Mastercard"></div>
-            <div class="slide"><img src="business-logos/amex.png" alt="American Express"></div>
-            <div class="slide"><img src="business-logos/ups.png" alt="UPS"></div>
-            <div class="slide"><img src="business-logos/fedex.png" alt="FedEx"></div>
-            <div class="slide"><img src="business-logos/square.png" alt="Square"></div>
-            <div class="slide"><img src="business-logos/paypal.png" alt="PayPal"></div>
-            <div class="slide"><img src="business-logos/zoom.png" alt="Zoom"></div>
-            <div class="slide"><img src="business-logos/slack.png" alt="Slack"></div>
-            <div class="slide"><img src="business-logos/notion.png" alt="Notion"></div>
-            <!-- Duplicated for seamless infinite loop -->
-            <div class="slide"><img src="business-logos/visa.png" alt="Visa"></div>
-            <div class="slide"><img src="business-logos/mastercard.png" alt="Mastercard"></div>
-            <div class="slide"><img src="business-logos/amex.png" alt="American Express"></div>
-            <div class="slide"><img src="business-logos/ups.png" alt="UPS"></div>
-            <div class="slide"><img src="business-logos/fedex.png" alt="FedEx"></div>
-            <div class="slide"><img src="business-logos/square.png" alt="Square"></div>
-            <div class="slide"><img src="business-logos/paypal.png" alt="PayPal"></div>
-            <div class="slide"><img src="business-logos/zoom.png" alt="Zoom"></div>
-            <div class="slide"><img src="business-logos/slack.png" alt="Slack"></div>
-            <div class="slide"><img src="business-logos/notion.png" alt="Notion"></div>
+            <div class="logo-slider-viewport">
+                <div class="slide-track slide-track-bottom" data-carousel-row="bottom">
+                    <div class="slide"><img src="business-logos/visa.png" alt="Visa"></div>
+                    <div class="slide"><img src="business-logos/mastercard.png" alt="Mastercard"></div>
+                    <div class="slide"><img src="business-logos/amex.png" alt="American Express"></div>
+                    <div class="slide"><img src="business-logos/ups.png" alt="UPS"></div>
+                    <div class="slide"><img src="business-logos/fedex.png" alt="FedEx"></div>
+                    <div class="slide"><img src="business-logos/square.png" alt="Square"></div>
+                    <div class="slide"><img src="business-logos/paypal.png" alt="PayPal"></div>
+                    <div class="slide"><img src="business-logos/zoom.png" alt="Zoom"></div>
+                    <div class="slide"><img src="business-logos/slack.png" alt="Slack"></div>
+                    <div class="slide"><img src="business-logos/notion.png" alt="Notion"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -306,132 +289,116 @@
     <section class="problem-section" id="problem">
         <div id="pin-wrapper">
             <div id="pin-panel">
-
                 <div id="bg-glow"></div>
-
-                <div id="pips">
-                    <div class="pip"></div>
-                    <div class="pip"></div>
-                    <div class="pip"></div>
-                    <div class="pip"></div>
-                    <div class="pip"></div>
-                </div>
-
-                <div id="scroll-hint">
-                    <span>Scroll</span>
-                    <div class="scroll-arrow"></div>
-                </div>
-
-                <!-- SLIDE 0 — The Problem title -->
-                <div class="slide-problem" id="slide-0">
-                    <p class="s0-label">
-                        <span class="the">THE</span>
-                        <span class="problem">PROBLEM</span>
-                    </p>
-                    <div class="s0-bottom">
-                        <p class="s0-desc">Every day without the right strategy costs you customers, cash, and ground to
-                            your competitors. What follows is exactly what's killing your growth.</p>
-                        <div class="s0-stat">
-                            <span class="s0-stat-num">91%</span>
-                            <span class="s0-stat-label">of clicks go to the top 3 ads</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 1 — Invisible Online (directly after problem) -->
-                <div class="slide-problem" id="slide-1">
-                    <p class="s4-label">— MOST BUSINESSES ARE...</p>
-                    <div class="s4-title">
-                        <span class="line-ghost">INVISIBLE</span>
-                        <span class="line-solid">TO THE</span>
-                        <span class="line-red">CUSTOMERS</span>
-                    </div>
-                    <div class="s4-grid">
-                        <div class="s4-card">
-                            <span class="s4-card-num">97%</span>
-                            <span class="s4-card-label">Never found</span>
-                            <p class="s4-card-desc">Of people search online before buying — if you're not showing up,
-                                they're buying from someone else.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 2 — Time Drain -->
-                <div class="slide-problem" id="slide-2">
-                    <div class="pain-inner">
-                        <div>
-                            <span class="pain-tag">01 · Time Drain</span>
-                            <h2 class="pain-heading">Hours spent on <em>marketing that goes nowhere</em></h2>
-                            <p class="pain-body">You're burning your most valuable resource — time — on random posts and
-                                boosted content that earns zero engagement and drives zero revenue.</p>
-                        </div>
-                        <div class="pain-visual">
-                            <div class="icon-ring">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10" class="icon-clock-face" />
-                                    <g class="icon-clock-hand icon-clock-hand--hour">
-                                        <line x1="12" y1="12" x2="12" y2="8.2" />
-                                    </g>
-                                    <g class="icon-clock-hand icon-clock-hand--minute">
-                                        <line x1="12" y1="12" x2="15.3" y2="13.9" />
-                                    </g>
-                                </svg>
+                <div class="problem-stage">
+                    <div class="problem-hero problem-panel problem-parallax" data-shift="-18">
+                        <div class="problem-intro-copy">
+                            <p class="s0-label">
+                                <span class="the">THE</span>
+                                <span class="problem">PROBLEM</span>
+                            </p>
+                            <div class="s0-bottom">
+                                <p class="s0-desc">Every day without the right strategy costs you customers, cash, and ground to
+                                    your competitors. What follows is exactly what's killing your growth.</p>
+                                <div class="s0-stat">
+                                    <span class="s0-stat-num">91%</span>
+                                    <span class="s0-stat-label">of clicks go to the top 3 ads</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ghost-num">01</div>
-                </div>
 
-                <!-- SLIDE 3 — Budget Burn -->
-                <div class="slide-problem" id="slide-3">
-                    <div class="pain-inner">
-                        <div>
-                            <span class="pain-tag">02 · Budget Burn</span>
-                            <h2 class="pain-heading">Ad spend that <em>vanishes without converting</em></h2>
-                            <p class="pain-body">Untargeted campaigns drain your budget daily. Without precision
-                                targeting you're paying to reach people who will never buy — handing revenue to your
-                                competitors.</p>
+                    <div class="problem-spotlight problem-panel problem-parallax" id="problem-visibility" data-shift="10">
+                        <div class="problem-spotlight-copy">
+                            <p class="s4-label">— MOST BUSINESSES ARE...</p>
+                            <div class="s4-title">
+                                <span class="line-ghost">INVISIBLE</span>
+                                <span class="line-solid">TO THE</span>
+                                <span class="line-red">CUSTOMERS</span>
+                            </div>
                         </div>
-                        <div class="pain-visual">
-                            <div class="icon-ring">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="1.5" x2="12" y2="22.5" class="icon-money-stem" />
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" class="icon-money-curve" />
-                                </svg>
+                        <div class="s4-grid">
+                            <div class="s4-card">
+                                <span class="s4-card-num">97%</span>
+                                <span class="s4-card-label">Never found</span>
+                                <p class="s4-card-desc">Of people search online before buying — if you're not showing up,
+                                    they're buying from someone else.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="ghost-num">02</div>
-                </div>
 
-                <!-- SLIDE 4 — Lost Customers -->
-                <div class="slide-problem" id="slide-4">
-                    <div class="pain-inner">
-                        <div>
-                            <span class="pain-tag">03 · Lost Customers</span>
-                            <h2 class="pain-heading">Competitors <em>winning your customers</em> right now</h2>
-                            <p class="pain-body">While you figure this out, competitors run sharp targeted campaigns
-                                stealing your ideal clients before you get a chance. Every scroll is a lost sale.</p>
-                        </div>
-                        <div class="pain-visual">
-                            <div class="icon-ring">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="8.2" cy="8.1" r="2.8" class="icon-people-head icon-people-head--main" />
-                                    <path d="M3.6 18.6c0-2.55 2.05-4.6 4.6-4.6h1c2.55 0 4.6 2.05 4.6 4.6" class="icon-people-body icon-people-body--main" />
-                                    <circle cx="15.7" cy="9.1" r="2.1" class="icon-people-head icon-people-head--alt" />
-                                    <path d="M12.9 18.5c0-2.05 1.65-3.7 3.7-3.7h.55c2.05 0 3.7 1.65 3.7 3.7" class="icon-people-body icon-people-body--alt" />
-                                    <path d="M18.35 4.9c1.2.45 2.1 1.45 2.45 2.7" class="icon-people-signal icon-people-signal--one" />
-                                    <path d="M19.5 3.2c1.85.65 3.25 2.2 3.75 4.15" class="icon-people-signal icon-people-signal--two" />
-                                </svg>
+                    <div class="problem-card-grid">
+                        <article class="problem-card problem-panel problem-parallax" id="problem-card-time" data-shift="14">
+                            <div class="pain-inner">
+                                <div>
+                                    <span class="pain-tag">01 · Time Drain</span>
+                                    <h2 class="pain-heading">Hours spent on <em>marketing that goes nowhere</em></h2>
+                                    <p class="pain-body">You're burning your most valuable resource — time — on random posts and
+                                        boosted content that earns zero engagement and drives zero revenue.</p>
+                                </div>
+                                <div class="pain-visual">
+                                    <div class="icon-ring">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10" class="icon-clock-face" />
+                                            <g class="icon-clock-hand icon-clock-hand--hour">
+                                                <line x1="12" y1="12" x2="12" y2="8.2" />
+                                            </g>
+                                            <g class="icon-clock-hand icon-clock-hand--minute">
+                                                <line x1="12" y1="12" x2="15.3" y2="13.9" />
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="ghost-num">03</div>
-                </div>
+                        </article>
 
+                        <article class="problem-card problem-panel problem-parallax" id="problem-card-budget" data-shift="18">
+                            <div class="pain-inner">
+                                <div>
+                                    <span class="pain-tag">02 · Budget Burn</span>
+                                    <h2 class="pain-heading">Ad spend that <em>vanishes without converting</em></h2>
+                                    <p class="pain-body">Untargeted campaigns drain your budget daily. Without precision
+                                        targeting you're paying to reach people who will never buy — handing revenue to your
+                                        competitors.</p>
+                                </div>
+                                <div class="pain-visual">
+                                    <div class="icon-ring">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="12" y1="1.5" x2="12" y2="22.5" class="icon-money-stem" />
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" class="icon-money-curve" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="problem-card problem-panel problem-parallax" id="problem-card-competition" data-shift="12">
+                            <div class="pain-inner">
+                                <div>
+                                    <span class="pain-tag">03 · Lost Customers</span>
+                                    <h2 class="pain-heading">Competitors <em>winning your customers</em> right now</h2>
+                                    <p class="pain-body">While you figure this out, competitors run sharp targeted campaigns
+                                        stealing your ideal clients before you get a chance. Every scroll is a lost sale.</p>
+                                </div>
+                                <div class="pain-visual">
+                                    <div class="icon-ring">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="8.2" cy="8.1" r="2.8" class="icon-people-head icon-people-head--main" />
+                                            <path d="M3.6 18.6c0-2.55 2.05-4.6 4.6-4.6h1c2.55 0 4.6 2.05 4.6 4.6" class="icon-people-body icon-people-body--main" />
+                                            <circle cx="15.7" cy="9.1" r="2.1" class="icon-people-head icon-people-head--alt" />
+                                            <path d="M12.9 18.5c0-2.05 1.65-3.7 3.7-3.7h.55c2.05 0 3.7 1.65 3.7 3.7" class="icon-people-body icon-people-body--alt" />
+                                            <path d="M18.35 4.9c1.2.45 2.1 1.45 2.45 2.7" class="icon-people-signal icon-people-signal--one" />
+                                            <path d="M19.5 3.2c1.85.65 3.25 2.2 3.75 4.15" class="icon-people-signal icon-people-signal--two" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -966,8 +933,8 @@
     <script src="js/phone-animation-data.js?v=1007"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js?v=50.3"></script>
-    <script src="js/problem.js?v=1.3"></script>
+    <script src="js/main.js?v=50.6"></script>
+    <script src="js/problem.js?v=1.6"></script>
 
 
     <!-- Navbar Morphing Script -->
@@ -1104,7 +1071,7 @@
             sections.forEach(s => observer.observe(s));
         })();
     </script>
-    <script src="js/vsl-scroll.js"></script>
+    <script src="js/vsl-scroll.js?v=13"></script>
 </body>
 
 </html>

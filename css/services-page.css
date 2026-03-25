@@ -155,10 +155,10 @@
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-color-soft) 1px, transparent 1px);
     background-size: 46px 46px;
-    opacity: 0.45;
+    opacity: 0.34;
 }
 
 .hero-orbital-stage::after {
@@ -446,10 +446,10 @@
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-color-soft) 1px, transparent 1px);
     background-size: 52px 52px;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 .service-canvas::after {

@@ -13,12 +13,14 @@
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    background-color: var(--bg-primary);
-    background-image:
-        linear-gradient(var(--border-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-position: top center;
+    background:
+        radial-gradient(circle at 52% 14%, var(--grid-glow-primary) 0%, transparent 34%),
+        radial-gradient(circle at 80% 82%, var(--grid-glow-secondary) 0%, transparent 28%),
+        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-color-soft) 1px, transparent 1px),
+        linear-gradient(180deg, var(--grid-surface-top) 0%, var(--grid-surface-bottom) 100%);
+    background-size: auto, auto, 60px 60px, 60px 60px, auto;
+    background-position: center, center, top center, top center, center;
     background-attachment: fixed;
     position: relative;
     display: flex;

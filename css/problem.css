@@ -15,21 +15,51 @@
    the panel and scrubs slides
 ════════════════════════════════ */
 #pin-panel {
-    height: 100vh;
+    --problem-grid-x: 0px;
+    --problem-grid-y: 0px;
+    --problem-grid-scale: 1;
+    --problem-sweep-x: 28%;
+    --problem-sweep-y: 46%;
+    height: 100svh;
     width: 100%;
     overflow: hidden;
-    background-color: var(--bg-primary);
-    background-image:
-        linear-gradient(var(--border-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-position: top center;
-    background-attachment: fixed;
+    background:
+        linear-gradient(180deg, rgba(3, 7, 11, 0.96) 0%, rgba(6, 10, 15, 0.985) 100%);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'DM Sans', sans-serif;
+    isolation: isolate;
+}
+
+#pin-panel::before {
+    content: '';
+    position: absolute;
+    inset: -8%;
+    background-image:
+        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-color-soft) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: calc(50% + var(--problem-grid-x)) var(--problem-grid-y);
+    transform: scale(var(--problem-grid-scale));
+    transform-origin: center;
+    opacity: 0.68;
+    z-index: 0;
+    will-change: transform, background-position;
+}
+
+#pin-panel::after {
+    content: '';
+    position: absolute;
+    inset: -12%;
+    background:
+        radial-gradient(circle at var(--problem-sweep-x) var(--problem-sweep-y), rgba(0, 229, 200, 0.12) 0%, transparent 30%),
+        radial-gradient(circle at 78% 18%, rgba(43, 92, 255, 0.09) 0%, transparent 24%),
+        radial-gradient(circle at 16% 82%, rgba(255, 60, 60, 0.06) 0%, transparent 22%);
+    opacity: 0.92;
+    z-index: 0;
+    pointer-events: none;
 }
 
 
@@ -38,8 +68,8 @@
 /* glow */
 #bg-glow {
     position: absolute;
-    width: 800px;
-    height: 800px;
+    width: clamp(520px, 48vw, 860px);
+    height: clamp(520px, 48vw, 860px);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -47,6 +77,10 @@
     pointer-events: none;
     z-index: 0;
     background: radial-gradient(circle, rgba(0, 229, 200, 0.06) 0%, transparent 65%);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    filter: blur(6px);
+    will-change: transform, opacity, background;
 }
 
 /* pips */
@@ -128,10 +162,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 8vw;
+    padding: 0 clamp(5vw, 7vw, 9vw);
     z-index: 2;
     pointer-events: none;
     /* visibility and opacity controlled entirely by GSAP */
+    will-change: opacity, transform;
 }
 
 /* ── Slide 0 — full screen statement ── */
@@ -139,7 +174,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 0 10vw;
+    padding: 0 clamp(7vw, 9vw, 11vw);
 }
 
 .s0-label {
@@ -170,13 +205,13 @@
 }
 
 .s0-bottom {
-    margin-top: 52px;
+    margin-top: clamp(34px, 4vh, 52px);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     width: 100%;
-    max-width: 1100px;
-    gap: 40px;
+    max-width: 1180px;
+    gap: clamp(24px, 3vw, 40px);
 }
 
 .s0-desc {
@@ -190,6 +225,12 @@
 .s0-stat {
     text-align: right;
     flex-shrink: 0;
+    padding: 18px 22px;
+    border-radius: 20px;
+    background: rgba(8, 14, 20, 0.55);
+    border: 1px solid rgba(0, 229, 200, 0.12);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28), 0 0 35px rgba(0, 229, 200, 0.08);
+    backdrop-filter: blur(14px);
 }
 
 .s0-stat-num {
@@ -214,8 +255,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 80px;
-    max-width: 1100px;
+    gap: clamp(48px, 5vw, 88px);
+    max-width: 1180px;
     width: 100%;
 }
 
@@ -308,13 +349,13 @@
 }
 
 .icon-money-stem {
-    stroke-dasharray: 21;
-    stroke-dashoffset: 21;
+    stroke-dasharray: 64;
+    stroke-dashoffset: 64;
 }
 
 .icon-money-curve {
-    stroke-dasharray: 28;
-    stroke-dashoffset: 28;
+    stroke-dasharray: 64;
+    stroke-dashoffset: 64;
 }
 
 .icon-people-head {
@@ -582,7 +623,7 @@
 #slide-1 {
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 10vw;
+    padding: 0 clamp(7vw, 9vw, 11vw);
     justify-content: center;
 }
 
@@ -593,8 +634,8 @@
 
 #slide-1 .s4-grid {
     position: absolute;
-    right: 10vw;
-    bottom: clamp(60px, 8vh, 100px);
+    right: clamp(7vw, 9vw, 11vw);
+    bottom: clamp(64px, 11vh, 120px);
     margin-left: 0;
     width: clamp(200px, 20vw, 270px);
 }
@@ -730,5 +771,322 @@
     #pips {
         right: 10px;
         left: auto !important;
+    }
+}
+
+/* ============================================
+   ONE-PAGE PROBLEM STAGE
+   ============================================ */
+
+#pin-wrapper {
+    position: relative;
+}
+
+#pin-panel {
+    min-height: 100svh;
+    height: auto;
+    overflow: clip;
+    display: block;
+    padding: clamp(86px, 8vw, 120px) 0 clamp(110px, 10vw, 160px);
+}
+
+#bg-glow {
+    top: 16%;
+    left: 62%;
+    transform: translate(-50%, 0);
+}
+
+.problem-stage {
+    position: relative;
+    z-index: 2;
+    width: min(1440px, calc(100% - clamp(32px, 6vw, 96px)));
+    margin: 0 auto;
+    display: grid;
+    gap: clamp(38px, 5vw, 82px);
+}
+
+.problem-parallax {
+    will-change: transform;
+}
+
+.problem-panel {
+    position: relative;
+    overflow: visible;
+    border-radius: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.problem-panel::before {
+    display: none;
+}
+
+.problem-hero {
+    min-height: min(76svh, 760px);
+    padding: 0 clamp(28px, 3vw, 44px);
+    display: flex;
+    align-items: flex-end;
+}
+
+.problem-intro-copy {
+    width: 100%;
+}
+
+.problem-hero .s0-label {
+    margin-bottom: 0;
+}
+
+.problem-hero .s0-bottom {
+    margin-top: clamp(28px, 4vh, 48px);
+    max-width: none;
+}
+
+.problem-hero .s0-desc {
+    max-width: 520px;
+}
+
+.problem-hero .s0-stat {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.problem-spotlight {
+    padding: 0 clamp(28px, 3vw, 44px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) clamp(220px, 20vw, 290px);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+}
+
+.problem-spotlight .s4-label {
+    margin-bottom: 18px;
+}
+
+.problem-spotlight .s4-title {
+    width: auto;
+    max-width: 8.4ch;
+    font-size: clamp(4rem, 9vw, 10rem);
+}
+
+.problem-spotlight .s4-grid {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin: 0;
+}
+
+.problem-spotlight .s4-card {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: clamp(6px, 1vw, 12px) 0 0;
+    box-shadow: none;
+}
+
+.problem-spotlight .s4-card::before {
+    width: 72px;
+    height: 2px;
+    top: 0;
+    left: 0;
+}
+
+.problem-card-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(18px, 3vw, 42px);
+    align-items: start;
+}
+
+.problem-card {
+    padding: 0 clamp(18px, 2vw, 28px);
+}
+
+#problem-card-time {
+    grid-column: 1 / span 7;
+    margin-top: clamp(10px, 2vw, 28px);
+}
+
+#problem-card-budget {
+    grid-column: 7 / -1;
+    margin-top: clamp(72px, 9vw, 136px);
+}
+
+#problem-card-competition {
+    grid-column: 3 / span 8;
+    margin-top: clamp(12px, 2vw, 28px);
+}
+
+.problem-card .pain-inner {
+    max-width: none;
+    gap: clamp(22px, 3vw, 46px);
+    grid-template-columns: minmax(0, 1.2fr) minmax(180px, 0.8fr);
+    align-items: start;
+}
+
+.problem-card .pain-body {
+    max-width: 44ch;
+}
+
+.problem-card .pain-visual {
+    min-height: 100%;
+}
+
+.problem-card .icon-ring {
+    width: clamp(148px, 12vw, 210px);
+    height: clamp(148px, 12vw, 210px);
+}
+
+.problem-card .pain-visual {
+    padding-top: clamp(10px, 2vw, 24px);
+}
+
+#problem-card-time .pain-tag {
+    background: rgba(245, 166, 35, 0.15);
+    color: var(--gold);
+}
+
+#problem-card-time .pain-heading em {
+    color: var(--gold);
+}
+
+#problem-card-time .icon-ring {
+    background: rgba(245, 166, 35, 0.12);
+    color: var(--gold);
+    box-shadow: 0 0 70px rgba(245, 166, 35, 0.18);
+}
+
+#problem-card-budget .pain-tag {
+    background: rgba(255, 60, 60, 0.15);
+    color: var(--red);
+}
+
+#problem-card-budget .pain-heading em {
+    color: var(--red);
+}
+
+#problem-card-budget .icon-ring {
+    background: rgba(255, 60, 60, 0.12);
+    color: var(--red);
+    box-shadow: 0 0 70px rgba(255, 60, 60, 0.18);
+}
+
+#problem-card-competition .pain-tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.74);
+}
+
+#problem-card-competition .pain-heading em {
+    color: var(--white);
+}
+
+#problem-card-competition .icon-ring {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 0 120px rgba(255, 255, 255, 0.06);
+}
+
+#problem-card-competition .icon-ring::before {
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+#problem-card-competition .icon-ring::after {
+    border-color: rgba(255, 255, 255, 0.09);
+}
+
+#problem-card-time .icon-ring.icon-animate svg {
+    animation: problemIconClock 0.9s ease-out forwards;
+}
+
+#problem-card-time .icon-ring.icon-animate .icon-clock-hand--minute {
+    animation: problemClockMinuteSweep 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#problem-card-time .icon-ring.icon-animate .icon-clock-hand--hour {
+    animation: problemClockHourSweep 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#problem-card-budget .icon-ring.icon-animate svg {
+    animation: problemIconMoneyPop 0.9s ease-out forwards;
+}
+
+#problem-card-budget .icon-ring.icon-animate .icon-money-stem {
+    --draw-len: 64;
+    animation: problemDrawStroke 0.95s ease-out forwards;
+}
+
+#problem-card-budget .icon-ring.icon-animate .icon-money-curve {
+    --draw-len: 64;
+    animation: problemDrawStroke 0.95s ease-out forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate svg {
+    animation: problemPeopleSettle 0.95s ease-out forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate .icon-people-head--main {
+    animation: problemHeadPop 0.55s ease-out forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate .icon-people-body--main {
+    animation: problemDrawStroke 0.8s ease-out 80ms forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate .icon-people-head--alt {
+    animation: problemHeadPop 0.5s ease-out 150ms forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate .icon-people-body--alt {
+    animation: problemDrawStroke 0.75s ease-out 190ms forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate .icon-people-signal--one {
+    animation: problemDrawStroke 0.55s ease-out 280ms forwards;
+}
+
+#problem-card-competition .icon-ring.icon-animate .icon-people-signal--two {
+    animation: problemDrawStroke 0.6s ease-out 360ms forwards;
+}
+
+@media (max-width: 1180px) {
+    .problem-spotlight {
+        grid-template-columns: 1fr;
+    }
+
+    .problem-spotlight .s4-title {
+        max-width: none;
+    }
+
+    .problem-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #problem-card-time,
+    #problem-card-budget,
+    #problem-card-competition {
+        grid-column: auto;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    #pin-panel {
+        padding-top: 72px;
+    }
+
+    .problem-stage {
+        width: min(100%, calc(100% - 28px));
+    }
+
+    .problem-hero,
+    .problem-spotlight,
+    .problem-card {
+        padding: 0 14px;
     }
 }

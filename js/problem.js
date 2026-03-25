@@ -12,143 +12,101 @@ function restartIconAnimation(wrapper, selector) {
 }
 
 function initProblemSection() {
-    if (!document.getElementById('pin-wrapper')) return;
+    const section = document.querySelector('.problem-section');
+    const panel = document.getElementById('pin-panel');
+    const stage = section?.querySelector('.problem-stage');
+    if (!section || !panel || !stage) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const VH = 200;
-    const ENTER_FRAC = 0.35;
-    const HOLD_FRAC = 0.45;
-    const EXIT_FRAC = 0.20;
-
-    const pipEls = gsap.utils.toArray('.pip');
     const glow = document.getElementById('bg-glow');
-    const hint = document.getElementById('scroll-hint');
+    const parallaxEls = gsap.utils.toArray('.problem-parallax');
+    const revealEls = gsap.utils.toArray('.problem-panel, .s4-card');
+    const iconHosts = gsap.utils.toArray('.problem-card');
 
-    const glowColors = [
-        'radial-gradient(circle, rgba(0,229,200,0.06) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(255,60,60,0.07) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(255,60,60,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(0,229,200,0.06) 0%, transparent 65%)',
-    ];
+    function setBackdrop(progress) {
+        const gridX = -180 * progress + Math.sin(progress * Math.PI * 2.4) * 22;
+        const gridY = 135 * progress;
+        const gridScale = 1 + progress * 0.1;
+        const sweepX = 22 + progress * 52;
+        const sweepY = 34 + Math.sin(progress * Math.PI * 1.8) * 10;
 
-    function setActivePip(i) {
-        pipEls.forEach((p, idx) => p.classList.toggle('active', idx === i));
-        glow.style.background = glowColors[i];
+        panel.style.setProperty('--problem-grid-x', `${gridX.toFixed(2)}px`);
+        panel.style.setProperty('--problem-grid-y', `${gridY.toFixed(2)}px`);
+        panel.style.setProperty('--problem-grid-scale', gridScale.toFixed(3));
+        panel.style.setProperty('--problem-sweep-x', `${sweepX.toFixed(2)}%`);
+        panel.style.setProperty('--problem-sweep-y', `${sweepY.toFixed(2)}%`);
+
+        if (glow) {
+            gsap.set(glow, {
+                xPercent: -50 + Math.sin(progress * Math.PI * 2.1) * 11,
+                yPercent: -2 + progress * 18,
+                scale: 1 + Math.sin(progress * Math.PI * 1.1) * 0.12,
+                opacity: 0.8 + Math.sin(progress * Math.PI * 1.2) * 0.09,
+                overwrite: true
+            });
+        }
     }
 
-    const SLIDES = [
-        ['.s0-label .the', '.s0-label .problem', '.s0-desc', '.s0-stat'],
-        ['#slide-1 .s4-label', '.s4-title .line-ghost', '.s4-title .line-solid', '.s4-title .line-red', '#slide-1 .s4-grid'],
-        ['#slide-2 .pain-tag', '#slide-2 .pain-heading', '#slide-2 .pain-body', '#slide-2 .pain-visual', '#slide-2 .ghost-num'],
-        ['#slide-3 .pain-tag', '#slide-3 .pain-heading', '#slide-3 .pain-body', '#slide-3 .pain-visual', '#slide-3 .ghost-num'],
-        ['#slide-4 .pain-tag', '#slide-4 .pain-heading', '#slide-4 .pain-body', '#slide-4 .pain-visual', '#slide-4 .ghost-num'],
-    ];
-
-    const SLIDE_IDS = ['slide-0', 'slide-1', 'slide-2', 'slide-3', 'slide-4'];
-    const NUM = SLIDES.length;
-
-    const SLIDE_ELS = SLIDES.map(sels => sels.map(sel => document.querySelector(sel)).filter(Boolean));
-    const SLIDE_WRAPPERS = SLIDE_IDS.map(id => document.getElementById(id));
-
-    // Pin
     ScrollTrigger.create({
-        trigger: '#pin-wrapper',
-        start: 'top top',
-        end: `+=${NUM * VH}vh`,
-        pin: '#pin-panel',
-        pinSpacing: true,
-        anticipatePin: 1,
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.9,
+        onUpdate: self => setBackdrop(self.progress),
+        onRefresh: self => setBackdrop(self.progress)
     });
 
-    // Hide all wrappers initially
-    SLIDE_WRAPPERS.forEach(w => { w.style.visibility = 'hidden'; w.style.pointerEvents = 'none'; });
-
-    SLIDES.forEach((selectors, si) => {
-        const els = SLIDE_ELS[si];
-        const wrapper = SLIDE_WRAPPERS[si];
-        const zoneStart = si * VH;
-        const zoneEnd = zoneStart + VH;
-        const enterLen = VH * ENTER_FRAC;
-        const exitStart = zoneStart + VH * (ENTER_FRAC + HOLD_FRAC);
-        const sliceVH = enterLen / selectors.length;
-
-        // ── BUILD ONE MASTER TIMELINE for this slide ──
-        const tl = gsap.timeline({ paused: true });
-
-        // Set initial state
-        selectors.forEach((sel, ei) => {
-            const el = els[ei];
-            if (!el) return;
-            const isRight = sel.includes('visual') || sel.includes('s4-grid') || sel.includes('s0-stat');
-            gsap.set(el, { opacity: 0, y: 60, x: isRight ? 50 : 0, force3D: true });
-        });
-
-        // Enter phase: each element gets its own slice of time
-        selectors.forEach((sel, ei) => {
-            const el = els[ei];
-            if (!el) return;
-            const isRight = sel.includes('visual') || sel.includes('s4-grid') || sel.includes('s0-stat');
-            const sliceStart = (ei * sliceVH) / VH;        // fraction of total zone
-            const sliceEnd = ((ei + 1) * sliceVH) / VH;
-
-            tl.fromTo(el,
-                { opacity: 0, y: 60, x: isRight ? 50 : 0 },
-                { opacity: 1, y: 0, x: 0, ease: 'power2.out', force3D: true, duration: sliceEnd - sliceStart },
-                sliceStart  // insert at this position in the timeline
-            );
-        });
-
-        // Hold phase
-        tl.to({}, { duration: HOLD_FRAC }, ENTER_FRAC);
-
-        // Exit phase
-        tl.to(els,
-            { opacity: 0, y: -60, ease: 'power2.in', force3D: true, stagger: 0, duration: EXIT_FRAC },
-            ENTER_FRAC + HOLD_FRAC
+    parallaxEls.forEach(el => {
+        const shift = parseFloat(el.dataset.shift || '12');
+        gsap.fromTo(
+            el,
+            { y: -shift },
+            {
+                y: shift,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            }
         );
+    });
 
-        // ── SCRUB the master timeline directly with ScrollTrigger ──
+    revealEls.forEach((el, index) => {
+        const revealOffset = index === 1 ? 60 : 44;
+        const revealX = el.classList.contains('s4-card') ? 30 : (index % 2 === 0 ? -16 : 16);
+
+        gsap.fromTo(
+            el,
+            { autoAlpha: 0, y: revealOffset, x: revealX },
+            {
+                autoAlpha: 1,
+                y: 0,
+                x: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 88%',
+                    end: 'top 56%',
+                    scrub: 0.85
+                }
+            }
+        );
+    });
+
+    iconHosts.forEach(host => {
         ScrollTrigger.create({
-            trigger: '#pin-wrapper',
-            start: `top+=${zoneStart}vh top`,
-            end: `top+=${zoneEnd}vh top`,
-            scrub: 0.8,
-            animation: tl,
-            onEnter: () => {
-                wrapper.style.visibility = 'visible';
-                setActivePip(si);
-                restartIconAnimation(wrapper, '.icon-ring');
-            },
-            onEnterBack: () => {
-                wrapper.style.visibility = 'visible';
-                setActivePip(si);
-                restartIconAnimation(wrapper, '.icon-ring');
-            },
-            onLeave: () => {
-                wrapper.style.visibility = 'hidden';
-                const icon = wrapper.querySelector('.icon-ring');
-                if (icon) icon.classList.remove('icon-animate');
-            },
-            onLeaveBack: () => {
-                wrapper.style.visibility = 'hidden';
-                const icon = wrapper.querySelector('.icon-ring');
-                if (icon) icon.classList.remove('icon-animate');
-            },
+            trigger: host,
+            start: 'top 76%',
+            onEnter: () => restartIconAnimation(host, '.icon-ring'),
+            onEnterBack: () => restartIconAnimation(host, '.icon-ring')
         });
     });
 
-    // Scroll hint
-    ScrollTrigger.create({
-        trigger: '#pin-wrapper',
-        start: 'top top',
-        end: `top+=${VH * 0.3}vh top`,
-        scrub: 0.8,
-        animation: gsap.timeline().to(hint, { opacity: 0 }),
-    });
-
-    setActivePip(0);
+    setBackdrop(0);
     ScrollTrigger.refresh();
 }
 
