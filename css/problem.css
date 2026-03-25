@@ -285,9 +285,9 @@
 }
 
 .pain-body {
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.15vw, 1.1rem);
     font-weight: 300;
-    color: var(--gray);
+    color: rgba(240, 232, 215, 0.88);
     line-height: 1.82;
     max-width: 400px;
 }
@@ -787,7 +787,7 @@
     height: auto;
     overflow: clip;
     display: block;
-    padding: clamp(86px, 8vw, 120px) 0 clamp(110px, 10vw, 160px);
+    padding: clamp(60px, 5vw, 80px) 0 clamp(60px, 5vw, 80px);
 }
 
 #bg-glow {
@@ -802,7 +802,7 @@
     width: min(1440px, calc(100% - clamp(32px, 6vw, 96px)));
     margin: 0 auto;
     display: grid;
-    gap: clamp(38px, 5vw, 82px);
+    gap: clamp(20px, 2.5vw, 42px);
 }
 
 .problem-parallax {
@@ -824,7 +824,7 @@
 }
 
 .problem-hero {
-    min-height: min(76svh, 760px);
+    min-height: min(52svh, 520px);
     padding: 0 clamp(28px, 3vw, 44px);
     display: flex;
     align-items: flex-end;
@@ -859,9 +859,15 @@
 .problem-spotlight {
     padding: 0 clamp(28px, 3vw, 44px);
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) clamp(220px, 20vw, 290px);
+    grid-template-columns: clamp(220px, 20vw, 290px) minmax(0, 1.15fr);
     gap: clamp(28px, 4vw, 56px);
     align-items: start;
+}
+
+.problem-spotlight .problem-spotlight-copy {
+    order: 2;
+    text-align: right;
+    justify-self: end;
 }
 
 .problem-spotlight .s4-label {
@@ -875,6 +881,7 @@
 }
 
 .problem-spotlight .s4-grid {
+    order: 1;
     position: relative;
     right: auto;
     bottom: auto;
@@ -908,43 +915,84 @@
     padding: 0 clamp(18px, 2vw, 28px);
 }
 
+/* Cards stagger: 1&3 left-anchored, 2 right-anchored — each own row */
 #problem-card-time {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 11;
+    grid-row: 1;
     margin-top: clamp(10px, 2vw, 28px);
 }
 
 #problem-card-budget {
-    grid-column: 7 / -1;
-    margin-top: clamp(72px, 9vw, 136px);
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin-top: clamp(24px, 3vw, 48px);
 }
 
 #problem-card-competition {
-    grid-column: 3 / span 8;
+    grid-column: 1 / span 11;
+    grid-row: 3;
     margin-top: clamp(12px, 2vw, 28px);
 }
 
+.problem-card .pain-heading {
+    font-size: clamp(2rem, 3.2vw, 4rem);
+    margin-bottom: 10px;
+}
+
+/* Cards 1 & 3: [heading] [circle] [paragraph] */
 .problem-card .pain-inner {
     max-width: none;
-    gap: clamp(22px, 3vw, 46px);
-    grid-template-columns: minmax(0, 1.2fr) minmax(180px, 0.8fr);
-    align-items: start;
+    grid-template-columns: minmax(0, 1.3fr) clamp(110px, 9vw, 150px) minmax(0, 1.7fr);
+    grid-template-rows: 1fr;
+    column-gap: clamp(28px, 3.5vw, 52px);
+    align-items: center;
 }
 
-.problem-card .pain-body {
-    max-width: 44ch;
+.problem-card .pain-text {
+    grid-column: 1;
+    grid-row: 1;
 }
-
 .problem-card .pain-visual {
-    min-height: 100%;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    min-height: unset;
+}
+.problem-card .pain-body {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    max-width: none;
+    font-size: clamp(1.1rem, 1.55vw, 1.45rem);
+    font-weight: 500;
+    line-height: 1.72;
+}
+
+/* Card 2 (right): [paragraph] [circle] [heading] */
+#problem-card-budget .pain-inner {
+    grid-template-columns: minmax(0, 1.7fr) clamp(110px, 9vw, 150px) minmax(0, 1.3fr);
+}
+#problem-card-budget .pain-text {
+    grid-column: 3;
+    grid-row: 1;
+}
+#problem-card-budget .pain-visual {
+    grid-column: 2;
+    grid-row: 1;
+}
+#problem-card-budget .pain-body {
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .problem-card .icon-ring {
-    width: clamp(148px, 12vw, 210px);
-    height: clamp(148px, 12vw, 210px);
+    width: clamp(90px, 7vw, 120px);
+    height: clamp(90px, 7vw, 120px);
 }
 
 .problem-card .pain-visual {
-    padding-top: clamp(10px, 2vw, 24px);
+    padding-top: 0;
 }
 
 #problem-card-time .pain-tag {

@@ -76,22 +76,21 @@ function initProblemSection() {
     });
 
     revealEls.forEach((el, index) => {
-        const revealOffset = index === 1 ? 60 : 44;
-        const revealX = el.classList.contains('s4-card') ? 30 : (index % 2 === 0 ? -16 : 16);
+        const revealX = el.classList.contains('s4-card') ? 140 : (index % 2 === 0 ? -180 : 180);
 
         gsap.fromTo(
             el,
-            { autoAlpha: 0, y: revealOffset, x: revealX },
+            { autoAlpha: 0, y: 20, x: revealX },
             {
                 autoAlpha: 1,
                 y: 0,
                 x: 0,
-                ease: 'none',
+                ease: 'power3.out',
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 88%',
-                    end: 'top 56%',
-                    scrub: 0.85
+                    start: 'top 92%',
+                    end: 'top 52%',
+                    scrub: 0.6
                 }
             }
         );

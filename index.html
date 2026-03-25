@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=101.6">
+    <link rel="stylesheet" href="css/styles.css?v=102.0">
     <link rel="stylesheet" href="css/animations.css?v=39.0">
     <link rel="stylesheet" href="css/problem.css?v=2.1">
     <link rel="stylesheet" href="css/process.css?v=8.2">
@@ -330,12 +330,11 @@
                     <div class="problem-card-grid">
                         <article class="problem-card problem-panel problem-parallax" id="problem-card-time" data-shift="14">
                             <div class="pain-inner">
-                                <div>
+                                <div class="pain-text">
                                     <span class="pain-tag">01 · Time Drain</span>
                                     <h2 class="pain-heading">Hours spent on <em>marketing that goes nowhere</em></h2>
-                                    <p class="pain-body">You're burning your most valuable resource — time — on random posts and
-                                        boosted content that earns zero engagement and drives zero revenue.</p>
                                 </div>
+                                <p class="pain-body">You're burning your most valuable resource — time — on random posts and boosted content that earns zero real engagement and drives zero revenue. Every hour you spend guessing at marketing is an hour your competitor spends winning your customers. Stop throwing time at tactics that don't compound.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
@@ -355,13 +354,11 @@
 
                         <article class="problem-card problem-panel problem-parallax" id="problem-card-budget" data-shift="18">
                             <div class="pain-inner">
-                                <div>
+                                <div class="pain-text">
                                     <span class="pain-tag">02 · Budget Burn</span>
                                     <h2 class="pain-heading">Ad spend that <em>vanishes without converting</em></h2>
-                                    <p class="pain-body">Untargeted campaigns drain your budget daily. Without precision
-                                        targeting you're paying to reach people who will never buy — handing revenue to your
-                                        competitors.</p>
                                 </div>
+                                <p class="pain-body">Untargeted campaigns drain your budget daily. Without precision targeting you're paying to reach people who will never buy — handing revenue directly to your competitors. The cost of running blind ads compounds fast. Every dollar wasted is a dollar your competitor used to steal another customer.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
@@ -376,12 +373,11 @@
 
                         <article class="problem-card problem-panel problem-parallax" id="problem-card-competition" data-shift="12">
                             <div class="pain-inner">
-                                <div>
+                                <div class="pain-text">
                                     <span class="pain-tag">03 · Lost Customers</span>
                                     <h2 class="pain-heading">Competitors <em>winning your customers</em> right now</h2>
-                                    <p class="pain-body">While you figure this out, competitors run sharp targeted campaigns
-                                        stealing your ideal clients before you get a chance. Every scroll is a lost sale.</p>
                                 </div>
+                                <p class="pain-body">While you figure this out, competitors are running sharp, targeted campaigns stealing your ideal clients before you get a chance. Every scroll is a lost sale. Every day without a real strategy is ground permanently given up — ground that gets harder to reclaim the longer you wait.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
@@ -737,8 +733,18 @@
                 <form class="contact-form animate-on-scroll" id="contactForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" placeholder="John Smith" required>
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first_name" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
@@ -747,8 +753,17 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
+                            <label for="revenue">Business Monthly Revenue</label>
+                            <select id="revenue" name="revenue" required>
+                                <option value="">Select your revenue range</option>
+                                <option value="under-5k">Less than $5,000</option>
+                                <option value="5k-10k">$5,000 – $10,000</option>
+                                <option value="10k-25k">$10,000 – $25,000</option>
+                                <option value="25k-50k">$25,000 – $50,000</option>
+                                <option value="50k-100k">$50,000 – $100,000</option>
+                                <option value="100k-200k">$100,000 – $200,000</option>
+                                <option value="200k+">$200,000+</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="business">Business Type</label>
@@ -777,12 +792,7 @@
                         </svg>
                     </button>
                     <p class="form-note">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                        </svg>
-                        Your information is 100% secure and will never be shared.
+                        By contacting us you agree to our <button class="legal-link" onclick="openLegal('terms')">Terms</button> and <button class="legal-link" onclick="openLegal('privacy')">Privacy Policy</button>
                     </p>
                 </form>
 
@@ -846,7 +856,7 @@
 
                 <!-- Navigation - Horizontal -->
                 <nav class="footer-nav">
-                    <!-- Company Links -->
+                    <!-- Sitemap -->
                     <div class="footer-column">
                         <h4>Sitemap</h4>
                         <ul class="footer-links">
@@ -854,8 +864,18 @@
                             <li><a href="about-us.html">About Us</a></li>
                             <li><a href="services.html#services-overview">Services</a></li>
                             <li><a href="#contact">Contact</a></li>
-                            <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#terms">Terms of Service</a></li>
+                            <li><a href="#" onclick="openLegal('privacy');return false;">Privacy Policy</a></li>
+                            <li><a href="#" onclick="openLegal('terms');return false;">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <!-- Services -->
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="services.html#ad-management">Ad Management</a></li>
+                            <li><a href="services.html#lead-generation">Lead Generation</a></li>
+                            <li><a href="services.html#landing-pages">Website &amp; Landing Pages</a></li>
+                            <li><a href="services.html#social-media-management">Social Media Management</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -873,6 +893,31 @@
                     <div class="contact-names">
                         Devyn Schroeder & Anton Veliu
                     </div>
+                    <!-- Social Links -->
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer"
+                            class="social-link" aria-label="Instagram">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            <span class="social-tooltip">Instagram</span>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank"
+                            rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                            <span class="social-tooltip">Facebook</span>
+                        </a>
+                        <a href="https://x.com/AdzioMarketing" class="social-link" aria-label="X (Twitter)">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                            <span class="social-tooltip">X / Twitter</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -880,32 +925,7 @@
             <div class="footer-bottom">
                 <div class="footer-left">
                     <p class="footer-copyright">© 2026 Adzio.io. All rights reserved.</p>
-                    <div class="footer-legal">
-                    </div>
-                </div>
-
-                <!-- Social Links -->
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer"
-                        class="social-link" aria-label="Instagram">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank"
-                        rel="noopener noreferrer" class="social-link" aria-label="Facebook">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                    </a>
-                    <a href="https://x.com/AdzioMarketing" class="social-link" aria-label="X (Twitter)">
-                        <svg fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                    </a>
+                    <div class="footer-legal"></div>
                 </div>
             </div>
         </div>
@@ -933,7 +953,7 @@
     <script src="js/phone-animation-data.js?v=1007"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js?v=50.6"></script>
+    <script src="js/main.js?v=50.9"></script>
     <script src="js/problem.js?v=1.6"></script>
 
 
@@ -1072,6 +1092,128 @@
         })();
     </script>
     <script src="js/vsl-scroll.js?v=13"></script>
+
+    <!-- ===== LEGAL MODALS ===== -->
+
+    <!-- Terms of Service -->
+    <div class="legal-modal" id="modal-terms" aria-modal="true" role="dialog" aria-labelledby="modal-terms-title">
+        <div class="legal-modal__backdrop" onclick="closeLegal('terms')"></div>
+        <div class="legal-modal__panel">
+            <button class="legal-modal__close" onclick="closeLegal('terms')" aria-label="Close">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="legal-modal__body">
+                <p class="legal-modal__label">Legal</p>
+                <h2 id="modal-terms-title" class="legal-modal__title">Terms of Service</h2>
+                <p class="legal-modal__date">Effective Date: January 1, 2025</p>
+
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing or using any services provided by Adzio ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use our services.</p>
+
+                <h3>2. Services</h3>
+                <p>Adzio provides digital marketing, advertising strategy, content creation, and related services as outlined in individual service agreements. The scope, deliverables, and timeline of any engagement are defined in a separate Statement of Work or proposal accepted by both parties.</p>
+
+                <h3>3. Client Responsibilities</h3>
+                <p>You agree to provide accurate and complete information necessary for us to perform the services. You are responsible for ensuring that any materials, assets, or content you provide to us do not infringe on third-party intellectual property rights. You grant Adzio a limited license to use your brand assets solely for the purpose of delivering the agreed services.</p>
+
+                <h3>4. Payment Terms</h3>
+                <p>Fees for services are set forth in the applicable proposal or agreement. Invoices are due within 14 days of issuance unless otherwise agreed in writing. Adzio reserves the right to pause or terminate services for accounts that are overdue by more than 30 days. Late payments may be subject to a monthly service charge of 1.5% or the maximum rate permitted by law, whichever is lower.</p>
+
+                <h3>5. Intellectual Property</h3>
+                <p>Upon receipt of full payment, all creative deliverables produced specifically for your project are assigned to you. Adzio retains the right to display completed work in its portfolio and marketing materials unless you request otherwise in writing. Any pre-existing tools, frameworks, or methodologies used in delivering services remain the sole property of Adzio.</p>
+
+                <h3>6. Confidentiality</h3>
+                <p>Both parties agree to keep confidential any proprietary information shared during the course of the engagement. This obligation survives termination of the agreement for a period of two (2) years.</p>
+
+                <h3>7. Limitation of Liability</h3>
+                <p>To the maximum extent permitted by applicable law, Adzio shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, revenue, or data. Our total liability for any claim arising out of or relating to these Terms shall not exceed the total fees paid by you in the three (3) months preceding the claim.</p>
+
+                <h3>8. Termination</h3>
+                <p>Either party may terminate an engagement with 30 days written notice. Upon termination, you are responsible for payment of all services rendered up to the termination date. Adzio reserves the right to terminate immediately for material breach, non-payment, or conduct that violates applicable laws.</p>
+
+                <h3>9. Governing Law</h3>
+                <p>These Terms shall be governed by and construed in accordance with the laws of the applicable jurisdiction in which Adzio operates. Any disputes shall be resolved through binding arbitration before resorting to litigation.</p>
+
+                <h3>10. Changes to Terms</h3>
+                <p>We reserve the right to update these Terms at any time. Continued use of our services after changes are posted constitutes your acceptance of the revised Terms. We will make reasonable efforts to notify active clients of material changes.</p>
+
+                <h3>11. Contact</h3>
+                <p>For questions regarding these Terms, contact us at <strong>legal@adzio.com</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy -->
+    <div class="legal-modal" id="modal-privacy" aria-modal="true" role="dialog" aria-labelledby="modal-privacy-title">
+        <div class="legal-modal__backdrop" onclick="closeLegal('privacy')"></div>
+        <div class="legal-modal__panel">
+            <button class="legal-modal__close" onclick="closeLegal('privacy')" aria-label="Close">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="legal-modal__body">
+                <p class="legal-modal__label">Legal</p>
+                <h2 id="modal-privacy-title" class="legal-modal__title">Privacy Policy</h2>
+                <p class="legal-modal__date">Effective Date: January 1, 2025</p>
+
+                <h3>1. Overview</h3>
+                <p>Adzio ("we," "us," or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and the choices you have regarding your information when you contact us or use our services.</p>
+
+                <h3>2. Information We Collect</h3>
+                <p>We may collect the following categories of information:</p>
+                <p><strong>Information you provide directly:</strong> Name, email address, phone number, company name, and any other details submitted through our contact forms or during onboarding.</p>
+                <p><strong>Usage data:</strong> Pages visited, time spent on site, browser type, device type, and referring URLs collected automatically when you visit our website.</p>
+                <p><strong>Communications:</strong> Records of emails, messages, or other correspondence between you and Adzio.</p>
+
+                <h3>3. How We Use Your Information</h3>
+                <p>We use collected information to respond to inquiries and deliver requested services, send project updates, invoices, and service-related communications, improve our website and service offerings, and comply with legal obligations. We do not sell, rent, or trade your personal information to third parties for their marketing purposes.</p>
+
+                <h3>4. Cookies &amp; Tracking Technologies</h3>
+                <p>Our website may use cookies and similar tracking technologies to enhance your browsing experience and gather analytics data. You may control cookie settings through your browser preferences. Disabling cookies may affect the functionality of certain parts of our site.</p>
+
+                <h3>5. Data Sharing</h3>
+                <p>We may share your information with trusted third-party service providers who assist in operating our website and delivering services (e.g., email platforms, analytics tools, project management software). These providers are contractually obligated to keep your information confidential and use it only for the purposes we specify.</p>
+
+                <h3>6. Data Retention</h3>
+                <p>We retain your personal information for as long as necessary to provide our services and comply with legal obligations. When data is no longer needed, we securely delete or anonymize it.</p>
+
+                <h3>7. Your Rights</h3>
+                <p>Depending on your location, you may have the right to access, correct, or delete personal information we hold about you, opt out of certain data processing activities, and request a copy of the data we hold in a portable format. To exercise any of these rights, contact us at <strong>privacy@adzio.com</strong>.</p>
+
+                <h3>8. Data Security</h3>
+                <p>We implement industry-standard technical and organizational measures to protect your data against unauthorized access, loss, or disclosure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+
+                <h3>9. Third-Party Links</h3>
+                <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of those sites and encourage you to review their policies independently.</p>
+
+                <h3>10. Children's Privacy</h3>
+                <p>Our services are not directed to individuals under the age of 16. We do not knowingly collect personal information from minors. If you believe we have inadvertently collected such information, please contact us immediately.</p>
+
+                <h3>11. Changes to This Policy</h3>
+                <p>We may update this Privacy Policy from time to time. We will post the revised policy on this page with an updated effective date. Continued use of our services after changes constitutes your acceptance of the updated policy.</p>
+
+                <h3>12. Contact</h3>
+                <p>For privacy-related inquiries, contact us at <strong>privacy@adzio.com</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openLegal(type) {
+            const modal = document.getElementById('modal-' + type);
+            modal.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLegal(type) {
+            const modal = document.getElementById('modal-' + type);
+            modal.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                ['terms','privacy'].forEach(closeLegal);
+            }
+        });
+    </script>
 </body>
 
 </html>
