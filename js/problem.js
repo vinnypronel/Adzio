@@ -80,16 +80,14 @@ function initProblemSection() {
 
         gsap.fromTo(
             el,
-            { autoAlpha: 0, y: 20, x: revealX },
+            { x: revealX },
             {
-                autoAlpha: 1,
-                y: 0,
                 x: 0,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 92%',
-                    end: 'top 52%',
+                    start: 'top 95%',
+                    end: 'top 70%',
                     scrub: 0.6
                 }
             }
@@ -125,7 +123,6 @@ function initProcessSection() {
 
     const glowColors = [
         'radial-gradient(circle, rgba(0,229,200,0.06) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 65%)',
         'radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 65%)',
         'radial-gradient(circle, rgba(74,184,255,0.08) 0%, transparent 65%)',
         'radial-gradient(circle, rgba(0,214,143,0.08) 0%, transparent 65%)',
@@ -138,15 +135,14 @@ function initProcessSection() {
     }
 
     const SLIDES = [
-        ['#process-slide-0 .process-s0-label .our', '#process-slide-0 .process-s0-label .process', '#process-slide-0 .process-s0-desc', '#process-slide-0 .process-s0-stat'],
-        ['#process-slide-1 .process-s1-label', '#process-slide-1 .process-s1-title span:nth-child(1)', '#process-slide-1 .process-s1-title span:nth-child(2)', '#process-slide-1 .process-s1-title span:nth-child(3)', '#process-slide-1 .process-s1-card'],
+        ['#process-slide-0 .process-s0-label .our', '#process-slide-0 .process-s0-label .process', '#process-slide-0 .subhead-from', '#process-slide-0 .subhead-to', '#process-slide-0 .process-s1-label', '#process-slide-0 .process-s0-desc', '#process-slide-0 .process-s0-stat', '#process-slide-0 .process-s1-card'],
         ['#process-slide-2 .process-pain-tag', '#process-slide-2 .process-pain-heading', '#process-slide-2 .process-pain-body', '#process-slide-2 .process-pain-visual', '#process-slide-2 .process-ghost-num'],
         ['#process-slide-3 .process-pain-tag', '#process-slide-3 .process-pain-heading', '#process-slide-3 .process-pain-body', '#process-slide-3 .process-pain-visual', '#process-slide-3 .process-ghost-num'],
         ['#process-slide-4 .process-pain-tag', '#process-slide-4 .process-pain-heading', '#process-slide-4 .process-pain-body', '#process-slide-4 .process-pain-visual', '#process-slide-4 .process-ghost-num'],
         ['#process-slide-5 .process-pain-tag', '#process-slide-5 .process-pain-heading', '#process-slide-5 .process-pain-body', '#process-slide-5 .process-pain-visual', '#process-slide-5 .process-ghost-num']
     ];
 
-    const SLIDE_IDS = ['process-slide-0', 'process-slide-1', 'process-slide-2', 'process-slide-3', 'process-slide-4', 'process-slide-5'];
+    const SLIDE_IDS = ['process-slide-0', 'process-slide-2', 'process-slide-3', 'process-slide-4', 'process-slide-5'];
     const NUM = SLIDES.length;
 
     const SLIDE_ELS = SLIDES.map(sels => sels.map(sel => document.querySelector(sel)).filter(Boolean));

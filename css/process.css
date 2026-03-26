@@ -2,6 +2,12 @@
    PROCESS SECTION - STYLES
    ============================================ */
 
+/* ════ SECTION BLEND ════ */
+.process-section {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 14%);
+}
+
 /* ════ PROCESS PIN ════ */
 #process-pin-wrapper {
     position: relative;
@@ -13,15 +19,7 @@
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    background:
-        radial-gradient(circle at 52% 14%, var(--grid-glow-primary) 0%, transparent 34%),
-        radial-gradient(circle at 80% 82%, var(--grid-glow-secondary) 0%, transparent 28%),
-        linear-gradient(var(--grid-line-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line-color-soft) 1px, transparent 1px),
-        linear-gradient(180deg, var(--grid-surface-top) 0%, var(--grid-surface-bottom) 100%);
-    background-size: auto, auto, 60px 60px, 60px 60px, auto;
-    background-position: center, center, top center, top center, center;
-    background-attachment: fixed;
+    background: transparent;
     position: relative;
     display: flex;
     align-items: center;
@@ -122,12 +120,39 @@
     visibility: hidden;
 }
 
-/* ── Slide 0 — OUR PROCESS title — exact same as THE PROBLEM slide ── */
+/* ── Slide 0 — OUR PROCESS + step overview combined, 2-column horizontal ── */
 #process-slide-0 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8vw;
+    gap: clamp(32px, 5vw, 72px);
+}
+
+.process-s0-left {
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    padding: 0 10vw;
+    flex: 1;
+    min-width: 0;
+}
+
+#process-slide-0 .process-s0-label {
+    font-size: clamp(2.8rem, 8vw, 11rem);
+}
+
+#process-slide-0 .process-s1-card {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: clamp(170px, 16vw, 230px);
+    flex-shrink: 0;
+    align-self: center;
+}
+
+#process-slide-0 .process-s1-card-item {
+    padding: clamp(14px, 2vh, 22px) clamp(14px, 1.2vw, 20px);
 }
 
 .process-s0-label {
@@ -142,15 +167,18 @@
 
 .process-s0-label .our {
     display: block;
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.25);
-    color: transparent;
+    color: var(--teal);
+    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.92);
+    paint-order: stroke fill;
     line-height: 0.75;
     margin-bottom: -0.22em;
 }
 
 .process-s0-label .process {
     display: block;
-    color: var(--teal);
+    color: #119da4;
+    -webkit-text-stroke: 3.5px rgba(255, 255, 255, 0.72);
+    paint-order: stroke fill;
     line-height: 0.75;
 }
 
@@ -161,37 +189,42 @@
     justify-content: space-between;
     width: 100%;
     max-width: 1100px;
-    gap: 20px;
+    gap: clamp(24px, 4vw, 60px);
 }
 
 .process-s0-desc {
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
-    font-weight: 300;
-    color: var(--gray);
-    line-height: 1.8;
-    max-width: 420px;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.7;
+    max-width: 520px;
 }
 
 .process-s0-stat {
+    position: absolute;
+    top: clamp(48px, 9vh, 90px);
+    right: clamp(130px, 11vw, 200px);
     text-align: right;
-    flex-shrink: 0;
 }
 
 .process-s0-stat-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-size: clamp(5rem, 10vw, 12rem);
     line-height: 1;
     color: var(--teal);
+    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.92);
+    paint-order: stroke fill;
     display: block;
 }
 
 .process-s0-stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: var(--white);
     margin-top: 4px;
     display: block;
+    font-weight: 500;
 }
 
 /* ── Slides 1-4 — pain-inner layout, exact clone ── */
@@ -743,4 +776,42 @@
     #process-pips {
         right: 14px;
     }
+}
+
+/* ── Combined slide-0: sub-header ── */
+.process-s0-subhead {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 2.8vw, 3.2rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.45em;
+    margin-top: clamp(6px, 1vh, 14px);
+    margin-bottom: clamp(14px, 2.5vh, 28px);
+}
+
+.subhead-from {
+    color: var(--white);
+}
+
+.subhead-to {
+    color: #00e676;
+}
+
+/* ── Combined slide-0: left content wrapper ── */
+.process-s0-left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ── Combined slide-0: card flows inline (not absolutely positioned) ── */
+#process-slide-0 .process-s1-card {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: clamp(160px, 14vw, 210px);
+    align-self: flex-end;
 }

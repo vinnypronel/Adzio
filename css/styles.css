@@ -1657,70 +1657,80 @@ body.vsl-active .hero-vsl {
     z-index: 2;
 }
 
-/* ── Satisfaction gauge: clean dashboard style ── */
+/* ── Satisfaction: React-logo orbital atom ── */
 
-/* Kill all glow/pulse on the satisfaction stat */
-.stat--satisfaction .stat-visual::before { display: none; }
-.stat--satisfaction .stat-core-glow { display: none; }
+/* Clear ALL pseudo-elements and old visuals */
+.stat--satisfaction .stat-visual::before,
+.stat--satisfaction .stat-visual::after { display: none; }
 
-/* Outer progress arc — 94% cyan, 6% cream */
-.stat-gauge--outer {
-    inset: 3%;
-    background:
-        conic-gradient(from 228deg,
-            #67ecff 0deg 338deg,
-            rgba(235, 215, 170, 0.9) 338deg 360deg);
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 22px), #000 calc(100% - 21px));
-    mask: radial-gradient(farthest-side, transparent calc(100% - 22px), #000 calc(100% - 21px));
-    filter: none;
-    border-radius: 50%;
-    z-index: 4;
-}
-
-/* Subtle outer glow ring behind the arc */
-.stat-gauge-halo--one {
-    inset: 1%;
+/* Halos — wiped clean */
+.stat--satisfaction .stat-gauge-halo--one,
+.stat--satisfaction .stat-gauge-halo--two {
+    background: none;
     border: none;
-    background: transparent;
-    box-shadow: inset 0 0 0 3px rgba(103, 236, 255, 0.12), 0 0 28px rgba(59, 165, 181, 0.25);
-    animation: none;
-    z-index: 1;
-}
-
-/* Chrome border between outer arc and tick ring */
-.stat-gauge-halo--two {
-    inset: 16%;
-    border: 2px solid rgba(70, 85, 95, 0.45);
     box-shadow: none;
     animation: none;
-    z-index: 3;
 }
 
-/* Tick marks ring — clock-face style */
-.stat-gauge--middle {
-    inset: 18%;
-    background:
-        repeating-conic-gradient(from 0deg,
-            rgba(130, 160, 170, 0.55) 0deg 2.5deg,
-            transparent 2.5deg 12deg);
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
-    mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 8px));
-    opacity: 1;
+/* Soft nucleus glow sitting behind the number */
+.stat--satisfaction .stat-core-glow {
+    display: block;
+    inset: 38%;
+    background: radial-gradient(circle, rgba(0, 229, 200, 0.60) 0%, rgba(0, 229, 200, 0.14) 45%, transparent 70%);
+    filter: none;
     z-index: 3;
+    animation: none;
 }
 
-/* Inner dark face */
-.stat-gauge--inner {
-    inset: 28%;
-    background: radial-gradient(circle, rgba(14, 22, 30, 1) 0%, rgba(8, 14, 20, 1) 70%, rgba(20, 30, 38, 1) 100%);
-    border: 2px solid rgba(55, 70, 80, 0.5);
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
-    z-index: 5;
+/* ── Base orbital ring — all three share this ── */
+.stat--satisfaction .stat-gauge {
+    background: none !important;
+    -webkit-mask: none !important;
+    mask: none !important;
+    filter: none !important;
+    inset: 6%;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 229, 200, 0.92);
+    box-shadow:
+        0 0 7px  rgba(0, 229, 200, 0.85),
+        0 0 22px rgba(0, 229, 200, 0.40);
+    z-index: 2;
+}
+
+/* Ring 1 — 0° start */
+.stat--satisfaction .stat-gauge--outer {
+    animation: react-orbit-A 10s linear infinite;
+}
+/* Ring 2 — 60° ahead (React logo even spacing) */
+.stat--satisfaction .stat-gauge--middle {
+    animation: react-orbit-B 10s linear infinite;
+}
+/* Ring 3 — 120° ahead */
+.stat--satisfaction .stat-gauge--inner {
+    animation: react-orbit-C 10s linear infinite;
+}
+
+/* Number above everything */
+.stat--satisfaction .stat-number-wrapper {
+    position: relative;
+    z-index: 10;
 }
 
 /* Hide equalizer bars */
-.stat-eq {
-    display: none;
+.stat-eq { display: none; }
+
+/* ── React-logo keyframes: rotate() THEN scaleY() so each ring is a tilted ellipse ── */
+@keyframes react-orbit-A {
+    from { transform: rotate(0deg)   scaleY(0.27); }
+    to   { transform: rotate(360deg) scaleY(0.27); }
+}
+@keyframes react-orbit-B {
+    from { transform: rotate(60deg)  scaleY(0.27); }
+    to   { transform: rotate(420deg) scaleY(0.27); }
+}
+@keyframes react-orbit-C {
+    from { transform: rotate(120deg) scaleY(0.27); }
+    to   { transform: rotate(480deg) scaleY(0.27); }
 }
 
 .stat-side-icon {
@@ -1945,6 +1955,28 @@ body.vsl-active .hero-vsl {
     position: relative;
     border-top: none;
     border-bottom: none;
+}
+
+.logo-slider::before,
+.logo-slider::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.logo-slider::before {
+    top: 0;
+    background: linear-gradient(to bottom, #0c0e12, transparent);
+}
+
+.logo-slider::after {
+    bottom: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, rgba(3, 7, 11, 0.96));
 }
 
 .logo-slider-shell {
@@ -2335,6 +2367,8 @@ body.vsl-active .hero-vsl {
 
 .services-section {
     padding: 30px 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 78%, transparent 96%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 78%, transparent 96%);
 }
 
 /* Header Section */
@@ -2654,7 +2688,7 @@ body.vsl-active .hero-vsl {
     width: 18px;
     height: 18px;
     display: block;
-    animation: service-cta-arrow-idle 1.8s ease-in-out infinite;
+    animation: service-cta-arrow-idle 1.4s ease-in-out infinite alternate;
 }
 
 .service-cta:hover .service-cta-icon {
@@ -3149,6 +3183,8 @@ body.vsl-active .hero-vsl {
     position: relative;
     padding: var(--spacing-2xl) 0;
     overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%);
     background:
         linear-gradient(var(--grid-line-color) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-line-color-soft) 1px, transparent 1px),

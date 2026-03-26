@@ -9,6 +9,12 @@
     --gray: #6b7a90;
 }
 
+/* ════ SECTION BLEND ════ */
+.problem-section {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 4%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 4%);
+}
+
 /* ════════════════════════════════
    PIN SECTION
    The wrapper is tall — GSAP pins
@@ -24,7 +30,7 @@
     width: 100%;
     overflow: hidden;
     background:
-        linear-gradient(180deg, rgba(3, 7, 11, 0.96) 0%, rgba(6, 10, 15, 0.985) 100%);
+        linear-gradient(180deg, rgba(3, 7, 11, 0.78) 0%, rgba(6, 10, 15, 0.82) 100%);
     position: relative;
     display: flex;
     align-items: center;
@@ -44,7 +50,7 @@
     background-position: calc(50% + var(--problem-grid-x)) var(--problem-grid-y);
     transform: scale(var(--problem-grid-scale));
     transform-origin: center;
-    opacity: 0.68;
+    opacity: 0;
     z-index: 0;
     will-change: transform, background-position;
 }
@@ -440,6 +446,19 @@
     border-color: rgba(255, 255, 255, 0.09);
 }
 
+@keyframes invisibleFade {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+#problem-visibility .line-ghost {
+    animation: invisibleFade 3.5s ease-in-out infinite;
+}
+
 @keyframes problemGlowPop {
     0% {
         opacity: 0.15;
@@ -788,6 +807,8 @@
     overflow: clip;
     display: block;
     padding: clamp(60px, 5vw, 80px) 0 clamp(60px, 5vw, 80px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 98%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 98%, transparent 100%);
 }
 
 #bg-glow {
@@ -799,10 +820,8 @@
 .problem-stage {
     position: relative;
     z-index: 2;
-    width: min(1440px, calc(100% - clamp(32px, 6vw, 96px)));
-    margin: 0 auto;
-    display: grid;
-    gap: clamp(20px, 2.5vw, 42px);
+    width: min(1440px, calc(100% - clamp(16px, 3vw, 48px)));
+    margin: 0 auto 0 clamp(12px, 2vw, 32px);
 }
 
 .problem-parallax {
@@ -857,17 +876,20 @@
 }
 
 .problem-spotlight {
-    padding: 0 clamp(28px, 3vw, 44px);
-    display: grid;
-    grid-template-columns: clamp(220px, 20vw, 290px) minmax(0, 1.15fr);
-    gap: clamp(28px, 4vw, 56px);
-    align-items: start;
+    padding: 0 clamp(16px, 2.5vw, 40px) 0 0;
+    position: relative;
+    min-height: clamp(260px, 38vh, 420px);
+    /* break out of the constrained .problem-stage to span full viewport */
+    width: 100vw;
+    margin-left: calc(-1 * clamp(12px, 2vw, 32px));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .problem-spotlight .problem-spotlight-copy {
-    order: 2;
     text-align: right;
-    justify-self: end;
 }
 
 .problem-spotlight .s4-label {
@@ -885,8 +907,8 @@
     position: relative;
     right: auto;
     bottom: auto;
-    width: 100%;
-    margin: 0;
+    width: auto;
+    margin: clamp(16px, 2.5vh, 28px) 0 0 0;
 }
 
 .problem-spotlight .s4-card {
@@ -923,15 +945,57 @@
 }
 
 #problem-card-budget {
-    grid-column: 2 / -1;
+    grid-column: 5 / -1;
     grid-row: 2;
     margin-top: clamp(24px, 3vw, 48px);
 }
 
 #problem-card-competition {
-    grid-column: 1 / span 11;
+    grid-column: 1 / -1;
     grid-row: 3;
     margin-top: clamp(12px, 2vw, 28px);
+}
+
+/* Competition card: heading sizes to its own max-content so no word-wrap, 3 lines via <br> */
+#problem-card-competition .pain-heading {
+    font-size: clamp(1.7rem, 2.4vw, 3rem);
+    white-space: nowrap;
+}
+
+/* Competition card: 2-col layout — heading left, circle+paragraph stacked right */
+#problem-card-competition .pain-inner {
+    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: clamp(36px, 4vw, 64px);
+    row-gap: 0;
+}
+
+#problem-card-competition .pain-text {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+}
+
+#problem-card-competition .pain-visual {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    align-self: end;
+    padding-top: clamp(24px, 4vh, 48px);
+    padding-bottom: clamp(12px, 2vh, 20px);
+}
+
+#problem-card-competition .pain-body {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    max-width: none;
+    width: 100%;
+    white-space: normal;
+    margin-top: clamp(12px, 2vh, 20px);
+    font-size: clamp(1.1rem, 1.45vw, 1.4rem);
+    line-height: 1.65;
 }
 
 .problem-card .pain-heading {
@@ -1035,17 +1099,26 @@
 }
 
 #problem-card-competition .icon-ring {
-    background: rgba(255, 255, 255, 0.07);
-    color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 0 120px rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.13);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 90px rgba(255, 255, 255, 0.28), 0 0 160px rgba(255, 255, 255, 0.14);
+    width: clamp(120px, 11vw, 175px);
+    height: clamp(120px, 11vw, 175px);
 }
 
 #problem-card-competition .icon-ring::before {
-    border-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.28);
 }
 
 #problem-card-competition .icon-ring::after {
-    border-color: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+#problem-card-competition .pain-body {
+    font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+    text-shadow:
+        0 0 24px rgba(255, 255, 255, 0.18),
+        0 0 60px rgba(255, 255, 255, 0.08);
 }
 
 #problem-card-time .icon-ring.icon-animate svg {
