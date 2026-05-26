@@ -1,7 +1,22 @@
-.agent/
-docs/
+# Dependencies
+node_modules/
 
-# Python
+# Agent config / caches
+.agent/
+.agents/
+.claude/
+
+# Temporary / OS files
+.DS_Store
+Thumbs.db
+.edge-profile/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python (just in case)
 *.pyc
 __pycache__/
-*.py

@@ -120,7 +120,7 @@
     visibility: hidden;
 }
 
-/* ── Slide 0 — OUR PROCESS + step overview combined, 2-column horizontal ── */
+/* ── Slide 0 - OUR PROCESS + step overview combined, 2-column horizontal ── */
 #process-slide-0 {
     flex-direction: row;
     align-items: center;
@@ -227,7 +227,7 @@
     font-weight: 500;
 }
 
-/* ── Slides 1-4 — pain-inner layout, exact clone ── */
+/* ── Slides 1-4 - pain-inner layout, exact clone ── */
 .process-pain-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -312,7 +312,7 @@
     display: none;
 }
 
-/* colour themes — orange, gold, blue, green */
+/* colour themes - orange, gold, blue, green */
 #process-slide-1 .process-pain-tag {
     background: rgba(255, 107, 53, 0.15);
     color: #ff6b35;
@@ -388,7 +388,7 @@
     box-shadow: 0 0 70px rgba(0, 214, 143, 0.18);
 }
 
-/* ── Slide 1 — intro step, mirrors "INVISIBLE" slide exactly ── */
+/* ── Slide 1 - intro step, mirrors "INVISIBLE" slide exactly ── */
 #process-slide-1 {
     flex-direction: column;
     align-items: flex-start;

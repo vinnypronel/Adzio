@@ -11,13 +11,16 @@
 
 /* ════ SECTION BLEND ════ */
 .problem-section {
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 4%);
     mask-image: linear-gradient(to bottom, transparent 0%, black 4%);
 }
 
 /* ════════════════════════════════
    PIN SECTION
-   The wrapper is tall — GSAP pins
+   The wrapper is tall - GSAP pins
    the panel and scrubs slides
 ════════════════════════════════ */
 #pin-panel {
@@ -175,7 +178,7 @@
     will-change: opacity, transform;
 }
 
-/* ── Slide 0 — full screen statement ── */
+/* ── Slide 0 - full screen statement ── */
 #slide-0 {
     flex-direction: column;
     justify-content: center;
@@ -638,7 +641,7 @@
     animation: problemGlowPop 1s ease-out forwards;
 }
 
-/* ── Slide 4 — Invisible Online ── */
+/* ── Slide 4 - Invisible Online ── */
 #slide-1 {
     flex-direction: column;
     align-items: flex-start;
@@ -842,11 +845,19 @@
     display: none;
 }
 
+/* ════ COMBINED HERO + SPOTLIGHT ════ */
+.problem-combined {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(24px, 4vw, 60px);
+    padding: clamp(28px, 3vw, 44px);
+}
+
 .problem-hero {
-    min-height: min(52svh, 520px);
-    padding: 0 clamp(28px, 3vw, 44px);
+    padding: 0;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .problem-intro-copy {
@@ -860,6 +871,9 @@
 .problem-hero .s0-bottom {
     margin-top: clamp(28px, 4vh, 48px);
     max-width: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(16px, 2vh, 28px);
 }
 
 .problem-hero .s0-desc {
@@ -873,15 +887,14 @@
     border: none;
     box-shadow: none;
     backdrop-filter: none;
+    text-align: left;
 }
 
 .problem-spotlight {
-    padding: 0 clamp(16px, 2.5vw, 40px) 0 0;
+    padding: 0;
     position: relative;
-    min-height: clamp(260px, 38vh, 420px);
-    /* break out of the constrained .problem-stage to span full viewport */
-    width: 100vw;
-    margin-left: calc(-1 * clamp(12px, 2vw, 32px));
+    width: auto;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -898,8 +911,8 @@
 
 .problem-spotlight .s4-title {
     width: auto;
-    max-width: 8.4ch;
-    font-size: clamp(4rem, 9vw, 10rem);
+    max-width: none;
+    font-size: clamp(3.5rem, 7vw, 9rem);
 }
 
 .problem-spotlight .s4-grid {
@@ -908,6 +921,7 @@
     right: auto;
     bottom: auto;
     width: auto;
+    max-width: clamp(180px, 18vw, 240px);
     margin: clamp(16px, 2.5vh, 28px) 0 0 0;
 }
 
@@ -937,15 +951,15 @@
     padding: 0 clamp(18px, 2vw, 28px);
 }
 
-/* Cards stagger: 1&3 left-anchored, 2 right-anchored — each own row */
+/* All cards full width, each on its own row */
 #problem-card-time {
-    grid-column: 1 / span 11;
+    grid-column: 1 / -1;
     grid-row: 1;
     margin-top: clamp(10px, 2vw, 28px);
 }
 
 #problem-card-budget {
-    grid-column: 5 / -1;
+    grid-column: 1 / -1;
     grid-row: 2;
     margin-top: clamp(24px, 3vw, 48px);
 }
@@ -956,59 +970,17 @@
     margin-top: clamp(12px, 2vw, 28px);
 }
 
-/* Competition card: heading sizes to its own max-content so no word-wrap, 3 lines via <br> */
-#problem-card-competition .pain-heading {
-    font-size: clamp(1.7rem, 2.4vw, 3rem);
-    white-space: nowrap;
-}
-
-/* Competition card: 2-col layout — heading left, circle+paragraph stacked right */
-#problem-card-competition .pain-inner {
-    grid-template-columns: max-content minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    align-items: start;
-    column-gap: clamp(36px, 4vw, 64px);
-    row-gap: 0;
-}
-
-#problem-card-competition .pain-text {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    align-self: center;
-}
-
-#problem-card-competition .pain-visual {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: start;
-    align-self: end;
-    padding-top: clamp(24px, 4vh, 48px);
-    padding-bottom: clamp(12px, 2vh, 20px);
-}
-
-#problem-card-competition .pain-body {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: start;
-    max-width: none;
-    width: 100%;
-    white-space: normal;
-    margin-top: clamp(12px, 2vh, 20px);
-    font-size: clamp(1.1rem, 1.45vw, 1.4rem);
-    line-height: 1.65;
-}
-
 .problem-card .pain-heading {
     font-size: clamp(2rem, 3.2vw, 4rem);
     margin-bottom: 10px;
 }
 
-/* Cards 1 & 3: [heading] [circle] [paragraph] */
+/* Shared 3-col inner grid: [text] [icon] [body] — icon always in same position */
 .problem-card .pain-inner {
     max-width: none;
-    grid-template-columns: minmax(0, 1.3fr) clamp(110px, 9vw, 150px) minmax(0, 1.7fr);
+    grid-template-columns: minmax(0, 1fr) clamp(160px, 14vw, 220px) minmax(0, 1fr);
     grid-template-rows: 1fr;
-    column-gap: clamp(28px, 3.5vw, 52px);
+    column-gap: clamp(40px, 5vw, 70px);
     align-items: center;
 }
 
@@ -1022,6 +994,7 @@
     justify-self: center;
     align-self: center;
     min-height: unset;
+    padding-top: 0;
 }
 .problem-card .pain-body {
     grid-column: 3;
@@ -1033,13 +1006,17 @@
     line-height: 1.72;
 }
 
-/* Card 2 (right): [paragraph] [circle] [heading] */
-#problem-card-budget .pain-inner {
-    grid-template-columns: minmax(0, 1.7fr) clamp(110px, 9vw, 150px) minmax(0, 1.3fr);
+/* Shared icon size for all cards */
+.problem-card .icon-ring {
+    width: clamp(130px, 12vw, 190px);
+    height: clamp(130px, 12vw, 190px);
 }
+
+/* Card 2 (budget): [body] [icon] [heading] — flipped */
 #problem-card-budget .pain-text {
     grid-column: 3;
     grid-row: 1;
+    text-align: right;
 }
 #problem-card-budget .pain-visual {
     grid-column: 2;
@@ -1049,14 +1026,29 @@
     grid-column: 1;
     grid-row: 1;
 }
-
-.problem-card .icon-ring {
-    width: clamp(90px, 7vw, 120px);
-    height: clamp(90px, 7vw, 120px);
+#problem-card-budget .pain-heading {
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-.problem-card .pain-visual {
-    padding-top: 0;
+/* Card 3 (competition): [heading] [icon] [body] — same as card 1 */
+#problem-card-competition .pain-text {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: left;
+    align-self: center;
+}
+#problem-card-competition .pain-visual {
+    grid-column: 2;
+    grid-row: 1;
+}
+#problem-card-competition .pain-body {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    max-width: 42ch;
+    font-size: clamp(1rem, 1.35vw, 1.25rem);
+    line-height: 1.72;
 }
 
 #problem-card-time .pain-tag {
@@ -1069,10 +1061,13 @@
 }
 
 #problem-card-time .icon-ring {
-    background: rgba(245, 166, 35, 0.12);
+    background: rgba(245, 166, 35, 0.22);
     color: var(--gold);
-    box-shadow: 0 0 70px rgba(245, 166, 35, 0.18);
+    box-shadow: 0 0 100px rgba(245, 166, 35, 0.38);
+    width: clamp(130px, 12vw, 190px);
+    height: clamp(130px, 12vw, 190px);
 }
+
 
 #problem-card-budget .pain-tag {
     background: rgba(255, 60, 60, 0.15);
@@ -1102,8 +1097,8 @@
     background: rgba(255, 255, 255, 0.13);
     color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 90px rgba(255, 255, 255, 0.28), 0 0 160px rgba(255, 255, 255, 0.14);
-    width: clamp(120px, 11vw, 175px);
-    height: clamp(120px, 11vw, 175px);
+    width: clamp(130px, 12vw, 190px);
+    height: clamp(130px, 12vw, 190px);
 }
 
 #problem-card-competition .icon-ring::before {
@@ -1176,8 +1171,17 @@
 }
 
 @media (max-width: 1180px) {
-    .problem-spotlight {
+    .problem-combined {
         grid-template-columns: 1fr;
+        gap: clamp(16px, 3vh, 32px);
+    }
+
+    .problem-spotlight {
+        align-items: flex-start;
+    }
+
+    .problem-spotlight .problem-spotlight-copy {
+        text-align: left;
     }
 
     .problem-spotlight .s4-title {
@@ -1209,5 +1213,134 @@
     .problem-spotlight,
     .problem-card {
         padding: 0 14px;
+    }
+}
+
+/* ════════════════════════════════
+   STAGGER REVEAL — right column
+   IntersectionObserver adds .is-revealed to #problem-visibility
+════════════════════════════════ */
+#problem-visibility .s4-title .line-ghost,
+#problem-visibility .s4-title .line-solid,
+#problem-visibility .s4-title .line-red {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Suspend the pulse until reveal is done */
+#problem-visibility .line-ghost {
+    animation: none;
+}
+
+#problem-visibility .s4-title .line-solid {
+    transition-delay: 0.4s;
+}
+
+#problem-visibility .s4-title .line-red {
+    transition-delay: 0.8s;
+}
+
+#problem-visibility.is-revealed .s4-title .line-ghost {
+    opacity: 1;
+    transform: translateY(0);
+    animation: invisibleFade 3.5s ease-in-out 0.65s infinite;
+}
+
+#problem-visibility.is-revealed .s4-title .line-solid,
+#problem-visibility.is-revealed .s4-title .line-red {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ════════════════════════════════
+   91% STAT CARD — match 97% card
+════════════════════════════════ */
+.problem-hero .s0-stat {
+    padding: clamp(14px, 1.8vw, 22px);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    box-shadow: none;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    width: clamp(180px, 18vw, 240px);
+}
+
+.problem-hero .s0-stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72px;
+    height: 2px;
+    background: var(--teal);
+}
+
+.problem-hero .s0-stat-num {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    color: var(--teal);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.problem-hero .s0-stat-label {
+    font-size: clamp(0.58rem, 1vw, 0.68rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.s0-stat-desc {
+    font-size: clamp(0.78rem, 1.1vw, 0.88rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* ════════════════════════════════
+   PROBLEM → SPOTLIGHT ARROW
+════════════════════════════════ */
+.problem-combined {
+    position: relative;
+}
+
+/*
+ * Arrow lives in the narrow top band between "THE" ghost text (left)
+ * and "- MOST BUSINESSES ARE..." label (right).
+ * left: 38% clears the end of the "THE" outline letters.
+ * right: 33% keeps the tip short of the right column's far-right text edge.
+ * top/height: 7%/14% keeps the entire path above where INVISIBLE starts (~y 20%).
+ */
+.problem-connect-arrow {
+    position: absolute;
+    left: 38%;
+    right: 33%;
+    top: 7%;
+    height: 14%;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 14px rgba(0, 229, 200, 0.6));
+}
+
+.problem-connect-arrow svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 1180px) {
+    .problem-connect-arrow {
+        display: none;
     }
 }

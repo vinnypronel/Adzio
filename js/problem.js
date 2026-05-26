@@ -101,6 +101,11 @@ function initProblemSection() {
             onEnter: () => restartIconAnimation(host, '.icon-ring'),
             onEnterBack: () => restartIconAnimation(host, '.icon-ring')
         });
+
+        const ring = host.querySelector('.icon-ring');
+        if (ring) {
+            ring.addEventListener('mouseenter', () => restartIconAnimation(host, '.icon-ring'));
+        }
     });
 
     setBackdrop(0);

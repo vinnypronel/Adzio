@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initVSLPlayer();
     initSmoothScroll();
+    initCustomSelects();
     initFormHandling();
     initParallax();
     initCarouselTracks();
@@ -18,15 +19,61 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavParallax();
     initGlowRotation();
     initLottieAnimations();
+    initHeroLeftScroll();
+    initProblemReveal();
 });
 
 /* ============================================
-   Nav Scroll — CSS scroll-driven animation
+   Problem Section Stagger Reveal
+   ============================================ */
+
+function initProblemReveal() {
+    const spotlight = document.getElementById('problem-visibility');
+    if (!spotlight) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    spotlight.classList.add('is-revealed');
+                    observer.unobserve(spotlight);
+                }
+            });
+        },
+        { threshold: 0.25 }
+    );
+
+    observer.observe(spotlight);
+}
+
+/* ============================================
+   Hero Left Scroll Animation
+   ============================================ */
+
+function initHeroLeftScroll() {
+    const col = document.querySelector('.hero-left-col');
+    if (!col) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                col.classList.toggle('hero-left-hidden', window.scrollY > 50);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+/* ============================================
+   Nav Scroll - CSS scroll-driven animation
    ============================================ */
 
 // The actual scrolling animation is now handled entirely by CSS:
 //   @keyframes nav-slide + animation-timeline: scroll(root block)
-//   Both running on the GPU compositor thread — zero JS during scroll.
+//   Both running on the GPU compositor thread - zero JS during scroll.
 //
 // This function only:
 //   1. Sets --nav-from / --nav-to CSS vars on load + resize
@@ -63,7 +110,7 @@ function initNavParallax() {
     updateVars();
     window.addEventListener('resize', updateVars, { passive: true });
 
-    // Track progress + fire boundary class — zero transform writes here
+    // Track progress + fire boundary class - zero transform writes here
     let wasScrolled = null;
     let ticking = false;
     window.addEventListener('scroll', () => {
@@ -216,7 +263,7 @@ function waitForCarouselImages(slider) {
 }
 
 // Hover: pause carousel + scale hovered logo
-// Only the row that contains the hovered logo is paused — the other row keeps running.
+// Only the row that contains the hovered logo is paused - the other row keeps running.
 function initCarouselHover() {
     const slider = document.querySelector('.logo-slider');
     if (!slider) return;
@@ -305,10 +352,10 @@ function initGlowRotation() {
    ============================================ */
 
 function initNavigation() {
-    // 'nav' element doesn't exist in this page (uses navWrap) — guard to prevent
+    // 'nav' element doesn't exist in this page (uses navWrap) - guard to prevent
     // TypeError crashes that were throwing on every scroll event and causing lag.
     const nav = document.getElementById('nav');
-    if (!nav) return;  // bail out entirely — the morphing navbar handles its own state
+    if (!nav) return;  // bail out entirely - the morphing navbar handles its own state
 
     window.addEventListener('scroll', throttle(() => {
         nav.classList.toggle('scrolled', window.pageYOffset > 50);
@@ -500,8 +547,67 @@ function initFormHandling() {
 
     if (!form) return;
 
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+            const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+            let formatted = '';
+            if (digits.length <= 3) {
+                formatted = digits.length ? `(${digits}` : '';
+            } else if (digits.length <= 6) {
+                formatted = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+            } else {
+                formatted = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+            }
+            e.target.value = formatted;
+        });
+    }
+
+    function showFieldError(field, message) {
+        clearFieldError(field);
+        field.classList.add('field-invalid');
+        const err = document.createElement('span');
+        err.className = 'form-field-error';
+        err.textContent = message;
+        field.parentNode.appendChild(err);
+    }
+
+    function clearFieldError(field) {
+        field.classList.remove('field-invalid');
+        const existing = field.parentNode.querySelector('.form-field-error');
+        if (existing) existing.remove();
+    }
+
+    const validatedFields = [
+        { id: 'first-name', msg: 'First name is required.' },
+        { id: 'last-name',  msg: 'Last name is required.' },
+        { id: 'phone',      msg: 'Phone number is required.', test: v => v.replace(/\D/g, '').length === 10 },
+        { id: 'email',      msg: 'Please enter a valid email.', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+        { id: 'revenue',    msg: 'Please select a revenue range.' },
+        { id: 'business',   msg: 'Please select a business type.' },
+    ];
+
+    validatedFields.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => clearFieldError(el));
+    });
+
+    function validateForm() {
+        let valid = true;
+        validatedFields.forEach(({ id, msg, test }) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const ok = test ? test(el.value.trim()) : el.value.trim() !== '';
+            if (!ok) { showFieldError(el, msg); valid = false; }
+            else clearFieldError(el);
+        });
+        return valid;
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        if (!validateForm()) return;
 
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
@@ -607,6 +713,112 @@ function initFormHandling() {
         // Initial call to set correct height if there's default content
         autoExpand();
     }
+}
+
+/* ============================================
+   Custom Select Dropdowns
+   ============================================ */
+
+function initCustomSelects() {
+    document.querySelectorAll('.form-group select').forEach(select => {
+        // Hidden input carries the value for FormData — native select loses its name
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = select.name;
+        hidden.value = select.value;
+        select.removeAttribute('name');
+        select.parentNode.insertBefore(hidden, select);
+
+        // Wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'custom-select';
+
+        // Trigger button
+        const trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'custom-select-trigger';
+        trigger.setAttribute('aria-haspopup', 'listbox');
+        trigger.setAttribute('aria-expanded', 'false');
+
+        const valueSpan = document.createElement('span');
+        valueSpan.className = 'custom-select-value';
+
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('class', 'custom-select-chevron');
+        svg.setAttribute('width', '16');
+        svg.setAttribute('height', '16');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '2');
+        svg.setAttribute('stroke-linecap', 'round');
+        svg.setAttribute('stroke-linejoin', 'round');
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        poly.setAttribute('points', '6 9 12 15 18 9');
+        svg.appendChild(poly);
+
+        trigger.appendChild(valueSpan);
+        trigger.appendChild(svg);
+
+        // Dropdown list
+        const list = document.createElement('ul');
+        list.className = 'custom-select-list';
+        list.setAttribute('role', 'listbox');
+
+        Array.from(select.options).forEach(opt => {
+            const li = document.createElement('li');
+            li.className = 'custom-select-item';
+            if (!opt.value) li.classList.add('is-placeholder');
+            li.dataset.value = opt.value;
+            li.textContent = opt.text;
+            li.setAttribute('role', 'option');
+            list.appendChild(li);
+        });
+
+        wrapper.appendChild(trigger);
+        wrapper.appendChild(list);
+        select.style.display = 'none';
+        select.parentNode.insertBefore(wrapper, select);
+
+        function syncDisplay() {
+            const chosen = Array.from(select.options).find(o => o.value === select.value);
+            valueSpan.textContent = chosen ? chosen.text : (select.options[0] ? select.options[0].text : '');
+            trigger.classList.toggle('is-placeholder', !select.value);
+            list.querySelectorAll('.custom-select-item').forEach(li => {
+                li.classList.toggle('is-selected', li.dataset.value === select.value);
+            });
+        }
+        syncDisplay();
+
+        function closeDropdown() {
+            wrapper.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        trigger.addEventListener('click', e => {
+            e.stopPropagation();
+            const isOpen = wrapper.classList.contains('is-open');
+            document.querySelectorAll('.custom-select.is-open').forEach(el => el.classList.remove('is-open'));
+            if (!isOpen) {
+                wrapper.classList.add('is-open');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        list.addEventListener('click', e => {
+            const item = e.target.closest('.custom-select-item');
+            if (!item || item.classList.contains('is-placeholder')) return;
+            select.value = item.dataset.value;
+            hidden.value = item.dataset.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            syncDisplay();
+            closeDropdown();
+        });
+    });
+
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.custom-select.is-open').forEach(el => el.classList.remove('is-open'));
+    });
 }
 
 /* ============================================

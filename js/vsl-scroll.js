@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pipTop: 8,
         pipRight: 8,
         pipRadius: 12,
-        transitionDistance: 700
+        transitionDistance: 350
     };
 
     if (window.innerWidth < 1024) {
