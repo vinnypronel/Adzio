@@ -55,9 +55,9 @@
                 <div class="footer-column">
                     <h4>Services</h4>
                     <ul class="footer-links">
-                        <li><a href="services.html#ad-management">Ad Management</a></li>
-                        <li><a href="services.html#lead-generation">Lead Generation</a></li>
-                        <li><a href="services.html#landing-pages">Website &amp; Landing Pages</a></li>
+                        <li><a href="services.html#ad-management">Meta Ad Management</a></li>
+                        <li><a href="services.html#lead-generation">Google Ad Management</a></li>
+                        <li><a href="services.html#landing-pages">Website Development</a></li>
                         <li><a href="services.html#social-media-management">Social Media Management</a></li>
                     </ul>
                 </div>

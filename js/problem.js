@@ -21,28 +21,16 @@ function initProblemSection() {
 
     const glow = document.getElementById('bg-glow');
     const parallaxEls = gsap.utils.toArray('.problem-parallax');
-    const revealEls = gsap.utils.toArray('.problem-panel, .s4-card');
+    // The 91% (.s4-card) rides its parent spotlight panel's reveal — giving it
+    // its own scrubbed slide on top caused the choppy double-animation.
+    const revealEls = gsap.utils.toArray('.problem-panel');
     const iconHosts = gsap.utils.toArray('.problem-card');
 
     function setBackdrop(progress) {
-        const gridX = -180 * progress + Math.sin(progress * Math.PI * 2.4) * 22;
-        const gridY = 135 * progress;
-        const gridScale = 1 + progress * 0.1;
-        const sweepX = 22 + progress * 52;
-        const sweepY = 34 + Math.sin(progress * Math.PI * 1.8) * 10;
-
-        panel.style.setProperty('--problem-grid-x', `${gridX.toFixed(2)}px`);
-        panel.style.setProperty('--problem-grid-y', `${gridY.toFixed(2)}px`);
-        panel.style.setProperty('--problem-grid-scale', gridScale.toFixed(3));
-        panel.style.setProperty('--problem-sweep-x', `${sweepX.toFixed(2)}%`);
-        panel.style.setProperty('--problem-sweep-y', `${sweepY.toFixed(2)}%`);
-
         if (glow) {
             gsap.set(glow, {
-                xPercent: -50 + Math.sin(progress * Math.PI * 2.1) * 11,
-                yPercent: -2 + progress * 18,
-                scale: 1 + Math.sin(progress * Math.PI * 1.1) * 0.12,
-                opacity: 0.8 + Math.sin(progress * Math.PI * 1.2) * 0.09,
+                xPercent: -50 + Math.sin(progress * Math.PI * 2.1) * 8,
+                yPercent: progress * 12,
                 overwrite: true
             });
         }
@@ -75,20 +63,25 @@ function initProblemSection() {
         );
     });
 
-    revealEls.forEach((el, index) => {
-        const revealX = el.classList.contains('s4-card') ? 140 : (index % 2 === 0 ? -180 : 180);
-
+    revealEls.forEach((el) => {
+        // Right-aligned content (spotlight, 91% card, budget card) slides in
+        // from the right; everything else keeps the default left entrance.
+        const fromRight = el.dataset.revealFrom === 'right'
+            || !!el.closest('[data-reveal-from="right"]');
+        const startX = fromRight ? 220 : -220;
         gsap.fromTo(
             el,
-            { x: revealX },
+            { x: startX, opacity: 0, force3D: true },
             {
                 x: 0,
+                opacity: 1,
                 ease: 'power3.out',
+                force3D: true,
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 95%',
-                    end: 'top 70%',
-                    scrub: 0.6
+                    start: 'top 88%',
+                    end: 'top 50%',
+                    scrub: 0.7
                 }
             }
         );
@@ -107,6 +100,54 @@ function initProblemSection() {
             ring.addEventListener('mouseenter', () => restartIconAnimation(host, '.icon-ring'));
         }
     });
+
+    // ── Staggered entry for THE / PROBLEM / description ──
+    const theEl   = section.querySelector('.s0-label .the');
+    const probEl  = section.querySelector('.s0-label .problem');
+    const descEl  = section.querySelector('.s0-desc');
+
+    [theEl, probEl, descEl].forEach(el => {
+        if (el) gsap.set(el, { opacity: 0, x: -220, force3D: true });
+    });
+
+    if (theEl || probEl || descEl) {
+        gsap.to([theEl, probEl, descEl].filter(Boolean), {
+            opacity: 1,
+            x: 0,
+            force3D: true,
+            ease: 'power3.out',
+            stagger: 0.18,
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 65%',
+                end: 'top 20%',
+                scrub: 0.7
+            }
+        });
+    }
+
+    // ── Arrow draw: stroke from left → right on scroll ──
+    const arrowPath = document.getElementById('problem-arrow-path');
+    const arrowHead = document.getElementById('problem-arrow-head');
+
+    if (arrowPath) {
+        const pathLen = arrowPath.getTotalLength();
+        gsap.set(arrowPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
+        if (arrowHead) gsap.set(arrowHead, { opacity: 0 });
+
+        const arrowTl = gsap.timeline({ paused: true });
+        arrowTl
+            .to(arrowPath, { strokeDashoffset: 0, ease: 'power1.inOut', duration: 0.8 })
+            .to(arrowHead, { opacity: 1, ease: 'power2.out', duration: 0.2 }, 0.75);
+
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top 70%',
+            end: 'top 25%',
+            scrub: 1,
+            animation: arrowTl
+        });
+    }
 
     setBackdrop(0);
     ScrollTrigger.refresh();
@@ -140,7 +181,7 @@ function initProcessSection() {
     }
 
     const SLIDES = [
-        ['#process-slide-0 .process-s0-label .our', '#process-slide-0 .process-s0-label .process', '#process-slide-0 .subhead-from', '#process-slide-0 .subhead-to', '#process-slide-0 .process-s1-label', '#process-slide-0 .process-s0-desc', '#process-slide-0 .process-s0-stat', '#process-slide-0 .process-s1-card'],
+        ['#process-slide-0 .process-s0-label', '#process-slide-0 .process-s0-subhead', '#process-slide-0 .process-s0-arrow', '#process-slide-0 .process-s0-right', '#process-slide-0 .process-s0-left-content'],
         ['#process-slide-2 .process-pain-tag', '#process-slide-2 .process-pain-heading', '#process-slide-2 .process-pain-body', '#process-slide-2 .process-pain-visual', '#process-slide-2 .process-ghost-num'],
         ['#process-slide-3 .process-pain-tag', '#process-slide-3 .process-pain-heading', '#process-slide-3 .process-pain-body', '#process-slide-3 .process-pain-visual', '#process-slide-3 .process-ghost-num'],
         ['#process-slide-4 .process-pain-tag', '#process-slide-4 .process-pain-heading', '#process-slide-4 .process-pain-body', '#process-slide-4 .process-pain-visual', '#process-slide-4 .process-ghost-num'],
@@ -153,65 +194,122 @@ function initProcessSection() {
     const SLIDE_ELS = SLIDES.map(sels => sels.map(sel => document.querySelector(sel)).filter(Boolean));
     const SLIDE_WRAPPERS = SLIDE_IDS.map(id => document.getElementById(id));
 
+    const totalPinScroll = (NUM - 1) * VH + VH * (ENTER_FRAC + HOLD_FRAC);
     ScrollTrigger.create({
         trigger: '#process-pin-wrapper',
         start: 'top top',
-        end: `+=${NUM * VH}vh`,
+        end: `+=${totalPinScroll}vh`,
         pin: '#process-pin-panel',
         pinSpacing: true,
         anticipatePin: 1,
     });
-
+ 
     SLIDE_WRAPPERS.forEach(w => {
         if (!w) return;
         w.style.visibility = 'hidden';
         w.style.pointerEvents = 'none';
     });
-
+ 
     SLIDES.forEach((selectors, si) => {
         const els = SLIDE_ELS[si];
         const wrapper = SLIDE_WRAPPERS[si];
         if (!wrapper) return;
-
+ 
+        const isLast = (si === NUM - 1);
         const zoneStart = si * VH;
-        const zoneEnd = zoneStart + VH;
+        const zoneEnd = isLast ? (zoneStart + VH * (ENTER_FRAC + HOLD_FRAC)) : (zoneStart + VH);
         const enterLen = VH * ENTER_FRAC;
         const sliceVH = enterLen / selectors.length;
-
+ 
         const tl = gsap.timeline({ paused: true });
 
-        selectors.forEach((sel, ei) => {
-            const el = els[ei];
-            if (!el) return;
-            const isRight = sel.includes('visual') || sel.includes('card') || sel.includes('stat');
-            gsap.set(el, { opacity: 0, y: 60, x: isRight ? 50 : 0, force3D: true });
-        });
+        if (si === 0) {
+            // ── Custom intro for the overview slide ──
+            // 1) left text enters from the left
+            // 2) the arrow draws itself left → right
+            // 3) the two right-hand cards slide in from the right
+            const leftEls = [
+                wrapper.querySelector('.process-s0-label'),
+                wrapper.querySelector('.process-s0-subhead'),
+                wrapper.querySelector('.process-s0-left-content'),
+            ].filter(Boolean);
+            const arrowWrap = wrapper.querySelector('.process-s0-arrow');
+            const arrowLine = wrapper.querySelector('.ps-arrow-line');
+            const arrowHead = wrapper.querySelector('.ps-arrow-head');
+            // Animate the whole right column as ONE unit so the two boxes stay
+            // perfectly aligned (a per-box stagger left them offset mid-slide).
+            const rightGroup = wrapper.querySelector('.process-s0-right');
 
-        selectors.forEach((sel, ei) => {
-            const el = els[ei];
-            if (!el) return;
-            const isRight = sel.includes('visual') || sel.includes('card') || sel.includes('stat');
-            const sliceStart = (ei * sliceVH) / VH;
-            const sliceEnd = ((ei + 1) * sliceVH) / VH;
+            gsap.set(leftEls, { opacity: 0, x: -70, force3D: true });
+            if (rightGroup) gsap.set(rightGroup, { opacity: 0, x: 180, force3D: true });
+            if (arrowHead) gsap.set(arrowHead, { opacity: 0 });
+            if (arrowLine) {
+                const lineLen = arrowLine.getTotalLength();
+                gsap.set(arrowLine, { strokeDasharray: lineLen, strokeDashoffset: lineLen });
+            }
 
-            tl.fromTo(
-                el,
-                { opacity: 0, y: 60, x: isRight ? 50 : 0 },
-                { opacity: 1, y: 0, x: 0, ease: 'power2.out', force3D: true, duration: sliceEnd - sliceStart },
-                sliceStart
-            );
-        });
+            // Custom (un-normalised) timeline: the arrow draw eats ~44% of slide
+            // 0's scroll zone (very slow draw), then a long hold keeps the boxes
+            // on screen before the slide exits.
+            tl.to(leftEls, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.12, stagger: 0.04 }, 0);
+            if (arrowLine) {
+                tl.to(arrowLine, { strokeDashoffset: 0, ease: 'none', duration: 1.00 }, 0.16);
+            }
+            if (arrowHead) {
+                // Head appears ONLY once the line has fully landed — never floats alone.
+                tl.to(arrowHead, { opacity: 1, ease: 'power1.out', duration: 0.06 }, 1.16);
+            }
+            if (rightGroup) {
+                tl.to(rightGroup, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.20 }, 1.26);
+            }
 
-        tl.to({}, { duration: HOLD_FRAC }, ENTER_FRAC);
-        tl.to(
-            els,
-            { opacity: 0, y: -60, ease: 'power2.in', force3D: true, stagger: 0, duration: EXIT_FRAC },
-            ENTER_FRAC + HOLD_FRAC
-        );
+            // long hold so the fully-revealed slide lingers before exiting
+            tl.to({}, { duration: 0.60 }, 1.46);
 
+            const exitEls = [...leftEls, arrowWrap, rightGroup].filter(Boolean);
+            tl.to(exitEls, { opacity: 0, y: -60, ease: 'power2.in', force3D: true, duration: 0.20 }, 2.06);
+        } else {
+            selectors.forEach((sel, ei) => {
+                const el = els[ei];
+                if (!el) return;
+                const isRight = sel.includes('visual') || sel.includes('card') || sel.includes('stat') || sel.includes('right');
+                gsap.set(el, { opacity: 0, y: 60, x: isRight ? 50 : 0, force3D: true });
+            });
+
+            selectors.forEach((sel, ei) => {
+                const el = els[ei];
+                if (!el) return;
+                const isRight = sel.includes('visual') || sel.includes('card') || sel.includes('stat') || sel.includes('right');
+                const sliceStart = (ei * sliceVH) / VH;
+                const sliceEnd = ((ei + 1) * sliceVH) / VH;
+
+                tl.fromTo(
+                    el,
+                    { opacity: 0, y: 60, x: isRight ? 50 : 0 },
+                    { opacity: 1, y: 0, x: 0, ease: 'power2.out', force3D: true, duration: sliceEnd - sliceStart },
+                    sliceStart
+                );
+            });
+
+            tl.to({}, { duration: HOLD_FRAC }, ENTER_FRAC);
+
+            if (!isLast) {
+                tl.to(
+                    els,
+                    { opacity: 0, y: -60, ease: 'power2.in', force3D: true, stagger: 0, duration: EXIT_FRAC },
+                    ENTER_FRAC + HOLD_FRAC
+                );
+            }
+        }
+ 
+        // Slide 0 is bound to the PINNED scroll (top top) rather than firing on
+        // entry, so the arrow visibly draws as the user scrolls and retracts on
+        // scroll-back, instead of being pre-revealed before the section pins.
+        const startTrigger = `top+=${zoneStart}vh top`;
+ 
         ScrollTrigger.create({
             trigger: '#process-pin-wrapper',
-            start: `top+=${zoneStart}vh top`,
+            start: startTrigger,
             end: `top+=${zoneEnd}vh top`,
             scrub: 0.8,
             animation: tl,
@@ -226,12 +324,16 @@ function initProcessSection() {
                 restartIconAnimation(wrapper, '.process-icon-ring');
             },
             onLeave: () => {
-                wrapper.style.visibility = 'hidden';
+                if (!isLast) {
+                    wrapper.style.visibility = 'hidden';
+                }
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
             },
             onLeaveBack: () => {
-                wrapper.style.visibility = 'hidden';
+                if (si !== 0) {
+                    wrapper.style.visibility = 'hidden';
+                }
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
             },

@@ -133,12 +133,70 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex: 1;
+    flex: 0 1 auto;
     min-width: 0;
 }
 
+/* ── Combined slide-0: center arrow filling the dead space ── */
+.process-s0-arrow {
+    flex: 1 1 auto;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    pointer-events: none;
+}
+
+.process-s0-arrow-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+    color: var(--teal);
+    filter: drop-shadow(0 0 22px rgba(0, 229, 200, 0.35));
+    /* lift the arrow up so the tail comes from between the two title words
+       and the head points at the "4 steps" box */
+    transform: translateY(-8.5vw);
+}
+
+/* Baselines so nothing flashes/lingers before the scroll-bound JS takes over:
+   the line starts fully un-drawn and the head starts hidden. */
+.ps-arrow-line {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+}
+
+.ps-arrow-head {
+    opacity: 0;
+}
+
+@media (max-width: 900px) {
+    .process-s0-arrow {
+        display: none;
+    }
+}
+
 #process-slide-0 .process-s0-label {
-    font-size: clamp(2.8rem, 8vw, 11rem);
+    font-size: clamp(5rem, 12.5vw, 15rem);
+    line-height: 0.68;
+}
+
+.process-s0-right {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2vh, 24px);
+    width: clamp(280px, 24vw, 360px);
+    flex-shrink: 0;
+    align-self: center;
+}
+
+#process-slide-0 .process-s0-stat {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 #process-slide-0 .process-s1-card {
@@ -146,19 +204,15 @@
     right: auto;
     top: auto;
     transform: none;
-    width: clamp(170px, 16vw, 230px);
+    width: 100%;
     flex-shrink: 0;
-    align-self: center;
-}
-
-#process-slide-0 .process-s1-card-item {
-    padding: clamp(14px, 2vh, 22px) clamp(14px, 1.2vw, 20px);
+    box-sizing: border-box;
 }
 
 .process-s0-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 15vw, 18rem);
-    line-height: 0.75;
+    font-size: clamp(4.5rem, 11.5vw, 14rem);
+    line-height: 0.68;
     letter-spacing: 0.03em;
     color: var(--white);
     margin-bottom: 0;
@@ -168,73 +222,117 @@
 .process-s0-label .our {
     display: block;
     color: var(--teal);
-    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.92);
-    paint-order: stroke fill;
-    line-height: 0.75;
-    margin-bottom: -0.22em;
+    line-height: 0.68;
+    transform: translateY(25px);
 }
 
 .process-s0-label .process {
     display: block;
-    color: #119da4;
-    -webkit-text-stroke: 3.5px rgba(255, 255, 255, 0.72);
-    paint-order: stroke fill;
-    line-height: 0.75;
+    color: var(--teal);
+    line-height: 0.68;
+    transform: translateY(5px);
 }
 
 .process-s0-bottom {
-    margin-top: 10px;
+    margin-top: clamp(18px, 2.2vh, 28px);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     width: 100%;
     max-width: 1100px;
-    gap: clamp(24px, 4vw, 60px);
+    gap: clamp(20px, 3.5vw, 50px);
 }
 
 .process-s0-desc {
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 1.38vw, 1.38rem);
     font-weight: 400;
-    color: var(--white);
-    line-height: 1.7;
-    max-width: 520px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    max-width: 624px;
 }
 
 .process-s0-stat {
     position: absolute;
     top: clamp(48px, 9vh, 90px);
     right: clamp(130px, 11vw, 200px);
-    text-align: right;
+    text-align: left;
+    padding: clamp(18px, 2.2vw, 28px);
+    border-radius: 12px;
+    background: #121a21;
+    border: 1px solid rgba(0, 229, 200, 0.15);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 0 30px rgba(0, 229, 200, 0.05);
+    width: clamp(220px, 22vw, 300px);
+    overflow: hidden;
+}
+
+.process-s0-stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal) 0%, rgba(0, 229, 200, 0.2) 100%);
+    box-shadow: 0 1px 8px rgba(0, 229, 200, 0.4);
 }
 
 .process-s0-stat-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(5rem, 10vw, 12rem);
+    font-size: clamp(3rem, 4.5vw, 4.2rem);
     line-height: 1;
     color: var(--teal);
-    -webkit-text-stroke: 3px rgba(0, 0, 0, 0.92);
-    paint-order: stroke fill;
     display: block;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(0, 229, 200, 0.3);
+    letter-spacing: 0.02em;
 }
 
 .process-s0-stat-label {
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(0.7rem, 1.1vw, 0.82rem);
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--white);
-    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.8);
     display: block;
-    font-weight: 500;
+    margin: 0;
 }
 
-/* ── Slides 1-4 - pain-inner layout, exact clone ── */
+/* ── Slides 1-4 - pain-inner layout, matching problem-card grid exactly ── */
 .process-pain-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr clamp(160px, 14vw, 220px) 1fr;
     align-items: center;
-    gap: 80px;
-    max-width: 1100px;
+    column-gap: clamp(40px, 5vw, 70px);
+    max-width: 100%;
     width: 100%;
+}
+
+.process-pain-text {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.process-pain-visual {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+}
+
+.process-pain-body {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    max-width: 100%;
+    font-size: clamp(1.1rem, 1.55vw, 1.45rem);
+    font-weight: 500;
+    line-height: 1.72;
+    min-width: 0;
+    color: var(--text-secondary);
 }
 
 .process-pain-tag {
@@ -245,28 +343,20 @@
     text-transform: uppercase;
     padding: 5px 12px;
     border-radius: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .process-pain-heading {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 3.4vw, 3rem);
+    font-size: clamp(2rem, 3.2vw, 4rem);
     font-weight: 800;
     line-height: 1.1;
     color: var(--white);
-    margin-bottom: 22px;
+    margin-bottom: 10px;
 }
 
 .process-pain-heading em {
     font-style: normal;
-}
-
-.process-pain-body {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: var(--gray);
-    line-height: 1.6;
-    max-width: 400px;
 }
 
 .process-pain-visual {
@@ -374,18 +464,18 @@
 }
 
 #process-slide-5 .process-pain-tag {
-    background: rgba(0, 214, 143, 0.12);
-    color: #00d68f;
+    background: rgba(168, 85, 247, 0.15);
+    color: #a855f7;
 }
 
 #process-slide-5 .process-pain-heading em {
-    color: #00d68f;
+    color: #a855f7;
 }
 
 #process-slide-5 .process-icon-ring {
-    background: rgba(0, 214, 143, 0.09);
-    color: #00d68f;
-    box-shadow: 0 0 70px rgba(0, 214, 143, 0.18);
+    background: rgba(168, 85, 247, 0.12);
+    color: #a855f7;
+    box-shadow: 0 0 70px rgba(168, 85, 247, 0.22);
 }
 
 /* ── Slide 1 - intro step, mirrors "INVISIBLE" slide exactly ── */
@@ -398,10 +488,10 @@
 
 .process-s1-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+    font-size: clamp(1.08rem, 1.68vw, 1.56rem);
     letter-spacing: 0.08em;
     color: rgba(255, 255, 255, 0.32);
-    margin-bottom: 16px;
+    margin-bottom: clamp(6px, 0.8vh, 10px);
     display: block;
 }
 
@@ -448,18 +538,23 @@
     right: 14vw;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(130px, 11vw, 165px);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 4px;
+    width: clamp(240px, 22vw, 320px);
+    background: #121a21;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 0 40px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
 
 .process-s1-card-item {
-    background: var(--bg-primary);
-    padding: clamp(30px, 4vh, 45px) clamp(14px, 1.2vw, 20px);
+    background: transparent;
+    padding: clamp(14px, 2.2vh, 22px) clamp(20px, 1.8vw, 28px);
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.3s ease;
 }
 
 .process-s1-card-item:last-child {
@@ -471,57 +566,87 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 2px;
+    width: 3px;
+    height: 100%;
+    opacity: 0.35;
+    transition: width 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-s1-card-item:hover::before {
+    width: 5px;
+    opacity: 1;
 }
 
 .process-s1-card-item:nth-child(1)::before {
     background: #ff6b35;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
 }
 
 .process-s1-card-item:nth-child(2)::before {
     background: var(--gold);
+    box-shadow: 0 0 10px rgba(245, 166, 35, 0.5);
 }
 
 .process-s1-card-item:nth-child(3)::before {
     background: #4ab8ff;
+    box-shadow: 0 0 10px rgba(74, 184, 255, 0.5);
 }
 
 .process-s1-card-item:nth-child(4)::before {
-    background: #00d68f;
+    background: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.process-s1-card-item:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .process-s1-card-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.6rem, 2.2vw, 2rem);
+    font-size: clamp(2rem, 2.8vw, 2.6rem);
     line-height: 1;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    transition: transform 0.3s ease;
+}
+
+.process-s1-card-item:hover .process-s1-card-num {
+    transform: translateX(4px);
 }
 
 .process-s1-card-item:nth-child(1) .process-s1-card-num {
     color: #ff6b35;
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
 }
 
 .process-s1-card-item:nth-child(2) .process-s1-card-num {
     color: var(--gold);
+    text-shadow: 0 0 10px rgba(245, 166, 35, 0.2);
 }
 
 .process-s1-card-item:nth-child(3) .process-s1-card-num {
     color: #4ab8ff;
+    text-shadow: 0 0 10px rgba(74, 184, 255, 0.2);
 }
 
 .process-s1-card-item:nth-child(4) .process-s1-card-num {
-    color: #00d68f;
+    color: #a855f7;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
 }
 
 .process-s1-card-label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--gray);
     display: block;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.process-s1-card-item:hover .process-s1-card-label {
+    transform: translateX(4px);
+    color: var(--white);
 }
 
 /* ── icon animations ── */
@@ -765,6 +890,13 @@
         text-align: center;
     }
 
+    .process-pain-text,
+    .process-pain-visual,
+    .process-pain-body {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+
     .process-pain-visual {
         order: -1;
     }
@@ -781,14 +913,14 @@
 /* ── Combined slide-0: sub-header ── */
 .process-s0-subhead {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.6rem, 2.8vw, 3.2rem);
+    font-size: clamp(1.68rem, 2.88vw, 3.36rem);
     letter-spacing: 0.04em;
     line-height: 1;
     display: flex;
     align-items: baseline;
     gap: 0.45em;
-    margin-top: clamp(6px, 1vh, 14px);
-    margin-bottom: clamp(14px, 2.5vh, 28px);
+    margin-top: clamp(6px, 0.8vh, 10px);
+    margin-bottom: clamp(10px, 1.8vh, 20px);
 }
 
 .subhead-from {
@@ -804,14 +936,4 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-}
-
-/* ── Combined slide-0: card flows inline (not absolutely positioned) ── */
-#process-slide-0 .process-s1-card {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    width: clamp(160px, 14vw, 210px);
-    align-self: flex-end;
 }
