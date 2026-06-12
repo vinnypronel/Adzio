@@ -108,12 +108,15 @@
             
             // NO GLOWS - only rays
             float light = raySum;
-            light = clamp(light, 0.0, 0.65);
+            light = clamp(light, 0.0, 0.35);
+
+            // Adzio cyan #00e5c8 with a whisper of champagne warmth at the core
+            vec3 cyan = vec3(0.0, 0.898, 0.784);
+            vec3 champagne = vec3(0.773, 0.659, 0.502);
+            vec3 color = mix(cyan, champagne, smoothstep(0.18, 0.32, light) * 0.22) * light;
             
-            // Color #006eff = (0, 0.43, 1.0)
-            vec3 color = vec3(0.0, 0.43, 1.0) * light;
-            
-            gl_FragColor = vec4(color, 1.0);
+            // Use light as alpha so non-ray pixels are fully transparent (no dark overlay)
+            gl_FragColor = vec4(color, light);
         }
     `;
 
@@ -157,7 +160,7 @@
                 height: 100%;
                 z-index: -1;
                 pointer-events: none;
-                opacity: 0.8;
+                opacity: 0.32;
             `;
             this.container.insertBefore(this.canvas, this.container.firstChild);
 

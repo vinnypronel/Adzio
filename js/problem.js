@@ -90,9 +90,17 @@ function initProblemSection() {
     iconHosts.forEach(host => {
         ScrollTrigger.create({
             trigger: host,
-            start: 'top 76%',
+            start: 'top 50%',
             onEnter: () => restartIconAnimation(host, '.icon-ring'),
-            onEnterBack: () => restartIconAnimation(host, '.icon-ring')
+            onEnterBack: () => restartIconAnimation(host, '.icon-ring'),
+            onLeave: () => {
+                const ring = host.querySelector('.icon-ring');
+                if (ring) ring.classList.remove('icon-animate');
+            },
+            onLeaveBack: () => {
+                const ring = host.querySelector('.icon-ring');
+                if (ring) ring.classList.remove('icon-animate');
+            }
         });
 
         const ring = host.querySelector('.icon-ring');
@@ -260,7 +268,7 @@ function initProcessSection() {
                 tl.to(arrowHead, { opacity: 1, ease: 'power1.out', duration: 0.06 }, 1.16);
             }
             if (rightGroup) {
-                tl.to(rightGroup, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.20 }, 1.26);
+                tl.to(rightGroup, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.60 }, 0.86);
             }
 
             // long hold so the fully-revealed slide lingers before exiting
@@ -302,10 +310,9 @@ function initProcessSection() {
             }
         }
  
-        // Slide 0 is bound to the PINNED scroll (top top) rather than firing on
-        // entry, so the arrow visibly draws as the user scrolls and retracts on
-        // scroll-back, instead of being pre-revealed before the section pins.
-        const startTrigger = `top+=${zoneStart}vh top`;
+        // Slide 0 starts revealing while the section is still entering the
+        // viewport, so the pinned panel never sits empty.
+        const startTrigger = si === 0 ? 'top 78%' : `top+=${zoneStart}vh top`;
  
         ScrollTrigger.create({
             trigger: '#process-pin-wrapper',
@@ -313,15 +320,27 @@ function initProcessSection() {
             end: `top+=${zoneEnd}vh top`,
             scrub: 0.8,
             animation: tl,
+            onUpdate: self => {
+                if (si === 0) return;
+                const icon = wrapper.querySelector('.process-icon-ring');
+                if (!icon) return;
+                
+                const threshold = 0.28;
+                if (self.progress >= threshold) {
+                    if (!icon.classList.contains('icon-animate')) {
+                        icon.classList.add('icon-animate');
+                    }
+                } else {
+                    icon.classList.remove('icon-animate');
+                }
+            },
             onEnter: () => {
                 wrapper.style.visibility = 'visible';
                 setActivePip(si);
-                restartIconAnimation(wrapper, '.process-icon-ring');
             },
             onEnterBack: () => {
                 wrapper.style.visibility = 'visible';
                 setActivePip(si);
-                restartIconAnimation(wrapper, '.process-icon-ring');
             },
             onLeave: () => {
                 if (!isLast) {

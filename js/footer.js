@@ -1,10 +1,8 @@
 (function () {
     var html = `
 <footer class="footer">
-    <div class="footer-glow glow-1"></div>
-    <div class="footer-glow glow-2"></div>
-
     <div class="footer-content">
+
         <div class="footer-main">
 
             <!-- Brand Column -->
@@ -12,6 +10,7 @@
                 <a href="index.html#home" class="footer-logo">
                     <img src="assets/logo.png" alt="Adzio Logo">
                 </a>
+                <p class="footer-tagline">The boutique growth partner behind local market leaders.</p>
                 <div class="footer-social">
                     <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,14 +30,6 @@
                         </svg>
                     </a>
                 </div>
-                <a href="index.html#contact" class="footer-lets-talk">
-                    <span class="footer-lets-talk-spacer"></span>
-                    <span>Let's talk</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
             </div>
 
             <!-- Nav Columns -->
@@ -87,6 +78,17 @@
                 <a href="#" onclick="typeof openLegal==='function'&&openLegal('privacy');return false;">Privacy Policy</a>
                 <a href="#" onclick="typeof openLegal==='function'&&openLegal('terms');return false;">Terms of Service</a>
             </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="footer-bottom-cta">
+            <a href="index.html#contact" class="footer-lets-talk">
+                <span>Let's Talk</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
         </div>
     </div>
 </footer>`;

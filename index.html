@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adzio | We Help Businesses Get Seen & Booked</title>
+    <title>Adzio | Get Seen. Get Booked. Every Month.</title>
     <meta name="description"
-        content="Adzio helps local businesses grow through targeted ads, lead generation, and proven marketing strategies. Get more customers every month.">
+        content="Adzio is the boutique growth partner behind local market leaders — precision ad systems, conversion-built websites, and senior execution that compounds month after month.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=2">
@@ -23,10 +23,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=203.0">
-    <link rel="stylesheet" href="css/animations.css?v=200.0">
-    <link rel="stylesheet" href="css/problem.css?v=203.0">
-    <link rel="stylesheet" href="css/process.css?v=202.0">
+    <link rel="stylesheet" href="css/styles.css?v=211.0">
+    <link rel="stylesheet" href="css/animations.css?v=211.0">
+    <link rel="stylesheet" href="css/problem.css?v=211.0">
+    <link rel="stylesheet" href="css/process.css?v=211.0">
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -36,6 +36,9 @@
 </head>
 
 <body>
+    <!-- Page load veil -->
+    <div class="page-veil" aria-hidden="true"></div>
+
     <!-- Navigation -->
     <div class="nav-wrap" id="navWrap">
         <div class="nav-svg-container" id="navContainer">
@@ -127,26 +130,27 @@
         <div class="hero-content">
             <div class="hero-split">
                 <div class="hero-left-col">
-                    <h1 class="hero-title animate-fade-up delay-1">
-                        <span class="title-line">We Help Businesses</span>
-                        <span class="title-line title-gradient">Get Seen & Booked</span>
+                    <div class="hero-eyebrow animate-fade-up delay-1">
+                        <span>Adzio</span>
+                        <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+                    </div>
+
+                    <h1 class="hero-title animate-fade-up delay-2">
+                        <span class="title-line">Get Seen.</span>
+                        <span class="title-line title-gradient">Get Booked.</span>
+                        <span class="title-line title-line--ghost">Every Month.</span>
                     </h1>
 
-                    <p class="hero-subtitle animate-fade-up delay-2">
-                        Stop losing customers to competitors. Our targeted ads and proven
-                        marketing strategies will GUARANTEE you more local customers every month.
-                        You focus on what you do best. We'll handle the growth.
-                    </p>
-
                     <div class="hero-cta animate-fade-up delay-3">
-                        <a href="#contact" class="btn btn-glow btn-lg">
-                            <span>Get Your Free Strategy Call</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <a href="#contact" class="btn btn-glow btn-lg" data-magnetic>
+                            <span>Request a Strategy Call</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </a>
-                        <a href="services.html#services-overview" class="btn btn-ghost btn-lg">
-                            <span>See Our Services</span>
+                        <a href="services.html#services-overview" class="btn btn-ghost btn-lg" data-magnetic>
+                            <span>View Capabilities</span>
                         </a>
                     </div>
                 </div>
@@ -173,8 +177,12 @@
     <!-- Logo Carousel Section -->
     <section class="logo-slider">
         <div class="logo-slider-shell">
-            <h2 class="slider-label"><span class="text-gradient">Driving Revenue</span> through the World's Leading
-                Platforms</h2>
+            <div class="slider-head">
+                <span class="eyebrow eyebrow--center">Platform Mastery</span>
+                <h2 class="slider-label">Revenue, engineered on the world's
+                    <span class="slider-label-em">leading platforms</span>
+                </h2>
+            </div>
 
             <div class="logo-slider-viewport">
                 <div class="slide-track slide-track-top" data-carousel-row="top">
@@ -208,6 +216,70 @@
         </div>
     </section>
 
+    <!-- About Teaser -->
+    <section class="home-about" id="about-teaser">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content animate-on-scroll">
+                    <span class="eyebrow home-about-eyebrow">The Agency</span>
+                    <h2 class="section-title">
+                        A growth partner, <span class="text-gradient">not another vendor.</span>
+                    </h2>
+                    <p class="about-text">
+                        Adzio runs your ads, website, and content as one integrated growth
+                        system &mdash; built and managed end to end by a small senior team
+                        that treats your budget like its own capital.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>Strategy driven by data, not guesswork</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>Full transparency on every dollar</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>No long-term contracts. Results retain you.</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>Senior partners on every account</span>
+                        </div>
+                    </div>
+                    <a href="about-us.html" class="btn btn-ghost btn-lg home-about-btn" data-magnetic>
+                        <span>Inside the Agency</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="about-visual animate-on-scroll">
+                    <div class="home-about-stats">
+                        <div class="home-about-stat">
+                            <span class="stat-index">01</span>
+                            <strong>4</strong>
+                            <span>Growth disciplines, unified under one senior team</span>
+                        </div>
+                        <div class="home-about-stat">
+                            <span class="stat-index">02</span>
+                            <strong>100%</strong>
+                            <span>Built exclusively around local businesses</span>
+                        </div>
+                        <div class="home-about-stat">
+                            <span class="stat-index">03</span>
+                            <strong>Daily</strong>
+                            <span>Hands-on optimization. Never set-and-forget.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="section-blend" aria-hidden="true"></div>
 
     <!-- Problem Section -->
@@ -217,63 +289,65 @@
                 <div id="bg-glow"></div>
                 <div class="problem-stage">
                     <div class="problem-combined">
-                      <div class="problem-combined-inner">
-                        <div class="problem-hero problem-panel problem-parallax" data-shift="-18">
-                            <div class="problem-intro-copy">
-                                <p class="s0-label">
-                                    <span class="the">THE</span>
-                                    <span class="problem">PROBLEM</span>
-                                </p>
-                                <div class="s0-bottom">
-                                    <p class="s0-desc">Every day without the right strategy costs you customers, cash, and ground to
-                                        your competitors. What follows is exactly what's killing your growth.</p>
+                        <div class="problem-combined-inner">
+                            <div class="problem-hero problem-panel problem-parallax" data-shift="-18">
+                                <div class="problem-intro-copy">
+                                    <p class="s0-label">
+                                        <span class="the">THE</span>
+                                        <span class="problem">PROBLEM</span>
+                                    </p>
+
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="problem-connect-arrow" aria-hidden="true">
-                            <svg viewBox="-5 -15 230 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- arrow body: longer, thicker, flat tail, deeper curve -->
-                                <path id="problem-arrow-path" d="M 6 104 Q 58 -2, 125 14"
-                                      stroke="#00e5c8"
-                                      stroke-width="19"
-                                      stroke-linecap="butt"/>
-                                <!-- arrowhead: notched chevron matching the process arrow, scaled up a touch -->
-                                <polygon id="problem-arrow-head" points="102,-24 180,14 102,52 125,14" fill="#00e5c8"/>
-                            </svg>
-                        </div>
-
-                        <div class="problem-spotlight problem-panel problem-parallax" id="problem-visibility" data-shift="10" data-reveal-from="right">
-                            <div class="problem-spotlight-copy">
-                                <p class="s4-label">- MOST BUSINESSES ARE...</p>
-                                <div class="s4-title">
-                                    <span class="line-ghost">INVISIBLE</span>
-                                    <span class="line-solid">TO THE</span>
-                                    <span class="line-red">CUSTOMERS</span>
-                                </div>
+                            <div class="problem-connect-arrow" aria-hidden="true">
+                                <svg viewBox="-5 -15 230 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- arrow body: longer, thicker, flat tail, deeper curve -->
+                                    <path id="problem-arrow-path" d="M 6 104 Q 58 -2, 125 14" stroke="#00e5c8"
+                                        stroke-width="19" stroke-linecap="butt" />
+                                    <!-- arrowhead: notched chevron matching the process arrow, scaled up a touch -->
+                                    <polygon id="problem-arrow-head" points="102,-24 180,14 102,52 125,14"
+                                        fill="#00e5c8" />
+                                </svg>
                             </div>
-                            <div class="s4-grid">
-                                <div class="s4-card">
-                                    <div class="s4-card-header">
-                                        <span class="s4-card-num">91%</span>
-                                        <span class="s4-card-label">Never found</span>
+
+                            <div class="problem-spotlight problem-panel problem-parallax" id="problem-visibility"
+                                data-shift="10" data-reveal-from="right">
+                                <div class="problem-spotlight-copy">
+                                    <p class="s4-label">Most businesses are&hellip;</p>
+                                    <div class="s4-title">
+                                        <span class="line-ghost">INVISIBLE</span>
+                                        <span class="line-solid">TO THE</span>
+                                        <span class="line-red">CUSTOMERS</span>
                                     </div>
-                                    <p class="s4-card-desc">Of people search online before buying; if you're not showing up,
-                                        they're buying from someone else.</p>
+                                </div>
+                                <div class="s4-grid">
+                                    <div class="s4-card">
+                                        <div class="s4-card-header">
+                                            <span class="s4-card-num">91%</span>
+                                            <span class="s4-card-label">Never found</span>
+                                        </div>
+                                        <p class="s4-card-desc">Of people search online before buying; if you're not
+                                            showing up,
+                                            they're buying from someone else.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                      </div>
                     </div>
 
                     <div class="problem-card-grid">
-                        <article class="problem-card problem-panel problem-parallax" id="problem-card-time" data-shift="14">
+                        <article class="problem-card problem-panel problem-parallax" id="problem-card-time"
+                            data-shift="14">
                             <div class="pain-inner">
                                 <div class="pain-text">
                                     <span class="pain-tag">01 · Time Drain</span>
-                                    <h2 class="pain-heading">Hours spent<br><em>on marketing<br>that goes<br>nowhere</em></h2>
+                                    <h2 class="pain-heading">Hours spent on marketing <em>that goes nowhere</em></h2>
                                 </div>
-                                <p class="pain-body">You're burning your most valuable resource, time, on random posts and boosted content that earns zero real engagement and drives zero revenue. Every hour you spend guessing at marketing is an hour your competitor spends winning your customers. Stop throwing time at tactics that don't compound.</p>
+                                <p class="pain-body">You're burning your most valuable resource &mdash; time &mdash;
+                                    on random posts and boosted content that earn zero engagement and zero revenue.
+                                    Every hour spent guessing is an hour your competitor spends winning your
+                                    customers.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
@@ -291,42 +365,52 @@
                             </div>
                         </article>
 
-                        <article class="problem-card problem-panel problem-parallax" id="problem-card-budget" data-shift="18" data-reveal-from="right">
+                        <article class="problem-card problem-panel problem-parallax" id="problem-card-budget"
+                            data-shift="18" data-reveal-from="right">
                             <div class="pain-inner">
-                                <p class="pain-body">Untargeted campaigns drain your budget daily. Without precision targeting you're paying to reach people who will never buy, handing revenue directly to your competitors. The cost of running blind ads compounds fast. Every dollar wasted is a dollar your competitor used to steal another customer.</p>
+                                <p class="pain-body">Untargeted campaigns drain budget daily. Without precision
+                                    targeting, you pay to reach people who will never buy &mdash; and hand that
+                                    revenue directly to your competitors. Blind ad spend doesn't just waste money.
+                                    It compounds against you.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <line x1="12" y1="1.5" x2="12" y2="22.5" class="icon-money-stem" />
-                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" class="icon-money-curve" />
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                                                class="icon-money-curve" />
                                         </svg>
                                     </div>
                                 </div>
                                 <div class="pain-text">
                                     <span class="pain-tag">02 · Budget Burn</span>
-                                    <h2 class="pain-heading">Ad spend<br><em>that vanishes<br>without<br>converting</em></h2>
+                                    <h2 class="pain-heading">Ad spend that vanishes <em>without converting</em></h2>
                                 </div>
                             </div>
                         </article>
 
-                        <article class="problem-card problem-panel problem-parallax" id="problem-card-competition" data-shift="12">
+                        <article class="problem-card problem-panel problem-parallax" id="problem-card-competition"
+                            data-shift="12">
                             <div class="pain-inner">
                                 <div class="pain-text">
                                     <span class="pain-tag">03 · Lost Customers</span>
-                                    <h2 class="pain-heading">Competitors<br><em>winning your<br>customers<br>right now</em></h2>
+                                    <h2 class="pain-heading">Competitors winning your customers <em>right now</em></h2>
                                 </div>
-                                <p class="pain-body">While you figure this out, competitors are running sharp, targeted campaigns stealing your ideal clients before you get a chance. Every scroll is a lost sale. Every day without a real strategy is ground permanently given up, ground that gets harder to reclaim the longer you wait.</p>
+                                <p class="pain-body">While you read this, sharper campaigns are claiming your ideal
+                                    clients. Every scroll is a lost sale. Every day without a real strategy is ground
+                                    surrendered &mdash; and it gets harder to reclaim the longer you wait.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                                             stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="8.2" cy="8.1" r="2.8" class="icon-people-head icon-people-head--main" />
-                                            <path d="M3.6 18.6c0-2.55 2.05-4.6 4.6-4.6h1c2.55 0 4.6 2.05 4.6 4.6" class="icon-people-body icon-people-body--main" />
-                                            <circle cx="15.7" cy="9.1" r="2.1" class="icon-people-head icon-people-head--alt" />
-                                            <path d="M12.9 18.5c0-2.05 1.65-3.7 3.7-3.7h.55c2.05 0 3.7 1.65 3.7 3.7" class="icon-people-body icon-people-body--alt" />
-                                            <path d="M18.35 4.9c1.2.45 2.1 1.45 2.45 2.7" class="icon-people-signal icon-people-signal--one" />
-                                            <path d="M19.5 3.2c1.85.65 3.25 2.2 3.75 4.15" class="icon-people-signal icon-people-signal--two" />
+                                            <circle cx="9" cy="7" r="4"
+                                                class="icon-people-head icon-people-head--main" />
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                                                class="icon-people-body icon-people-body--main" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"
+                                                class="icon-people-head icon-people-head--alt" />
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"
+                                                class="icon-people-body icon-people-body--alt" />
                                         </svg>
                                     </div>
                                 </div>
@@ -343,43 +427,42 @@
         <div class="container">
             <!-- Header -->
             <div class="services-header">
-                <div class="hero-badge">adzio's services</div>
-                <h2>Everything You Need to <span class="text-gradient text-glow">Dominate</span> Your Market</h2>
-                <p class="services-subtitle">We don't just run ads. We build complete growth systems that turn strangers
-                    into customers.</p>
+                <span class="eyebrow eyebrow--center">Capabilities</span>
+                <h2>Market Dominance, <span class="text-gradient text-glow">Made Predictable</span></h2>
+                <p class="services-subtitle">We don't sell ads. We install the complete growth system that turns
+                    strangers into booked customers &mdash; and keeps them coming back.</p>
             </div>
 
             <!-- Services Grid -->
             <div class="services-grid">
                 <!-- Service 1 -->
                 <div class="service-card service-card--teal animate-on-scroll fly-in-left">
-                    <div class="popular-badge">Most Popular</div>
-                    <div class="service-orb">
-                        <div class="service-icon">
+                    <div class="popular-badge">Most Requested</div>
+                    <div class="service-card-top">
+                        <div class="service-number">01</div>
+                        <div class="service-icon service-icon--brand" aria-hidden="true">
                             <svg viewBox="0 0 24 24">
-                                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                                <path fill="#0081FB"
+                                    d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z" />
                             </svg>
                         </div>
                     </div>
-                    <div class="service-line"></div>
-                    <div class="service-number">01</div>
                     <h3 class="service-title">Meta Ad <span class="highlight">Management</span></h3>
-                    <p class="service-description">High-converting Facebook & Instagram campaigns built to scale your business and drive inbound customer leads.</p>
+                    <p class="service-description">Facebook &amp; Instagram campaigns engineered to put your business
+                        in front of the right people &mdash; and turn attention into booked revenue.</p>
                     <ul class="service-features">
-                        <li>Audience research & lookalikes</li>
+                        <li>Audience research &amp; lookalikes</li>
                         <li>High-performing creative hooks</li>
-                        <li>Instagram & Reels ad placements</li>
-                        <li>Meta Pixel & Conversion API setup</li>
+                        <li>Instagram &amp; Reels ad placements</li>
+                        <li>Meta Pixel &amp; Conversion API setup</li>
                     </ul>
                     <a href="services.html#ad-management" class="service-cta">
-                        <span>Learn More</span>
+                        <span>Explore the Service</span>
                         <span class="service-cta-icon" aria-hidden="true">
                             <svg viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
                     </a>
@@ -387,18 +470,24 @@
 
                 <!-- Service 2 -->
                 <div class="service-card service-card--blue animate-on-scroll fly-in-left">
-                    <div class="service-orb">
-                        <div class="service-icon">
+                    <div class="service-card-top">
+                        <div class="service-number">02</div>
+                        <div class="service-icon service-icon--brand" aria-hidden="true">
                             <svg viewBox="0 0 24 24">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                              </svg>
+                                <path fill="#4285F4"
+                                    d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z" />
+                                <path fill="#34A853"
+                                    d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z" />
+                                <path fill="#FBBC05"
+                                    d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z" />
+                                <path fill="#EA4335"
+                                    d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z" />
+                            </svg>
                         </div>
                     </div>
-                    <div class="service-line"></div>
-                    <div class="service-number">02</div>
                     <h3 class="service-title">Google Ad <span class="highlight">Management</span></h3>
-                    <p class="service-description">High-intent Search, Display, and Performance Max campaigns that capture customers active in your local area.</p>
+                    <p class="service-description">High-intent Search, Display, and Performance Max campaigns that
+                        capture customers the moment they're looking for you.</p>
                     <ul class="service-features">
                         <li>Local Search & Display ads</li>
                         <li>High-intent keyword targeting</li>
@@ -406,11 +495,12 @@
                         <li>Performance Max (PMax) steering</li>
                     </ul>
                     <a href="services.html#lead-generation" class="service-cta">
-                        <span>Learn More</span>
+                        <span>Explore the Service</span>
                         <span class="service-cta-icon" aria-hidden="true">
                             <svg viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
                     </a>
@@ -418,8 +508,9 @@
 
                 <!-- Service 3 -->
                 <div class="service-card service-card--cyan animate-on-scroll fly-in-right">
-                    <div class="service-orb">
-                        <div class="service-icon">
+                    <div class="service-card-top">
+                        <div class="service-number">03</div>
+                        <div class="service-icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
@@ -429,22 +520,22 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="service-line"></div>
-                    <div class="service-number">03</div>
                     <h3 class="service-title">Website <span class="highlight">Development</span></h3>
-                    <p class="service-description">Convert more visitors into paying customers with optimized, fast, and high-converting websites.</p>
+                    <p class="service-description">Digital architecture designed to convert &mdash; fast, precise
+                        websites that turn visitors into paying customers.</p>
                     <ul class="service-features">
-                        <li>Conversion optimization</li>
-                        <li>Mobile-first design</li>
+                        <li>Conversion-first design</li>
+                        <li>Mobile-first build</li>
                         <li>Speed optimization</li>
                         <li>A/B testing</li>
                     </ul>
                     <a href="services.html#landing-pages" class="service-cta">
-                        <span>Learn More</span>
+                        <span>Explore the Service</span>
                         <span class="service-cta-icon" aria-hidden="true">
                             <svg viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
                     </a>
@@ -452,21 +543,30 @@
 
                 <!-- Service 4 -->
                 <div class="service-card service-card--purple animate-on-scroll fly-in-right">
-                    <div class="service-orb">
-                        <div class="service-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z">
-                                </path>
-                                <circle cx="12" cy="17" r="1"></circle>
-                                <path d="M9 7h6"></path>
+                    <div class="service-card-top">
+                        <div class="service-number">04</div>
+                        <div class="service-icon service-icon--brand" aria-hidden="true">
+                            <svg viewBox="0 0 48 48">
+                                <g transform="translate(3.5,3.5)" stroke="#E4405F" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="1" y="1" width="18" height="18" rx="5"></rect>
+                                    <circle cx="10" cy="10" r="4"></circle>
+                                    <circle cx="15.2" cy="4.8" r="0.7" fill="#E4405F" stroke="none"></circle>
+                                </g>
+                                <g transform="translate(26.5,2.5) scale(0.8)">
+                                    <path fill="#1877F2"
+                                        d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                                </g>
+                                <g transform="translate(13.5,26) scale(0.8)">
+                                    <path fill="#F4F1EA"
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </g>
                             </svg>
                         </div>
                     </div>
-                    <div class="service-line"></div>
-                    <div class="service-number">04</div>
                     <h3 class="service-title">Social Media <span class="highlight">Management</span></h3>
-                    <p class="service-description">Build a powerful online presence with engaging content and strategic
-                        posting that grows your brand.</p>
+                    <p class="service-description">A commanding brand presence &mdash; strategic content that builds
+                        authority and keeps your business top of mind.</p>
                     <ul class="service-features">
                         <li>Content creation</li>
                         <li>Strategic posting</li>
@@ -474,11 +574,12 @@
                         <li>Brand development</li>
                     </ul>
                     <a href="services.html#social-media-management" class="service-cta">
-                        <span>Learn More</span>
+                        <span>Explore the Service</span>
                         <span class="service-cta-icon" aria-hidden="true">
                             <svg viewBox="0 0 20 20" fill="none">
                                 <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M11 5L16 10L11 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </span>
                     </a>
@@ -621,7 +722,8 @@
                             </div>
                         </div>
                         <p class="process-pain-body">We launch your campaigns and continuously optimize based on
-                            real data. Full transparency every step of the way, and you'll see real results within the first month.</p>
+                            real data. Full transparency every step of the way, and you'll see real results within the
+                            first month.</p>
                     </div>
                     <div class="process-ghost-num">03</div>
                 </div>
@@ -662,12 +764,14 @@
         </div>
         <div class="container">
             <div class="cta-content">
+                <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Private Client Application</span>
                 <h2 class="cta-title animate-on-scroll">
-                    Ready to <span class="text-gradient">10x</span> Your Business?
+                    Ready to <span class="text-gradient">Own Your Market?</span>
                 </h2>
                 <p class="cta-subtitle animate-on-scroll">
-                    Book a free strategy call and we can create a custom growth plan for your business.
-                    No pressure, no commitment, just actionable insights you can use today.
+                    We partner with a limited number of local businesses each quarter. Apply for a
+                    private strategy session &mdash; if we're the right fit, you'll leave with a
+                    custom growth plan. Free, and yours to keep.
                 </p>
 
                 <!-- Inline Quiz -->
@@ -684,13 +788,15 @@
                     <form id="quizForm" novalidate>
                         <!-- Step 1: Contact Details -->
                         <div class="quiz-step active" data-step="1">
-                            <h2 class="quiz-step-title">Let's start with your contact details</h2>
-                            <p class="quiz-step-subtitle">Introduce yourself so we can customize your strategy call.</p>
+                            <h2 class="quiz-step-title">Introduce yourself</h2>
+                            <p class="quiz-step-subtitle">Tell us who you are so we can prepare your private strategy
+                                session.</p>
                             <div class="quiz-form-grid">
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="first-name">First Name <span class="label-required">*</span></label>
-                                        <input type="text" id="first-name" name="first_name" placeholder="John" required>
+                                        <input type="text" id="first-name" name="first_name" placeholder="John"
+                                            required>
                                     </div>
                                     <div class="form-group">
                                         <label for="last-name">Last Name <span class="label-required">*</span></label>
@@ -704,29 +810,37 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email Address <span class="label-required">*</span></label>
-                                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                                        <input type="email" id="email" name="email" placeholder="john@example.com"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="website">Website <span class="label-optional">(Optional)</span></label>
-                                    <input type="url" id="website" name="website" placeholder="e.x. www.yourbusiness.com">
+                                    <input type="url" id="website" name="website"
+                                        placeholder="e.x. www.yourbusiness.com">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Step 2: Situation -->
                         <div class="quiz-step" data-step="2">
-                            <h2 class="quiz-step-title">Which best describes your current situation?</h2>
-                            <p class="quiz-step-subtitle">Pick the option that sounds most like where your business is right now.</p>
+                            <h2 class="quiz-step-title">Where does your business stand?</h2>
+                            <p class="quiz-step-subtitle">Choose the option closest to where you are right now.</p>
                             <div class="form-group">
-                                <label for="business">Your Current Situation <span class="label-required">*</span></label>
+                                <label for="business">Your Current Situation <span
+                                        class="label-required">*</span></label>
                                 <select id="business" name="business" required>
                                     <option value="">Select your situation</option>
-                                    <option value="getting-started">I'm just getting started and need customers.</option>
-                                    <option value="need-leads">I have a business but I'm not getting enough leads.</option>
-                                    <option value="need-consistency">I'm getting leads, but I need more consistent results.</option>
-                                    <option value="want-to-scale">I have a steady flow of leads and want to scale.</option>
-                                    <option value="in-house-team">I have an in-house marketing team and need additional support.</option>
+                                    <option value="getting-started">I'm just getting started and need customers.
+                                    </option>
+                                    <option value="need-leads">I have a business but I'm not getting enough leads.
+                                    </option>
+                                    <option value="need-consistency">I'm getting leads, but I need more consistent
+                                        results.</option>
+                                    <option value="want-to-scale">I have a steady flow of leads and want to scale.
+                                    </option>
+                                    <option value="in-house-team">I have an in-house marketing team and need additional
+                                        support.</option>
                                     <option value="exploring">I'm just exploring options right now.</option>
                                 </select>
                             </div>
@@ -734,8 +848,9 @@
 
                         <!-- Step 3: Service Type -->
                         <div class="quiz-step" data-step="3">
-                            <h2 class="quiz-step-title">Which service are you looking for?</h2>
-                            <p class="quiz-step-subtitle">Select the main marketing channel you'd like to scale first.</p>
+                            <h2 class="quiz-step-title">Which capability do you need first?</h2>
+                            <p class="quiz-step-subtitle">Select the channel you want to scale first &mdash; we'll map
+                                the rest on the call.</p>
                             <div class="form-group">
                                 <label for="service">Interested Service <span class="label-required">*</span></label>
                                 <select id="service" name="service" required>
@@ -752,12 +867,14 @@
                         <!-- Step 4: Revenue -->
                         <div class="quiz-step" data-step="4">
                             <h2 class="quiz-step-title">What is your approximate monthly revenue?</h2>
-                            <p class="quiz-step-subtitle">This helps us gauge your scale potential and recommend appropriate channels.</p>
+                            <p class="quiz-step-subtitle">This calibrates your growth plan &mdash; and confirms we're
+                                the right fit for each other.</p>
                             <div class="form-group">
-                                <label for="revenue">Business Monthly Revenue <span class="label-required">*</span></label>
+                                <label for="revenue">Business Monthly Revenue <span
+                                        class="label-required">*</span></label>
                                 <select id="revenue" name="revenue" required>
                                     <option value="">Select your revenue range</option>
-                                    <option value="5k-10k">$5,000 – $10,000 (We can't work with you)</option>
+                                    <option value="5k-10k">$5,000 – $10,000</option>
                                     <option value="10k-25k">$10,000 – $25,000</option>
                                     <option value="25k-50k">$25,000 – $50,000</option>
                                     <option value="50k-100k">$50,000 – $100,000</option>
@@ -769,8 +886,8 @@
 
                         <!-- Step 5: Timeline -->
                         <div class="quiz-step" data-step="5">
-                            <h2 class="quiz-step-title">How soon would you like to start?</h2>
-                            <p class="quiz-step-subtitle">How quickly are you looking to launch and see results?</p>
+                            <h2 class="quiz-step-title">When do you want to start?</h2>
+                            <p class="quiz-step-subtitle">How quickly do you want campaigns live and producing?</p>
                             <div class="form-group">
                                 <label for="timeline">Target Timeline <span class="label-required">*</span></label>
                                 <select id="timeline" name="timeline" required>
@@ -785,30 +902,37 @@
 
                         <!-- Step 6: Website & Growth Goals -->
                         <div class="quiz-step" data-step="6">
-                            <h2 class="quiz-step-title">Additional details (Optional)</h2>
-                            <p class="quiz-step-subtitle">Tell us about your digital presence and custom growth goals.</p>
+                            <h2 class="quiz-step-title">Anything we should know?</h2>
+                            <p class="quiz-step-subtitle">Optional &mdash; share your goals so we arrive at the call
+                                prepared.</p>
                             <div class="quiz-form-grid">
                                 <div class="form-group" style="margin-top: 1rem;">
-                                    <label for="message">Your Growth Goals <span class="label-optional">(Optional)</span></label>
-                                    <textarea id="message" name="message" rows="3" placeholder="What are you hoping to achieve?"></textarea>
+                                    <label for="message">Your Growth Goals <span
+                                            class="label-optional">(Optional)</span></label>
+                                    <textarea id="message" name="message" rows="3"
+                                        placeholder="What are you hoping to achieve?"></textarea>
                                 </div>
                             </div>
                             <p class="quiz-form-terms-note">
-                                By submitting you agree to our <button type="button" class="legal-link" onclick="openLegal('terms')">Terms</button> and <button type="button" class="legal-link" onclick="openLegal('privacy')">Privacy Policy</button>
+                                By submitting you agree to our <button type="button" class="legal-link"
+                                    onclick="openLegal('terms')">Terms</button> and <button type="button"
+                                    class="legal-link" onclick="openLegal('privacy')">Privacy Policy</button>
                             </p>
                         </div>
 
                         <!-- Navigation Buttons -->
                         <div class="quiz-nav-buttons">
                             <button type="button" class="btn btn-secondary" id="quizPrevBtn" style="display: none;">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
                                     <path d="M19 12H5M12 19l-7-7 7-7" />
                                 </svg>
                                 <span>Back</span>
                             </button>
                             <button type="button" class="btn btn-primary" id="quizNextBtn">
                                 <span>Next</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
                                     <path d="M5 12h14M12 5l7 7-7 7" />
                                 </svg>
                             </button>
@@ -824,7 +948,8 @@
                             </svg>
                         </div>
                         <h3 class="success-title">You're All Set, <span id="quizSuccessName">Friend</span>!</h3>
-                        <p class="success-subtitle" style="margin-bottom: 2rem;">Your strategy call assessment is complete. We're excited to help scale your business.</p>
+                        <p class="success-subtitle" style="margin-bottom: 2rem;">Your strategy call assessment is
+                            complete. We're excited to help scale your business.</p>
                         <div class="success-details" style="margin: 0 auto 2rem; max-width: 480px; text-align: left;">
                             <div class="success-detail-item">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -837,12 +962,14 @@
                             </div>
                             <div class="success-detail-item">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                                 </svg>
                                 <span>Devyn or Anton will contact you directly</span>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" id="quizSuccessCloseBtn" style="min-width: 180px;">
+                        <button type="button" class="btn btn-primary" id="quizSuccessCloseBtn"
+                            style="min-width: 180px;">
                             <span>Finish</span>
                         </button>
                     </div>
@@ -918,11 +1045,13 @@
             <div class="legal-modal__body disclaimer-modal__body">
 
                 <!-- Icon -->
-                <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; flex-shrink: 0;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="8" x2="12" y2="12"/>
-                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                <div
+                    style="width: 72px; height: 72px; border-radius: 50%; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; flex-shrink: 0;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.75"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
                 </div>
 
@@ -930,32 +1059,47 @@
                 <p class="legal-modal__label" style="margin-bottom: 0.65rem;">Eligibility Notice</p>
 
                 <!-- Title -->
-                <h2 id="disclaimer-title" class="legal-modal__title" style="padding-right: 0; margin-bottom: 1.25rem; text-align: center;">We're Not the Right Fit &mdash; Yet</h2>
+                <h2 id="disclaimer-title" class="legal-modal__title"
+                    style="padding-right: 0; margin-bottom: 1.25rem; text-align: center;">We're Not the Right Fit... Yet
+                </h2>
 
                 <!-- Body -->
-                <p style="font-size: 1rem; line-height: 1.85; color: rgba(255,255,255,0.68); margin-bottom: 1.25rem; max-width: 480px; text-align: center;">
-                    Thank you for taking the time to complete our assessment. Based on the monthly revenue range you've indicated, our paid advertising and digital growth services are not a viable match at this time.
+                <p
+                    style="font-size: 1rem; line-height: 1.85; color: rgba(255,255,255,0.68); margin-bottom: 1.25rem; max-width: 480px; text-align: center;">
+                    Thank you for taking the time to complete our assessment. Based on the monthly revenue range you've
+                    indicated, our paid advertising and digital growth services are not a viable match at this time.
                 </p>
-                <p style="font-size: 1rem; line-height: 1.85; color: rgba(255,255,255,0.68); margin-bottom: 1.25rem; max-width: 480px; text-align: center;">
-                    Our campaigns require a minimum advertising budget that, at your current revenue level, may not generate a positive or sustainable return on investment. Recommending our services under these conditions would not be in your best financial interest &mdash; and that's a standard we hold ourselves to for every prospective client.
+                <p
+                    style="font-size: 1rem; line-height: 1.85; color: rgba(255,255,255,0.68); margin-bottom: 1.25rem; max-width: 480px; text-align: center;">
+                    Our campaigns require a minimum advertising budget that, at your current revenue level, may not
+                    generate a positive or sustainable return on investment. Recommending our services under these
+                    conditions would not be in your best financial interest, and that's a standard we hold ourselves to
+                    for every prospective client.
                 </p>
-                <p style="font-size: 1rem; line-height: 1.85; color: rgba(255,255,255,0.68); margin-bottom: 2.5rem; max-width: 480px; text-align: center;">
-                    We genuinely wish you continued success as you grow your business. When the time is right, we'd love the opportunity to revisit working together.
+                <p
+                    style="font-size: 1rem; line-height: 1.85; color: rgba(255,255,255,0.68); margin-bottom: 2.5rem; max-width: 480px; text-align: center;">
+                    We genuinely wish you continued success as you grow your business. When the time is right, we'd love
+                    the opportunity to revisit working together.
                 </p>
 
                 <!-- Divider -->
-                <div style="width: 100%; max-width: 380px; height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 2rem;"></div>
+                <div
+                    style="width: 100%; max-width: 380px; height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 2rem;">
+                </div>
 
                 <!-- CTA -->
-                <button type="button" class="btn btn-glow btn-lg" id="disclaimerHomeBtn" style="min-width: 260px; padding: 1.1rem 2.5rem; font-size: 1.15rem;">
+                <button type="button" class="btn btn-glow btn-lg" id="disclaimerHomeBtn"
+                    style="min-width: 260px; padding: 1.1rem 2.5rem; font-size: 1.15rem;">
                     <span>Return to Home</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                        <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                 </button>
 
-                <p class="disclaimer-modal__note" style="font-size: 0.78rem; color: rgba(255,255,255,0.28); margin-top: calc(3.1rem + 35px); line-height: 1.6; max-width: 420px; text-align: center;">
-                    This determination is based solely on the information provided and does not constitute a formal business assessment or financial advice. Eligibility criteria are subject to change.
+                <p class="disclaimer-modal__note"
+                    style="font-size: 0.78rem; color: rgba(255,255,255,0.28); margin-top: calc(3.1rem + 35px); line-height: 1.6; max-width: 420px; text-align: center;">
+                    This determination is based solely on the information provided and does not constitute a formal
+                    business assessment or financial advice. Eligibility criteria are subject to change.
                 </p>
             </div>
         </div>
@@ -969,7 +1113,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/main.js?v=51.1"></script>
-    <script src="js/problem.js?v=2.3"></script>
+    <script src="js/problem.js?v=2.4"></script>
 
 
     <!-- Navbar Morphing Script -->
@@ -1115,7 +1259,11 @@
         <div class="legal-modal__backdrop" onclick="closeLegal('terms')"></div>
         <div class="legal-modal__panel">
             <button class="legal-modal__close" onclick="closeLegal('terms')" aria-label="Close">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
             </button>
             <div class="legal-modal__body">
                 <p class="legal-modal__label">Legal</p>
@@ -1123,34 +1271,58 @@
                 <p class="legal-modal__date">Effective Date: January 1, 2025</p>
 
                 <h3>1. Acceptance of Terms</h3>
-                <p>By accessing or using any services provided by Adzio ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use our services.</p>
+                <p>By accessing or using any services provided by Adzio ("Company," "we," "us," or "our"), you agree to
+                    be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use our
+                    services.</p>
 
                 <h3>2. Services</h3>
-                <p>Adzio provides digital marketing, advertising strategy, content creation, and related services as outlined in individual service agreements. The scope, deliverables, and timeline of any engagement are defined in a separate Statement of Work or proposal accepted by both parties.</p>
+                <p>Adzio provides digital marketing, advertising strategy, content creation, and related services as
+                    outlined in individual service agreements. The scope, deliverables, and timeline of any engagement
+                    are defined in a separate Statement of Work or proposal accepted by both parties.</p>
 
                 <h3>3. Client Responsibilities</h3>
-                <p>You agree to provide accurate and complete information necessary for us to perform the services. You are responsible for ensuring that any materials, assets, or content you provide to us do not infringe on third-party intellectual property rights. You grant Adzio a limited license to use your brand assets solely for the purpose of delivering the agreed services.</p>
+                <p>You agree to provide accurate and complete information necessary for us to perform the services. You
+                    are responsible for ensuring that any materials, assets, or content you provide to us do not
+                    infringe on third-party intellectual property rights. You grant Adzio a limited license to use your
+                    brand assets solely for the purpose of delivering the agreed services.</p>
 
                 <h3>4. Payment Terms</h3>
-                <p>Fees for services are set forth in the applicable proposal or agreement. Invoices are due within 14 days of issuance unless otherwise agreed in writing. Adzio reserves the right to pause or terminate services for accounts that are overdue by more than 30 days. Late payments may be subject to a monthly service charge of 1.5% or the maximum rate permitted by law, whichever is lower.</p>
+                <p>Fees for services are set forth in the applicable proposal or agreement. Invoices are due within 14
+                    days of issuance unless otherwise agreed in writing. Adzio reserves the right to pause or terminate
+                    services for accounts that are overdue by more than 30 days. Late payments may be subject to a
+                    monthly service charge of 1.5% or the maximum rate permitted by law, whichever is lower.</p>
 
                 <h3>5. Intellectual Property</h3>
-                <p>Upon receipt of full payment, all creative deliverables produced specifically for your project are assigned to you. Adzio retains the right to display completed work in its portfolio and marketing materials unless you request otherwise in writing. Any pre-existing tools, frameworks, or methodologies used in delivering services remain the sole property of Adzio.</p>
+                <p>Upon receipt of full payment, all creative deliverables produced specifically for your project are
+                    assigned to you. Adzio retains the right to display completed work in its portfolio and marketing
+                    materials unless you request otherwise in writing. Any pre-existing tools, frameworks, or
+                    methodologies used in delivering services remain the sole property of Adzio.</p>
 
                 <h3>6. Confidentiality</h3>
-                <p>Both parties agree to keep confidential any proprietary information shared during the course of the engagement. This obligation survives termination of the agreement for a period of two (2) years.</p>
+                <p>Both parties agree to keep confidential any proprietary information shared during the course of the
+                    engagement. This obligation survives termination of the agreement for a period of two (2) years.</p>
 
                 <h3>7. Limitation of Liability</h3>
-                <p>To the maximum extent permitted by applicable law, Adzio shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, revenue, or data. Our total liability for any claim arising out of or relating to these Terms shall not exceed the total fees paid by you in the three (3) months preceding the claim.</p>
+                <p>To the maximum extent permitted by applicable law, Adzio shall not be liable for any indirect,
+                    incidental, special, consequential, or punitive damages, including but not limited to loss of
+                    profits, revenue, or data. Our total liability for any claim arising out of or relating to these
+                    Terms shall not exceed the total fees paid by you in the three (3) months preceding the claim.</p>
 
                 <h3>8. Termination</h3>
-                <p>Either party may terminate an engagement with 30 days written notice. Upon termination, you are responsible for payment of all services rendered up to the termination date. Adzio reserves the right to terminate immediately for material breach, non-payment, or conduct that violates applicable laws.</p>
+                <p>Either party may terminate an engagement with 30 days written notice. Upon termination, you are
+                    responsible for payment of all services rendered up to the termination date. Adzio reserves the
+                    right to terminate immediately for material breach, non-payment, or conduct that violates applicable
+                    laws.</p>
 
                 <h3>9. Governing Law</h3>
-                <p>These Terms shall be governed by and construed in accordance with the laws of the applicable jurisdiction in which Adzio operates. Any disputes shall be resolved through binding arbitration before resorting to litigation.</p>
+                <p>These Terms shall be governed by and construed in accordance with the laws of the applicable
+                    jurisdiction in which Adzio operates. Any disputes shall be resolved through binding arbitration
+                    before resorting to litigation.</p>
 
                 <h3>10. Changes to Terms</h3>
-                <p>We reserve the right to update these Terms at any time. Continued use of our services after changes are posted constitutes your acceptance of the revised Terms. We will make reasonable efforts to notify active clients of material changes.</p>
+                <p>We reserve the right to update these Terms at any time. Continued use of our services after changes
+                    are posted constitutes your acceptance of the revised Terms. We will make reasonable efforts to
+                    notify active clients of material changes.</p>
 
                 <h3>11. Contact</h3>
                 <p>For questions regarding these Terms, contact us at <strong>legal@adzio.com</strong>.</p>
@@ -1163,7 +1335,11 @@
         <div class="legal-modal__backdrop" onclick="closeLegal('privacy')"></div>
         <div class="legal-modal__panel">
             <button class="legal-modal__close" onclick="closeLegal('privacy')" aria-label="Close">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
             </button>
             <div class="legal-modal__body">
                 <p class="legal-modal__label">Legal</p>
@@ -1171,40 +1347,65 @@
                 <p class="legal-modal__date">Effective Date: January 1, 2025</p>
 
                 <h3>1. Overview</h3>
-                <p>Adzio ("we," "us," or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and the choices you have regarding your information when you contact us or use our services.</p>
+                <p>Adzio ("we," "us," or "our") is committed to protecting your personal information. This Privacy
+                    Policy explains what data we collect, how we use it, and the choices you have regarding your
+                    information when you contact us or use our services.</p>
 
                 <h3>2. Information We Collect</h3>
                 <p>We may collect the following categories of information:</p>
-                <p><strong>Information you provide directly:</strong> Name, email address, phone number, company name, and any other details submitted through our contact forms or during onboarding.</p>
-                <p><strong>Usage data:</strong> Pages visited, time spent on site, browser type, device type, and referring URLs collected automatically when you visit our website.</p>
-                <p><strong>Communications:</strong> Records of emails, messages, or other correspondence between you and Adzio.</p>
+                <p><strong>Information you provide directly:</strong> Name, email address, phone number, company name,
+                    and any other details submitted through our contact forms or during onboarding.</p>
+                <p><strong>Usage data:</strong> Pages visited, time spent on site, browser type, device type, and
+                    referring URLs collected automatically when you visit our website.</p>
+                <p><strong>Communications:</strong> Records of emails, messages, or other correspondence between you and
+                    Adzio.</p>
 
                 <h3>3. How We Use Your Information</h3>
-                <p>We use collected information to respond to inquiries and deliver requested services, send project updates, invoices, and service-related communications, improve our website and service offerings, and comply with legal obligations. We do not sell, rent, or trade your personal information to third parties for their marketing purposes.</p>
+                <p>We use collected information to respond to inquiries and deliver requested services, send project
+                    updates, invoices, and service-related communications, improve our website and service offerings,
+                    and comply with legal obligations. We do not sell, rent, or trade your personal information to third
+                    parties for their marketing purposes.</p>
 
                 <h3>4. Cookies &amp; Tracking Technologies</h3>
-                <p>Our website may use cookies and similar tracking technologies to enhance your browsing experience and gather analytics data. You may control cookie settings through your browser preferences. Disabling cookies may affect the functionality of certain parts of our site.</p>
+                <p>Our website may use cookies and similar tracking technologies to enhance your browsing experience and
+                    gather analytics data. You may control cookie settings through your browser preferences. Disabling
+                    cookies may affect the functionality of certain parts of our site.</p>
 
                 <h3>5. Data Sharing</h3>
-                <p>We may share your information with trusted third-party service providers who assist in operating our website and delivering services (e.x., email platforms, analytics tools, project management software). These providers are contractually obligated to keep your information confidential and use it only for the purposes we specify.</p>
+                <p>We may share your information with trusted third-party service providers who assist in operating our
+                    website and delivering services (e.x., email platforms, analytics tools, project management
+                    software). These providers are contractually obligated to keep your information confidential and use
+                    it only for the purposes we specify.</p>
 
                 <h3>6. Data Retention</h3>
-                <p>We retain your personal information for as long as necessary to provide our services and comply with legal obligations. When data is no longer needed, we securely delete or anonymize it.</p>
+                <p>We retain your personal information for as long as necessary to provide our services and comply with
+                    legal obligations. When data is no longer needed, we securely delete or anonymize it.</p>
 
                 <h3>7. Your Rights</h3>
-                <p>Depending on your location, you may have the right to access, correct, or delete personal information we hold about you, opt out of certain data processing activities, and request a copy of the data we hold in a portable format. To exercise any of these rights, contact us at <strong>privacy@adzio.com</strong>.</p>
+                <p>Depending on your location, you may have the right to access, correct, or delete personal information
+                    we hold about you, opt out of certain data processing activities, and request a copy of the data we
+                    hold in a portable format. To exercise any of these rights, contact us at
+                    <strong>privacy@adzio.com</strong>.
+                </p>
 
                 <h3>8. Data Security</h3>
-                <p>We implement industry-standard technical and organizational measures to protect your data against unauthorized access, loss, or disclosure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+                <p>We implement industry-standard technical and organizational measures to protect your data against
+                    unauthorized access, loss, or disclosure. However, no method of transmission over the internet is
+                    100% secure, and we cannot guarantee absolute security.</p>
 
                 <h3>9. Third-Party Links</h3>
-                <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of those sites and encourage you to review their policies independently.</p>
+                <p>Our website may contain links to third-party websites. We are not responsible for the privacy
+                    practices of those sites and encourage you to review their policies independently.</p>
 
                 <h3>10. Children's Privacy</h3>
-                <p>Our services are not directed to individuals under the age of 16. We do not knowingly collect personal information from minors. If you believe we have inadvertently collected such information, please contact us immediately.</p>
+                <p>Our services are not directed to individuals under the age of 16. We do not knowingly collect
+                    personal information from minors. If you believe we have inadvertently collected such information,
+                    please contact us immediately.</p>
 
                 <h3>11. Changes to This Policy</h3>
-                <p>We may update this Privacy Policy from time to time. We will post the revised policy on this page with an updated effective date. Continued use of our services after changes constitutes your acceptance of the updated policy.</p>
+                <p>We may update this Privacy Policy from time to time. We will post the revised policy on this page
+                    with an updated effective date. Continued use of our services after changes constitutes your
+                    acceptance of the updated policy.</p>
 
                 <h3>12. Contact</h3>
                 <p>For privacy-related inquiries, contact us at <strong>privacy@adzio.com</strong>.</p>
@@ -1223,11 +1424,32 @@
             modal.classList.remove('is-open');
             document.body.style.overflow = '';
         }
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
-                ['terms','privacy'].forEach(closeLegal);
+                ['terms', 'privacy'].forEach(closeLegal);
             }
         });
+
+        // Magnetic pull on key CTAs (pointer devices only)
+        (function () {
+            if (window.matchMedia('(hover: none)').matches) return;
+            document.querySelectorAll('[data-magnetic]').forEach(function (btn) {
+                let raf = null;
+                btn.addEventListener('mousemove', function (e) {
+                    const r = btn.getBoundingClientRect();
+                    const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+                    const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+                    if (raf) cancelAnimationFrame(raf);
+                    raf = requestAnimationFrame(function () {
+                        btn.style.transform = 'translate(' + (x * 6).toFixed(1) + 'px, ' + (y * 5 - 3).toFixed(1) + 'px)';
+                    });
+                });
+                btn.addEventListener('mouseleave', function () {
+                    if (raf) cancelAnimationFrame(raf);
+                    btn.style.transform = '';
+                });
+            });
+        })();
     </script>
 </body>
 
