@@ -23,6 +23,21 @@
     transform: translateX(100px);
 }
 
+/* On mobile the horizontal fly-in pushes cards off-screen (clipped overflow
+   while unrevealed). Use a vertical-only entrance so nothing leaks sideways. */
+@media (max-width: 768px) {
+
+    .animate-on-scroll.fly-in-left,
+    .animate-on-scroll.fly-in-right {
+        transform: translateY(30px);
+    }
+
+    .animate-on-scroll.fly-in-left.visible,
+    .animate-on-scroll.fly-in-right.visible {
+        transform: translate(0, 0);
+    }
+}
+
 .animate-on-scroll.visible {
     opacity: 1;
     transform: translate(0, 0);

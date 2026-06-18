@@ -333,10 +333,15 @@
     grid-column: 3;
     grid-row: 1;
     align-self: center;
-    max-width: 44ch;
-    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    justify-self: end;
+    /* Mirror the heading's left offset on the right so both columns sit the
+       same distance from their screen edge */
+    margin-right: -25px;
+    padding-left: 25px;
+    max-width: 42ch;
+    font-size: clamp(1.2rem, 1.55vw, 1.5rem);
     font-weight: 300;
-    line-height: 1.8;
+    line-height: 1.75;
     min-width: 0;
     color: var(--text-secondary);
 }
@@ -378,6 +383,7 @@
 .process-pain-heading em {
     font-style: normal;
 }
+
 
 .process-pain-visual {
     display: flex;
@@ -432,8 +438,11 @@
     font-size: clamp(11rem, 24vw, 22rem);
     line-height: 1;
     letter-spacing: -0.05em;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(244, 241, 234, 0.06);
+    /* Faint solid fill renders perfectly smooth/consistent edges at this scale,
+       unlike -webkit-text-stroke which gets jagged on huge glyphs */
+    color: rgba(244, 241, 234, 0.05);
+    -webkit-text-stroke: 0;
+    text-rendering: geometricPrecision;
     z-index: 0;
     pointer-events: none;
     user-select: none;
@@ -969,4 +978,81 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
+
+/* ============================================================================
+   MOBILE — STATIC VERTICAL STACK
+   The JS pin/slide-deck is disabled at ≤900px (see initProcessSection in
+   problem.js), so the five slides are no longer shown one-at-a-time over a
+   pinned panel. Here we take them out of the absolute stack and render them as
+   normal, full-width blocks flowing down the page — no overlap, no h-scroll.
+   ========================================================================== */
+@media (max-width: 900px) {
+    /* Panel: drop the 100vh pin box; grow to fit the stacked slides instead */
+    #process-pin-wrapper {
+        height: auto;
+    }
+
+    #process-pin-panel {
+        height: auto;
+        min-height: 0;
+        display: block;
+        /* clip the centered 800px bg-glow so it can't create horizontal scroll */
+        overflow: hidden;
+        padding: clamp(8px, 4vw, 24px) 0;
+    }
+
+    /* Each slide: absolute → static, always visible, no leftover transforms */
+    .process-slide {
+        position: static;
+        inset: auto;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto;
+        min-height: 0;
+        padding: clamp(40px, 10vw, 60px) clamp(18px, 6vw, 28px);
+    }
+
+    /* Slide 0 — stack the big title, the "4 steps" stat, and the steps card */
+    #process-slide-0 {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: clamp(22px, 6vw, 34px);
+        padding-top: clamp(52px, 13vw, 76px);
+    }
+
+    /* Title must shrink so "ADZIO'S / PROCESS" never runs off a 320px screen */
+    #process-slide-0 .process-s0-label,
+    .process-s0-label {
+        font-size: clamp(3rem, 15vw, 5rem);
+    }
+
+    .process-s0-right {
+        width: 100%;
+    }
+
+    /* Undo the desktop negative side-margins — once single-column they would
+       push the heading/body a few px past the viewport edge */
+    .process-pain-text {
+        margin-left: 0;
+        padding-right: 0;
+    }
+
+    .process-pain-body {
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+    /* The giant ghost numeral is decorative and overflows/overlaps when stacked */
+    .process-ghost-num {
+        display: none;
+    }
+
+    /* Pin-era affordances are meaningless in a normal scroll */
+    #process-pips,
+    #process-scroll-hint {
+        display: none;
+    }
 }

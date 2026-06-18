@@ -23,9 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=211.0">
-    <link rel="stylesheet" href="css/animations.css?v=39.0">
-    <link rel="stylesheet" href="css/about-page.css?v=1.0">
+    <link rel="stylesheet" href="css/styles.css?v=223.0">
+    <link rel="stylesheet" href="css/animations.css?v=40.0">
+    <link rel="stylesheet" href="css/about-page.css?v=7.0">
     <!-- Lottie Player -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
@@ -34,6 +34,9 @@
 </head>
 
 <body>
+    <!-- Page load veil -->
+    <div class="page-veil" aria-hidden="true"><img src="assets/logo.png" alt="" class="veil-logo"></div>
+
     <!-- Navigation -->
     <div class="nav-wrap" id="navWrap" data-nav-rest="center" data-nav-fixed-side="true">
         <div class="nav-svg-container" id="navContainer">
@@ -59,7 +62,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="services.html#services-overview" class="nav-item" data-section="services">
+                    <a href="services.html" class="nav-item" data-section="services">
                         <div class="nav-item-inner">
                             <div class="slide-hover"><span class="nav-label">Services</span>
                                 <div class="nav-dot"></div>
@@ -117,8 +120,12 @@
         <section class="abt-hero" id="about">
             <div class="abt-shell">
                 <div class="abt-hero-inner">
+                    <div class="hero-eyebrow animate-on-scroll">
+                        <span>Adzio</span>
+                        <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+                    </div>
                     <h1 class="abt-hero-title animate-on-scroll">
-                        We're the growth partner local businesses <span class="text-gradient">actually keep.</span>
+                        We're the growth partner<br>local businesses<br><span class="text-gradient">actually keep.</span>
                     </h1>
                     <p class="abt-hero-lead animate-on-scroll">
                         Adzio exists for one reason: to help great local businesses compete and win online, without
@@ -130,7 +137,7 @@
                             <span>Work With Us</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
                         </a>
-                        <a href="services.html#services-overview" class="btn btn-ghost btn-lg">
+                        <a href="services.html" class="btn btn-ghost btn-lg">
                             <span>See What We Do</span>
                         </a>
                     </div>
@@ -150,8 +157,8 @@
                         <span>Hands-on campaign management</span>
                     </div>
                     <div class="abt-stat-item">
-                        <strong>0</strong>
-                        <span>Long-term lock-in contracts</span>
+                        <strong>24/7</strong>
+                        <span>Real-time performance tracking</span>
                     </div>
                 </div>
             </div>
@@ -178,22 +185,109 @@
                     </div>
 
                     <div class="abt-story-visual animate-on-scroll">
-                        <div class="abt-card">
-                            <div class="abt-card-head">
-                                <span class="abt-card-title">Growth, compounding</span>
-                                <span class="abt-pill abt-pill--live">Tracked</span>
+                        <div class="growth-engine-card">
+                            <!-- Background Glow Orb -->
+                            <div class="growth-card-glow-orb" aria-hidden="true"></div>
+
+                            <!-- Header -->
+                            <div class="growth-card-header">
+                                <div class="growth-card-meta">
+                                    <div class="pulse-dot"></div>
+                                    <span class="growth-title">Adzio Growth Engine</span>
+                                </div>
+                                <span class="growth-badge">Live System</span>
                             </div>
-                            <div class="abt-bars" aria-hidden="true">
-                                <span style="--h:30%;--d:0s"></span>
-                                <span style="--h:42%;--d:.12s"></span>
-                                <span style="--h:38%;--d:.24s"></span>
-                                <span style="--h:58%;--d:.36s"></span>
-                                <span style="--h:72%;--d:.48s"></span>
-                                <span style="--h:90%;--d:.6s"></span>
+
+                            <!-- Layer 1: Traffic Sources -->
+                            <div class="growth-layer traffic-sources">
+                                <div class="layer-info">
+                                    <span class="layer-label">01 / Acquisition Channels</span>
+                                    <span class="layer-value">+284% ROI</span>
+                                </div>
+                                <div class="traffic-nodes">
+                                    <div class="traffic-node meta-node">
+                                        <img src="business-logos/meta.png" alt="Meta">
+                                        <span>Meta Ads</span>
+                                    </div>
+                                    <div class="traffic-node google-node">
+                                        <img src="business-logos/google.png" alt="Google">
+                                        <span>Google Ads</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="abt-card-foot">
-                                <div class="abt-mini-stat"><strong>More leads</strong><span>Better targeting</span></div>
-                                <div class="abt-mini-stat"><strong>Lower cost</strong><span>Constant tuning</span></div>
+
+                            <!-- Connective SVG Flow Lines -->
+                            <div class="flow-connector" aria-hidden="true">
+                                <svg width="100%" height="40" viewBox="0 0 400 40" fill="none">
+                                    <path d="M 80,0 Q 80,20 200,20 Q 320,20 320,0" stroke="rgba(0, 229, 200, 0.15)" stroke-width="2" stroke-dasharray="6,4"></path>
+                                    <path d="M 80,0 Q 80,20 200,20 Q 320,20 320,0" stroke="url(#flow-gradient)" stroke-width="2" stroke-dasharray="30, 150" class="moving-flow-dash"></path>
+                                    <defs>
+                                        <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#00e5c8" stop-opacity="0"></stop>
+                                            <stop offset="50%" stop-color="#56efff" stop-opacity="1"></stop>
+                                            <stop offset="100%" stop-color="#3BA5B5" stop-opacity="0"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+
+                            <!-- Layer 2: Conversion Engine -->
+                            <div class="growth-layer conversion-engine">
+                                <div class="layer-info">
+                                    <span class="layer-label">02 / High-Converting Web Portal</span>
+                                    <span class="layer-value">8.4% CVR</span>
+                                </div>
+                                <div class="conversion-preview">
+                                    <div class="mock-browser-frame">
+                                        <div class="browser-bar">
+                                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                                        </div>
+                                        <div class="browser-content">
+                                            <div class="mock-hero">
+                                                <div class="mock-text-line short"></div>
+                                                <div class="mock-text-line"></div>
+                                                <div class="mock-cta"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="conversion-stats">
+                                        <div class="stat-bubble">
+                                            <span class="bubble-num">184</span>
+                                            <span class="bubble-txt">New leads</span>
+                                        </div>
+                                        <div class="stat-bubble">
+                                            <span class="bubble-num">84%</span>
+                                            <span class="bubble-txt">Contact rate</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Layer 3: Compounding Revenue Chart -->
+                            <div class="growth-layer compound-revenue">
+                                <div class="layer-info">
+                                    <span class="layer-label">03 / Booked Revenue Generated</span>
+                                    <span class="layer-value text-accent">$48,200</span>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <svg class="neon-chart" viewBox="0 0 340 100" fill="none" preserveAspectRatio="none">
+                                        <path d="M 0,90 Q 50,75 90,80 T 170,50 T 250,40 T 340,10" stroke="rgba(0, 229, 200, 0.15)" stroke-width="2" stroke-linecap="round"></path>
+                                        <path d="M 0,90 Q 50,75 90,80 T 170,50 T 250,40 T 340,10" stroke="url(#chart-neon-grad)" stroke-width="3.5" stroke-linecap="round" class="chart-neon-line"></path>
+                                        <path d="M 0,90 Q 50,75 90,80 T 170,50 T 250,40 T 340,10 L 340,100 L 0,100 Z" fill="url(#chart-area-grad)"></path>
+                                        <circle cx="340" cy="10" r="5" fill="#00e5c8" filter="drop-shadow(0 0 6px #00e5c8)" class="chart-pulse-endpoint"></circle>
+                                        <defs>
+                                            <linearGradient id="chart-neon-grad" x1="0" y1="0" x2="340" y2="0" gradientUnits="userSpaceOnUse">
+                                                <stop offset="0%" stop-color="#3BA5B5"></stop>
+                                                <stop offset="50%" stop-color="#00e5c8"></stop>
+                                                <stop offset="100%" stop-color="#56efff"></stop>
+                                            </linearGradient>
+                                            <linearGradient id="chart-area-grad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+                                                <stop offset="0%" stop-color="#00e5c8" stop-opacity="0.16"></stop>
+                                                <stop offset="100%" stop-color="#00e5c8" stop-opacity="0"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,10 +319,10 @@
                     </div>
                     <div class="abt-value-card animate-on-scroll">
                         <div class="abt-value-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                         </div>
-                        <h3>No long-term contracts</h3>
-                        <p>We earn your business every month. Stay because the results are there, never because you're locked in.</p>
+                        <h3>24/7 Performance tracking</h3>
+                        <p>Monitor campaign metrics, bookings, and ROI live at any time through our interactive tracking dashboard.</p>
                     </div>
                     <div class="abt-value-card animate-on-scroll">
                         <div class="abt-value-icon">
@@ -246,45 +340,268 @@
             <div class="abt-shell">
                 <div class="abt-section-head animate-on-scroll">
                     <div class="abt-eyebrow">The Team</div>
-                    <h2 class="abt-section-title">The people behind your growth.</h2>
-                    <p class="abt-section-sub">Small, senior, and hands-on. When you work with Adzio, you work with us directly.</p>
+                    <h2 class="abt-section-title">The people behind your <span class="abt-grad">growth.</span></h2>
+                    <p class="abt-section-sub">A select team of senior, hands-on specialists dedicated to performance. At Adzio, you partner directly with our growth architects.</p>
                 </div>
                 <div class="abt-team-grid">
-                    <div class="abt-team-card animate-on-scroll">
-                        <div class="abt-avatar">D</div>
-                        <h3>Devyn</h3>
-                        <span class="abt-role">Co-Founder · Paid Media &amp; Growth</span>
-                        <p>Lives in the ad accounts, building, testing, and scaling the campaigns that bring you qualified leads.</p>
+                    <article class="abt-team-card animate-on-scroll">
+                        <span class="abt-team-index">/01</span>
+                        <div class="abt-team-head">
+                            <div class="abt-avatar">
+                                <img class="abt-avatar-img" src="assets/team/devyn.jpg" alt="Devyn Schroeder" loading="lazy" onerror="this.remove()">
+                                <span class="abt-avatar-initial">D</span>
+                            </div>
+                        </div>
+                        <h3>Devyn Schroeder</h3>
+                        <span class="abt-role">Co-Founder &amp; Head of Paid Media</span>
+                        <span class="abt-team-tag">
+                            <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z"></path></svg>
+                            Performance Marketing Architect
+                        </span>
+                        <p>Lives within data analytics, building and scaling high-performance paid campaigns that maximize qualified lead volume and efficiency.</p>
+                        <div class="abt-team-foot">
+                            <span class="abt-caps-label">Core Capabilities</span>
+                            <div class="abt-caps-list">
+                                <span class="abt-cap">Scale &amp; Efficiency</span>
+                                <span class="abt-cap">Paid Media ROI</span>
+                                <span class="abt-cap">Lead Velocity Architecture</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="abt-team-card animate-on-scroll">
+                        <span class="abt-team-index">/02</span>
+                        <div class="abt-team-head">
+                            <div class="abt-avatar">
+                                <img class="abt-avatar-img" src="assets/team/anton.jpg" alt="Anton Veliu" loading="lazy" onerror="this.remove()">
+                                <span class="abt-avatar-initial">A</span>
+                            </div>
+                        </div>
+                        <h3>Anton Veliu</h3>
+                        <span class="abt-role">Co-Founder &amp; Lead Strategist</span>
+                        <span class="abt-team-tag">
+                            <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0L10 5L5 10L0 5Z"></path></svg>
+                            Web &amp; Revenue Funnel Architect
+                        </span>
+                        <p>Crafts market-winning strategies and engineers high-conversion websites and revenue-generating funnel ecosystems.</p>
+                        <div class="abt-team-foot">
+                            <span class="abt-caps-label">Core Capabilities</span>
+                            <div class="abt-caps-list">
+                                <span class="abt-cap">Funnel Conversion Optimization</span>
+                                <span class="abt-cap">CRO Architecture</span>
+                                <span class="abt-cap">System Deployments</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proof: founder-built audiences -->
+        <section class="abt-proof">
+            <div class="abt-shell">
+                <div class="abt-section-head abt-section-head--wide animate-on-scroll">
+                    <div class="abt-eyebrow">Proof, Not Promises</div>
+                    <h2 class="abt-section-title">We grew our own audiences first.</h2>
+                     <p class="abt-section-sub">Before we ever ran a campaign for a client, we built large, engaged car communities from zero, on the same platforms we now scale other businesses on.</p>
+                </div>
+                <div class="abt-proof-grid">
+                    <div class="abt-proof-card abt-proof-card--cyan animate-on-scroll">
+                        <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
+                            <div class="abt-proof-head">
+                                <div class="abt-proof-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                                <div class="abt-proof-meta">
+                                    <span class="abt-proof-handle">@carsbydevyn</span>
+                                    <span class="abt-proof-by">Built by Devyn</span>
+                                </div>
+                            </div>
+                        </a>
+                        <p class="abt-proof-text">An automotive page Devyn grew and monetized himself, mastering
+                            the content hooks, posting cadence, and audience targeting that turn casual scrollers
+                            into a loyal, engaged following.</p>
+                        
+                        <!-- Instagram Feed Grid -->
+                        <div class="abt-proof-feed">
+                            <a href="https://www.instagram.com/reel/DWxJXIFje5G/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-1.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/reel/DNv8_0UZAbW/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-2.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/reel/DQLBExQDFhH/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-3.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/reel/C5oFpGkLwvq/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-4.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/reel/DXe68iwkRMg/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-5.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/p/DZiz9G4man0/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-6.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+
+                        <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-cta">
+                            <span>View the page</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
                     </div>
-                    <div class="abt-team-card animate-on-scroll">
-                        <div class="abt-avatar abt-avatar--alt">A</div>
-                        <h3>Anton</h3>
-                        <span class="abt-role">Co-Founder · Strategy &amp; Builds</span>
-                        <p>Shapes the strategy and builds the websites and content that turn that traffic into booked revenue.</p>
+                    <div class="abt-proof-card abt-proof-card--purple animate-on-scroll">
+                        <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
+                            <div class="abt-proof-head">
+                                <div class="abt-proof-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                                <div class="abt-proof-meta">
+                                    <span class="abt-proof-handle">@twanwhips</span>
+                                    <span class="abt-proof-by">Built by Anton</span>
+                                </div>
+                            </div>
+                        </a>
+                        <p class="abt-proof-text">Anton's automotive brand, scaled through sharp content and
+                            community building, the same playbook he now uses to grow local businesses and turn
+                            their attention into booked revenue.</p>
+                        
+                        <!-- Instagram Feed Grid -->
+                        <div class="abt-proof-feed">
+                            <a href="https://www.instagram.com/p/DYcjQhgNava/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-1.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/p/DQzRIX1jaH0/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-2.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/p/DZLemaPBNVF/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-3.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/p/DYiPIfrBLid/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-4.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/p/DYxPc03Bs0m/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-5.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/p/DQdSjEVjYx1/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-6.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+
+                        <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-cta">
+                            <span>View the page</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="abt-cta">
-            <div class="abt-shell">
-                <div class="abt-cta-panel animate-on-scroll">
-                    <div class="abt-eyebrow abt-eyebrow--center">Let's Talk</div>
-                    <h2 class="abt-cta-title">Ready to grow with a team that actually cares?</h2>
-                    <p class="abt-cta-sub">Book a free strategy call and we'll build a custom growth plan for your business, no pressure, no obligation.</p>
-                    <a href="index.html#contact" class="btn btn-glow btn-lg">
-                        <span>Get My Free Strategy Call</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js"></script>
+    <script src="js/footer.js?v=2"></script>
 
     <!-- VSL Modal -->
     <div class="vsl-modal" id="vslModal">
@@ -303,7 +620,6 @@
     </div>
 
     <script src="js/text-type.js"></script>
-    <script src="js/hero-rays.js"></script>
     <script src="js/inbox-animation-data.js?v=1007"></script>
     <script src="js/phone-animation-data.js?v=1007"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -327,7 +643,7 @@
             const EXP_W = 420, EXP_H = 110;
             const TAB_W_EXP = 112;
             const DOT_INSET = 30;
-            const DOCKED_EXP_H = 300;
+            const DOCKED_EXP_H = 422;
 
             function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
             function lerp(a, b, t) { return a + (b - a) * t; }

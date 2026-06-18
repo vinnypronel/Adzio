@@ -1565,10 +1565,10 @@
  */
 .problem-connect-arrow {
     position: absolute;
-    left: 38%;
-    right: 28%;
-    top: 4%;
-    height: 22%;
+    left: 30%;
+    right: 13%;
+    top: 2%;
+    height: 26%;
     pointer-events: none;
     z-index: 4;
     opacity: 1;
@@ -1584,5 +1584,58 @@
 @media (max-width: 1180px) {
     .problem-connect-arrow {
         display: none;
+    }
+}
+
+/* ============================================================================
+   MOBILE SAFETY NET
+   The scrubbed parallax + slide-in reveals are disabled in problem.js at
+   ≤900px, so the cards already flow as a single column. This guarantees nothing
+   is left displaced by a stale inline transform (e.g. after a desktop→mobile
+   resize), which is what made the cards overlap each other in the broken state.
+   ========================================================================== */
+@media (max-width: 900px) {
+    .problem-parallax,
+    .problem-panel {
+        transform: none !important;
+    }
+
+    /* Don't force a full empty viewport before the stacked cards begin */
+    .problem-combined {
+        min-height: 0;
+    }
+
+    /* ── Stacked pain cards: uniform size + breathing room ── */
+    .problem-card-grid {
+        gap: clamp(18px, 5vw, 28px);
+        /* Every card row takes the height of the tallest card → all three end
+           up exactly the same size (no fixed px guesswork, fully fluid). */
+        grid-auto-rows: 1fr;
+    }
+
+    .problem-card {
+        /* An earlier ≤900 rule zeroed the vertical padding (`padding: 0 14px`),
+           which is why the icon/body were touching the border. Restore generous
+           top/bottom padding so content never kisses the edge. */
+        padding: clamp(32px, 8vw, 44px) clamp(18px, 5vw, 26px);
+        /* Center the content block within the now-equal-height card */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .problem-card .pain-inner {
+        width: 100%;
+    }
+
+    /* Middle card (Budget Burn) is authored body → icon → heading, so on mobile
+       its heading dropped to the very bottom. Lift it into the middle so all
+       three cards read icon → heading → body. */
+    #problem-card-budget .pain-text {
+        order: 0;
+    }
+
+    #problem-card-budget .pain-body {
+        order: 1;
     }
 }

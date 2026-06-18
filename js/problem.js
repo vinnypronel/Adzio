@@ -19,11 +19,18 @@ function initProblemSection() {
 
     gsap.registerPlugin(ScrollTrigger);
 
+    // Phones / small tablets render this section as a clean vertical stack (see
+    // the max-width:900px block in problem.css). The scrubbed parallax and
+    // slide-in reveals below are built for the wide desktop composition — on a
+    // tall mobile stack they displace the cards and overlap them mid-scroll, so
+    // we disable those transform animations there by leaving the lists empty.
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
     const glow = document.getElementById('bg-glow');
-    const parallaxEls = gsap.utils.toArray('.problem-parallax');
+    const parallaxEls = isMobile ? [] : gsap.utils.toArray('.problem-parallax');
     // The 91% (.s4-card) rides its parent spotlight panel's reveal — giving it
     // its own scrubbed slide on top caused the choppy double-animation.
-    const revealEls = gsap.utils.toArray('.problem-panel');
+    const revealEls = isMobile ? [] : gsap.utils.toArray('.problem-panel');
     const iconHosts = gsap.utils.toArray('.problem-card');
 
     function setBackdrop(progress) {
@@ -109,36 +116,39 @@ function initProblemSection() {
         }
     });
 
-    // ── Staggered entry for THE / PROBLEM / description ──
+    // ── Staggered entry for THE / PROBLEM / description (desktop only) ──
     const theEl   = section.querySelector('.s0-label .the');
     const probEl  = section.querySelector('.s0-label .problem');
     const descEl  = section.querySelector('.s0-desc');
 
-    [theEl, probEl, descEl].forEach(el => {
-        if (el) gsap.set(el, { opacity: 0, x: -220, force3D: true });
-    });
-
-    if (theEl || probEl || descEl) {
-        gsap.to([theEl, probEl, descEl].filter(Boolean), {
-            opacity: 1,
-            x: 0,
-            force3D: true,
-            ease: 'power3.out',
-            stagger: 0.18,
-            scrollTrigger: {
-                trigger: section,
-                start: 'top 65%',
-                end: 'top 20%',
-                scrub: 0.7
-            }
+    if (!isMobile) {
+        [theEl, probEl, descEl].forEach(el => {
+            if (el) gsap.set(el, { opacity: 0, x: -220, force3D: true });
         });
+
+        if (theEl || probEl || descEl) {
+            gsap.to([theEl, probEl, descEl].filter(Boolean), {
+                opacity: 1,
+                x: 0,
+                force3D: true,
+                ease: 'power3.out',
+                stagger: 0.18,
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 65%',
+                    end: 'top 20%',
+                    scrub: 0.7
+                }
+            });
+        }
     }
 
     // ── Arrow draw: stroke from left → right on scroll ──
     const arrowPath = document.getElementById('problem-arrow-path');
     const arrowHead = document.getElementById('problem-arrow-head');
 
-    if (arrowPath) {
+    // Arrow is hidden on mobile (≤1180px) and its draw is a desktop flourish.
+    if (arrowPath && !isMobile) {
         const pathLen = arrowPath.getTotalLength();
         gsap.set(arrowPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
         if (arrowHead) gsap.set(arrowHead, { opacity: 0 });
@@ -163,6 +173,12 @@ function initProblemSection() {
 
 function initProcessSection() {
     if (!document.getElementById('process-pin-wrapper')) return;
+
+    // Mobile / small-tablet: skip the pinned horizontal slide-deck entirely.
+    // process.css linearizes the five slides into a static vertical stack; the
+    // pin + per-slide scrubs below would otherwise pile all slides absolutely on
+    // top of one another (the exact overlap bug we're fixing on mobile).
+    if (window.matchMedia('(max-width: 900px)').matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -366,6 +382,23 @@ function initProcessSection() {
             end: `top+=${VH * 0.3}vh top`,
             scrub: 0.8,
             animation: gsap.timeline().to(hint, { opacity: 0 }),
+        });
+    }
+
+    // Fade the final (Scale & Grow) slide out as the CTA form scrolls into view,
+    // so it doesn't bleed over the questionnaire.
+    const ctaSection = document.querySelector('.cta');
+    const lastWrapper = SLIDE_WRAPPERS[NUM - 1];
+    if (ctaSection && lastWrapper) {
+        gsap.to(lastWrapper, {
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: ctaSection,
+                start: 'top 92%',
+                end: 'top 45%',
+                scrub: true
+            }
         });
     }
 

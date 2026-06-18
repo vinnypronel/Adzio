@@ -619,7 +619,22 @@ function initFormHandling() {
         // Clear all field validation errors
         quizForm.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
         quizForm.querySelectorAll('.form-field-error').forEach(el => el.remove());
-        
+
+        // Reset + hide the Multiple Services checkbox group
+        if (typeof syncMultiServiceVisibility === 'function') syncMultiServiceVisibility();
+
+        // Restore the Next button to a clean state. A prior submit swaps its HTML
+        // for the "Submitting…" spinner and disables it; showStep() only rewrites
+        // the <span> text, so without this the spinner SVG lingers on step 1.
+        const quizNextBtn = document.getElementById('quizNextBtn');
+        if (quizNextBtn) {
+            quizNextBtn.innerHTML = '<span>Next</span>';
+            quizNextBtn.disabled = false;
+            quizNextBtn.style.background = '';
+        }
+        const quizPrevBtn = document.getElementById('quizPrevBtn');
+        if (quizPrevBtn) quizPrevBtn.disabled = false;
+
         // Show step 1 and hide others
         showStep(currentStep);
         
@@ -676,16 +691,46 @@ function initFormHandling() {
         err.style.color = '#ff6b6b';
         err.style.fontSize = '0.8rem';
         err.style.marginTop = '0.25rem';
-        err.style.display = 'block';
+        // Keep the flex layout from CSS so the icon + text align with a gap
+        err.style.display = 'flex';
+        err.style.alignItems = 'center';
+        err.style.columnGap = '7px';
         err.textContent = message;
-        field.parentNode.appendChild(err);
+        // Group containers hold the error inside themselves; inputs use the parent
+        const host = field.classList.contains('multi-service-group') ? field : field.parentNode;
+        host.appendChild(err);
     }
 
     function clearFieldError(field) {
         field.classList.remove('field-invalid');
-        const existing = field.parentNode.querySelector('.form-field-error');
+        const host = field.classList.contains('multi-service-group') ? field : field.parentNode;
+        const existing = host.querySelector('.form-field-error');
         if (existing) existing.remove();
     }
+
+    // ── Multiple Services reveal + multi-checkbox handling ──
+    const serviceSelect = quizForm.querySelector('#service');
+    const multiGroup = quizForm.querySelector('#multiServiceGroup');
+    const multiBoxes = multiGroup
+        ? Array.from(multiGroup.querySelectorAll('input[type="checkbox"]'))
+        : [];
+
+    function syncMultiServiceVisibility() {
+        if (!serviceSelect || !multiGroup) return;
+        const isMulti = serviceSelect.value === 'multiple';
+        multiGroup.hidden = !isMulti;
+        if (!isMulti) {
+            multiBoxes.forEach(cb => { cb.checked = false; });
+            clearFieldError(multiGroup);
+        }
+    }
+
+    if (serviceSelect) {
+        serviceSelect.addEventListener('change', syncMultiServiceVisibility);
+    }
+    multiBoxes.forEach(cb => {
+        cb.addEventListener('change', () => clearFieldError(multiGroup));
+    });
 
     // List of validations by ID
     const fieldValidations = {
@@ -706,6 +751,13 @@ function initFormHandling() {
             el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => clearFieldError(el));
         }
     });
+
+    // Website is optional, but if filled it must look like a real site
+    const websiteInput = quizForm.querySelector('#website');
+    const websiteRe = /^(https?:\/\/)?([\w-]+\.)+[a-z]{2,}(\/\S*)?$/i;
+    if (websiteInput) {
+        websiteInput.addEventListener('input', () => clearFieldError(websiteInput));
+    }
 
     // Step Validation function
     function validateStep(stepNum) {
@@ -729,6 +781,28 @@ function initFormHandling() {
                 }
             }
         });
+
+        // Website (step 1): allow blank, otherwise must be a valid site
+        if (stepNum === 1 && websiteInput) {
+            const wv = websiteInput.value.trim();
+            if (wv !== '' && !websiteRe.test(wv)) {
+                showFieldError(websiteInput, 'Leave this blank or enter a valid website (e.g. yourbusiness.com).');
+                isValid = false;
+            } else {
+                clearFieldError(websiteInput);
+            }
+        }
+
+        // Multiple Services: require 2+ specific selections
+        if (stepNum === 3 && serviceSelect && serviceSelect.value === 'multiple' && multiGroup) {
+            const chosen = multiBoxes.filter(cb => cb.checked).length;
+            if (chosen < 2) {
+                showFieldError(multiGroup, 'Select at least 2 services.');
+                isValid = false;
+            } else {
+                clearFieldError(multiGroup);
+            }
+        }
 
         return isValid;
     }
@@ -818,14 +892,81 @@ function initFormHandling() {
         if (prevBtn) prevBtn.disabled = true;
 
         const formData = new FormData(quizForm);
-        const data = Object.fromEntries(formData.entries());
+        const rawData = Object.fromEntries(formData.entries());
 
-        // Simulate API call
+        // Format and map fields to match GHL dropdown options perfectly
+        const businessMap = {
+            'getting-started': "I'm just getting started and need customers.",
+            'need-leads': "I have a business but I'm not getting enough leads.",
+            'need-consistency': "I'm getting leads, but I need more consistent results.",
+            'want-to-scale': "I have a steady flow of leads and want to scale.",
+            'in-house-team': "I have an in-house marketing team and need additional support.",
+            'exploring': "I'm just exploring options right now."
+        };
+
+        const serviceMap = {
+            'meta': 'Meta Ad Management',
+            'google': 'Google Ad Management',
+            'webdev': 'Website Development',
+            'smm': 'Social Media Management',
+            'multiple': 'Multiple Services'
+        };
+
+        const revenueMap = {
+            '5k-10k': '$5,000 – $10,000',
+            '10k-25k': '$10,000 – $25,000',
+            '25k-50k': '$25,000 – $50,000',
+            '50k-100k': '$50,000 – $100,000',
+            '100k-200k': '$100,000 – $200,000',
+            '200k+': '$200,000+'
+        };
+
+        const timelineMap = {
+            'immediately': 'Immediately',
+            'within-30-days': 'Within 30 days',
+            '1-3-months': '1-3 months',
+            'exploring': 'Just exploring for now'
+        };
+
+        // Resolve service selection, including checkboxes if "Multiple Services" is chosen
+        let mappedService = serviceMap[rawData.service] || rawData.service;
+        if (rawData.service === 'multiple') {
+            const checkedServices = Array.from(quizForm.querySelectorAll('input[name="services[]"]:checked'))
+                .map(cb => serviceMap[cb.value] || cb.value);
+            if (checkedServices.length > 0) {
+                mappedService = `Multiple Services: ${checkedServices.join(', ')}`;
+            }
+        }
+
+        const payload = {
+            first_name: rawData.first_name,
+            last_name: rawData.last_name,
+            phone: rawData.phone,
+            email: rawData.email,
+            website: rawData.website || '',
+            business: businessMap[rawData.business] || rawData.business,
+            service: mappedService,
+            revenue: revenueMap[rawData.revenue] || rawData.revenue,
+            timeline: timelineMap[rawData.timeline] || rawData.timeline,
+            message: rawData.message || ''
+        };
+
+        // Send API call to GoHighLevel Webhook
         try {
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            const response = await fetch('https://services.leadconnectorhq.com/hooks/0NOG0PbsEDx8HtLNhpXY/webhook-trigger/ab7a6108-f2f9-482f-859b-bb7edea11140', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
 
             // Success state
-            const userName = data.first_name || 'Friend';
+            const userName = payload.first_name || 'Friend';
             document.getElementById('quizSuccessName').textContent = userName;
 
             // Animate transition to success

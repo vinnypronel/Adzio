@@ -10,8 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const vslContainer = document.querySelector('.hero-vsl');
     const vslElement = document.getElementById('vsl-main-element');
-    
+
     if (!vslContainer || !vslElement) return;
+
+    // On mobile the hero stacks (video sits BELOW the copy). The fixed/PiP
+    // pinning would rip the video to the top and overlap the headline, so skip
+    // the whole scroll transition and leave the VSL inline in the hero.
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        vslContainer.style.height = '';
+        vslElement.classList.remove('vsl-pip-active');
+        document.body.classList.remove('vsl-active');
+        return;
+    }
 
     const config = {
         pipWidth: 150,
@@ -32,6 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeProgress = 0;
 
     const captureStartGeom = () => {
+        // Clear any previously-set inline height first, otherwise we'd just
+        // re-measure the stale height we set last time and never pick up a new
+        // viewport size (e.g. when the window is dragged to a different monitor).
+        // With it cleared we read the real CSS-driven size; if the inner video is
+        // currently lifted out of flow (fixed PiP), height reads 0 and we fall
+        // back to the correct 16:9 height derived from the live width.
+        vslContainer.style.height = '';
+
         const rect = vslContainer.getBoundingClientRect();
         const heroWidth = rect.width;
         const heroHeight = rect.height || (heroWidth * 9) / 16;
@@ -103,12 +121,21 @@ document.addEventListener('DOMContentLoaded', () => {
         onLeaveBack: () => applyState(0)
     });
 
-    // Handle Window Resize
+    // Handle Window Resize (incl. dragging the window between monitors).
+    // Debounced so it re-formats once the resize settles, and re-derives the
+    // size-dependent PiP target so it stays correct on the new screen.
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        startGeom = null;
-        captureStartGeom();
-        ScrollTrigger.refresh();
-        applyState(activeProgress);
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            config.pipWidth = window.innerWidth < 768 ? 110
+                : window.innerWidth < 1024 ? 130
+                : 150;
+            startGeom = null;
+            captureStartGeom();
+            ScrollTrigger.refresh();
+            applyState(activeProgress);
+        }, 120);
     });
 
     captureStartGeom();
