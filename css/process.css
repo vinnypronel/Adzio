@@ -1018,16 +1018,33 @@
     #process-slide-0 {
         flex-direction: column;
         align-items: flex-start;
-        justify-content: flex-start;
-        gap: clamp(22px, 6vw, 34px);
-        padding-top: clamp(52px, 13vw, 76px);
+        justify-content: center;
+        gap: clamp(18px, 5vw, 28px);
+        padding-top: clamp(28px, 7vw, 44px);
     }
 
     /* Big enough to fill the space, still safe on a 320px screen */
     #process-slide-0 .process-s0-label,
     .process-s0-label {
-        font-size: clamp(4.5rem, 24vw, 9rem);
-        line-height: 0.82;
+        font-size: clamp(4.8rem, 25vw, 9.5rem);
+        line-height: 0.86;
+    }
+
+    /* ADZIO'S — drop the near-invisible ghost outline for a visible light fill,
+       and pull both words together (no desktop translateY offsets on mobile) */
+    #process-slide-0 .process-s0-label .our,
+    .process-s0-label .our {
+        color: rgba(244, 241, 234, 0.72);
+        -webkit-text-stroke: 0;
+        transform: none;
+        line-height: 0.86;
+    }
+
+    #process-slide-0 .process-s0-label .process,
+    .process-s0-label .process {
+        color: var(--teal);
+        transform: none;
+        line-height: 0.86;
     }
 
     .process-s0-right {
