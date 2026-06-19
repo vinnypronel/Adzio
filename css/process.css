@@ -1023,10 +1023,11 @@
         padding-top: clamp(52px, 13vw, 76px);
     }
 
-    /* Title must shrink so "ADZIO'S / PROCESS" never runs off a 320px screen */
+    /* Big enough to fill the space, still safe on a 320px screen */
     #process-slide-0 .process-s0-label,
     .process-s0-label {
-        font-size: clamp(3rem, 15vw, 5rem);
+        font-size: clamp(4.5rem, 24vw, 9rem);
+        line-height: 0.82;
     }
 
     .process-s0-right {
