@@ -1027,24 +1027,25 @@
     #process-slide-0 .process-s0-label,
     .process-s0-label {
         font-size: clamp(4.8rem, 25vw, 9.5rem);
-        line-height: 0.86;
+        line-height: 0.78;
     }
 
-    /* ADZIO'S — drop the near-invisible ghost outline for a visible light fill,
-       and pull both words together (no desktop translateY offsets on mobile) */
+    /* ADZIO'S — bright solid fill (was a near-invisible ghost outline) and
+       stacked tight against PROCESS (kill desktop offsets + leading) */
     #process-slide-0 .process-s0-label .our,
     .process-s0-label .our {
-        color: rgba(244, 241, 234, 0.72);
+        color: rgba(244, 241, 234, 0.92);
         -webkit-text-stroke: 0;
         transform: none;
-        line-height: 0.86;
+        line-height: 0.78;
+        margin-bottom: -0.06em;
     }
 
     #process-slide-0 .process-s0-label .process,
     .process-s0-label .process {
         color: var(--teal);
         transform: none;
-        line-height: 0.86;
+        line-height: 0.78;
     }
 
     .process-s0-right {
