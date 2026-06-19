@@ -2941,6 +2941,31 @@ body.vsl-active .hero-vsl {
     opacity: 1;
 }
 
+/* Mobile: shrink logos + tighten gaps so several fit on screen at once
+   (still legible, not tiny) */
+@media (max-width: 768px) {
+    .slide {
+        margin-right: 26px;
+        padding: 0.4rem 0;
+    }
+
+    .slide img {
+        height: 30px;
+        max-width: 104px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide {
+        margin-right: 20px;
+    }
+
+    .slide img {
+        height: 26px;
+        max-width: 88px;
+    }
+}
+
 /* ============================================
    Problem Section
    ============================================ */
