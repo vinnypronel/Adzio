@@ -13,13 +13,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!vslContainer || !vslElement) return;
 
-    // On mobile the hero stacks (video sits BELOW the copy). The fixed/PiP
-    // pinning would rip the video to the top and overlap the headline, so skip
-    // the whole scroll transition and leave the VSL inline in the hero.
+    // ── MOBILE (≤768px) ──────────────────────────────────────────────
+    // The hero stacks (video sits below the copy). Instead of the desktop
+    // corner-locked scrub (which would overlap the headline), the video stays
+    // in flow until it scrolls up under the top nav bar, then smoothly docks
+    // into a small fixed thumbnail in the top-right corner — sized + positioned
+    // by interpolating from its in-flow spot to the corner as you scroll.
     if (window.matchMedia('(max-width: 768px)').matches) {
-        vslContainer.style.height = '';
-        vslElement.classList.remove('vsl-pip-active');
-        document.body.classList.remove('vsl-active');
+        const NAV_H = 60;        // mobile top bar height
+        const PIP_TOP = 70;      // rest just under the bar
+        const PIP_RIGHT = 12;
+        const PIP_W = 122;
+        const PIP_RADIUS = 10;
+        const TRAVEL = 200;      // px of scroll to fully dock
+
+        const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+        let placeholderH = null;
+        let docked = false;
+
+        function capture() {
+            // measure the natural in-flow size, then lock the placeholder height
+            vslElement.style.cssText = '';
+            vslContainer.style.height = '';
+            const r = vslContainer.getBoundingClientRect();
+            placeholderH = r.height || (r.width * 9) / 16;
+            vslContainer.style.height = placeholderH + 'px';
+        }
+
+        function reset() {
+            if (!docked) return;
+            docked = false;
+            vslElement.style.cssText = '';
+            vslElement.classList.remove('vsl-pip-active');
+            document.body.classList.remove('vsl-active');
+        }
+
+        function apply() {
+            const r = vslContainer.getBoundingClientRect();
+            const p = clamp((NAV_H - r.top) / TRAVEL, 0, 1);
+
+            if (p <= 0) {
+                reset();
+                return;
+            }
+
+            docked = true;
+            document.body.classList.add('vsl-active');
+            vslElement.classList.add('vsl-pip-active');
+
+            const w = r.width + (PIP_W - r.width) * p;
+            const h = (w * 9) / 16;
+            const curTop = Math.max(r.top, NAV_H);
+            const top = curTop + (PIP_TOP - curTop) * p;
+            const targetLeft = window.innerWidth - PIP_RIGHT - w;
+            const left = r.left + (targetLeft - r.left) * p;
+
+            vslElement.style.position = 'fixed';
+            vslElement.style.top = top + 'px';
+            vslElement.style.left = left + 'px';
+            vslElement.style.right = 'auto';
+            vslElement.style.width = w + 'px';
+            vslElement.style.height = h + 'px';
+            vslElement.style.margin = '0';
+            vslElement.style.borderRadius = (12 - (12 - PIP_RADIUS) * p) + 'px';
+            // below the nav bar / menu (z 1999-2000) so the menu covers it
+            vslElement.style.zIndex = '1500';
+        }
+
+        let ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => { apply(); ticking = false; });
+        }
+
+        capture();
+        apply();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        let rt;
+        window.addEventListener('resize', () => {
+            clearTimeout(rt);
+            rt = setTimeout(() => { reset(); capture(); apply(); }, 120);
+        });
+
+        vslElement.addEventListener('click', () => {
+            if (typeof openVSLModal === 'function') openVSLModal();
+        });
         return;
     }
 

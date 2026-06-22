@@ -111,7 +111,7 @@
         <img src="assets/logo.png" alt="Adzio">
     </a>
     <button class="m-nav-toggle" id="mNavToggle" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
     </button>
     <div class="m-nav-panel" id="mNavPanel">
         <nav class="m-nav-links">

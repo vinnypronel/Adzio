@@ -213,7 +213,7 @@ body {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 5px;
+        gap: 7px;
         background: none;
         border: none;
         cursor: pointer;
@@ -225,23 +225,21 @@ body {
 
     .m-nav-toggle span {
         display: block;
-        width: 24px;
+        width: 26px;
         height: 2px;
         border-radius: 2px;
         background: var(--text-primary);
-        transition: transform 0.3s ease, opacity 0.2s ease;
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        transform-origin: center;
     }
 
+    /* 2 lines → X (each line converges to center and rotates) */
     .m-nav.is-open .m-nav-toggle span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
+        transform: translateY(4.5px) rotate(45deg);
     }
 
     .m-nav.is-open .m-nav-toggle span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .m-nav.is-open .m-nav-toggle span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
+        transform: translateY(-4.5px) rotate(-45deg);
     }
 
     /* Make the top bar blend into the full-screen menu when open */
@@ -266,8 +264,11 @@ body {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transform: translateY(-6px);
-        transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.45s;
+        transform: translateY(-8px);
+        will-change: opacity, transform;
+        /* GPU transform + fade; visibility flips instantly on open, after the
+           fade on close — no janky mid-transition reflow */
+        transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.4s;
     }
 
     .m-nav.is-open .m-nav-panel {
@@ -275,6 +276,7 @@ body {
         visibility: visible;
         transform: none;
         pointer-events: auto;
+        transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
     }
 
     .m-nav-links {

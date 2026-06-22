@@ -221,6 +221,18 @@ function initProcessSection() {
     const SLIDE_ELS = SLIDES.map(sels => sels.map(sel => document.querySelector(sel)).filter(Boolean));
     const SLIDE_WRAPPERS = SLIDE_IDS.map(id => document.getElementById(id));
 
+    function animateSlide0Text() {
+        const slide0 = document.getElementById('process-slide-0');
+        if (!slide0) return;
+        const label = slide0.querySelector('.process-s0-label');
+        if (label) {
+            gsap.fromTo(label, 
+                { opacity: 0, x: -70 }, 
+                { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', overwrite: 'auto' }
+            );
+        }
+    }
+
     // Extend pin by SLIDE0_PRE_VH so slide 0 is fully inside the locked zone.
     const totalPinScroll = SLIDE0_PRE_VH + (NUM - 1) * VH + VH * (ENTER_FRAC + HOLD_FRAC);
     const servicesEl = document.getElementById('services');
@@ -248,10 +260,25 @@ function initProcessSection() {
             onEnter: () => {
                 if (fwdSnapLock) return;
                 fwdSnapLock = true;
+
+                // Show slide 0 immediately and animate its text as soon as the snap begins
+                const slide0 = document.getElementById('process-slide-0');
+                if (slide0) {
+                    slide0.style.visibility = 'visible';
+                }
+                animateSlide0Text();
+
                 // Scroll the pin wrapper to the very top of the viewport so the
                 // pin kicks in and slide 0 starts animating immediately.
                 const targetY = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                const scrollObj = { y: window.scrollY };
+                gsap.to(scrollObj, {
+                    y: targetY,
+                    duration: 1.2,
+                    ease: 'power2.inOut',
+                    onUpdate: () => window.scrollTo(0, scrollObj.y),
+                    overwrite: 'auto'
+                });
                 setTimeout(() => { fwdSnapLock = false; }, 1400);
             },
             // Re-arm the snap when scrolling back up out of the process section.
@@ -283,11 +310,10 @@ function initProcessSection() {
             // 1) left text enters from the left
             // 2) the arrow draws itself left → right
             // 3) the two right-hand cards slide in from the right
-            const leftEls = [
-                wrapper.querySelector('.process-s0-label'),
-                wrapper.querySelector('.process-s0-subhead'),
-                wrapper.querySelector('.process-s0-left-content'),
-            ].filter(Boolean);
+            const labelEl = wrapper.querySelector('.process-s0-label');
+            const subheadEl = wrapper.querySelector('.process-s0-subhead');
+            const descEl = wrapper.querySelector('.process-s0-left-content');
+            const leftEls = [labelEl, subheadEl, descEl].filter(Boolean);
             const arrowWrap = wrapper.querySelector('.process-s0-arrow');
             const arrowLine = wrapper.querySelector('.ps-arrow-line');
             const arrowHead = wrapper.querySelector('.ps-arrow-head');
@@ -306,7 +332,10 @@ function initProcessSection() {
             // Custom (un-normalised) timeline: the arrow draw eats ~44% of slide
             // 0's scroll zone (very slow draw), then a long hold keeps the boxes
             // on screen before the slide exits.
-            tl.to(leftEls, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.12, stagger: 0.04 }, 0);
+            const scrollEntranceEls = [subheadEl, descEl].filter(Boolean);
+            if (scrollEntranceEls.length > 0) {
+                tl.to(scrollEntranceEls, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.30, stagger: 0.10 }, 0);
+            }
             if (arrowLine) {
                 tl.to(arrowLine, { strokeDashoffset: 0, ease: 'none', duration: 1.00 }, 0.16);
             }
@@ -389,10 +418,12 @@ function initProcessSection() {
             onEnter: () => {
                 wrapper.style.visibility = 'visible';
                 setActivePip(si);
+                if (si === 0) animateSlide0Text();
             },
             onEnterBack: () => {
                 wrapper.style.visibility = 'visible';
                 setActivePip(si);
+                if (si === 0) animateSlide0Text();
             },
             onLeave: () => {
                 if (!isLast) {
@@ -407,8 +438,23 @@ function initProcessSection() {
                 }
                 // For slide 0: this fires only after the arrow has fully un-drawn
                 // and the pin has released — safe to snap up to services.
-                if (si === 0 && servicesEl) {
-                    servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (si === 0) {
+                    const label = wrapper.querySelector('.process-s0-label');
+                    if (label) {
+                        gsap.to(label, { opacity: 0, x: -120, duration: 0.5, ease: 'power2.in', overwrite: 'auto' });
+                    }
+                    if (servicesEl) {
+                        const targetY = servicesEl.getBoundingClientRect().top + window.scrollY;
+                        const scrollObj = { y: window.scrollY };
+                        gsap.to(scrollObj, {
+                            y: targetY,
+                            duration: 1.2,
+                            delay: 0.15,
+                            ease: 'power2.inOut',
+                            onUpdate: () => window.scrollTo(0, scrollObj.y),
+                            overwrite: 'auto'
+                        });
+                    }
                 }
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
