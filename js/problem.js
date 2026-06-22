@@ -186,6 +186,9 @@ function initProcessSection() {
     const ENTER_FRAC = 0.35;
     const HOLD_FRAC = 0.45;
     const EXIT_FRAC = 0.20;
+    // Slide 0 is allocated its own VH of scroll inside the pin so the page
+    // stays locked during both the arrow draw (forward) and un-draw (reverse).
+    const SLIDE0_PRE_VH = VH;
 
     const pipEls = gsap.utils.toArray('.process-pip');
     const glow = document.getElementById('process-bg-glow');
@@ -218,7 +221,9 @@ function initProcessSection() {
     const SLIDE_ELS = SLIDES.map(sels => sels.map(sel => document.querySelector(sel)).filter(Boolean));
     const SLIDE_WRAPPERS = SLIDE_IDS.map(id => document.getElementById(id));
 
-    const totalPinScroll = (NUM - 1) * VH + VH * (ENTER_FRAC + HOLD_FRAC);
+    // Extend pin by SLIDE0_PRE_VH so slide 0 is fully inside the locked zone.
+    const totalPinScroll = SLIDE0_PRE_VH + (NUM - 1) * VH + VH * (ENTER_FRAC + HOLD_FRAC);
+    const servicesEl = document.getElementById('services');
     ScrollTrigger.create({
         trigger: '#process-pin-wrapper',
         start: 'top top',
@@ -226,7 +231,33 @@ function initProcessSection() {
         pin: '#process-pin-panel',
         pinSpacing: true,
         anticipatePin: 1,
+        // No onLeaveBack here — snap-to-services lives on slide 0's trigger
+        // so it only fires AFTER the arrow has fully un-drawn itself.
     });
+
+    // ── Auto-snap forward ──────────────────────────────────────────────────
+    // When the user scrolls down into the blank zone between services and the
+    // process pin, jump them to the pin start so slide 0 immediately begins.
+    // Mirrors the reverse snap (onLeaveBack → services) added on slide 0's ST.
+    const pinWrapperEl = document.getElementById('process-pin-wrapper');
+    if (pinWrapperEl) {
+        let fwdSnapLock = false;
+        ScrollTrigger.create({
+            trigger: '#process-pin-wrapper',
+            start: 'top 82%',   // fires when pin wrapper enters lower portion of viewport
+            onEnter: () => {
+                if (fwdSnapLock) return;
+                fwdSnapLock = true;
+                // Scroll the pin wrapper to the very top of the viewport so the
+                // pin kicks in and slide 0 starts animating immediately.
+                const targetY = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+                setTimeout(() => { fwdSnapLock = false; }, 1400);
+            },
+            // Re-arm the snap when scrolling back up out of the process section.
+            onLeaveBack: () => { fwdSnapLock = false; }
+        });
+    }
  
     SLIDE_WRAPPERS.forEach(w => {
         if (!w) return;
@@ -326,14 +357,19 @@ function initProcessSection() {
             }
         }
  
-        // Slide 0 starts revealing while the section is still entering the
-        // viewport, so the pinned panel never sits empty.
-        const startTrigger = si === 0 ? 'top 78%' : `top+=${zoneStart}vh top`;
- 
+        // Slide 0: entirely inside the pin (starts at pin start = top top).
+        // Other slides: offset by SLIDE0_PRE_VH so zones are contiguous with no gaps.
+        const startTrigger = si === 0
+            ? 'top top'
+            : `top+=${SLIDE0_PRE_VH + zoneStart}vh top`;
+        // All slides use the same offset formula — slide 0's zoneEnd=200, so
+        // SLIDE0_PRE_VH+200=400; slide 1's zoneStart=200 → offset+200=400. No gap.
+        const adjustedEnd = SLIDE0_PRE_VH + zoneEnd;
+
         ScrollTrigger.create({
             trigger: '#process-pin-wrapper',
             start: startTrigger,
-            end: `top+=${zoneEnd}vh top`,
+            end: `top+=${adjustedEnd}vh top`,
             scrub: 0.8,
             animation: tl,
             onUpdate: self => {
@@ -368,6 +404,11 @@ function initProcessSection() {
             onLeaveBack: () => {
                 if (si !== 0) {
                     wrapper.style.visibility = 'hidden';
+                }
+                // For slide 0: this fires only after the arrow has fully un-drawn
+                // and the pin has released — safe to snap up to services.
+                if (si === 0 && servicesEl) {
+                    servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');

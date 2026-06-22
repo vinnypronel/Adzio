@@ -71,15 +71,6 @@
             </div>
         </div>
 
-        <!-- Bottom Bar -->
-        <div class="footer-bottom">
-            <p class="footer-copyright">&copy; 2026 Adzio.io. All rights reserved.</p>
-            <div class="footer-legal">
-                <a href="#" onclick="typeof openLegal==='function'&&openLegal('privacy');return false;">Privacy Policy</a>
-                <a href="#" onclick="typeof openLegal==='function'&&openLegal('terms');return false;">Terms of Service</a>
-            </div>
-        </div>
-
         <!-- Bottom CTA -->
         <div class="footer-bottom-cta">
             <a href="index.html#contact" class="footer-lets-talk">
@@ -89,6 +80,15 @@
                     <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
             </a>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p class="footer-copyright">&copy; 2026 Adzio.io. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#" onclick="typeof openLegal==='function'&&openLegal('privacy');return false;">Privacy Policy</a>
+                <a href="#" onclick="typeof openLegal==='function'&&openLegal('terms');return false;">Terms of Service</a>
+            </div>
         </div>
     </div>
 </footer>`;
