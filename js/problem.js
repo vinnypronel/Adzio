@@ -11,6 +11,33 @@ function restartIconAnimation(wrapper, selector) {
     icon.classList.add('icon-animate');
 }
 
+// Make each step's circular icon clickable so visitors can replay its animation
+// on demand. Pure-CSS animations only fire on `.icon-animate`, so a click just
+// re-triggers that class (remove → reflow → add). Works on desktop and the
+// mobile vertical stack, independent of the GSAP scroll wiring.
+function initProcessIconReplay() {
+    const rings = document.querySelectorAll('.process-icon-ring');
+    rings.forEach(ring => {
+        const replay = () => {
+            ring.classList.remove('icon-animate');
+            void ring.offsetWidth;
+            ring.classList.add('icon-animate');
+        };
+
+        ring.setAttribute('role', 'button');
+        ring.setAttribute('tabindex', '0');
+        ring.setAttribute('aria-label', 'Replay step animation');
+
+        ring.addEventListener('click', replay);
+        ring.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                replay();
+            }
+        });
+    });
+}
+
 function initProblemSection() {
     const section = document.querySelector('.problem-section');
     const panel = document.getElementById('pin-panel');
@@ -182,9 +209,15 @@ function initProcessSection() {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const VH = 200;
-    const ENTER_FRAC = 0.35;
-    const HOLD_FRAC = 0.45;
+    // VH is the scroll distance (in vh) allotted to each slide and is the single
+    // knob for the deck's pacing — raise it to make the steps harder to blow
+    // past, lower it to speed them up. The pin total works out to VH × 5.8, and
+    // every snapTo fraction / REVEAL_PROGRESS below is a ratio of VH, so they
+    // stay correct at any VH (no need to retune them when changing this).
+    const VH = 300;
+    const OVERLAP = 0;   // Set to 0 to prevent slides from overlapping on scroll
+    const ENTER_FRAC = 0.10;
+    const HOLD_FRAC = 0.70;
     const EXIT_FRAC = 0.20;
     // Slide 0 is allocated its own VH of scroll inside the pin so the page
     // stays locked during both the arrow draw (forward) and un-draw (reverse).
@@ -221,74 +254,78 @@ function initProcessSection() {
     const SLIDE_ELS = SLIDES.map(sels => sels.map(sel => document.querySelector(sel)).filter(Boolean));
     const SLIDE_WRAPPERS = SLIDE_IDS.map(id => document.getElementById(id));
 
-    function animateSlide0Text() {
-        const slide0 = document.getElementById('process-slide-0');
-        if (!slide0) return;
-        const label = slide0.querySelector('.process-s0-label');
-        if (label) {
-            gsap.fromTo(label, 
-                { opacity: 0, x: -70 }, 
-                { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', overwrite: 'auto' }
-            );
-        }
-    }
 
     // Extend pin by SLIDE0_PRE_VH so slide 0 is fully inside the locked zone.
     const totalPinScroll = SLIDE0_PRE_VH + (NUM - 1) * VH + VH * (ENTER_FRAC + HOLD_FRAC);
     const servicesEl = document.getElementById('services');
-    ScrollTrigger.create({
+    const pinST = ScrollTrigger.create({
         trigger: '#process-pin-wrapper',
         start: 'top top',
         end: `+=${totalPinScroll}vh`,
         pin: '#process-pin-panel',
         pinSpacing: true,
         anticipatePin: 1,
-        // No onLeaveBack here — snap-to-services lives on slide 0's trigger
-        // so it only fires AFTER the arrow has fully un-drawn itself.
+        snap: {
+            snapTo: [0, 0.1724, 0.4310, 0.6034, 0.7759, 0.9310, 1],
+            duration: { min: 0.35, max: 0.9 },
+            delay: 0.08,
+            ease: 'power2.inOut'
+        }
     });
 
-    // ── Auto-snap forward ──────────────────────────────────────────────────
-    // When the user scrolls down into the blank zone between services and the
-    // process pin, jump them to the pin start so slide 0 immediately begins.
-    // Mirrors the reverse snap (onLeaveBack → services) added on slide 0's ST.
-    const pinWrapperEl = document.getElementById('process-pin-wrapper');
-    if (pinWrapperEl) {
-        let fwdSnapLock = false;
-        ScrollTrigger.create({
-            trigger: '#process-pin-wrapper',
-            start: 'top 82%',   // fires when pin wrapper enters lower portion of viewport
-            onEnter: () => {
-                if (fwdSnapLock) return;
-                fwdSnapLock = true;
+    // (Auto-snap forward logic removed to prevent scrolljacking / scroll lockups)
 
-                // Show slide 0 immediately and animate its text as soon as the snap begins
-                const slide0 = document.getElementById('process-slide-0');
-                if (slide0) {
-                    slide0.style.visibility = 'visible';
+    // ── Auto-return to Services when scrolling back UP out of the deck ──
+    // Once the user reverses past the very top of the pinned process deck
+    // (the ADZIO'S PROCESS intro has fully retraced off-screen), glide them
+    // back up to the Services section rather than leaving them stranded in the
+    // gap above the pin. Armed only after they've scrolled down INTO the deck,
+    // and re-armed on each re-entry, so it never hijacks an intentional scroll.
+    let returnToServicesArmed = false;
+    ScrollTrigger.create({
+        trigger: '#process-pin-wrapper',
+        start: 'top top',
+        onEnter: () => { returnToServicesArmed = true; },
+        onLeaveBack: () => {
+            if (!servicesEl || !returnToServicesArmed) return;
+            returnToServicesArmed = false;
+            servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+
+    // ── Never let the empty pre-pin gap be a resting place ──
+    // The 100vh panel rises a full screen before it pins, and slide 0 only
+    // animates in once pinned — leaving a ~100vh void between Services and the
+    // formed deck. If the user settles in that void, glide them onto whichever
+    // side they were heading toward: down → the fully-revealed slide 0,
+    // up → the Services cards. Only fires once scrolling has settled, so it
+    // never yanks the page mid-flick.
+    const REVEAL_PROGRESS = 0.1724; // pin progress where slide 0 sits fully formed
+    let voidSnapTimer = null;
+    ScrollTrigger.create({
+        trigger: '#process-pin-wrapper',
+        start: 'top bottom',   // panel just entering from the bottom
+        end: 'top top',        // panel fully risen → pin engages
+        onUpdate: self => {
+            clearTimeout(voidSnapTimer);
+            // Only act once the void dominates the viewport (panel >~40% risen)
+            // and we're not already snapped onto the pinned deck.
+            if (self.progress <= 0.4 || self.progress >= 0.99) return;
+            voidSnapTimer = setTimeout(() => {
+                if (self.progress <= 0.4 || self.progress >= 0.99) return;
+                if (self.direction === 1 && pinST) {
+                    const target = pinST.start + REVEAL_PROGRESS * (pinST.end - pinST.start);
+                    window.scrollTo({ top: target, behavior: 'smooth' });
+                } else if (self.direction === -1 && servicesEl) {
+                    servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-                animateSlide0Text();
-
-                // Scroll the pin wrapper to the very top of the viewport so the
-                // pin kicks in and slide 0 starts animating immediately.
-                const targetY = pinWrapperEl.getBoundingClientRect().top + window.scrollY;
-                const scrollObj = { y: window.scrollY };
-                gsap.to(scrollObj, {
-                    y: targetY,
-                    duration: 1.2,
-                    ease: 'power2.inOut',
-                    onUpdate: () => window.scrollTo(0, scrollObj.y),
-                    overwrite: 'auto'
-                });
-                setTimeout(() => { fwdSnapLock = false; }, 1400);
-            },
-            // Re-arm the snap when scrolling back up out of the process section.
-            onLeaveBack: () => { fwdSnapLock = false; }
-        });
-    }
+            }, 160);
+        }
+    });
  
-    SLIDE_WRAPPERS.forEach(w => {
+    SLIDE_WRAPPERS.forEach((w, idx) => {
         if (!w) return;
-        w.style.visibility = 'hidden';
+        w.style.visibility = idx === 0 ? 'visible' : 'hidden';
         w.style.pointerEvents = 'none';
     });
  
@@ -300,10 +337,16 @@ function initProcessSection() {
         const isLast = (si === NUM - 1);
         const zoneStart = si * VH;
         const zoneEnd = isLast ? (zoneStart + VH * (ENTER_FRAC + HOLD_FRAC)) : (zoneStart + VH);
-        const enterLen = VH * ENTER_FRAC;
-        const sliceVH = enterLen / selectors.length;
- 
+        // Per-element entrance step, as a fraction of the slide's scroll zone.
+        // The last slide (step 4) already reads as individual because its short,
+        // exit-less timeline stretches the stagger across ~29% of the zone. Steps
+        // 1-3 have a long exit, which compressed the same stagger into the first
+        // ~10% — so all elements snapped in together. Give them a wider step so
+        // each element (tag → heading → body → icon → numeral) arrives on its own.
+        const entranceStep = isLast ? (ENTER_FRAC / selectors.length) : 0.06;
+
         const tl = gsap.timeline({ paused: true });
+        tl.set(wrapper, { visibility: 'visible' }, 0);
 
         if (si === 0) {
             // ── Custom intro for the overview slide ──
@@ -321,21 +364,14 @@ function initProcessSection() {
             // perfectly aligned (a per-box stagger left them offset mid-slide).
             const rightGroup = wrapper.querySelector('.process-s0-right');
 
-            gsap.set(leftEls, { opacity: 0, x: -70, force3D: true });
-            if (rightGroup) gsap.set(rightGroup, { opacity: 0, x: 180, force3D: true });
             if (arrowHead) gsap.set(arrowHead, { opacity: 0 });
             if (arrowLine) {
                 const lineLen = arrowLine.getTotalLength();
                 gsap.set(arrowLine, { strokeDasharray: lineLen, strokeDashoffset: lineLen });
             }
 
-            // Custom (un-normalised) timeline: the arrow draw eats ~44% of slide
-            // 0's scroll zone (very slow draw), then a long hold keeps the boxes
-            // on screen before the slide exits.
-            const scrollEntranceEls = [subheadEl, descEl].filter(Boolean);
-            if (scrollEntranceEls.length > 0) {
-                tl.to(scrollEntranceEls, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.30, stagger: 0.10 }, 0);
-            }
+            // Custom (un-normalised) timeline: the arrow draws itself, while
+            // the text and cards start fully visible (opacity 1) from Y = 0.
             if (arrowLine) {
                 tl.to(arrowLine, { strokeDashoffset: 0, ease: 'none', duration: 1.00 }, 0.16);
             }
@@ -343,15 +379,13 @@ function initProcessSection() {
                 // Head appears ONLY once the line has fully landed — never floats alone.
                 tl.to(arrowHead, { opacity: 1, ease: 'power1.out', duration: 0.06 }, 1.16);
             }
-            if (rightGroup) {
-                tl.to(rightGroup, { opacity: 1, x: 0, ease: 'power3.out', force3D: true, duration: 0.60 }, 0.86);
-            }
 
             // long hold so the fully-revealed slide lingers before exiting
-            tl.to({}, { duration: 0.60 }, 1.46);
+            tl.to({}, { duration: 0.40 }, 1.22);
 
             const exitEls = [...leftEls, arrowWrap, rightGroup].filter(Boolean);
-            tl.to(exitEls, { opacity: 0, y: -60, ease: 'power2.in', force3D: true, duration: 0.20 }, 2.06);
+            tl.to(exitEls, { opacity: 0, y: -60, ease: 'power2.inOut', force3D: true, duration: 0.70 }, 1.62);
+            tl.set(wrapper, { visibility: 'hidden' }, 2.32);
         } else {
             selectors.forEach((sel, ei) => {
                 const el = els[ei];
@@ -364,42 +398,51 @@ function initProcessSection() {
                 const el = els[ei];
                 if (!el) return;
                 const isRight = sel.includes('visual') || sel.includes('card') || sel.includes('stat') || sel.includes('right');
-                const sliceStart = (ei * sliceVH) / VH;
-                const sliceEnd = ((ei + 1) * sliceVH) / VH;
 
                 tl.fromTo(
                     el,
                     { opacity: 0, y: 60, x: isRight ? 50 : 0 },
-                    { opacity: 1, y: 0, x: 0, ease: 'power2.out', force3D: true, duration: sliceEnd - sliceStart },
-                    sliceStart
+                    { opacity: 1, y: 0, x: 0, ease: 'power2.out', force3D: true, duration: entranceStep },
+                    ei * entranceStep
                 );
             });
 
-            tl.to({}, { duration: HOLD_FRAC }, ENTER_FRAC);
+            tl.to({}, { duration: 0.25 }, ENTER_FRAC);
 
             if (!isLast) {
+                // Keep the step fully settled across most of its scroll zone and
+                // exit late+quick. A long early exit (the old 0.60→1.00) meant the
+                // content was mid-flight for ~half the zone, so a fast scroll —
+                // especially flicking back UP — blew past before it ever settled.
                 tl.to(
                     els,
-                    { opacity: 0, y: -60, ease: 'power2.in', force3D: true, stagger: 0, duration: EXIT_FRAC },
-                    ENTER_FRAC + HOLD_FRAC
+                    { opacity: 0, y: -60, ease: 'power2.inOut', force3D: true, stagger: 0, duration: 0.25 },
+                    0.75
                 );
+                tl.set(wrapper, { visibility: 'hidden' }, 1.00);
             }
         }
  
         // Slide 0: entirely inside the pin (starts at pin start = top top).
-        // Other slides: offset by SLIDE0_PRE_VH so zones are contiguous with no gaps.
-        const startTrigger = si === 0
-            ? 'top top'
-            : `top+=${SLIDE0_PRE_VH + zoneStart}vh top`;
-        // All slides use the same offset formula — slide 0's zoneEnd=200, so
-        // SLIDE0_PRE_VH+200=400; slide 1's zoneStart=200 → offset+200=400. No gap.
-        const adjustedEnd = SLIDE0_PRE_VH + zoneEnd;
+        // Other slides: overlap slightly to create a smooth cross-fade transition.
+        let startVal = 0;
+        let endVal = 0;
+        if (si === 0) {
+            startVal = 0;
+            endVal = SLIDE0_PRE_VH + VH;
+        } else {
+            startVal = (SLIDE0_PRE_VH + VH) - OVERLAP + (si - 1) * (VH - OVERLAP);
+            endVal = startVal + VH;
+        }
 
         ScrollTrigger.create({
             trigger: '#process-pin-wrapper',
-            start: startTrigger,
-            end: `top+=${adjustedEnd}vh top`,
-            scrub: 0.8,
+            start: si === 0 ? 'top top' : `top+=${startVal}vh top`,
+            end: `top+=${endVal}vh top`,
+            // Tight scrub so the content tracks the scroll closely — the old 0.8s
+            // lag let a fast scroll (esp. flicking back up) outrun the reveal, so
+            // the steps appeared to fly past empty.
+            scrub: 0.35,
             animation: tl,
             onUpdate: self => {
                 if (si === 0) return;
@@ -418,43 +461,19 @@ function initProcessSection() {
             onEnter: () => {
                 wrapper.style.visibility = 'visible';
                 setActivePip(si);
-                if (si === 0) animateSlide0Text();
             },
             onEnterBack: () => {
                 wrapper.style.visibility = 'visible';
                 setActivePip(si);
-                if (si === 0) animateSlide0Text();
             },
             onLeave: () => {
-                if (!isLast) {
-                    wrapper.style.visibility = 'hidden';
-                }
+                wrapper.style.visibility = 'hidden';
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
             },
             onLeaveBack: () => {
-                if (si !== 0) {
+                if (si > 0) {
                     wrapper.style.visibility = 'hidden';
-                }
-                // For slide 0: this fires only after the arrow has fully un-drawn
-                // and the pin has released — safe to snap up to services.
-                if (si === 0) {
-                    const label = wrapper.querySelector('.process-s0-label');
-                    if (label) {
-                        gsap.to(label, { opacity: 0, x: -120, duration: 0.5, ease: 'power2.in', overwrite: 'auto' });
-                    }
-                    if (servicesEl) {
-                        const targetY = servicesEl.getBoundingClientRect().top + window.scrollY;
-                        const scrollObj = { y: window.scrollY };
-                        gsap.to(scrollObj, {
-                            y: targetY,
-                            duration: 1.2,
-                            delay: 0.15,
-                            ease: 'power2.inOut',
-                            onUpdate: () => window.scrollTo(0, scrollObj.y),
-                            overwrite: 'auto'
-                        });
-                    }
                 }
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
@@ -482,9 +501,16 @@ function initProcessSection() {
             ease: 'none',
             scrollTrigger: {
                 trigger: ctaSection,
-                start: 'top 92%',
-                end: 'top 45%',
-                scrub: true
+                start: 'top 100%',
+                end: 'top 65%',
+                scrub: true,
+                onUpdate: self => {
+                    if (self.progress >= 1) {
+                        lastWrapper.style.visibility = 'hidden';
+                    } else {
+                        lastWrapper.style.visibility = 'visible';
+                    }
+                }
             }
         });
     }
@@ -496,4 +522,5 @@ function initProcessSection() {
 document.addEventListener('DOMContentLoaded', () => {
     initProblemSection();
     initProcessSection();
+    initProcessIconReplay();
 });

@@ -47,7 +47,9 @@
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    display: flex;
+    /* Slide-progress rail hidden per request. Flip back to `flex` to restore the
+       five-pip indicator; the JS (setActivePip) keeps tracking it either way. */
+    display: none;
     flex-direction: column;
     gap: 10px;
     z-index: 10;
@@ -406,6 +408,23 @@
     position: relative;
     border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    /* Clickable: click/tap (or Enter/Space when focused) replays the icon
+       animation — see initProcessIconReplay() in js/problem.js.
+       The parent slide wrapper is set to pointer-events:none in JS so hidden
+       slides don't intercept clicks; re-enable it here so the ring stays
+       clickable even on the active slide. */
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.25s ease;
+}
+
+.process-icon-ring:hover {
+    transform: scale(1.04);
+}
+
+.process-icon-ring:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 6px;
 }
 
 .process-icon-ring svg {

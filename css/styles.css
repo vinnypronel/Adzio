@@ -260,7 +260,12 @@ body {
         align-items: center;
         justify-content: center;
         padding: 88px 24px 96px;
-        background: #090D11;
+        /* Match the site's warm-charcoal atmosphere instead of flat black */
+        background-color: #0B0F13;
+        background-image:
+            radial-gradient(ellipse 90% 55% at 50% -8%, rgba(0, 229, 200, 0.1) 0%, transparent 60%),
+            radial-gradient(ellipse 70% 50% at 85% 108%, rgba(197, 168, 128, 0.07) 0%, transparent 62%),
+            linear-gradient(180deg, rgba(11, 15, 19, 0.98) 0%, rgba(9, 13, 17, 1) 100%);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -2796,7 +2801,7 @@ body.vsl-active .hero-vsl {
     overflow: hidden;
     position: relative;
     border-top: 1px solid var(--hairline);
-    border-bottom: none;
+    border-bottom: 1px solid var(--hairline);
 }
 
 .section-blend {
@@ -4996,6 +5001,17 @@ body.vsl-active .hero-vsl {
     padding-left: 48px;
 }
 
+@media (min-width: 901px) {
+    .footer-nav .footer-column:nth-child(1) {
+        position: relative;
+        left: -20px;
+    }
+    .footer-nav .footer-column:nth-child(2) {
+        position: relative;
+        left: 10px;
+    }
+}
+
 .footer-column h4 {
     font-family: 'Archivo', sans-serif;
     font-size: 0.76rem;
@@ -5008,31 +5024,72 @@ body.vsl-active .hero-vsl {
 
 /* Let's talk CTA button */
 .footer-lets-talk {
+    --glow-color: rgb(86, 239, 255);
+    --glow-spread-color: rgba(17, 157, 164, 0.25);
+    --enhanced-glow-color: rgb(160, 255, 245);
+    --btn-color: rgba(12, 74, 89, 0.2); /* Semi-transparent base instead of solid */
+
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-shrink: 0;
-    padding: 1rem 1.9rem;
-    background: var(--cyan);
-    border: 1px solid var(--cyan);
-    border-radius: var(--radius-sm);
-    color: #06120F;
+    
+    /* Make the button a bit smaller (padding & font-size) as requested */
+    padding: 0.65em 2.2em;
+    font-size: 13.5px;
+    font-weight: bold;
     font-family: 'Archivo', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background 0.3s ease;
-    box-sizing: border-box;
-    box-shadow: 0 14px 30px -12px rgba(0, 229, 200, 0.4);
+    
+    border: .15em solid var(--glow-color); /* Thinner border */
+    color: var(--glow-color);
+    background-color: var(--btn-color);
+    border-radius: 1em;
+    outline: none;
+    
+    /* Softened box-shadows for a cleaner look */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35),
+                0 0 1.2em var(--glow-spread-color);
+    text-shadow: none; /* Removed text glow for crisp, clear readability */
+    position: relative;
+    transition: all 0.3s;
+    
+    /* Move it down a bit as requested */
+    margin-top: 18px;
+}
+
+.footer-lets-talk::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 120%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--glow-spread-color);
+    filter: blur(1.5em);
+    opacity: .35; /* Softer floor reflection opacity */
+    transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+    transition: opacity 0.3s;
 }
 
 .footer-lets-talk:hover {
-    background: #2DF0D8;
-    transform: translateY(-3px);
-    box-shadow: 0 20px 40px -14px rgba(0, 229, 200, 0.5);
+    color: var(--glow-color); /* Keep text cyan (no solid color fill) */
+    background-color: rgba(86, 239, 255, 0.08); /* Transparent hover tint, no solid fill */
+    /* Softened hover glow */
+    box-shadow: 0 6px 20px rgba(0, 229, 200, 0.2),
+                0 0 2em var(--glow-spread-color);
+    transform: translateY(-2px); /* keep visual hover responsiveness */
+}
+
+.footer-lets-talk:active {
+    background-color: rgba(86, 239, 255, 0.12);
+    box-shadow: 0 3px 10px rgba(0, 229, 200, 0.15),
+                0 0 1em var(--glow-spread-color);
+    transform: translateY(0);
 }
 
 .footer-lets-talk:hover svg {
@@ -5041,10 +5098,10 @@ body.vsl-active .hero-vsl {
 }
 
 .footer-lets-talk svg {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     flex-shrink: 0;
-    stroke: #06120F;
+    stroke: currentColor; /* use currentColor so stroke matches text color */
     stroke-width: 2.5px;
     transition: transform 0.3s ease;
     animation: service-cta-arrow-idle 1.4s ease-in-out infinite alternate;
