@@ -5512,7 +5512,24 @@ body.vsl-active .hero-vsl {
 #lottie-phone svg {
     width: 26px !important;
     height: 26px !important;
-    filter: brightness(0) saturate(100%) invert(83%) sepia(35%) saturate(1633%) hue-rotate(112deg) brightness(98%) contrast(101%);
+}
+
+/* Force the Lottie glyph paths to the same cyan as the "Let's Talk" button
+   (var(--cyan)) instead of the old hue-rotate filter approximation, which
+   rendered a mismatched greenish tint. Lottie's SVG renderer sets fill/stroke
+   as inline styles on each path, so these need !important to win. */
+#lottie-inbox svg path,
+#lottie-inbox svg rect,
+#lottie-inbox svg circle,
+#lottie-inbox svg polygon,
+#lottie-inbox svg line,
+#lottie-phone svg path,
+#lottie-phone svg rect,
+#lottie-phone svg circle,
+#lottie-phone svg polygon,
+#lottie-phone svg line {
+    fill: var(--cyan) !important;
+    stroke: var(--cyan) !important;
 }
 
 
@@ -7069,12 +7086,23 @@ body.vsl-active .hero-vsl {
 }
 
 @media (max-width: 768px) {
+    /* Base .home-about top padding is tuned for desktop (150-210px) and left a
+       big dead gap above "THE AGENCY" once the hero+video are done scrolling
+       past on mobile — pull it way up. */
     .home-about {
+        padding-top: clamp(24px, 4vh, 48px);
         padding-bottom: 2rem;
     }
 
     .home-about .about-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Smaller so "A growth partner, not another vendor." wraps to 3 lines
+       instead of 4 on phones. */
+    .home-about .section-title {
+        font-size: clamp(2rem, 8.5vw, 2.6rem);
+        line-height: 1.15;
     }
 
     .home-about-btn {
@@ -7095,6 +7123,13 @@ body.vsl-active .hero-vsl {
 
     .home-about-stat strong {
         font-size: clamp(2.8rem, 14vw, 3.6rem);
+    }
+
+    /* Shrink just enough that "Strategy driven by data, not guesswork" fits
+       on one line like the other feature rows. */
+    .home-about .about-feature {
+        font-size: clamp(0.86rem, 4vw, 1rem);
+        gap: 0.7rem;
     }
 }
 

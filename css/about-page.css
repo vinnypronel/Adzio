@@ -952,6 +952,95 @@
     color: var(--text-primary);
 }
 
+.abt-team-email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.3rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--hairline);
+    background: rgba(255, 255, 255, 0.02);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.abt-team-email svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: stroke 0.25s ease;
+}
+
+.abt-team-email:hover {
+    color: var(--text-primary);
+    border-color: color-mix(in srgb, var(--val) 55%, var(--hairline));
+    background: color-mix(in srgb, var(--val) 10%, transparent);
+}
+
+/* Get in touch: general CTA under the team grid */
+.abt-team-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(24px, 4vw, 48px);
+    margin-top: clamp(48px, 6vw, 72px);
+    padding: clamp(32px, 4vw, 48px);
+    border-radius: 28px;
+    border: 1px solid var(--hairline);
+    background: linear-gradient(140deg, rgba(0, 184, 212, 0.06), rgba(255, 255, 255, 0.015) 60%);
+}
+
+.abt-team-cta-text h3 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+}
+
+.abt-team-cta-text p {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+}
+
+.abt-team-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+    .abt-team-cta {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .abt-team-cta-text p {
+        max-width: none;
+    }
+
+    .abt-team-cta-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .abt-team-cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+}
+
 /* ============================================
    PROOF — founder-built audiences
    ============================================ */
