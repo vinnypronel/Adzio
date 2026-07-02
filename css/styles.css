@@ -3110,7 +3110,7 @@ body.vsl-active .hero-vsl {
         white-space: normal;
         max-width: 22ch;
         margin-inline: auto;
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 }
 
@@ -3224,24 +3224,24 @@ body.vsl-active .hero-vsl {
 /* Mobile: keep the trust logos large + legible (bigger, prominent carousel) */
 @media (max-width: 768px) {
     .slide {
-        margin-right: 44px;
-        padding: 0.7rem 0;
+        margin-right: 32px;
+        padding: 0.55rem 0;
     }
 
     .slide img {
-        height: 52px;
-        max-width: 168px;
+        height: 38px;
+        max-width: 130px;
     }
 }
 
 @media (max-width: 480px) {
     .slide {
-        margin-right: 36px;
+        margin-right: 26px;
     }
 
     .slide img {
-        height: 46px;
-        max-width: 148px;
+        height: 34px;
+        max-width: 112px;
     }
 }
 
