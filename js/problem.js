@@ -228,7 +228,7 @@ function initProcessSection() {
     const hint = document.getElementById('process-scroll-hint');
 
     const glowColors = [
-        'radial-gradient(circle, rgba(0,229,200,0.06) 0%, transparent 65%)',
+        'radial-gradient(circle, rgba(0, 184, 212,0.06) 0%, transparent 65%)',
         'radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 65%)',
         'radial-gradient(circle, rgba(74,184,255,0.08) 0%, transparent 65%)',
         'radial-gradient(circle, rgba(0,214,143,0.08) 0%, transparent 65%)',
@@ -266,7 +266,9 @@ function initProcessSection() {
         pinSpacing: true,
         anticipatePin: 1,
         snap: {
-            snapTo: [0, 0.1724, 0.4310, 0.6034, 0.7759, 0.9310, 1],
+            // 0.05 = the "title only" rest (just ADZIO'S PROCESS showing);
+            // 0.1724 = slide 0 fully formed. The rest follow the per-slide stops.
+            snapTo: [0, 0.05, 0.1724, 0.4310, 0.6034, 0.7759, 0.9310, 1],
             duration: { min: 0.35, max: 0.9 },
             delay: 0.08,
             ease: 'power2.inOut'
@@ -297,10 +299,11 @@ function initProcessSection() {
     // The 100vh panel rises a full screen before it pins, and slide 0 only
     // animates in once pinned — leaving a ~100vh void between Services and the
     // formed deck. If the user settles in that void, glide them onto whichever
-    // side they were heading toward: down → the fully-revealed slide 0,
+    // side they were heading toward: down → slide 0 with JUST the ADZIO'S PROCESS
+    // title revealed (the rest come in one-by-one as they keep scrolling),
     // up → the Services cards. Only fires once scrolling has settled, so it
     // never yanks the page mid-flick.
-    const REVEAL_PROGRESS = 0.1724; // pin progress where slide 0 sits fully formed
+    const TITLE_PROGRESS = 0.05; // pin progress where only the title is showing
     let voidSnapTimer = null;
     ScrollTrigger.create({
         trigger: '#process-pin-wrapper',
@@ -314,7 +317,7 @@ function initProcessSection() {
             voidSnapTimer = setTimeout(() => {
                 if (self.progress <= 0.4 || self.progress >= 0.99) return;
                 if (self.direction === 1 && pinST) {
-                    const target = pinST.start + REVEAL_PROGRESS * (pinST.end - pinST.start);
+                    const target = pinST.start + TITLE_PROGRESS * (pinST.end - pinST.start);
                     window.scrollTo({ top: target, behavior: 'smooth' });
                 } else if (self.direction === -1 && servicesEl) {
                     servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -364,27 +367,58 @@ function initProcessSection() {
             // perfectly aligned (a per-box stagger left them offset mid-slide).
             const rightGroup = wrapper.querySelector('.process-s0-right');
 
-            if (arrowHead) gsap.set(arrowHead, { opacity: 0 });
+            if (leftEls.length) {
+                gsap.set(leftEls, { opacity: 0, x: -150, force3D: true });
+            }
+            if (rightGroup) {
+                gsap.set(rightGroup, { opacity: 0, x: 150, force3D: true });
+            }
+            if (arrowWrap) {
+                gsap.set(arrowWrap, { opacity: 0 });
+            }
+            if (arrowHead) {
+                gsap.set(arrowHead, { opacity: 0 });
+            }
             if (arrowLine) {
                 const lineLen = arrowLine.getTotalLength();
                 gsap.set(arrowLine, { strokeDasharray: lineLen, strokeDashoffset: lineLen });
             }
 
-            // Custom (un-normalised) timeline: the arrow draws itself, while
-            // the text and cards start fully visible (opacity 1) from Y = 0.
+            // Sequential one-by-one intro: each element arrives on its own as the
+            // user scrolls — first JUST the "ADZIO'S PROCESS" title, then the
+            // subhead, the description, the 4-step panel, and finally the arrow
+            // draws across to connect them. The snap below rests the deck on the
+            // title alone, so the rest reveal one-by-one as scrolling continues.
+            if (labelEl) {
+                tl.fromTo(labelEl, { opacity: 0, x: -150 },
+                    { opacity: 1, x: 0, ease: 'power2.out', duration: 0.24 }, 0.00);
+            }
+            if (subheadEl) {
+                tl.fromTo(subheadEl, { opacity: 0, x: -150 },
+                    { opacity: 1, x: 0, ease: 'power2.out', duration: 0.22 }, 0.42);
+            }
+            if (descEl) {
+                tl.fromTo(descEl, { opacity: 0, x: -150 },
+                    { opacity: 1, x: 0, ease: 'power2.out', duration: 0.22 }, 0.66);
+            }
+            if (rightGroup) {
+                tl.to(rightGroup, { opacity: 1, x: 0, ease: 'power2.out', duration: 0.24 }, 0.86);
+            }
+            if (arrowWrap) {
+                tl.to(arrowWrap, { opacity: 1, duration: 0.18 }, 0.55);
+            }
             if (arrowLine) {
-                tl.to(arrowLine, { strokeDashoffset: 0, ease: 'none', duration: 1.00 }, 0.16);
+                tl.to(arrowLine, { strokeDashoffset: 0, ease: 'none', duration: 0.55 }, 0.55);
             }
             if (arrowHead) {
-                // Head appears ONLY once the line has fully landed — never floats alone.
-                tl.to(arrowHead, { opacity: 1, ease: 'power1.out', duration: 0.06 }, 1.16);
+                tl.to(arrowHead, { opacity: 1, ease: 'power1.out', duration: 0.08 }, 1.08);
             }
 
-            // long hold so the fully-revealed slide lingers before exiting
-            tl.to({}, { duration: 0.40 }, 1.22);
+            // hold so the fully-revealed slide lingers before exiting
+            tl.to({}, { duration: 0.40 }, 1.33);
 
             const exitEls = [...leftEls, arrowWrap, rightGroup].filter(Boolean);
-            tl.to(exitEls, { opacity: 0, y: -60, ease: 'power2.inOut', force3D: true, duration: 0.70 }, 1.62);
+            tl.to(exitEls, { opacity: 0, y: -60, ease: 'power2.inOut', force3D: true, duration: 0.59 }, 1.73);
             tl.set(wrapper, { visibility: 'hidden' }, 2.32);
         } else {
             selectors.forEach((sel, ei) => {
@@ -439,10 +473,12 @@ function initProcessSection() {
             trigger: '#process-pin-wrapper',
             start: si === 0 ? 'top top' : `top+=${startVal}vh top`,
             end: `top+=${endVal}vh top`,
-            // Tight scrub so the content tracks the scroll closely — the old 0.8s
-            // lag let a fast scroll (esp. flicking back up) outrun the reveal, so
-            // the steps appeared to fly past empty.
-            scrub: 0.35,
+            // Very tight scrub so the content tracks the scroll almost 1:1 — any
+            // lag lets a fast scroll (esp. a momentum flick back UP, now that Lenis
+            // smooth-scroll is active) outrun the reveal, leaving the steps blank
+            // as they fly past. Keeping this tiny means each slide snaps to its
+            // formed state immediately in both directions.
+            scrub: 0.08,
             animation: tl,
             onUpdate: self => {
                 if (si === 0) return;

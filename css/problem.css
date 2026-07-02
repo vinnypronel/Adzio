@@ -3,11 +3,11 @@
    ============================================ */
 
 :root {
-    --teal: #00e5c8;
-    --red: #ff4d4d;
-    --pain-gold: #d9a441;
-    --gray: #8E95A0;
-    --white: #F4F1EA;
+    --teal: #00b8d4;
+    --red: #FF4D4D;
+    --pain-gold: #D9A441;
+    --gray: #9CA3AF;
+    --white: #FFFFFF;
 }
 
 /* ════ SECTION BLEND ════ */
@@ -62,9 +62,7 @@
     position: absolute;
     inset: -12%;
     background:
-        radial-gradient(circle at 35% 42%, rgba(0, 229, 200, 0.10) 0%, transparent 30%),
-        radial-gradient(circle at 78% 18%, rgba(43, 92, 255, 0.09) 0%, transparent 24%),
-        radial-gradient(circle at 16% 82%, rgba(255, 60, 60, 0.06) 0%, transparent 22%);
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
     opacity: 0.92;
     z-index: 0;
     pointer-events: none;
@@ -84,7 +82,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle, rgba(0, 229, 200, 0.06) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 65%);
     opacity: 0.9;
     mix-blend-mode: screen;
     will-change: transform;
@@ -236,9 +234,9 @@
     flex-shrink: 0;
     padding: 18px 22px;
     border-radius: 20px;
-    background: rgba(8, 14, 20, 0.55);
-    border: 1px solid rgba(0, 229, 200, 0.12);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28), 0 0 35px rgba(0, 229, 200, 0.08);
+    background: rgba(15, 20, 26, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(14px);
 }
 
@@ -274,9 +272,9 @@
     align-items: center;
     gap: 10px;
     font-family: 'Archivo', sans-serif;
-    font-size: 0.66rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     padding: 0;
     border-radius: 0;
@@ -398,7 +396,7 @@
 
 /* themes */
 #slide-1 .pain-tag {
-    background: rgba(255, 60, 60, 0.15);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--red);
 }
 
@@ -407,13 +405,13 @@
 }
 
 #slide-1 .icon-ring {
-    background: rgba(255, 60, 60, 0.12);
+    background: rgba(255, 255, 255, 0.03);
     color: var(--red);
-    box-shadow: 0 0 70px rgba(255, 60, 60, 0.18);
+    box-shadow: none;
 }
 
 #slide-2 .pain-tag {
-    background: rgba(245, 166, 35, 0.15);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--pain-gold);
 }
 
@@ -422,13 +420,13 @@
 }
 
 #slide-2 .icon-ring {
-    background: rgba(245, 166, 35, 0.12);
+    background: rgba(255, 255, 255, 0.03);
     color: var(--pain-gold);
-    box-shadow: 0 0 70px rgba(245, 166, 35, 0.18);
+    box-shadow: none;
 }
 
 #slide-3 .pain-tag {
-    background: rgba(0, 229, 200, 0.12);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--teal);
 }
 
@@ -437,13 +435,13 @@
 }
 
 #slide-3 .icon-ring {
-    background: rgba(0, 229, 200, 0.09);
+    background: rgba(255, 255, 255, 0.03);
     color: var(--teal);
-    box-shadow: 0 0 70px rgba(0, 229, 200, 0.18);
+    box-shadow: none;
 }
 
 #slide-4 .pain-tag {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -452,9 +450,9 @@
 }
 
 #slide-4 .icon-ring {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.03);
     color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 70px rgba(255, 255, 255, 0.12), 0 0 120px rgba(255, 255, 255, 0.06);
+    box-shadow: none;
 }
 
 #slide-4 .icon-ring::before {
@@ -710,7 +708,7 @@
 
 .s4-title .line-red {
     display: block;
-    color: var(--red);
+    color: var(--teal);
 }
 
 .s4-grid {
@@ -718,20 +716,21 @@
     display: block;
     width: clamp(180px, 22vw, 260px);
     margin-left: auto;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 4px;
     overflow: hidden;
     box-sizing: border-box;
 }
 
 .s4-card {
-    background: var(--bg-card);
-    padding: clamp(16px, 2.5vw, 28px);
+    background: rgba(15, 20, 26, 0.5);
+    padding: clamp(24px, 3.2vw, 36px);
     position: relative;
     min-width: 0;
     overflow: hidden;
     will-change: transform, opacity;
+    backdrop-filter: blur(12px);
 }
 
 .s4-card::before {
@@ -744,7 +743,7 @@
 }
 
 .s4-card:nth-child(1)::before {
-    background: var(--red);
+    background: var(--teal);
 }
 
 .s4-card:nth-child(2)::before {
@@ -764,7 +763,7 @@
 }
 
 .s4-card:nth-child(1) .s4-card-num {
-    color: var(--red);
+    color: var(--teal);
 }
 
 .s4-card:nth-child(2) .s4-card-num {
@@ -788,8 +787,8 @@
 .s4-card-desc {
     font-size: clamp(0.78rem, 1.1vw, 0.88rem);
     font-weight: 300;
-    color: white;
-    line-height: 1.6;
+    color: #9CA3AF;
+    line-height: 1.7;
     word-wrap: break-word;
 }
 
@@ -821,9 +820,9 @@
 .problem-card-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(10px, 1.5vw, 20px);
+    gap: clamp(8px, 1vw, 12px);
     width: 100%;
-    padding: clamp(12px, 1.5vw, 20px) clamp(16px, 3vw, 40px);
+    padding: clamp(8px, 1vw, 12px) clamp(16px, 3vw, 40px);
     box-sizing: border-box;
 }
 
@@ -832,7 +831,7 @@
     background: rgba(15, 20, 26, 0.72);
     border: 1px solid rgba(244, 241, 234, 0.07);
     border-radius: 14px;
-    padding: clamp(14px, 1.6vw, 20px);
+    padding: clamp(10px, 1.2vw, 14px);
     overflow: hidden;
     position: relative;
     backdrop-filter: blur(14px);
@@ -859,31 +858,32 @@
 
 /* Keep the original side-by-side (text | icon) layout — just tighten the gap */
 .problem-card .pain-inner {
-    gap: clamp(12px, 2vw, 28px);
+    gap: clamp(10px, 1.6vw, 22px);
     max-width: 100%;
 }
 
 /* Scale heading down significantly */
 .problem-card .pain-heading {
-    font-size: clamp(1rem, 1.6vw, 1.5rem);
-    margin-bottom: 8px;
-    line-height: 1.18;
+    font-size: clamp(0.85rem, 1.3vw, 1.2rem);
+    margin-bottom: 6px;
+    line-height: 1.14;
 }
 
 /* Scale body text down */
 .problem-card .pain-body {
-    font-size: clamp(0.72rem, 0.85vw, 0.82rem);
-    line-height: 1.55;
+    font-size: clamp(0.68rem, 0.78vw, 0.76rem);
+    line-height: 1.45;
     max-width: 100%;
 }
 
 /* Scale icon ring down */
 .problem-card .icon-ring {
-    width: clamp(52px, 6vw, 72px);
-    height: clamp(52px, 6vw, 72px);
+    width: clamp(96px, 9vw, 130px);
+    height: clamp(96px, 9vw, 130px);
 }
 
 .problem-card .pain-tag {
+    font-size: 0.82rem;
     margin-bottom: 8px;
 }
 
@@ -1061,7 +1061,7 @@
 
 .problem-spotlight .s4-card {
     background: rgba(15, 20, 26, 0.88);
-    border: 1px solid rgba(255, 77, 77, 0.18);
+    border: 1px solid rgba(0, 184, 212, 0.18);
     border-radius: 10px;
     padding: clamp(20px, 2.5vw, 28px);
     box-shadow:
@@ -1078,7 +1078,7 @@
 }
 
 .problem-spotlight .s4-card:hover {
-    border-color: rgba(255, 77, 77, 0.4);
+    border-color: rgba(0, 184, 212, 0.4);
     box-shadow:
         0 28px 56px -18px rgba(0, 0, 0, 0.65),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -1091,7 +1091,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, var(--red) 0%, rgba(255, 77, 77, 0.15) 80%, transparent 100%);
+    background: linear-gradient(90deg, var(--teal) 0%, rgba(0, 184, 212, 0.15) 80%, transparent 100%);
 }
 .problem-spotlight .s4-card .s4-card-header {
     display: flex;
@@ -1106,7 +1106,7 @@
     font-weight: 900;
     font-size: clamp(2.2rem, 3.6vw, 3rem);
     line-height: 1;
-    color: var(--red);
+    color: var(--teal);
     display: block;
     margin: 0;
     letter-spacing: -0.04em;
@@ -1120,7 +1120,7 @@
     border: none;
     padding: 0;
     margin: 0;
-    color: var(--red);
+    color: var(--teal);
     font-size: clamp(0.68rem, 0.9vw, 0.78rem);
     font-weight: 700;
     letter-spacing: 0.15em;
@@ -1132,9 +1132,9 @@
     display: inline-block;
     width: 6px;
     height: 6px;
-    background-color: var(--red);
+    background-color: var(--teal);
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--red);
+    box-shadow: 0 0 8px var(--teal);
 }
 
 .problem-spotlight .s4-card .s4-card-desc {
@@ -1148,14 +1148,17 @@
 .problem-card-grid {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: clamp(18px, 3vw, 42px);
-    align-items: start;
+    gap: clamp(12px, 2vw, 24px);
+    /* All three rows take the height of the tallest → cards end up identical,
+       and stretch makes each card fill its equal row. */
+    grid-auto-rows: 1fr;
+    align-items: stretch;
 }
 
 /* Card chrome re-asserted AFTER the .problem-panel reset above — the cards
    carry both classes, so these must win the cascade. */
 .problem-card {
-    padding: clamp(26px, 3.2vw, 48px) clamp(20px, 2.6vw, 40px);
+    padding: clamp(16px, 2vw, 26px) clamp(20px, 2.6vw, 40px);
     background: rgba(15, 20, 26, 0.72);
     border: 1px solid rgba(244, 241, 234, 0.07);
     border-radius: 14px;
@@ -1173,27 +1176,27 @@
 #problem-card-time {
     grid-column: 1 / -1;
     grid-row: 1;
-    margin-top: clamp(10px, 2vw, 28px);
+    margin-top: clamp(8px, 1.2vw, 16px);
 }
 
 #problem-card-budget {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-top: clamp(24px, 3vw, 48px);
+    margin-top: clamp(8px, 1.2vw, 16px);
 }
 
 #problem-card-competition {
     grid-column: 1 / -1;
     grid-row: 3;
-    margin-top: clamp(12px, 2vw, 28px);
+    margin-top: clamp(8px, 1.2vw, 16px);
 }
 
 .problem-card .pain-heading {
-    font-size: clamp(1.7rem, 2.5vw, 2.9rem);
-    line-height: 1.12;
+    font-size: clamp(1.3rem, 1.9vw, 2.1rem);
+    line-height: 1.1;
     letter-spacing: -0.02em;
     max-width: 17ch;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
 }
 
 #problem-card-budget .pain-heading {
@@ -1203,9 +1206,9 @@
 /* Shared 3-col inner grid: [text] [icon] [body] — icon always in same position */
 .problem-card .pain-inner {
     max-width: none;
-    grid-template-columns: 1fr clamp(160px, 14vw, 220px) 1fr;
+    grid-template-columns: 1fr clamp(120px, 10vw, 160px) 1fr;
     grid-template-rows: 1fr;
-    column-gap: clamp(40px, 5vw, 70px);
+    column-gap: clamp(28px, 3.5vw, 48px);
     align-items: center;
 }
 
@@ -1290,11 +1293,11 @@
 }
 
 #problem-card-time .icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(217, 164, 65, 0.16) 0%, rgba(217, 164, 65, 0.05) 58%, transparent 100%);
+    background: radial-gradient(circle at 50% 32%, rgba(217, 164, 65, 0.38) 0%, rgba(217, 164, 65, 0.14) 58%, transparent 100%);
     color: var(--pain-gold);
-    box-shadow: 0 0 56px -18px rgba(217, 164, 65, 0.4);
-    width: clamp(130px, 12vw, 190px);
-    height: clamp(130px, 12vw, 190px);
+    box-shadow: 0 0 64px -14px rgba(217, 164, 65, 0.6);
+    width: clamp(96px, 9vw, 130px);
+    height: clamp(96px, 9vw, 130px);
 }
 
 
@@ -1311,9 +1314,9 @@
 }
 
 #problem-card-budget .icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(255, 77, 77, 0.14) 0%, rgba(255, 77, 77, 0.04) 58%, transparent 100%);
+    background: radial-gradient(circle at 50% 32%, rgba(255, 77, 77, 0.36) 0%, rgba(255, 77, 77, 0.12) 58%, transparent 100%);
     color: var(--red);
-    box-shadow: 0 0 56px -18px rgba(255, 77, 77, 0.38);
+    box-shadow: 0 0 64px -14px rgba(255, 77, 77, 0.58);
 }
 
 #problem-card-competition {
@@ -1329,15 +1332,33 @@
 }
 
 #problem-card-competition .icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(0, 229, 200, 0.13) 0%, rgba(0, 229, 200, 0.04) 58%, transparent 100%);
+    background: radial-gradient(circle at 50% 32%, rgba(0, 184, 212, 0.36) 0%, rgba(0, 184, 212, 0.12) 58%, transparent 100%);
     color: var(--teal);
-    box-shadow: 0 0 56px -18px rgba(0, 229, 200, 0.4);
-    width: clamp(130px, 12vw, 190px);
-    height: clamp(130px, 12vw, 190px);
+    box-shadow: 0 0 64px -14px rgba(0, 184, 212, 0.6);
+    width: clamp(96px, 9vw, 130px);
+    height: clamp(96px, 9vw, 130px);
 }
 
+/* ── Uniform sizing across all three cards (ID-level so it wins the cascade) ──
+   Equal heading size, equal body size, and equal icon-ring size on every card,
+   so they read as exact copies of one another. */
+#problem-card-time .pain-heading,
+#problem-card-budget .pain-heading,
+#problem-card-competition .pain-heading {
+    font-size: clamp(1.6rem, 2.3vw, 2.6rem);
+}
+
+#problem-card-time .pain-body,
+#problem-card-budget .pain-body,
 #problem-card-competition .pain-body {
-    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+}
+
+#problem-card-time .icon-ring,
+#problem-card-budget .icon-ring,
+#problem-card-competition .icon-ring {
+    width: clamp(120px, 11vw, 165px);
+    height: clamp(120px, 11vw, 165px);
 }
 
 #problem-card-time .icon-ring.icon-animate svg {

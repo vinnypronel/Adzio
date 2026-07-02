@@ -4,8 +4,8 @@
 
 /* CSS Variables */
 :root {
-    /* Surfaces — warm rich charcoal, never pure black */
-    --bg-primary: #0B0F13;
+    /* Surfaces — sleek deep navy-charcoal: dark, professional, cool depth */
+    --bg-primary: #080B11;
     --bg-secondary: #0E1318;
     --bg-tertiary: #12181F;
     --bg-card: rgba(15, 20, 26, 0.92);
@@ -19,17 +19,17 @@
     /* Adzio Cyan — the single interactive highlight */
     --accent-primary: #3BA5B5;
     --accent-secondary: #2B7A87;
-    --accent-gradient: linear-gradient(135deg, #00e5c8 0%, #3BA5B5 100%);
-    --accent-glow: rgba(0, 229, 200, 0.25);
-    --cyan: #00e5c8;
-    --cyan-soft: rgba(0, 229, 200, 0.1);
-    --cyan-border: rgba(0, 229, 200, 0.35);
+    --accent-gradient: linear-gradient(135deg, #00b8d4 0%, #3BA5B5 100%);
+    --accent-glow: rgba(0, 184, 212, 0.25);
+    --cyan: #00b8d4;
+    --cyan-soft: rgba(0, 184, 212, 0.1);
+    --cyan-border: rgba(0, 184, 212, 0.35);
 
     /* Champagne gold — editorial markers, hairlines, luxury accents */
-    --gold: #C5A880;
-    --gold-bright: #D4B895;
-    --gold-soft: rgba(197, 168, 128, 0.14);
-    --gold-border: rgba(197, 168, 128, 0.28);
+    --gold: #9CA3AF;
+    --gold-bright: #F3F4F6;
+    --gold-soft: rgba(255, 255, 255, 0.03);
+    --gold-border: rgba(255, 255, 255, 0.08);
 
     /* Text — soft cream + warm slate, no harsh pure white */
     --text-primary: #F4F1EA;
@@ -40,13 +40,14 @@
     --border-color: rgba(255, 255, 255, 0.08);
     --border-hover: rgba(255, 255, 255, 0.16);
     --hairline: rgba(244, 241, 234, 0.08);
-    --hairline-gold: rgba(197, 168, 128, 0.18);
+    --hairline-gold: rgba(255, 255, 255, 0.08);
     --grid-line-color: rgba(124, 146, 166, 0.14);
     --grid-line-color-soft: rgba(124, 146, 166, 0.07);
-    --grid-surface-top: rgba(9, 13, 17, 0.96);
-    --grid-surface-bottom: rgba(11, 15, 19, 0.985);
-    --grid-glow-primary: rgba(17, 157, 164, 0.1);
-    --grid-glow-secondary: rgba(43, 122, 135, 0.07);
+    --grid-surface-top: #0C111A;
+    --grid-surface-bottom: #06080D;
+    /* Faint cool glows (cyan top-centre, blue lower-right) for premium depth */
+    --grid-glow-primary: rgba(0, 184, 212, 0.07);
+    --grid-glow-secondary: rgba(58, 123, 213, 0.07);
 
     /* Typography */
     --font-heading: 'Syne', sans-serif;
@@ -91,21 +92,23 @@
 
 html {
     font-size: 14px;
+    /* Sleek navy base behind everything (covers overscroll) */
+    background-color: #080B11;
     /* Mobile guardrail: kill any horizontal scroll leak from transient
        transforms / oversized decorative layers without affecting vertical scroll */
     overflow-x: hidden;
     max-width: 100%;
     /* Custom scrollbar support (Firefox) */
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 229, 200, 0.35) var(--bg-secondary);
+    scrollbar-color: rgba(0, 184, 212, 0.35) var(--bg-secondary);
 }
 
 body {
     font-family: var(--font-body);
     background-color: var(--bg-primary);
     background-image:
-        radial-gradient(circle at 52% 14%, var(--grid-glow-primary) 0%, transparent 34%),
-        radial-gradient(circle at 80% 82%, var(--grid-glow-secondary) 0%, transparent 28%),
+        radial-gradient(circle at 52% 14%, var(--grid-glow-primary) 0%, transparent 38%),
+        radial-gradient(ellipse 60% 55% at 82% 80%, var(--grid-glow-secondary) 0%, transparent 45%),
         linear-gradient(180deg, var(--grid-surface-top) 0%, var(--grid-surface-bottom) 100%);
     background-size: auto, auto, auto;
     background-position: center top, center bottom, center;
@@ -117,7 +120,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     /* Custom scrollbar support (Firefox) */
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 229, 200, 0.35) var(--bg-secondary);
+    scrollbar-color: rgba(0, 184, 212, 0.35) var(--bg-secondary);
 }
 
 /* Selection */
@@ -138,14 +141,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(0, 229, 200, 0.25) 0%, rgba(59, 165, 181, 0.25) 100%);
+    background: linear-gradient(180deg, rgba(0, 184, 212, 0.25) 0%, rgba(59, 165, 181, 0.25) 100%);
     border: 3px solid var(--bg-secondary);
     border-radius: 9999px;
     background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(0, 229, 200, 0.7) 0%, rgba(59, 165, 181, 0.7) 100%);
+    background: linear-gradient(180deg, rgba(0, 184, 212, 0.7) 0%, rgba(59, 165, 181, 0.7) 100%);
     border: 3px solid var(--bg-secondary);
     background-clip: padding-box;
 }
@@ -263,7 +266,7 @@ body {
         /* Match the site's warm-charcoal atmosphere instead of flat black */
         background-color: #0B0F13;
         background-image:
-            radial-gradient(ellipse 90% 55% at 50% -8%, rgba(0, 229, 200, 0.1) 0%, transparent 60%),
+            radial-gradient(ellipse 90% 55% at 50% -8%, rgba(0, 184, 212, 0.1) 0%, transparent 60%),
             radial-gradient(ellipse 70% 50% at 85% 108%, rgba(197, 168, 128, 0.07) 0%, transparent 62%),
             linear-gradient(180deg, rgba(11, 15, 19, 0.98) 0%, rgba(9, 13, 17, 1) 100%);
         opacity: 0;
@@ -336,7 +339,7 @@ body {
         letter-spacing: 0.05em;
         text-transform: uppercase;
         text-decoration: none;
-        box-shadow: 0 12px 26px -12px rgba(0, 229, 200, 0.5);
+        box-shadow: 0 12px 26px -12px rgba(0, 184, 212, 0.5);
         opacity: 0;
         transform: translateY(16px);
         transition: opacity 0.45s ease 0.28s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.28s, filter 0.2s ease;
@@ -445,8 +448,8 @@ body {
     height: 40px;
     margin-top: 36px;
     border-radius: 50%;
-    border: 3px solid rgba(0, 229, 200, 0.15);
-    border-top-color: #00e5c8;
+    border: 3px solid rgba(0, 184, 212, 0.15);
+    border-top-color: #00b8d4;
     animation: veilSpin 0.85s linear infinite;
 }
 
@@ -499,7 +502,7 @@ p {
 }
 
 .text-gradient {
-    background: linear-gradient(120deg, #00e5c8 0%, #57c7d4 55%, #8fe3d9 100%);
+    background: linear-gradient(120deg, #00b8d4 0%, #57c7d4 55%, #8fe3d9 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -621,7 +624,7 @@ p {
     border: 1px solid var(--cyan);
     color: #06120F;
     border-radius: var(--radius-sm);
-    box-shadow: 0 14px 34px -12px rgba(0, 229, 200, 0.45);
+    box-shadow: 0 14px 34px -12px rgba(0, 184, 212, 0.45);
     overflow: visible;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -641,7 +644,7 @@ p {
     background: #2DF0D8;
     color: #06120F;
     transform: translateY(-3px);
-    box-shadow: 0 22px 44px -14px rgba(0, 229, 200, 0.55);
+    box-shadow: 0 22px 44px -14px rgba(0, 184, 212, 0.55);
 }
 
 .btn-glow:hover svg {
@@ -650,7 +653,7 @@ p {
 
 .btn-glow:active {
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px -10px rgba(0, 229, 200, 0.45);
+    box-shadow: 0 10px 24px -10px rgba(0, 184, 212, 0.45);
 }
 
 /* Quiet secondary — hairline border, cream text, cyan on hover */
@@ -713,7 +716,7 @@ p {
 
 .nav-wrap {
     position: fixed;
-    top: 8px;
+    top: 23px;
     left: 0;
     /* Anchor left edge to 0, translation does the rest */
     z-index: 1000;
@@ -743,7 +746,7 @@ p {
 }
 
 .nav-wrap:hover .nav-svg-container {
-    filter: drop-shadow(0 0 12px rgba(0, 210, 200, 0.4)) drop-shadow(0 0 30px rgba(0, 210, 200, 0.15));
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.16)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.07));
 }
 
 .nav-wrap.nav-vertical:hover .nav-svg-container {
@@ -1208,7 +1211,7 @@ p {
     align-items: center;
     gap: 16px;
     padding: 0;
-    margin-bottom: clamp(1.4rem, 2.5vh, 2.2rem);
+    margin-bottom: clamp(3rem, 5.5vh, 4.5rem);
     border: none;
     border-radius: 0;
     background: none;
@@ -1220,7 +1223,7 @@ p {
     color: var(--text-primary);
     line-height: 1;
     position: relative;
-    top: -38px;
+    top: -28px;
 }
 
 .hero-eyebrow-dot {
@@ -1228,21 +1231,21 @@ p {
     height: 18px;
     border-radius: 50%;
     background: var(--cyan);
-    box-shadow: 0 0 0 0 rgba(0, 229, 200, 0.5);
+    box-shadow: 0 0 0 0 rgba(0, 184, 212, 0.5);
     animation: heroDotPulse 2.4s ease-out infinite;
 }
 
 @keyframes heroDotPulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(0, 229, 200, 0.45);
+        box-shadow: 0 0 0 0 rgba(0, 184, 212, 0.45);
     }
 
     70% {
-        box-shadow: 0 0 0 15px rgba(0, 229, 200, 0);
+        box-shadow: 0 0 0 15px rgba(0, 184, 212, 0);
     }
 
     100% {
-        box-shadow: 0 0 0 0 rgba(0, 229, 200, 0);
+        box-shadow: 0 0 0 0 rgba(0, 184, 212, 0);
     }
 }
 
@@ -1254,19 +1257,24 @@ p {
     font-weight: 800;
     font-family: 'Syne', sans-serif;
     letter-spacing: -0.03em;
-    color: var(--text-primary);
+    /* Crisp pure white against the Deep Void canvas */
+    color: #ffffff;
 }
 
 .hero-title .title-line {
     font-size: 1em;
+    margin-bottom: 8px;
+}
+.hero-title .title-line:last-child {
+    margin-bottom: 0;
 }
 
 .hero-title .title-line--ghost {
     font-size: 0.72em;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(244, 241, 234, 0.38);
+    color: #ffffff;
     letter-spacing: -0.015em;
-    margin-top: 0.08em;
+    margin-top: 0;
+    white-space: nowrap;
 }
 
 .hero-subtitle {
@@ -1301,13 +1309,30 @@ p {
     pointer-events: none;
 }
 
+/* Soft, smooth atmospheric haze concentrated at the TOP of the hero, masked so
+   it dissolves into the clean navy background lower down — a professional misty
+   accent, not a full-page texture. */
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 100% 58% at 50% -8%, rgba(140, 172, 205, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 62% 44% at 78% 6%, rgba(110, 140, 188, 0.09) 0%, transparent 55%),
+        radial-gradient(ellipse 54% 40% at 16% 12%, rgba(120, 150, 190, 0.07) 0%, transparent 55%);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.55) 42%, transparent 78%);
+    mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.55) 42%, transparent 78%);
+}
+
 .hero-gradient {
     position: absolute;
     inset: 0;
+    /* Deep Void: dropped the warm-gold haze + navy tint that muddied the top.
+       Only a faint electric-cyan halo remains so the brand colour breathes. */
     background:
-        radial-gradient(ellipse 75% 55% at 50% -15%, rgba(0, 229, 200, 0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 40% at 85% 80%, rgba(197, 168, 128, 0.04) 0%, transparent 60%),
-        linear-gradient(180deg, rgba(9, 13, 17, 0.4) 0%, transparent 30%);
+        radial-gradient(ellipse 75% 55% at 50% -15%, rgba(0, 184, 212, 0.07) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 30%);
 }
 
 /* Aurora / liquid-mesh glow — slow-drifting blurred light, replaces the grid */
@@ -1324,7 +1349,8 @@ p {
     border-radius: 50%;
     filter: blur(72px);
     mix-blend-mode: screen;
-    opacity: 0.6;
+    /* Calmer so the hero reads as deep void like the VSL, not a lit aurora */
+    opacity: 0.5;
     will-change: transform;
 }
 
@@ -1333,7 +1359,8 @@ p {
     height: 46vw;
     top: -6%;
     left: 6%;
-    background: radial-gradient(circle, rgba(0, 229, 200, 0.45) 0%, rgba(0, 229, 200, 0) 70%);
+    /* VSL-matched cyan (the smoke tone), dialed well down from the old 0.45 wash */
+    background: radial-gradient(circle, rgba(0, 184, 212, 0.20) 0%, rgba(0, 184, 212, 0) 70%);
     animation: auroraDrift1 26s ease-in-out infinite alternate;
 }
 
@@ -1342,7 +1369,8 @@ p {
     height: 40vw;
     top: 16%;
     right: 2%;
-    background: radial-gradient(circle, rgba(69, 196, 207, 0.4) 0%, rgba(69, 196, 207, 0) 70%);
+    /* Azure blue echoing the VSL "AD" logo gradient */
+    background: radial-gradient(circle, rgba(58, 123, 213, 0.20) 0%, rgba(58, 123, 213, 0) 70%);
     animation: auroraDrift2 32s ease-in-out infinite alternate;
 }
 
@@ -1351,7 +1379,9 @@ p {
     height: 38vw;
     bottom: -12%;
     left: 28%;
-    background: radial-gradient(circle, rgba(197, 168, 128, 0.28) 0%, rgba(197, 168, 128, 0) 70%);
+    /* Was warm gold — the green-maker when screen-blended with cyan. Now a deep
+       VSL blue so the hero stays in the blue→cyan family, never green. */
+    background: radial-gradient(circle, rgba(40, 92, 180, 0.16) 0%, rgba(40, 92, 180, 0) 70%);
     animation: auroraDrift3 38s ease-in-out infinite alternate;
 }
 
@@ -1397,7 +1427,7 @@ p {
 .hero-orb-1 {
     width: 640px;
     height: 640px;
-    background: radial-gradient(circle, rgba(0, 229, 200, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 184, 212, 0.05) 0%, transparent 70%);
     top: -260px;
     right: -160px;
     opacity: 1;
@@ -1406,7 +1436,7 @@ p {
 .hero-orb-2 {
     width: 520px;
     height: 520px;
-    background: radial-gradient(circle, rgba(197, 168, 128, 0.04) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(40, 92, 180, 0.05) 0%, transparent 70%);
     bottom: -180px;
     left: -160px;
     opacity: 1;
@@ -1422,7 +1452,7 @@ p {
 }
 
 .title-gradient {
-    background: linear-gradient(120deg, #00e5c8 0%, #45c4cf 70%, #7adfd3 100%);
+    background: linear-gradient(120deg, #00b8d4 0%, #45c4cf 70%, #7adfd3 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1483,9 +1513,10 @@ body.vsl-active .hero-vsl {
 .vsl-wrapper {
     position: relative;
     width: 100%;
-    background: rgba(10, 15, 20, 0.5);
-    border: 2px solid var(--dark-cyan);
-    box-shadow: 0 0 30px rgba(17, 157, 164, 0.4);
+    background: #000;
+    /* Pure white frame outline. */
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.10), 0 0 34px rgba(0, 0, 0, 0.5);
     border-radius: var(--radius-xl);
     overflow: hidden;
     aspect-ratio: 16 / 9;
@@ -1498,15 +1529,18 @@ body.vsl-active .hero-vsl {
 /* PIP Active State (Managed by GSAP) */
 #vsl-main-element.vsl-pip-active {
     position: fixed;
-    z-index: 2000;
+    z-index: 9000;
     margin: 0;
     pointer-events: auto;
     background: #000;
-    border: 1px solid var(--dark-cyan);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(17, 157, 164, 0.3);
+    /* White frame outline (this rule wins over .vsl-wrapper via the id, and the
+       JS keeps this class on even in the hero state, so this IS the visible border) */
+    border: 2px solid #ffffff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 255, 255, 0.12);
     max-width: none !important;
     border-radius: 12px;
     overflow: hidden;
+    opacity: 0.72;
 }
 
 /* Remove inner wrapper border during PiP to avoid double borders */
@@ -1614,7 +1648,8 @@ body.vsl-active .hero-vsl {
     content: '';
     position: absolute;
     inset: -10px;
-    border: 2px solid var(--accent-primary);
+    /* White expanding pulse ring (was cyan) */
+    border: 2px solid #fff;
     border-radius: 50%;
     opacity: 0.5;
     animation: playPulse 2s ease-out infinite;
@@ -1666,6 +1701,7 @@ body.vsl-active .hero-vsl {
     align-items: center;
     justify-content: flex-start;
     gap: var(--spacing-md);
+    margin-top: calc(clamp(3.2rem, 7vh, 4.5rem) + 105px);
     margin-bottom: var(--spacing-2xl);
     flex-wrap: nowrap;
 }
@@ -1673,6 +1709,18 @@ body.vsl-active .hero-vsl {
 .hero-cta .btn {
     flex: 0 0 auto;
     white-space: nowrap;
+}
+
+/* Hero primary CTA — squarer footprint + a deeper, less neon teal */
+.hero-cta .btn-glow.btn-lg {
+    padding: 1.5rem 2rem;
+    background: #00b8d4;
+    border-color: #00b8d4;
+}
+
+.hero-cta .btn-glow.btn-lg:hover {
+    background: #00cae3;
+    border-color: #00cae3;
 }
 
 
@@ -1688,18 +1736,33 @@ body.vsl-active .hero-vsl {
     background: #000;
 }
 
+/* Feather the VSL edges into the pitch-black page — a faint inner vignette so
+   the rounded video reads as a window cut into the void, not a boxed panel. */
+.hero-vsl .vsl-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow: inset 0 0 55px 8px rgba(0, 0, 0, 0.7);
+    z-index: 2;
+}
+
 .hero-vsl .vsl-thumbnail-video {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    opacity: 0.8;
+    opacity: 0.7;
+    /* Darken + pull the neon out of the footage so the baked-in cyan rings /
+       panel outlines read as deep blue, in line with the darker site. */
+    filter: brightness(0.92) saturate(0.8);
     transition: opacity var(--transition-base);
 }
 
 .hero-vsl .vsl-wrapper:hover .vsl-thumbnail-video {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 /* Modal Styles */
@@ -1742,8 +1805,10 @@ body.vsl-active .hero-vsl {
 
 .vsl-modal-content {
     position: relative;
-    width: 90%;
-    max-width: 1000px;
+    /* Big cinematic player: fill most of the viewport, capped so a 16:9 video
+       never overflows the screen height (≈85vh ÷ 9 × 16 bounds the width). */
+    width: min(95vw, calc(85vh * 16 / 9), 1700px);
+    max-width: 1700px;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -1757,15 +1822,20 @@ body.vsl-active .hero-vsl {
 }
 
 .vsl-modal-close {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    background: none;
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 10002;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    background: transparent;
     border: none;
     color: white;
     cursor: pointer;
-    padding: 10px;
-    opacity: 0.7;
+    padding: 0;
+    opacity: 0.78;
     transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -1775,16 +1845,17 @@ body.vsl-active .hero-vsl {
 }
 
 .vsl-modal-close svg {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
 }
 
 .vsl-modal-video-container {
+    position: relative;
     width: 100%;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    border: 1px solid rgba(17, 157, 164, 0.3);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(17, 157, 164, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 255, 255, 0.12);
     background: #000;
 }
 
@@ -1792,12 +1863,170 @@ body.vsl-active .hero-vsl {
     display: block;
     width: 100%;
     height: auto;
+    max-height: 85vh;
+    object-fit: contain;
+    background: #000;
+    cursor: pointer;
+}
+
+/* True fullscreen: let the container fill the whole screen and the video scale
+   up to fill it (the default max-height:85vh would otherwise leave the video
+   small + letterboxed inside a big black fullscreen frame). */
+.vsl-modal-video-container:fullscreen,
+.vsl-modal-video-container:-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 0;
+}
+
+.vsl-modal-video-container:fullscreen video,
+.vsl-modal-video-container:-webkit-full-screen video {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+}
+
+/* ── Custom VSL player controls ── */
+.vsl-controls {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, transparent 22%, transparent 58%, rgba(0, 0, 0, 0.72) 100%);
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+}
+
+/* Show on hover, and always while paused so the play button is reachable */
+.vsl-modal-video-container:hover .vsl-controls,
+.vsl-controls:not(.is-playing) {
+    opacity: 1;
+}
+
+.vsl-ctrl-btn {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 11px;
+    color: #fff;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: background 0.2s ease, transform 0.18s ease;
+    pointer-events: auto;
+}
+
+.vsl-ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+    transform: scale(1.06);
+}
+
+.vsl-ctrl-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+#vslPlayPause {
+    left: 20px;
+    bottom: 16px;
+}
+
+#vslMute {
+    top: 16px;
+    left: 18px;
+}
+
+#vslFullscreen {
+    right: 20px;
+    bottom: 16px;
+}
+
+/* Icon state toggles (driven by .is-playing / .is-muted on .vsl-controls) */
+.vsl-ic-pause {
+    display: none;
+}
+
+.vsl-controls.is-playing .vsl-ic-play {
+    display: none;
+}
+
+.vsl-controls.is-playing .vsl-ic-pause {
+    display: block;
+}
+
+.vsl-speaker-slash {
+    opacity: 0;
+    transition: opacity 0.16s ease;
+}
+
+.vsl-controls.is-muted .vsl-speaker-slash {
+    opacity: 1;
+}
+
+.vsl-progress {
+    position: absolute;
+    left: 84px;
+    right: 84px;
+    bottom: 34px;
+    width: auto;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 99px;
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: none;
+    overflow: visible;
+}
+
+.vsl-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 99px;
+    pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+}
+
+.vsl-progress-pill {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%) translateX(0);
+    background: rgba(10, 12, 16, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 5px 9px;
+    border-radius: 7px;
+    white-space: nowrap;
+    pointer-events: none;
+    will-change: transform;
 }
 
 @media (max-width: 768px) {
     .vsl-modal-close {
-        top: -40px;
-        right: -10px;
+        top: 12px;
+        right: 12px;
     }
 }
 
@@ -1806,6 +2035,8 @@ body.vsl-active .hero-vsl {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /* Sit above the edge-feather vignette so it stays crisp & clickable */
+    z-index: 3;
     width: 15%;
     /* Slightly larger for visibility */
     height: auto;
@@ -1813,22 +2044,22 @@ body.vsl-active .hero-vsl {
     min-width: 44px;
     max-width: 80px;
     border-radius: 50%;
-    background: rgba(17, 157, 164, 0.2);
-    /* match dark-cyan glow internally */
-    border: 2px solid var(--dark-cyan);
+    /* White ring + glow (was cyan); neutral-dark disc so the white pops */
+    background: rgba(10, 12, 16, 0.45);
+    border: 2px solid rgba(255, 255, 255, 0.85);
     color: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
-    box-shadow: 0 0 30px rgba(17, 157, 164, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.22);
     z-index: 2;
 }
 
 .hero-vsl .vsl-play-btn:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 50px rgba(17, 157, 164, 0.9);
+    box-shadow: 0 0 32px rgba(255, 255, 255, 0.4);
 }
 
 .hero-vsl .vsl-play-btn svg {
@@ -2021,7 +2252,7 @@ body.vsl-active .hero-vsl {
     .hero-eyebrow {
         font-size: clamp(1.1rem, 1.6vw, 1.4rem);
         gap: 10px;
-        margin-bottom: 1rem;
+        margin-bottom: 2.2rem;
     }
 
     .hero-eyebrow-dot {
@@ -2080,7 +2311,7 @@ body.vsl-active .hero-vsl {
     .hero-eyebrow {
         order: 1;
         top: 0;                              /* drop the desktop -30px lift */
-        margin: 0;
+        margin: 0 0 2rem 0;
         gap: 14px;
         font-size: clamp(1.7rem, 7vw, 2.5rem);
     }
@@ -2112,6 +2343,7 @@ body.vsl-active .hero-vsl {
     /* 4) CTA buttons */
     .hero-cta {
         order: 4;
+        margin-top: calc(2.2rem + 80px);
     }
 }
 
@@ -2138,7 +2370,7 @@ body.vsl-active .hero-vsl {
 
     .hero-eyebrow {
         top: 0;
-        margin-bottom: clamp(0.6rem, 1.8vh, 1.8rem);
+        margin-bottom: clamp(1.6rem, 3.5vh, 3rem);
     }
 
     .hero-title {
@@ -2496,7 +2728,7 @@ body.vsl-active .hero-vsl {
 .stat--satisfaction .stat-core-glow {
     display: block;
     inset: 38%;
-    background: radial-gradient(circle, rgba(0, 229, 200, 0.60) 0%, rgba(0, 229, 200, 0.14) 45%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 184, 212, 0.60) 0%, rgba(0, 184, 212, 0.14) 45%, transparent 70%);
     filter: none;
     z-index: 3;
     animation: none;
@@ -2510,10 +2742,10 @@ body.vsl-active .hero-vsl {
     filter: none !important;
     inset: 6%;
     border-radius: 50%;
-    border: 2px solid rgba(0, 229, 200, 0.92);
+    border: 2px solid rgba(0, 184, 212, 0.92);
     box-shadow:
-        0 0 7px rgba(0, 229, 200, 0.85),
-        0 0 22px rgba(0, 229, 200, 0.40);
+        0 0 7px rgba(0, 184, 212, 0.85),
+        0 0 22px rgba(0, 184, 212, 0.40);
     z-index: 2;
 }
 
@@ -2796,7 +3028,7 @@ body.vsl-active .hero-vsl {
    ============================================ */
 
 .logo-slider {
-    padding: clamp(4.5rem, 8vh, 7rem) 0;
+    padding: clamp(5.5rem, 11vh, 9.5rem) 0;
     background: transparent;
     overflow: hidden;
     position: relative;
@@ -2861,7 +3093,7 @@ body.vsl-active .hero-vsl {
 .logo-slider-viewport {
     width: 100%;
     overflow: hidden;
-    margin: 0 auto clamp(1.75rem, 3.2vw, 2.5rem);
+    margin: 0 auto clamp(2.75rem, 4.8vw, 4.25rem);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
@@ -2926,7 +3158,7 @@ body.vsl-active .hero-vsl {
     align-items: center;
     justify-content: center;
     margin-right: clamp(55px, 5.5vw, 85px);
-    padding: 0.6rem 0;
+    padding: 0.95rem 0;
     transition: transform 0.22s ease;
     transform-origin: center;
 }
@@ -2938,9 +3170,9 @@ body.vsl-active .hero-vsl {
 }
 
 .slide img {
-    height: clamp(42px, 3.4vw, 58px);
+    height: clamp(44px, 4.4vw, 78px);
     width: auto;
-    max-width: 200px;
+    max-width: 240px;
     object-fit: contain;
     filter: grayscale(1) brightness(1.7) contrast(0.9);
     opacity: 0.55;
@@ -3305,17 +3537,17 @@ body.vsl-active .hero-vsl {
 .service-card {
     text-align: center;
     position: relative;
-    background: var(--bg-card);
-    border: 1px solid rgba(244, 241, 234, 0.08);
+    background: rgba(15, 20, 26, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 14px;
-    padding: clamp(20px, 2vw, 28px) clamp(16px, 1.6vw, 22px) clamp(18px, 1.8vw, 24px);
+    padding: clamp(32px, 3vw, 44px) clamp(24px, 2.2vw, 32px) clamp(28px, 2.6vw, 36px);
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
     overflow: hidden;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 /* Re-arm transitions after the scroll-reveal (JS nulls inline transition) */
@@ -3355,26 +3587,26 @@ body.vsl-active .hero-vsl {
 /* Color variants */
 .service-card:nth-child(1),
 .service-card--teal {
-    --orb-color: #00e5c8;
-    --orb-shadow: rgba(0, 229, 200, 0.25);
+    --orb-color: #0866FF; /* Meta blue */
+    --orb-shadow: rgba(8, 102, 255, 0.12);
 }
 
 .service-card:nth-child(2),
 .service-card--blue {
-    --orb-color: #5BA8FF;
-    --orb-shadow: rgba(91, 168, 255, 0.25);
+    --orb-color: #4285F4; /* Google blue */
+    --orb-shadow: rgba(66, 133, 244, 0.12);
 }
 
 .service-card:nth-child(3),
 .service-card--cyan {
-    --orb-color: #57C7D4;
-    --orb-shadow: rgba(87, 199, 212, 0.25);
+    --orb-color: #00b8d4; /* Adzio cyan */
+    --orb-shadow: rgba(0, 184, 212, 0.12);
 }
 
 .service-card:nth-child(4),
 .service-card--purple {
-    --orb-color: #B08CFF;
-    --orb-shadow: rgba(176, 140, 255, 0.25);
+    --orb-color: #E4405F; /* Instagram magenta */
+    --orb-shadow: rgba(228, 64, 95, 0.12);
 }
 
 /* Exclusive indicator, not a sticker */
@@ -3473,6 +3705,38 @@ body.vsl-active .hero-vsl {
     fill: none;
 }
 
+/* ── Brand colours on the service-card logos ── */
+/* Meta — single filled glyph, brand blue */
+.services-section .service-card--teal .service-icon svg path {
+    fill: #0866FF;
+    stroke: none;
+}
+
+/* Google — the real four-colour mark (paths are blue, green, yellow, red) */
+.services-section .service-card--blue .service-icon svg path {
+    stroke: none;
+}
+.services-section .service-card--blue .service-icon svg path:nth-of-type(1) { fill: #4285F4; }
+.services-section .service-card--blue .service-icon svg path:nth-of-type(2) { fill: #34A853; }
+.services-section .service-card--blue .service-icon svg path:nth-of-type(3) { fill: #FBBC05; }
+.services-section .service-card--blue .service-icon svg path:nth-of-type(4) { fill: #EA4335; }
+
+/* Social — Instagram magenta, Facebook blue, X white */
+.services-section .service-card--purple .service-icon svg g:nth-of-type(1) {
+    stroke: #E4405F;
+}
+.services-section .service-card--purple .service-icon svg g:nth-of-type(1) circle[stroke="none"] {
+    fill: #E4405F;
+}
+.services-section .service-card--purple .service-icon svg g:nth-of-type(2) path {
+    fill: #1877F2;
+    stroke: none;
+}
+.services-section .service-card--purple .service-icon svg g:nth-of-type(3) path {
+    fill: #FFFFFF;
+    stroke: none;
+}
+
 .services-section .service-title {
     font-size: 1.2rem;
     font-weight: 700;
@@ -3486,7 +3750,7 @@ body.vsl-active .hero-vsl {
     text-align: center;
     white-space: nowrap;
     letter-spacing: -0.02em;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-body), sans-serif;
     column-gap: 0.28em;
 }
 
@@ -3497,8 +3761,8 @@ body.vsl-active .hero-vsl {
 .service-description {
     font-size: 1rem;
     font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.65;
+    color: var(--text-muted);
+    line-height: 1.75;
     margin-bottom: 1.3rem;
     /* Equalize so feature lists begin at the same y across all 4 cards
        (sized to the tallest, 4-line, description) */
@@ -3523,7 +3787,7 @@ body.vsl-active .hero-vsl {
     position: relative;
     font-size: 0.95rem;
     font-weight: 300;
-    color: rgba(244, 241, 234, 0.82);
+    color: #9CA3AF;
     border-bottom: 1px solid rgba(244, 241, 234, 0.05);
     min-height: unset;
     display: flex;
@@ -4078,6 +4342,12 @@ body.vsl-active .hero-vsl {
     stroke: none;
     width: 26px;
     height: 26px;
+    color: #9ca3af;
+    transition: color 0.35s ease;
+}
+
+.service-card:hover .service-icon--brand svg {
+    color: #ffffff;
 }
 
 @keyframes service-cta-arrow-idle {
@@ -4572,8 +4842,8 @@ body.vsl-active .hero-vsl {
     overflow: hidden;
     background-color: var(--bg-primary);
     background-image:
-        radial-gradient(circle at 52% 14%, var(--grid-glow-primary) 0%, transparent 34%),
-        radial-gradient(circle at 80% 82%, var(--grid-glow-secondary) 0%, transparent 28%),
+        radial-gradient(circle at 52% 14%, var(--grid-glow-primary) 0%, transparent 38%),
+        radial-gradient(ellipse 60% 55% at 82% 80%, var(--grid-glow-secondary) 0%, transparent 45%),
         linear-gradient(180deg, var(--grid-surface-top) 0%, var(--grid-surface-bottom) 100%);
     background-size: auto, auto, auto;
     background-position: center top, center bottom, center;
@@ -4587,7 +4857,8 @@ body.vsl-active .hero-vsl {
 .cta-gradient {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(59, 165, 181, 0.1) 0%, transparent 65%);
+    /* Deep Void: swapped the murky teal wash for a faint electric-cyan glow */
+    background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0, 184, 212, 0.05) 0%, transparent 65%);
     pointer-events: none;
 }
 
@@ -4597,7 +4868,7 @@ body.vsl-active .hero-vsl {
 
 .cta-content {
     width: 100%;
-    max-width: 820px;
+    max-width: 1100px;
     margin: 0 auto;
     text-align: center;
     margin-top: 0;
@@ -4975,7 +5246,7 @@ body.vsl-active .hero-vsl {
 
 .footer-logo:hover {
     transform: scale(1.06);
-    filter: drop-shadow(0 0 14px rgba(0, 229, 200, 0.25));
+    filter: drop-shadow(0 0 14px rgba(0, 184, 212, 0.25));
 }
 
 .footer-logo img {
@@ -5024,10 +5295,10 @@ body.vsl-active .hero-vsl {
 
 /* Let's talk CTA button */
 .footer-lets-talk {
-    --glow-color: rgb(86, 239, 255);
-    --glow-spread-color: rgba(17, 157, 164, 0.25);
-    --enhanced-glow-color: rgb(160, 255, 245);
-    --btn-color: rgba(12, 74, 89, 0.2); /* Semi-transparent base instead of solid */
+    --glow-color: var(--cyan);
+    --glow-spread-color: rgba(0, 184, 212, 0.15);
+    --enhanced-glow-color: rgba(0, 184, 212, 0.4);
+    --btn-color: rgba(0, 184, 212, 0.05);
 
     display: inline-flex;
     justify-content: center;
@@ -5080,14 +5351,14 @@ body.vsl-active .hero-vsl {
     color: var(--glow-color); /* Keep text cyan (no solid color fill) */
     background-color: rgba(86, 239, 255, 0.08); /* Transparent hover tint, no solid fill */
     /* Softened hover glow */
-    box-shadow: 0 6px 20px rgba(0, 229, 200, 0.2),
+    box-shadow: 0 6px 20px rgba(0, 184, 212, 0.2),
                 0 0 2em var(--glow-spread-color);
     transform: translateY(-2px); /* keep visual hover responsiveness */
 }
 
 .footer-lets-talk:active {
     background-color: rgba(86, 239, 255, 0.12);
-    box-shadow: 0 3px 10px rgba(0, 229, 200, 0.15),
+    box-shadow: 0 3px 10px rgba(0, 184, 212, 0.15),
                 0 0 1em var(--glow-spread-color);
     transform: translateY(0);
 }
@@ -5190,8 +5461,8 @@ body.vsl-active .hero-vsl {
 .contact-icon {
     width: 42px;
     height: 42px;
-    background: rgba(0, 229, 200, 0.06);
-    border: 1px solid rgba(0, 229, 200, 0.18);
+    background: rgba(0, 184, 212, 0.06);
+    border: 1px solid rgba(0, 184, 212, 0.18);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -5995,16 +6266,16 @@ body.vsl-active .hero-vsl {
 /* Inline Quiz Card — private application, not a contact form */
 .quiz-inline-card {
     width: 100%;
-    max-width: 760px;
-    min-height: min(440px, 52vh);
+    max-width: 1040px;
+    min-height: min(340px, 42vh);
     margin: 0 auto;
-    background: rgba(13, 17, 22, 0.82);
-    backdrop-filter: blur(25px) saturate(130%);
-    -webkit-backdrop-filter: blur(25px) saturate(130%);
-    border: 1px solid var(--hairline-gold);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
-    box-shadow: 0 48px 110px -30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    padding: clamp(1.5rem, 5vh, 3.5rem) clamp(1.75rem, 3.5vw, 3.5rem) clamp(1.5rem, 4.2vh, 3rem);
+    box-shadow: none;
+    padding: clamp(1.25rem, 3.5vh, 2.4rem) clamp(1.75rem, 3vw, 3.25rem) clamp(1.25rem, 3vh, 2.2rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6105,7 +6376,7 @@ body.vsl-active .hero-vsl {
 
 .quiz-inline-card .quiz-step-subtitle {
     font-size: clamp(0.95rem, 1.3vw, 1.05rem);
-    margin-bottom: clamp(1.2rem, 3.5vh, 1.8rem);
+    margin-bottom: clamp(0.9rem, 2.5vh, 1.3rem);
     color: var(--text-secondary);
 }
 
@@ -6133,19 +6404,25 @@ body.vsl-active .hero-vsl {
     padding: clamp(0.95rem, 1.3vw, 1.15rem) clamp(1.1rem, 1.5vw, 1.4rem);
     font-size: clamp(0.95rem, 1.1vw, 1.05rem);
     border-radius: 8px;
-    background: rgba(6, 9, 13, 0.55);
-    border: 1px solid rgba(244, 241, 234, 0.09);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: var(--text-primary);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     box-sizing: border-box;
 }
 
+.quiz-inline-card .form-group input:hover,
+.quiz-inline-card .custom-select-trigger:hover,
+.quiz-inline-card .form-group textarea:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
 .quiz-inline-card .form-group input:focus,
 .quiz-inline-card .custom-select.is-open .custom-select-trigger,
 .quiz-inline-card .form-group textarea:focus {
-    border-color: var(--cyan-border);
-    background: rgba(6, 9, 13, 0.75);
-    box-shadow: 0 0 0 3px rgba(0, 229, 200, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    border-color: var(--cyan);
+    background: transparent;
+    box-shadow: 0 0 0 3px rgba(0, 184, 212, 0.12);
     outline: none;
 }
 
@@ -6315,14 +6592,14 @@ body.vsl-active .hero-vsl {
 .quiz-nav-buttons .btn-primary {
     background: var(--cyan);
     color: #06120F;
-    box-shadow: 0 14px 30px -12px rgba(0, 229, 200, 0.45);
+    box-shadow: 0 14px 30px -12px rgba(0, 184, 212, 0.45);
     border: none;
 }
 
 .quiz-nav-buttons .btn-primary:hover {
     background: #2DF0D8;
     color: #06120F;
-    box-shadow: 0 20px 40px -14px rgba(0, 229, 200, 0.55);
+    box-shadow: 0 20px 40px -14px rgba(0, 184, 212, 0.55);
     transform: translateY(-2px);
 }
 
@@ -6598,7 +6875,7 @@ body.vsl-active .hero-vsl {
    ============================================ */
 
 .home-about {
-    padding: clamp(100px, 12vh, 160px) 0 clamp(40px, 6vh, 80px);
+    padding: calc(clamp(100px, 12vh, 160px) + 50px) 0 clamp(40px, 6vh, 80px);
 }
 
 /* Wider container + bigger gap so the section fills the screen */
@@ -6706,9 +6983,9 @@ body.vsl-active .hero-vsl {
     background: linear-gradient(180deg, var(--row-accent), color-mix(in srgb, var(--row-accent) 10%, transparent));
 }
 
-.home-about-stat:nth-child(1) { --row-accent: #d9a441; }
-.home-about-stat:nth-child(2) { --row-accent: var(--cyan); }
-.home-about-stat:nth-child(3) { --row-accent: #B08CFF; }
+.home-about-stat:nth-child(1) { --row-accent: #5EA8FF; } /* light sky blue */
+.home-about-stat:nth-child(2) { --row-accent: #3B82F6; } /* azure blue */
+.home-about-stat:nth-child(3) { --row-accent: #1E5FE0; } /* deep royal blue */
 
 .home-about-stat:hover {
     border-color: color-mix(in srgb, var(--row-accent) 40%, transparent);

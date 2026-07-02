@@ -1,0 +1,12 @@
+
+> adzio@1.0.0 dev
+> browser-sync start --server --files "**/*.html, css/**/*.css, js/**/*.js" --no-notify --online false --open false --host 127.0.0.1 --listen 127.0.0.1 --port 3000
+
+[Browsersync] Access URLs:
+ ----------------------------
+ Local: http://127.0.0.1:3000
+ ----------------------------
+    UI: http://127.0.0.1:3001
+ ----------------------------
+[Browsersync] Serving files from: ./
+[Browsersync] Watching files...

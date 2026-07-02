@@ -506,8 +506,11 @@ function initVSLPlayer() {
         document.body.style.overflow = 'hidden'; // Prevent scrolling
         if (vslThumbnail) vslThumbnail.pause(); // Pause thumbnail
         vslModalVideo.currentTime = 0; // Reset video to start
+        vslModalVideo.muted = false;   // play with sound (this is a user gesture)
         vslModalVideo.play();
     };
+    // Let the big hero video / PiP click open the modal too (vsl-scroll.js calls this)
+    window.openVSLModal = openModal;
 
     const closeModal = () => {
         vslModal.classList.remove('is-open');
@@ -529,6 +532,95 @@ function initVSLPlayer() {
 
     // Close modal when video ends
     vslModalVideo.addEventListener('ended', closeModal);
+
+    // ── Custom player controls (play/pause, seek + time pill, mute, fullscreen) ──
+    const vslControls = document.getElementById('vslControls');
+    const vslPlayPause = document.getElementById('vslPlayPause');
+    const vslProgress = document.getElementById('vslProgress');
+    const vslProgressFill = document.getElementById('vslProgressFill');
+    const vslProgressPill = document.getElementById('vslProgressPill');
+    const vslMute = document.getElementById('vslMute');
+    const vslFullscreen = document.getElementById('vslFullscreen');
+    const vslVideoContainer = document.getElementById('vslVideoContainer');
+
+    if (vslControls) {
+        let progressRaf = null;
+        const fmtTime = (t) => {
+            if (!isFinite(t) || t < 0) t = 0;
+            const m = Math.floor(t / 60);
+            const s = Math.floor(t % 60);
+            return m + ':' + String(s).padStart(2, '0');
+        };
+
+        const refreshProgress = () => {
+            const dur = vslModalVideo.duration || 0;
+            const cur = vslModalVideo.currentTime || 0;
+            const pct = dur ? Math.min(Math.max(cur / dur, 0), 1) : 0;
+            vslProgressFill.style.transform = `scaleX(${pct})`;
+            vslProgressPill.style.transform = `translate(-50%, -50%) translateX(${pct * vslProgress.clientWidth}px)`;
+            vslProgressPill.textContent = fmtTime(cur);
+        };
+        const startProgressLoop = () => {
+            if (progressRaf) return;
+            const tick = () => {
+                refreshProgress();
+                progressRaf = vslModalVideo.paused ? null : requestAnimationFrame(tick);
+            };
+            progressRaf = requestAnimationFrame(tick);
+        };
+        const stopProgressLoop = () => {
+            if (progressRaf) cancelAnimationFrame(progressRaf);
+            progressRaf = null;
+            refreshProgress();
+        };
+
+        const syncPlayIcon = () => vslControls.classList.toggle('is-playing', !vslModalVideo.paused);
+        const syncMuteIcon = () => vslControls.classList.toggle('is-muted', vslModalVideo.muted || vslModalVideo.volume === 0);
+        const togglePlay = () => { vslModalVideo.paused ? vslModalVideo.play() : vslModalVideo.pause(); };
+
+        vslModalVideo.addEventListener('timeupdate', refreshProgress);
+        vslModalVideo.addEventListener('loadedmetadata', refreshProgress);
+        vslModalVideo.addEventListener('play', () => { syncPlayIcon(); startProgressLoop(); });
+        vslModalVideo.addEventListener('pause', () => { syncPlayIcon(); stopProgressLoop(); });
+        vslModalVideo.addEventListener('ended', stopProgressLoop);
+        vslModalVideo.addEventListener('volumechange', syncMuteIcon);
+
+        vslPlayPause.addEventListener('click', togglePlay);
+        vslModalVideo.addEventListener('click', togglePlay);
+        vslMute.addEventListener('click', () => { vslModalVideo.muted = !vslModalVideo.muted; });
+
+        // Seek by clicking / dragging the progress bar
+        const seekTo = (clientX) => {
+            const rect = vslProgress.getBoundingClientRect();
+            const pct = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
+            if (vslModalVideo.duration) vslModalVideo.currentTime = pct * vslModalVideo.duration;
+            refreshProgress();
+        };
+        let dragging = false;
+        vslProgress.addEventListener('pointerdown', (e) => {
+            dragging = true;
+            vslProgress.setPointerCapture?.(e.pointerId);
+            seekTo(e.clientX);
+        });
+        vslProgress.addEventListener('pointermove', (e) => { if (dragging) seekTo(e.clientX); });
+        vslProgress.addEventListener('pointerup', () => { dragging = false; });
+        vslProgress.addEventListener('pointercancel', () => { dragging = false; });
+        window.addEventListener('resize', refreshProgress);
+        vslProgress.addEventListener('touchstart', (e) => { dragging = true; seekTo(e.touches[0].clientX); }, { passive: true });
+        vslProgress.addEventListener('touchmove', (e) => { if (dragging) seekTo(e.touches[0].clientX); }, { passive: true });
+        window.addEventListener('touchend', () => { dragging = false; });
+
+        // Fullscreen the video container (keeps the custom controls usable in FS)
+        vslFullscreen.addEventListener('click', () => {
+            const fsEl = vslVideoContainer || vslModalVideo;
+            const inFS = document.fullscreenElement || document.webkitFullscreenElement;
+            if (inFS) {
+                (document.exitFullscreen || document.webkitExitFullscreen || function () {}).call(document);
+            } else {
+                (fsEl.requestFullscreen || fsEl.webkitRequestFullscreen || fsEl.msRequestFullscreen || function () {}).call(fsEl);
+            }
+        });
+    }
 }
 
 /* ============================================

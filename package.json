@@ -2,7 +2,7 @@
   "name": "adzio",
   "version": "1.0.0",
   "scripts": {
-    "dev": "browser-sync start --server --files \"**/*.html, css/**/*.css, js/**/*.js\" --no-notify"
+    "dev": "node scripts/dev-server.cjs"
   },
   "devDependencies": {
     "browser-sync": "^3.0.3"

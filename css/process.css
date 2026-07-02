@@ -38,7 +38,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle, rgba(0, 229, 200, 0.06) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(0, 184, 212, 0.06) 0%, transparent 65%);
     transition: background 0.7s ease;
 }
 
@@ -66,7 +66,7 @@
 .process-pip.active {
     height: 42px;
     background: var(--teal);
-    box-shadow: 0 0 12px rgba(0, 229, 200, 0.45);
+    box-shadow: 0 0 12px rgba(0, 184, 212, 0.45);
 }
 
 #process-scroll-hint {
@@ -157,7 +157,7 @@
     display: block;
     overflow: visible;
     color: var(--teal);
-    filter: drop-shadow(0 0 22px rgba(0, 229, 200, 0.35));
+    filter: none;
     /* lift the arrow up so the tail comes from between the two title words
        and the head points at the "4 steps" box */
     transform: translateY(-8.5vw);
@@ -237,7 +237,7 @@
 
 .process-s0-label .process {
     display: block;
-    color: var(--teal);
+    color: #2EE6A8 !important; /* match the "TO SUCCESS" accent (.subhead-to) */
     line-height: 0.68;
     transform: translateY(-20px);
 }
@@ -268,7 +268,7 @@
     padding: clamp(18px, 2.2vw, 28px);
     border-radius: 10px;
     background: rgba(15, 20, 26, 0.88);
-    border: 1px solid rgba(0, 229, 200, 0.16);
+    border: 1px solid rgba(0, 184, 212, 0.16);
     box-shadow:
         0 24px 48px -18px rgba(0, 0, 0, 0.55),
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -285,7 +285,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, var(--teal) 0%, rgba(0, 229, 200, 0.15) 80%, transparent 100%);
+    background: linear-gradient(90deg, var(--teal) 0%, rgba(0, 184, 212, 0.15) 80%, transparent 100%);
 }
 
 .process-s0-stat-num {
@@ -350,7 +350,7 @@
     font-weight: 300;
     line-height: 1.75;
     min-width: 0;
-    color: var(--text-secondary);
+    color: var(--text-muted);
 }
 
 .process-pain-tag {
@@ -358,9 +358,9 @@
     align-items: center;
     gap: 10px;
     font-family: 'Archivo', sans-serif;
-    font-size: 0.66rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     padding: 0;
     border-radius: 0;
@@ -378,7 +378,7 @@
 }
 
 .process-pain-heading {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-body), sans-serif;
     font-size: clamp(2.2rem, 3.6vw, 4.4rem);
     font-weight: 800;
     line-height: 1.06;
@@ -474,17 +474,17 @@
 
 /* colour themes - gold, blue, green, purple */
 #process-slide-1 .process-pain-tag {
-    color: #ff6b35;
+    color: #A1A1AA;
 }
 
 #process-slide-1 .process-pain-heading em {
-    color: #ff6b35;
+    color: #A1A1AA;
 }
 
 #process-slide-1 .process-icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(255, 107, 53, 0.14) 0%, rgba(255, 107, 53, 0.04) 58%, transparent 100%);
-    color: #ff6b35;
-    box-shadow: 0 0 56px -18px rgba(255, 107, 53, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    color: #A1A1AA;
+    box-shadow: none;
 }
 
 #process-slide-2 .process-pain-tag {
@@ -496,51 +496,51 @@
 }
 
 #process-slide-2 .process-icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(217, 164, 65, 0.15) 0%, rgba(217, 164, 65, 0.04) 58%, transparent 100%);
+    background: rgba(255, 255, 255, 0.03);
     color: var(--pain-gold);
-    box-shadow: 0 0 56px -18px rgba(217, 164, 65, 0.4);
+    box-shadow: none;
 }
 
 #process-slide-3 .process-pain-tag {
-    color: #5BA8FF;
+    color: #E5E7EB;
 }
 
 #process-slide-3 .process-pain-heading em {
-    color: #5BA8FF;
+    color: #E5E7EB;
 }
 
 #process-slide-3 .process-icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(91, 168, 255, 0.14) 0%, rgba(91, 168, 255, 0.04) 58%, transparent 100%);
-    color: #5BA8FF;
-    box-shadow: 0 0 56px -18px rgba(91, 168, 255, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    color: #E5E7EB;
+    box-shadow: none;
 }
 
 #process-slide-4 .process-pain-tag {
-    color: #2EE6A8;
+    color: #FFFFFF;
 }
 
 #process-slide-4 .process-pain-heading em {
-    color: #2EE6A8;
+    color: #FFFFFF;
 }
 
 #process-slide-4 .process-icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(46, 230, 168, 0.13) 0%, rgba(46, 230, 168, 0.04) 58%, transparent 100%);
-    color: #2EE6A8;
-    box-shadow: 0 0 56px -18px rgba(46, 230, 168, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    color: #FFFFFF;
+    box-shadow: none;
 }
 
 #process-slide-5 .process-pain-tag {
-    color: #B08CFF;
+    color: #6B7280;
 }
 
 #process-slide-5 .process-pain-heading em {
-    color: #B08CFF;
+    color: #6B7280;
 }
 
 #process-slide-5 .process-icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(176, 140, 255, 0.14) 0%, rgba(176, 140, 255, 0.04) 58%, transparent 100%);
-    color: #B08CFF;
-    box-shadow: 0 0 56px -18px rgba(176, 140, 255, 0.45);
+    background: rgba(255, 255, 255, 0.03);
+    color: #6B7280;
+    box-shadow: none;
 }
 
 /* ── Slide 1 - intro step, mirrors "INVISIBLE" slide exactly ── */

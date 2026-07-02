@@ -110,7 +110,7 @@
             float light = raySum;
             light = clamp(light, 0.0, 0.35);
 
-            // Adzio cyan #00e5c8 with a whisper of champagne warmth at the core
+            // Adzio cyan #00b8d4 with a whisper of champagne warmth at the core
             vec3 cyan = vec3(0.0, 0.898, 0.784);
             vec3 champagne = vec3(0.773, 0.659, 0.502);
             vec3 color = mix(cyan, champagne, smoothstep(0.18, 0.32, light) * 0.22) * light;

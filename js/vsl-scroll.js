@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const NAV_H = 60;        // mobile top bar height
         const PIP_TOP = 70;      // rest just under the bar
         const PIP_RIGHT = 12;
-        const PIP_W = 122;
+        const PIP_W = 148;
         const PIP_RADIUS = 10;
         const TRAVEL = 200;      // px of scroll to fully dock
 
@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             vslElement.style.height = h + 'px';
             vslElement.style.margin = '0';
             vslElement.style.borderRadius = (12 - (12 - PIP_RADIUS) * p) + 'px';
-            // below the nav bar / menu (z 1999-2000) so the menu covers it
-            vslElement.style.zIndex = '1500';
+            vslElement.style.zIndex = '9000';
+            vslElement.style.opacity = String(1 - (0.28 * p));
         }
 
         let ticking = false;
@@ -103,18 +103,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const config = {
-        pipWidth: 150,
-        pipTop: 8,
-        pipRight: 8,
+        pipWidth: 190,
+        pipTop: 23,
+        pipRight: 23,
         pipRadius: 12,
         transitionDistance: 350
     };
 
     if (window.innerWidth < 1024) {
-        config.pipWidth = 130;
+        config.pipWidth = 165;
     }
     if (window.innerWidth < 768) {
-        config.pipWidth = 110;
+        config.pipWidth = 148;
     }
 
     let startGeom = null;
@@ -178,7 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
             x: 0,
             y: 0,
             position: 'fixed',
-            zIndex: 9999,
+            zIndex: 9000,
+            opacity: 1 - (0.28 * progress),
             transformOrigin: 'top right'
         });
     };
@@ -188,7 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger: document.body,
         start: "top top",
         end: `+=${config.transitionDistance}`,
-        scrub: true,
+        // Small numeric scrub on top of Lenis' smoothed scroll: the resize eases
+        // toward the scroll position instead of snapping 1:1 to the scrollbar.
+        // Lenis supplies the page-wide momentum (keeps gliding after you stop);
+        // this just keeps the video tracking that glide smoothly — the
+        // non-choppy corner-dock feel from ribbit.dk.
+        scrub: 0.8,
         onUpdate: (self) => applyState(self.progress),
         onRefreshInit: () => {
             startGeom = null;
@@ -207,9 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            config.pipWidth = window.innerWidth < 768 ? 110
-                : window.innerWidth < 1024 ? 130
-                : 150;
+            config.pipWidth = window.innerWidth < 768 ? 148
+                : window.innerWidth < 1024 ? 165
+                : 190;
             startGeom = null;
             captureStartGeom();
             ScrollTrigger.refresh();
@@ -219,6 +225,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
     captureStartGeom();
     applyState(0);
+
+    // ── Dead-zone scroll snap ────────────────────────────────────────
+    // Once the VSL docks into the corner, the lower part of the tall hero is
+    // empty. If the user coasts to a stop inside that blank band, gently glide
+    // them down to the next section so they're never parked on an empty screen.
+    // Only fires when they've settled AND were heading downward, so it never
+    // yanks them back up; skipped for reduced-motion users.
+    (function setupHeroSnap() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const nextSection = document.querySelector('.logo-slider');
+        const heroCta = document.querySelector('.hero-cta');
+        if (!nextSection || !heroCta) return;
+
+        const NAV_GAP = 90;       // rest the next section just under the nav
+        const SETTLE_MS = 170;    // how long scrolling must be still before snapping
+
+        let lastY = window.scrollY;
+        let settleTimer = null;
+        let snapping = false;
+
+        function maybeSnap() {
+            if (snapping) return;
+            const vh = window.innerHeight;
+            const ctaRect = heroCta.getBoundingClientRect();
+            const nextRect = nextSection.getBoundingClientRect();
+
+            // "Empty screen" = the hero content (CTA = the lowest hero element)
+            // has essentially scrolled above the top, but the next section
+            // hasn't yet reached its resting anchor under the nav. Viewport-
+            // relative so it adapts to any screen size.
+            const heroGone = ctaRect.bottom < vh * 0.20;
+            const nextNotSettled = nextRect.top > NAV_GAP + 12;
+            if (!heroGone || !nextNotSettled) return;
+
+            const tgt = nextRect.top + window.scrollY - NAV_GAP;
+            snapping = true;
+            const done = () => { snapping = false; };
+            const lenis = window.__lenis;
+            if (lenis && typeof lenis.scrollTo === 'function') {
+                lenis.scrollTo(tgt, { duration: 1.1, onComplete: done });
+            } else {
+                window.scrollTo({ top: tgt, behavior: 'smooth' });
+                setTimeout(done, 900);
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const goingDown = y > lastY;
+            lastY = y;
+            clearTimeout(settleTimer);
+            if (!goingDown || snapping) return;        // leave upward / in-progress scrolls alone
+            settleTimer = setTimeout(maybeSnap, SETTLE_MS);
+        }, { passive: true });
+    })();
 
     // Modal behavior persistent
     vslElement.addEventListener('click', () => {
