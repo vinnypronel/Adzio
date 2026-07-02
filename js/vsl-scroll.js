@@ -32,103 +32,93 @@ document.addEventListener('DOMContentLoaded', () => {
     // into a small fixed thumbnail in the top-right corner — sized + positioned
     // by interpolating from its in-flow spot to the corner as you scroll.
     if (mqMobile.matches) {
-        const NAV_H = 60;        // mobile top bar height
-        const PIP_TOP = 70;      // rest just under the bar
+        const PIP_TOP = 70;      // docked rest position, just under the bar
         const PIP_RIGHT = 12;
         const PIP_W = 150;       // fully-docked corner size (video starts ~220px)
-        const PIP_RADIUS = 8;
         const TRAVEL = 220;      // px of scroll to fully dock
 
         const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
-        let placeholderH = null;
-        let docked = false;
 
         // As the video shrinks into the corner, nudge the headline + buttons down
-        // so they never slide up underneath the docked video. Grows with dock
-        // progress, then holds steady once fully docked.
+        // so they never slide up underneath the docked video.
         const heroTitle = document.querySelector('.hero-title');
         const heroCta = document.querySelector('.hero-cta');
         const CONTENT_SHIFT = 100; // max px the copy drops by
-        function shiftContent(p) {
-            const y = (CONTENT_SHIFT * p).toFixed(1) + 'px';
-            if (heroTitle) heroTitle.style.transform = 'translateY(' + y + ')';
-            if (heroCta) heroCta.style.transform = 'translateY(' + y + ')';
-        }
+
+        // ── Smoothness: everything below is GPU-composited transform work. ──
+        // The video is pinned `fixed` at its natural in-flow spot ONCE, then the
+        // dock is driven purely by `transform: translate + scale` mapped directly
+        // to scrollY. No per-frame layout reads/writes (the old top/left/width/
+        // height approach forced a reflow every frame → choppy on phones). This
+        // is 1:1 bound to the scroll position and runs on the compositor.
+        const ease = (t) => 1 - (1 - t) * (1 - t); // easeOutQuad, front-loads the dock
+
+        let startTop = 0, startLeft = 0, startW = 0, scaleTo = 1, dx = 0, dy = 0;
 
         function capture() {
-            // measure the natural in-flow size, then lock the placeholder height
+            // Reset to natural flow, measure, then pin as a fixed layer.
             vslElement.style.cssText = '';
             vslContainer.style.height = '';
             const r = vslContainer.getBoundingClientRect();
-            placeholderH = r.height || (r.width * 9) / 16;
-            vslContainer.style.height = placeholderH + 'px';
-        }
+            startW = r.width;
+            // Position the pinned layer where the video sits when the page is at
+            // the very top (document-space top). r.top+scrollY stays constant even
+            // if we re-capture while scrolled (e.g. on resize).
+            startTop = r.top + window.scrollY;
+            startLeft = r.left;
+            const startH = r.height || (startW * 9) / 16;
 
-        function reset() {
-            shiftContent(0);
-            if (!docked) return;
-            docked = false;
-            vslElement.style.cssText = '';
-            vslElement.classList.remove('vsl-pip-active');
-            document.body.classList.remove('vsl-active');
-        }
+            // Hold the grid cell open so the layout below doesn't jump.
+            vslContainer.style.height = startH + 'px';
 
-        // Front-load the shrink/dock so the video becomes the small corner PiP
-        // quickly (within the first ~55% of the dock scroll). This keeps the
-        // large-video-over-headline overlap window tiny. easeOutQuad.
-        const ease = (t) => 1 - (1 - t) * (1 - t);
+            // Docked target geometry.
+            const dockLeft = window.innerWidth - PIP_RIGHT - PIP_W;
+            scaleTo = PIP_W / startW;
+            dx = dockLeft - startLeft;      // translate top-left corner into the corner
+            dy = PIP_TOP - startTop;
 
-        function apply() {
-            const r = vslContainer.getBoundingClientRect();
-            const p = clamp((NAV_H - r.top) / TRAVEL, 0, 1);
-
-            if (p <= 0) {
-                reset();
-                return;
-            }
-
-            docked = true;
-            document.body.classList.add('vsl-active');
-            vslElement.classList.add('vsl-pip-active');
-
-            // Front-loaded progress: the video is fully docked + the copy fully
-            // shifted by the time the raw progress reaches ~0.55.
-            const fp = ease(clamp(p / 0.55, 0, 1));
-            shiftContent(fp);
-
-            const w = r.width + (PIP_W - r.width) * fp;
-            const h = (w * 9) / 16;
-            const curTop = Math.max(r.top, NAV_H);
-            const top = curTop + (PIP_TOP - curTop) * fp;
-            const targetLeft = window.innerWidth - PIP_RIGHT - w;
-            const left = r.left + (targetLeft - r.left) * fp;
-
+            // Pin the video once. transform-origin top-left keeps the scale
+            // anchored so translate math stays simple.
             vslElement.style.position = 'fixed';
-            vslElement.style.top = top + 'px';
-            vslElement.style.left = left + 'px';
+            vslElement.style.top = startTop + 'px';
+            vslElement.style.left = startLeft + 'px';
             vslElement.style.right = 'auto';
-            vslElement.style.width = w + 'px';
-            vslElement.style.height = h + 'px';
+            vslElement.style.width = startW + 'px';
+            vslElement.style.height = startH + 'px';
             vslElement.style.margin = '0';
-            vslElement.style.borderRadius = (12 - (12 - PIP_RADIUS) * fp) + 'px';
+            vslElement.style.borderRadius = '12px';
+            vslElement.style.transformOrigin = 'top left';
+            vslElement.style.willChange = 'transform, opacity';
             vslElement.style.zIndex = '9000';
-            vslElement.style.opacity = String(1 - (0.15 * fp));
+            vslElement.classList.add('vsl-pip-active');
+            document.body.classList.add('vsl-active');
+        }
+
+        function render() {
+            const fp = ease(clamp(window.scrollY / TRAVEL, 0, 1));
+            const s = 1 + (scaleTo - 1) * fp;
+            vslElement.style.transform =
+                'translate3d(' + (dx * fp).toFixed(2) + 'px,' + (dy * fp).toFixed(2) + 'px,0) scale(' + s.toFixed(4) + ')';
+            vslElement.style.opacity = String(1 - 0.15 * fp);
+            const y = (CONTENT_SHIFT * fp).toFixed(1) + 'px';
+            if (heroTitle) heroTitle.style.transform = 'translate3d(0,' + y + ',0)';
+            if (heroCta) heroCta.style.transform = 'translate3d(0,' + y + ',0)';
         }
 
         let ticking = false;
         function onScroll() {
             if (ticking) return;
             ticking = true;
-            requestAnimationFrame(() => { apply(); ticking = false; });
+            requestAnimationFrame(() => { render(); ticking = false; });
         }
 
         capture();
-        apply();
+        render();
         window.addEventListener('scroll', onScroll, { passive: true });
         let rt;
         window.addEventListener('resize', () => {
             clearTimeout(rt);
-            rt = setTimeout(() => { reset(); capture(); apply(); }, 120);
+            rt = setTimeout(() => { capture(); render(); }, 120);
         });
 
         vslElement.addEventListener('click', () => {

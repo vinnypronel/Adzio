@@ -3221,28 +3221,27 @@ body.vsl-active .hero-vsl {
     opacity: 1;
 }
 
-/* Mobile: shrink logos + tighten gaps so several fit on screen at once
-   (still legible, not tiny) */
+/* Mobile: keep the trust logos large + legible (bigger, prominent carousel) */
 @media (max-width: 768px) {
     .slide {
-        margin-right: 26px;
-        padding: 0.4rem 0;
+        margin-right: 44px;
+        padding: 0.7rem 0;
     }
 
     .slide img {
-        height: 30px;
-        max-width: 104px;
+        height: 52px;
+        max-width: 168px;
     }
 }
 
 @media (max-width: 480px) {
     .slide {
-        margin-right: 20px;
+        margin-right: 36px;
     }
 
     .slide img {
-        height: 26px;
-        max-width: 88px;
+        height: 46px;
+        max-width: 148px;
     }
 }
 
