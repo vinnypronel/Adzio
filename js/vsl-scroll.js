@@ -4,32 +4,56 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
     const vslContainer = document.querySelector('.hero-vsl');
     const vslElement = document.getElementById('vsl-main-element');
 
     if (!vslContainer || !vslElement) return;
 
+    const mqMobile = window.matchMedia('(max-width: 768px)');
+    const wasMobileAtLoad = mqMobile.matches;
+
+    // The mobile vs. desktop code paths are chosen once at load. If the viewport
+    // later crosses the 768px breakpoint (devtools device toggle, tablet/phone
+    // rotation, window resize), reload so the correct path runs — otherwise the
+    // mobile dock effect silently won't be wired up.
+    let rebootTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(rebootTimer);
+        rebootTimer = setTimeout(() => {
+            if (mqMobile.matches !== wasMobileAtLoad) window.location.reload();
+        }, 250);
+    });
+
     // ── MOBILE (≤768px) ──────────────────────────────────────────────
-    // The hero stacks (video sits below the copy). Instead of the desktop
-    // corner-locked scrub (which would overlap the headline), the video stays
-    // in flow until it scrolls up under the top nav bar, then smoothly docks
+    // NOTE: this branch is pure vanilla JS (no GSAP) and runs BEFORE the GSAP
+    // guard below — so the corner-dock still works even if GSAP is slow to load
+    // or blocked on a phone. The hero stacks (video sits below the copy); the
+    // video stays in flow until it scrolls up under the top nav bar, then docks
     // into a small fixed thumbnail in the top-right corner — sized + positioned
     // by interpolating from its in-flow spot to the corner as you scroll.
-    if (window.matchMedia('(max-width: 768px)').matches) {
+    if (mqMobile.matches) {
         const NAV_H = 60;        // mobile top bar height
         const PIP_TOP = 70;      // rest just under the bar
         const PIP_RIGHT = 12;
-        const PIP_W = 148;
-        const PIP_RADIUS = 10;
-        const TRAVEL = 200;      // px of scroll to fully dock
+        const PIP_W = 150;       // fully-docked corner size (video starts ~220px)
+        const PIP_RADIUS = 8;
+        const TRAVEL = 220;      // px of scroll to fully dock
 
         const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
         let placeholderH = null;
         let docked = false;
+
+        // As the video shrinks into the corner, nudge the headline + buttons down
+        // so they never slide up underneath the docked video. Grows with dock
+        // progress, then holds steady once fully docked.
+        const heroTitle = document.querySelector('.hero-title');
+        const heroCta = document.querySelector('.hero-cta');
+        const CONTENT_SHIFT = 100; // max px the copy drops by
+        function shiftContent(p) {
+            const y = (CONTENT_SHIFT * p).toFixed(1) + 'px';
+            if (heroTitle) heroTitle.style.transform = 'translateY(' + y + ')';
+            if (heroCta) heroCta.style.transform = 'translateY(' + y + ')';
+        }
 
         function capture() {
             // measure the natural in-flow size, then lock the placeholder height
@@ -41,12 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function reset() {
+            shiftContent(0);
             if (!docked) return;
             docked = false;
             vslElement.style.cssText = '';
             vslElement.classList.remove('vsl-pip-active');
             document.body.classList.remove('vsl-active');
         }
+
+        // Front-load the shrink/dock so the video becomes the small corner PiP
+        // quickly (within the first ~55% of the dock scroll). This keeps the
+        // large-video-over-headline overlap window tiny. easeOutQuad.
+        const ease = (t) => 1 - (1 - t) * (1 - t);
 
         function apply() {
             const r = vslContainer.getBoundingClientRect();
@@ -61,12 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('vsl-active');
             vslElement.classList.add('vsl-pip-active');
 
-            const w = r.width + (PIP_W - r.width) * p;
+            // Front-loaded progress: the video is fully docked + the copy fully
+            // shifted by the time the raw progress reaches ~0.55.
+            const fp = ease(clamp(p / 0.55, 0, 1));
+            shiftContent(fp);
+
+            const w = r.width + (PIP_W - r.width) * fp;
             const h = (w * 9) / 16;
             const curTop = Math.max(r.top, NAV_H);
-            const top = curTop + (PIP_TOP - curTop) * p;
+            const top = curTop + (PIP_TOP - curTop) * fp;
             const targetLeft = window.innerWidth - PIP_RIGHT - w;
-            const left = r.left + (targetLeft - r.left) * p;
+            const left = r.left + (targetLeft - r.left) * fp;
 
             vslElement.style.position = 'fixed';
             vslElement.style.top = top + 'px';
@@ -75,9 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
             vslElement.style.width = w + 'px';
             vslElement.style.height = h + 'px';
             vslElement.style.margin = '0';
-            vslElement.style.borderRadius = (12 - (12 - PIP_RADIUS) * p) + 'px';
+            vslElement.style.borderRadius = (12 - (12 - PIP_RADIUS) * fp) + 'px';
             vslElement.style.zIndex = '9000';
-            vslElement.style.opacity = String(1 - (0.28 * p));
+            vslElement.style.opacity = String(1 - (0.15 * fp));
         }
 
         let ticking = false;
@@ -101,6 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         return;
     }
+
+    // ── DESKTOP (>768px) — needs GSAP + ScrollTrigger ─────────────────
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
 
     const config = {
         pipWidth: 190,

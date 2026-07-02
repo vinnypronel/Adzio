@@ -105,6 +105,10 @@
     // ── Mobile navigation (hamburger) ──
     // The desktop morphing pill is hover-driven and breaks on touch, so on
     // phones we hide it (via CSS) and show this simple, tappable nav instead.
+    // NOTE: the panel is kept as a SEPARATE top-level element (not nested inside
+    // .m-nav). The bar uses backdrop-filter, and any filter/backdrop-filter on an
+    // ancestor becomes the containing block for position:fixed descendants — which
+    // would make the panel jump/resize when the bar's blur toggles on open.
     var mobileNav = `
 <div class="m-nav" id="mNav">
     <a href="index.html#home" class="m-nav-brand" aria-label="Adzio home">
@@ -113,18 +117,18 @@
     <button class="m-nav-toggle" id="mNavToggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span>
     </button>
-    <div class="m-nav-panel" id="mNavPanel">
-        <nav class="m-nav-links">
-            <a href="index.html#home">Home</a>
-            <a href="services.html">Services</a>
-            <a href="about-us.html">About</a>
-            <a href="index.html#contact">Contact</a>
-        </nav>
-        <a href="index.html#contact" class="m-nav-cta">Book a Call</a>
-        <div class="m-nav-foot">
-            <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="tel:7326546635">(732)&nbsp;654-6635</a>
-        </div>
+</div>
+<div class="m-nav-panel" id="mNavPanel">
+    <nav class="m-nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about-us.html">About</a>
+        <a href="index.html#contact">Contact</a>
+    </nav>
+    <a href="index.html#contact" class="m-nav-cta">Book a Call</a>
+    <div class="m-nav-foot">
+        <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="tel:7326546635">(732)&nbsp;654-6635</a>
     </div>
 </div>`;
 
@@ -139,18 +143,16 @@
         var panel = document.getElementById('mNavPanel');
 
         function close() {
-            nav.classList.remove('is-open');
+            document.body.classList.remove('m-nav-open');
             toggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('m-nav-locked');
         }
         function open() {
-            nav.classList.add('is-open');
+            document.body.classList.add('m-nav-open');
             toggle.setAttribute('aria-expanded', 'true');
-            document.body.classList.add('m-nav-locked');
         }
 
         toggle.addEventListener('click', function () {
-            nav.classList.contains('is-open') ? close() : open();
+            document.body.classList.contains('m-nav-open') ? close() : open();
         });
         panel.addEventListener('click', function (e) {
             if (e.target.closest('a')) close();

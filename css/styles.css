@@ -169,7 +169,8 @@ body {
 /* ============================================
    Mobile Navigation (hamburger) — phones only
    ============================================ */
-.m-nav {
+.m-nav,
+.m-nav-panel {
     display: none;
 }
 
@@ -190,10 +191,11 @@ body {
         z-index: 2000;
         height: 60px;
         padding: 0 16px;
-        background: rgba(9, 13, 17, 0.85);
+        background-color: rgba(9, 13, 17, 0.85);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
         border-bottom: 1px solid var(--hairline);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .m-nav-brand {
@@ -237,17 +239,19 @@ body {
     }
 
     /* 2 lines → X (each line converges to center and rotates) */
-    .m-nav.is-open .m-nav-toggle span:nth-child(1) {
+    body.m-nav-open .m-nav-toggle span:nth-child(1) {
         transform: translateY(4.5px) rotate(45deg);
     }
 
-    .m-nav.is-open .m-nav-toggle span:nth-child(2) {
+    body.m-nav-open .m-nav-toggle span:nth-child(2) {
         transform: translateY(-4.5px) rotate(-45deg);
     }
 
-    /* Make the top bar blend into the full-screen menu when open */
-    .m-nav.is-open {
-        background: transparent;
+    /* Make the top bar blend into the full-screen menu when open. The panel
+       (see below) is a separate top-level element, so nothing filtered sits
+       above it and its position:fixed resolves against the viewport. */
+    body.m-nav-open .m-nav {
+        background-color: transparent;
         border-bottom-color: transparent;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -272,19 +276,23 @@ body {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transform: translateY(-8px);
+        transform: translate3d(0, -10px, 0);
+        /* Promote to its own compositor layer so the fade/slide is pure GPU work
+           and the gradient background is painted once, not every frame. */
         will-change: opacity, transform;
-        /* GPU transform + fade; visibility flips instantly on open, after the
-           fade on close — no janky mid-transition reflow */
-        transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.4s;
+        backface-visibility: hidden;
+        contain: layout paint;
+        /* Single unified duration + easing so the whole panel moves as one piece.
+           visibility flips in instantly on open, out after the fade on close. */
+        transition: opacity 0.34s ease, transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.34s;
     }
 
-    .m-nav.is-open .m-nav-panel {
+    body.m-nav-open .m-nav-panel {
         opacity: 1;
         visibility: visible;
-        transform: none;
+        transform: translate3d(0, 0, 0);
         pointer-events: auto;
-        transition: opacity 0.32s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
+        transition: opacity 0.34s ease, transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
     }
 
     .m-nav-links {
@@ -305,19 +313,20 @@ body {
         color: var(--text-primary);
         text-decoration: none;
         opacity: 0;
-        transform: translateY(16px);
-        transition: color 0.2s ease, opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        transform: translate3d(0, 18px, 0);
+        will-change: opacity, transform;
+        transition: color 0.2s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .m-nav.is-open .m-nav-links a {
+    body.m-nav-open .m-nav-links a {
         opacity: 1;
-        transform: none;
+        transform: translate3d(0, 0, 0);
     }
 
-    .m-nav.is-open .m-nav-links a:nth-child(1) { transition-delay: 0.08s; }
-    .m-nav.is-open .m-nav-links a:nth-child(2) { transition-delay: 0.13s; }
-    .m-nav.is-open .m-nav-links a:nth-child(3) { transition-delay: 0.18s; }
-    .m-nav.is-open .m-nav-links a:nth-child(4) { transition-delay: 0.23s; }
+    body.m-nav-open .m-nav-links a:nth-child(1) { transition-delay: 0.06s; }
+    body.m-nav-open .m-nav-links a:nth-child(2) { transition-delay: 0.10s; }
+    body.m-nav-open .m-nav-links a:nth-child(3) { transition-delay: 0.14s; }
+    body.m-nav-open .m-nav-links a:nth-child(4) { transition-delay: 0.18s; }
 
     .m-nav-links a:active {
         color: var(--cyan);
@@ -341,13 +350,14 @@ body {
         text-decoration: none;
         box-shadow: 0 12px 26px -12px rgba(0, 184, 212, 0.5);
         opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 0.45s ease 0.28s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.28s, filter 0.2s ease;
+        transform: translate3d(0, 18px, 0);
+        will-change: opacity, transform;
+        transition: opacity 0.4s ease 0.22s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.22s, filter 0.2s ease;
     }
 
-    .m-nav.is-open .m-nav-cta {
+    body.m-nav-open .m-nav-cta {
         opacity: 1;
-        transform: none;
+        transform: translate3d(0, 0, 0);
     }
 
     .m-nav-cta:active {
@@ -367,7 +377,7 @@ body {
         transition: opacity 0.4s ease 0.34s;
     }
 
-    .m-nav.is-open .m-nav-foot {
+    body.m-nav-open .m-nav-foot {
         opacity: 1;
     }
 
@@ -386,7 +396,7 @@ body {
     }
 
     /* Prevent body scroll behind an open menu */
-    body.m-nav-locked {
+    body.m-nav-open {
         overflow: hidden;
     }
 }
@@ -1223,7 +1233,7 @@ p {
     color: var(--text-primary);
     line-height: 1;
     position: relative;
-    top: -28px;
+    top: -8px;
 }
 
 .hero-eyebrow-dot {
@@ -1515,7 +1525,7 @@ body.vsl-active .hero-vsl {
     width: 100%;
     background: #000;
     /* Pure white frame outline. */
-    border: 2px solid #ffffff;
+    border: 1px solid #ffffff;
     box-shadow: 0 0 22px rgba(255, 255, 255, 0.10), 0 0 34px rgba(0, 0, 0, 0.5);
     border-radius: var(--radius-xl);
     overflow: hidden;
@@ -1535,7 +1545,7 @@ body.vsl-active .hero-vsl {
     background: #000;
     /* White frame outline (this rule wins over .vsl-wrapper via the id, and the
        JS keeps this class on even in the hero state, so this IS the visible border) */
-    border: 2px solid #ffffff;
+    border: 1px solid #ffffff;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 255, 255, 0.12);
     max-width: none !important;
     border-radius: 12px;
@@ -2282,21 +2292,31 @@ body.vsl-active .hero-vsl {
    direct flex items of .hero-split. All four can then be re-ordered freely. */
 @media (max-width: 768px) {
     .hero {
-        padding-top: 88px;
+        /* Sit the brand + video row just under the 60px fixed nav bar (was 88px,
+           which left too big a gap below the header). */
+        padding-top: 66px;
         /* content height, not a full empty viewport, once stacked */
         min-height: auto;
         padding-bottom: 48px;
     }
 
+    /* ribbit.dk-style mobile header: brand on the LEFT, video pinned top-RIGHT
+       (which the scroll script then shrinks/docks into the corner). A 2-col grid
+       puts brand + video on one top row, with the headline and CTAs below. */
     .hero-split {
-        display: flex;               /* was grid — flex enables `order` */
-        flex-direction: column;
-        align-items: stretch;
-        gap: clamp(18px, 5vw, 26px);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "brand video"
+            "title title"
+            "cta   cta";
+        align-items: center;
+        column-gap: 14px;
+        row-gap: clamp(18px, 5vw, 26px);
         min-height: 0;
     }
 
-    /* Dissolve the wrapper so eyebrow/title/CTA flow inside .hero-split */
+    /* Dissolve the wrapper so eyebrow/title/CTA become direct grid items */
     .hero-left-col {
         display: contents;
     }
@@ -2307,43 +2327,60 @@ body.vsl-active .hero-vsl {
         opacity: 1;
     }
 
-    /* 1) ADZIO eyebrow — stays at the top, made noticeably bigger (per request) */
+    /* Top-left: ADZIO brand, vertically centred against the video thumbnail */
     .hero-eyebrow {
-        order: 1;
-        top: 0;                              /* drop the desktop -30px lift */
-        margin: 0 0 2rem 0;
-        gap: 14px;
-        font-size: clamp(1.7rem, 7vw, 2.5rem);
+        grid-area: brand;
+        top: 0;                              /* drop the desktop -8px lift */
+        margin: 0;
+        gap: 10px;
+        align-self: center;
+        font-size: clamp(1.2rem, 5.4vw, 1.8rem);
+        letter-spacing: 0.14em;
     }
 
     .hero-eyebrow-dot {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
     }
 
-    /* 2) VSL video — moved above the headline words */
+    /* Top-right: VSL video — starts here next to the brand, then the scroll
+       script keeps it pinned and shrinks it toward the corner. */
     .hero-right-col {
-        order: 2;
-        justify-content: center;
-        align-self: stretch;
-        margin-top: 0;
+        grid-area: video;
+        justify-self: end;
+        align-self: start;
+        width: min(56vw, 220px);
+        margin: 0;
     }
 
-    /* 3) Headline */
+    .hero-vsl {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* Mobile video frame: less rounded + thinner white outline (per request).
+       Applies to both the in-flow start state and the docked PiP. */
+    .vsl-wrapper,
+    #vsl-main-element.vsl-pip-active {
+        border-radius: 12px;
+        border-width: 0.5px;
+    }
+
+    /* Headline */
     .hero-title {
-        order: 3;
+        grid-area: title;
         font-size: clamp(2.1rem, 9.5vw, 3.6rem);
-        margin-bottom: 0;
+        margin: 0;
     }
 
     .hero-title .title-line {
         white-space: nowrap;
     }
 
-    /* 4) CTA buttons */
+    /* CTA buttons */
     .hero-cta {
-        order: 4;
-        margin-top: calc(2.2rem + 80px);
+        grid-area: cta;
+        margin-top: 1.6rem;
     }
 }
 
