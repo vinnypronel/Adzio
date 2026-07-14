@@ -64,22 +64,15 @@
                     <div class="contact-icon" id="lottie-phone"></div>
                     <span>(732) 654-6635</span>
                 </a>
+                <a href="index.html#contact" class="footer-lets-talk" data-text="Let's Talk">
+                    <span class="actual-text">&nbsp;Let's Talk&nbsp;</span>
+                    <span aria-hidden="true" class="hover-text">&nbsp;Let's Talk&nbsp;</span>
+                </a>
                 <div class="footer-founders">
                     <span class="founders-label">Founders</span>
                     <div class="contact-names">Anton Veliu &amp; Devyn Schroeder</div>
                 </div>
             </div>
-        </div>
-
-        <!-- Bottom CTA -->
-        <div class="footer-bottom-cta">
-            <a href="index.html#contact" class="footer-lets-talk">
-                <span>Let's Talk</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-            </a>
         </div>
 
         <!-- Bottom Bar -->
@@ -123,7 +116,6 @@
         <a href="index.html#home">Home</a>
         <a href="services.html">Services</a>
         <a href="about-us.html">About</a>
-        <a href="index.html#contact">Contact</a>
     </nav>
     <a href="index.html#contact" class="m-nav-cta">Book a Call</a>
     <div class="m-nav-foot">
@@ -165,10 +157,33 @@
     // ── Seamless page transitions ──
     // Cover the screen on leave; the .page-veil on the next page reveals on arrive.
     function setupPageTransitions() {
+        function animateVeilProgress(target, duration) {
+            if (!target) return;
+            var fill = target.querySelector('.veil-progress-fill');
+            var percent = target.querySelector('.veil-percent');
+            if (!fill || !percent) return;
+
+            var start = null;
+            fill.style.width = '0%';
+            percent.textContent = '0%';
+
+            function update(now) {
+                if (!start) start = now;
+                var progress = Math.min((now - start) / duration, 1);
+                var value = Math.round(progress * 100);
+                fill.style.width = value + '%';
+                percent.textContent = value + '%';
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        animateVeilProgress(document.querySelector('.page-veil'), 320);
+
         var veil = document.createElement('div');
         veil.className = 'pt-veil';
         veil.setAttribute('aria-hidden', 'true');
-        veil.innerHTML = '<img src="assets/logo.png" alt="" class="veil-logo"><div class="veil-spinner"></div>';
+        veil.innerHTML = '<div class="veil-content"><img src="assets/logo.png" alt="" class="veil-logo"><div class="veil-loader"><span class="veil-progress-fill"></span></div><span class="veil-percent">0%</span></div>';
         document.body.appendChild(veil);
 
         function normPath(p) {
@@ -207,6 +222,7 @@
             }
 
             e.preventDefault();
+            animateVeilProgress(veil, 320);
             veil.classList.add('is-active');
             setTimeout(function () { window.location.href = url.href; }, 370);
         });

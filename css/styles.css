@@ -2,6 +2,15 @@
    ADZIO - Premium Marketing Agency Website
    ============================================ */
 
+/* Custom display font — used for the ADZIO hero wordmark */
+@font-face {
+    font-family: 'Retro Floral';
+    src: url('../assets/fonts/RetroFloral.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* CSS Variables */
 :root {
     /* Surfaces — sleek deep navy-charcoal: dark, professional, cool depth */
@@ -50,8 +59,8 @@
     --grid-glow-secondary: rgba(58, 123, 213, 0.07);
 
     /* Typography */
-    --font-heading: 'Syne', sans-serif;
-    --font-body: 'Outfit', sans-serif;
+    --font-heading: 'DM Sans', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
 
     /* Spacing */
     --spacing-xs: 0.375rem;
@@ -448,23 +457,42 @@ body {
     animation: veilPulse 1.3s ease-in-out infinite;
 }
 
+.veil-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @keyframes veilPulse {
     0%, 100% { transform: scale(1); opacity: 0.65; }
     50% { transform: scale(1.05); opacity: 1; }
 }
 
-.veil-spinner {
-    width: 40px;
-    height: 40px;
-    margin-top: 36px;
-    border-radius: 50%;
-    border: 3px solid rgba(0, 184, 212, 0.15);
-    border-top-color: #00b8d4;
-    animation: veilSpin 0.85s linear infinite;
+.veil-loader {
+    width: clamp(150px, 14vw, 220px);
+    height: 3px;
+    margin-top: 28px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
 }
 
-@keyframes veilSpin {
-    to { transform: rotate(360deg); }
+.veil-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #00b8d4, #8fe3d9);
+    box-shadow: 0 0 14px rgba(0, 184, 212, 0.55);
+}
+
+.veil-percent {
+    margin-top: 10px;
+    color: rgba(244, 241, 234, 0.8);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -586,7 +614,7 @@ p {
     justify-content: center;
     gap: 0.6rem;
     padding: 0.75rem 1.5rem;
-    font-family: 'Archivo', sans-serif;
+    font-family: var(--font-heading);
     font-size: 0.88rem;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -603,7 +631,7 @@ p {
 .btn-primary {
     background: var(--accent-gradient);
     color: var(--bg-primary);
-    box-shadow: 0 4px 20px var(--accent-glow);
+    box-shadow: none;
     border: 2px solid transparent;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -612,7 +640,7 @@ p {
     background: var(--bg-primary);
     color: var(--accent-primary);
     border-color: var(--accent-primary);
-    box-shadow: 0 0 20px rgba(59, 165, 181, 0.25);
+    box-shadow: none;
 }
 
 .btn-primary::before {
@@ -634,7 +662,7 @@ p {
     border: 1px solid var(--cyan);
     color: #06120F;
     border-radius: var(--radius-sm);
-    box-shadow: 0 14px 34px -12px rgba(0, 184, 212, 0.45);
+    box-shadow: none;
     overflow: visible;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -654,7 +682,7 @@ p {
     background: #2DF0D8;
     color: #06120F;
     transform: translateY(-3px);
-    box-shadow: 0 22px 44px -14px rgba(0, 184, 212, 0.55);
+    box-shadow: none;
 }
 
 .btn-glow:hover svg {
@@ -663,7 +691,7 @@ p {
 
 .btn-glow:active {
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px -10px rgba(0, 184, 212, 0.45);
+    box-shadow: none;
 }
 
 /* Quiet secondary — hairline border, cream text, cyan on hover */
@@ -768,6 +796,11 @@ p {
     overflow: visible;
 }
 
+#navStroke {
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+}
+
 .nav-content {
     position: absolute;
     inset: 0;
@@ -808,16 +841,29 @@ p {
     transform: translateY(-50%);
     width: 7px;
     height: 7px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.35);
-    transition: background 0.3s, box-shadow 0.3s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10;
     pointer-events: none;
 }
 
-.nav-wrap:hover .corner-dot {
-    background: #00d2c8;
-    box-shadow: 0 0 10px #00d2c8;
+.corner-dot::before {
+    content: ">";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.35);
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: color 0.3s, filter 0.3s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1;
+}
+
+.nav-wrap:hover .corner-dot::before {
+    color: #00d2c8;
+    filter: drop-shadow(0 0 5px #00d2c8);
+    transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 .nav-links-row {
@@ -1158,13 +1204,24 @@ p {
    ============================================ */
 
 .hero {
-    min-height: 100svh;
+    min-height: 110svh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     position: relative;
-    padding: clamp(85px, 5.2vw, 103px) 0 80px;
+    padding: clamp(100px, 6vw, 130px) 0 120px;
     overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 42% 54% at 14% 46%, rgba(0, 184, 212, 0.08) 0%, rgba(0, 184, 212, 0.025) 45%, transparent 72%),
+        radial-gradient(ellipse 58% 48% at 68% 40%, rgba(86, 239, 255, 0.055) 0%, transparent 66%);
+    z-index: 0;
 }
 
 .hero-content {
@@ -1180,11 +1237,10 @@ p {
 
 .hero-split {
     display: grid;
-    grid-template-columns: minmax(460px, 530px) minmax(0, 1fr);
+    grid-template-columns: minmax(480px, 580px) minmax(0, 1fr);
     align-items: center;
     gap: clamp(20px, 2.2vw, 40px);
     width: 100%;
-    min-height: calc(100svh - clamp(70px, 5.2vw, 88px) - 80px);
 }
 
 .hero-left-col {
@@ -1221,19 +1277,32 @@ p {
     align-items: center;
     gap: 16px;
     padding: 0;
-    margin-bottom: clamp(3rem, 5.5vh, 4.5rem);
+    margin-bottom: 1.2rem;
     border: none;
     border-radius: 0;
     background: none;
-    font-family: 'Archivo', sans-serif;
-    font-size: clamp(2.6rem, 4vw, 3.4rem);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 4.5vw, 4rem);
     font-weight: 800;
-    letter-spacing: 0.22em; /* slightly lower letter spacing to balance the larger font */
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-primary);
     line-height: 1;
     position: relative;
-    top: -8px;
+    top: -18px;
+}
+
+/* Home hero wordmark uses the custom Retro Floral display font */
+.hero .hero-eyebrow {
+    font-family: 'Retro Floral', 'Cormorant Garamond', serif;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+}
+
+.hero-logo {
+    height: clamp(2.4rem, 3.6vw, 3.2rem);
+    width: auto;
+    object-fit: contain;
 }
 
 .hero-eyebrow-dot {
@@ -1261,11 +1330,11 @@ p {
 
 /* ── Massive editorial H1 — staggered line treatments ── */
 .hero-title {
-    font-size: clamp(3.1rem, 6vw, 5rem);
-    margin-bottom: var(--spacing-lg);
+    font-size: clamp(4.8rem, 9.5vw, 8.5rem);
+    margin-bottom: var(--spacing-md);
     line-height: 1.02;
     font-weight: 800;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-heading);
     letter-spacing: -0.03em;
     /* Crisp pure white against the Deep Void canvas */
     color: #ffffff;
@@ -1288,13 +1357,13 @@ p {
 }
 
 .hero-subtitle {
-    font-size: clamp(1rem, 1.2vw, 1.15rem);
-    max-width: 480px;
+    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+    max-width: 540px;
     margin: 0 0 var(--spacing-xl);
     color: var(--text-secondary);
     line-height: 1.8;
     font-weight: 300;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-body);
 }
 
 .hero-subtitle strong {
@@ -1308,6 +1377,8 @@ p {
     justify-content: flex-start;
     flex-wrap: nowrap;
     align-items: center;
+    position: relative;
+    top: -120px;
 }
 
 /* Containing layer for all hero atmosphere — clips grid/orbs even when
@@ -1503,6 +1574,15 @@ body.vsl-active .hero-vsl {
     perspective: none !important;
     will-change: auto !important;
     overflow: visible !important;
+    /* Also drop the position+z-index stacking contexts on these ancestors.
+       The docked video is position:fixed; z-index:9000, but a positioned
+       ancestor with a z-index (.hero-content:2, .hero-vsl:10) traps that 9000
+       inside the hero's stacking context — so later sections (z-index:2, painted
+       afterwards) render OVER the docked video. Neutralizing these lets the
+       video's z-index live in the root context and stay in front while scrolling.
+       Safe for hero layering: .hero-content still paints above .hero-bg by DOM
+       order (both become auto-z positioned elements, content comes later). */
+    z-index: auto !important;
 }
 
 /* VSL Transition Container */
@@ -1523,10 +1603,10 @@ body.vsl-active .hero-vsl {
 .vsl-wrapper {
     position: relative;
     width: 100%;
-    background: #000;
+    background: rgba(8, 14, 18, 0.72);
     /* Pure white frame outline. */
     border: 1px solid #ffffff;
-    box-shadow: 0 0 22px rgba(255, 255, 255, 0.10), 0 0 34px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.08), 0 0 22px rgba(0, 0, 0, 0.28);
     border-radius: var(--radius-xl);
     overflow: hidden;
     aspect-ratio: 16 / 9;
@@ -1542,11 +1622,11 @@ body.vsl-active .hero-vsl {
     z-index: 9000;
     margin: 0;
     pointer-events: auto;
-    background: #000;
+    background: rgba(8, 14, 18, 0.72);
     /* White frame outline (this rule wins over .vsl-wrapper via the id, and the
        JS keeps this class on even in the hero state, so this IS the visible border) */
     border: 1px solid #ffffff;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.38), 0 0 18px rgba(255, 255, 255, 0.08);
     max-width: none !important;
     border-radius: 12px;
     overflow: hidden;
@@ -1743,7 +1823,7 @@ body.vsl-active .hero-vsl {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #000;
+    background: rgba(8, 14, 18, 0.62);
 }
 
 /* Feather the VSL edges into the pitch-black page — a faint inner vignette so
@@ -1754,7 +1834,7 @@ body.vsl-active .hero-vsl {
     inset: 0;
     pointer-events: none;
     border-radius: inherit;
-    box-shadow: inset 0 0 55px 8px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 14px 1px rgba(0, 0, 0, 0.22);
     z-index: 2;
 }
 
@@ -1764,15 +1844,15 @@ body.vsl-active .hero-vsl {
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    opacity: 0.7;
+    opacity: 0.9;
     /* Darken + pull the neon out of the footage so the baked-in cyan rings /
        panel outlines read as deep blue, in line with the darker site. */
-    filter: brightness(0.92) saturate(0.8);
+    filter: brightness(1.08) saturate(0.92);
     transition: opacity var(--transition-base);
 }
 
 .hero-vsl .vsl-wrapper:hover .vsl-thumbnail-video {
-    opacity: 0.8;
+    opacity: 0.94;
 }
 
 /* Modal Styles */
@@ -2332,10 +2412,17 @@ body.vsl-active .hero-vsl {
         grid-area: brand;
         top: 0;                              /* drop the desktop -8px lift */
         margin: 0;
-        gap: 10px;
+        gap: 0;
         align-self: center;
         font-size: clamp(1.2rem, 5.4vw, 1.8rem);
         letter-spacing: 0.14em;
+    }
+
+    /* The logo PNG has built-in whitespace around the "AD" mark, so a plain
+       gap:0 still leaves a visible break — pull "ZIO" in to close it, so
+       AD + ZIO reads as one continuous wordmark. */
+    .hero-eyebrow .hero-logo {
+        margin-right: -0.3em;
     }
 
     .hero-eyebrow-dot {
@@ -3250,7 +3337,7 @@ body.vsl-active .hero-vsl {
    ============================================ */
 
 .problem-section {
-    padding: var(--spacing-3xl) 0 6rem;
+    padding: clamp(2rem, 4vh, 3.5rem) 0 6rem;
 }
 
 .section-header {
@@ -3532,7 +3619,7 @@ body.vsl-active .hero-vsl {
 .services-header h2 {
     font-size: clamp(2.1rem, 3.8vw, 3.4rem);
     font-weight: 800;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-heading);
     line-height: 1.08;
     letter-spacing: -0.03em;
     margin-bottom: 0;
@@ -3641,8 +3728,8 @@ body.vsl-active .hero-vsl {
 
 .service-card:nth-child(4),
 .service-card--purple {
-    --orb-color: #E4405F; /* Instagram magenta */
-    --orb-shadow: rgba(228, 64, 95, 0.12);
+    --orb-color: #7F00FF; /* Instagram magenta */
+    --orb-shadow: rgba(127, 0, 255, 0.12);
 }
 
 /* Exclusive indicator, not a sticker */
@@ -3659,7 +3746,7 @@ body.vsl-active .hero-vsl {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    border-radius: var(--radius-full);
+    border-radius: 6px;
     border: 1px solid var(--gold-border);
     z-index: 2;
 }
@@ -3694,7 +3781,7 @@ body.vsl-active .hero-vsl {
     letter-spacing: -0.02em;
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(244, 241, 234, 0.28);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.85);
     -webkit-text-fill-color: transparent;
     background: none;
     margin-bottom: 0;
@@ -3759,10 +3846,10 @@ body.vsl-active .hero-vsl {
 
 /* Social — Instagram magenta, Facebook blue, X white */
 .services-section .service-card--purple .service-icon svg g:nth-of-type(1) {
-    stroke: #E4405F;
+    stroke: #7F00FF;
 }
 .services-section .service-card--purple .service-icon svg g:nth-of-type(1) circle[stroke="none"] {
-    fill: #E4405F;
+    fill: #7F00FF;
 }
 .services-section .service-card--purple .service-icon svg g:nth-of-type(2) path {
     fill: #1877F2;
@@ -3797,7 +3884,7 @@ body.vsl-active .hero-vsl {
 .service-description {
     font-size: 1rem;
     font-weight: 300;
-    color: var(--text-muted);
+    color: #FFFFFF;
     line-height: 1.75;
     margin-bottom: 1.3rem;
     /* Equalize so feature lists begin at the same y across all 4 cards
@@ -3823,7 +3910,7 @@ body.vsl-active .hero-vsl {
     position: relative;
     font-size: 0.95rem;
     font-weight: 300;
-    color: #9CA3AF;
+    color: #ffffff;
     border-bottom: 1px solid rgba(244, 241, 234, 0.05);
     min-height: unset;
     display: flex;
@@ -4913,6 +5000,12 @@ body.vsl-active .hero-vsl {
 .cta-eyebrow {
     display: inline-flex;
     margin-bottom: clamp(0.5rem, 1.2vh, 0.9rem);
+    color: #ffffff !important;
+}
+
+.cta-eyebrow::before,
+.cta-eyebrow::after {
+    background: #ffffff !important;
 }
 
 .cta-title {
@@ -4921,7 +5014,7 @@ body.vsl-active .hero-vsl {
        narrow screens. */
     font-size: min(clamp(2.4rem, 3.6vw, 3.4rem), 5.5vh);
     font-weight: 800;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-heading);
     letter-spacing: -0.03em;
     line-height: 1.06;
 }
@@ -5330,88 +5423,56 @@ body.vsl-active .hero-vsl {
 }
 
 /* Let's talk CTA button */
+/* Uiverse-style text-reveal button (adapted to site cyan) */
 .footer-lets-talk {
-    --glow-color: var(--cyan);
-    --glow-spread-color: rgba(0, 184, 212, 0.15);
-    --enhanced-glow-color: rgba(0, 184, 212, 0.4);
-    --btn-color: rgba(0, 184, 212, 0.05);
+    --border-right: 2px;
+    --text-stroke-color: #ffffff;
+    --animation-color: #0092a8;
+    --fs-size: 2.3em;
 
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    display: inline-block;
+    align-self: flex-start;
     flex-shrink: 0;
-    
-    /* Make the button a bit smaller (padding & font-size) as requested */
-    padding: 0.65em 2.2em;
-    font-size: 13.5px;
+    margin: 14px 0 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    position: relative;
+    line-height: 1;
+    letter-spacing: 3px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: var(--fs-size);
     font-weight: bold;
     font-family: 'Archivo', sans-serif;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    
-    border: .15em solid var(--glow-color); /* Thinner border */
-    color: var(--glow-color);
-    background-color: var(--btn-color);
-    border-radius: 1em;
-    outline: none;
-    
-    /* Softened box-shadows for a cleaner look */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35),
-                0 0 1.2em var(--glow-spread-color);
-    text-shadow: none; /* Removed text glow for crisp, clear readability */
-    position: relative;
-    transition: all 0.3s;
-    
-    /* Move it down a bit as requested */
-    margin-top: 18px;
+    color: transparent;
+    -webkit-text-stroke: 0.55px var(--text-stroke-color);
+    -webkit-text-fill-color: transparent;
 }
 
-.footer-lets-talk::after {
-    pointer-events: none;
-    content: "";
+/* The colored text that wipes in on hover, with a trailing cursor bar */
+.footer-lets-talk .hover-text {
     position: absolute;
-    top: 120%;
-    left: 0;
-    height: 100%;
+    box-sizing: border-box;
+    inset: 0;
+    width: 0%;
+    color: var(--animation-color);
+    border-right: var(--border-right) solid var(--animation-color);
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 0.5s;
+    -webkit-text-stroke: 0.55px var(--animation-color);
+    /* Fill the letters solid blue too (not just the outline). Without this the
+       parent's transparent color propagates to -webkit-text-fill-color, leaving
+       the interior hollow. */
+    -webkit-text-fill-color: var(--animation-color);
+}
+
+.footer-lets-talk:hover .hover-text {
     width: 100%;
-    background-color: var(--glow-spread-color);
-    filter: blur(1.5em);
-    opacity: .35; /* Softer floor reflection opacity */
-    transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
-    transition: opacity 0.3s;
-}
-
-.footer-lets-talk:hover {
-    color: var(--glow-color); /* Keep text cyan (no solid color fill) */
-    background-color: rgba(86, 239, 255, 0.08); /* Transparent hover tint, no solid fill */
-    /* Softened hover glow */
-    box-shadow: 0 6px 20px rgba(0, 184, 212, 0.2),
-                0 0 2em var(--glow-spread-color);
-    transform: translateY(-2px); /* keep visual hover responsiveness */
-}
-
-.footer-lets-talk:active {
-    background-color: rgba(86, 239, 255, 0.12);
-    box-shadow: 0 3px 10px rgba(0, 184, 212, 0.15),
-                0 0 1em var(--glow-spread-color);
-    transform: translateY(0);
-}
-
-.footer-lets-talk:hover svg {
-    transform: translateX(6px);
-    animation: none;
-}
-
-.footer-lets-talk svg {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-    stroke: currentColor; /* use currentColor so stroke matches text color */
-    stroke-width: 2.5px;
-    transition: transform 0.3s ease;
-    animation: service-cta-arrow-idle 1.4s ease-in-out infinite alternate;
 }
 
 .footer-lets-talk-spacer {
@@ -5497,8 +5558,8 @@ body.vsl-active .hero-vsl {
 .contact-icon {
     width: 42px;
     height: 42px;
-    background: rgba(0, 184, 212, 0.06);
-    border: 1px solid rgba(0, 184, 212, 0.18);
+    background: transparent;
+    border: 1px solid rgba(244, 241, 234, 0.14);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -5514,10 +5575,9 @@ body.vsl-active .hero-vsl {
     height: 26px !important;
 }
 
-/* Force the Lottie glyph paths to the same cyan as the "Let's Talk" button
-   (var(--cyan)) instead of the old hue-rotate filter approximation, which
-   rendered a mismatched greenish tint. Lottie's SVG renderer sets fill/stroke
-   as inline styles on each path, so these need !important to win. */
+/* Force the Lottie glyph paths to white to match the social media icons.
+   Lottie's SVG renderer sets fill/stroke as inline styles on each path, so
+   these need !important to win. */
 #lottie-inbox svg path,
 #lottie-inbox svg rect,
 #lottie-inbox svg circle,
@@ -5528,15 +5588,15 @@ body.vsl-active .hero-vsl {
 #lottie-phone svg circle,
 #lottie-phone svg polygon,
 #lottie-phone svg line {
-    fill: var(--cyan) !important;
-    stroke: var(--cyan) !important;
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
 }
 
 
 .contact-icon svg {
     width: 20px;
     height: 20px;
-    stroke: var(--cyan);
+    stroke: #ffffff;
     stroke-width: 1.5;
 }
 
@@ -6111,6 +6171,39 @@ body.vsl-active .hero-vsl {
 }
 
 /* ============================================
+   Silk Background (js/silk-bg.js)
+   Everything here is scoped under html.silk-active, which the script adds
+   only once the WebGL layer is alive. No WebGL / reduced-motion / context
+   loss => class absent => the original static background above still rules.
+   ============================================ */
+
+/* The body's opaque gradient would paint over the fixed z-index:-1 canvas. */
+html.silk-active body {
+    background-color: transparent;
+    background-image: none;
+}
+
+/* .cta repaints the full body gradient opaquely mid-page — let silk through.
+   Its .cta-gradient child stays: subtle additive glow, layers fine on silk. */
+html.silk-active .cta {
+    background-color: transparent;
+    background-image: none;
+}
+
+/* Scrim instead of full transparency: silk stays faintly visible behind the
+   footer while text contrast holds. No backdrop-filter — too costly over a
+   live WebGL layer on mobile. */
+html.silk-active .footer {
+    background: rgba(9, 13, 17, 0.85);
+}
+
+/* Old hero decorations (gradient halo, aurora, orbs) fight the silk look.
+   Hidden only while silk runs — they remain part of the static fallback. */
+html.silk-active .hero-bg {
+    display: none;
+}
+
+/* ============================================
    Quiz Intro Card Styles
    ============================================ */
 .quiz-intro-card {
@@ -6181,7 +6274,7 @@ body.vsl-active .hero-vsl {
 .quiz-modal-container {
     position: relative;
     z-index: 1;
-    width: min(680px, 92vw);
+    width: min(1300px, 92vw);
     max-height: 90vh;
     background: rgba(13, 26, 31, 0.85);
     border: 1px solid rgba(59, 165, 181, 0.2);
@@ -6337,6 +6430,16 @@ body.vsl-active .hero-vsl {
     overflow: hidden;
 }
 
+/* Keep the homepage and About Us application cards aligned with the
+   full-width Services form on desktop. */
+.cta > .container:has(.cta-content--wide-form) {
+    width: 100%;
+}
+
+.cta-content--wide-form .quiz-inline-card {
+    max-width: 1040px;
+}
+
 /* Champagne hairline across the card's crown */
 .quiz-inline-card::before {
     content: '';
@@ -6414,7 +6517,7 @@ body.vsl-active .hero-vsl {
 
 /* Quiz layout sizing updates - bigger elements to fill space beautifully */
 .quiz-inline-card .quiz-step-title {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-heading);
     font-size: min(clamp(1.7rem, 2.4vw, 2.3rem), 5.5vh);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -6645,14 +6748,16 @@ body.vsl-active .hero-vsl {
 .quiz-nav-buttons .btn-primary {
     background: var(--cyan);
     color: #06120F;
-    box-shadow: 0 14px 30px -12px rgba(0, 184, 212, 0.45);
+    box-shadow: none;
     border: none;
 }
 
+/* Inverted hover: button goes dark, label takes the accent color. The inset
+   ring (not a border) keeps the shape defined without a 1px layout shift. */
 .quiz-nav-buttons .btn-primary:hover {
-    background: #2DF0D8;
-    color: #06120F;
-    box-shadow: 0 20px 40px -14px rgba(0, 184, 212, 0.55);
+    background: #06120F;
+    color: var(--cyan);
+    box-shadow: inset 0 0 0 1px var(--cyan);
     transform: translateY(-2px);
 }
 
@@ -6756,7 +6861,7 @@ body.vsl-active .hero-vsl {
 }
 
 .quiz-inline-card .success-title {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-heading);
     font-size: clamp(1.8rem, 2.5vw, 2.2rem);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -6782,10 +6887,6 @@ body.vsl-active .hero-vsl {
     gap: 0.75rem;
     max-width: 440px;
     margin: 0 auto 2rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 1.25rem;
 }
 
 .quiz-inline-card .success-detail-item {
@@ -6977,31 +7078,26 @@ body.vsl-active .hero-vsl {
 }
 
 .home-about .feature-marker {
-    display: inline-block;
-    width: 28px;
-    height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-    transition: background 0.3s ease, width 0.3s ease;
-}
-
-.home-about .about-feature:hover .feature-marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.65rem;
+    height: 0.65rem;
     background: var(--cyan);
-    width: 38px;
-}
-
-.home-about .about-feature:hover {
-    color: var(--text-primary);
+    border-radius: 1px;
+    flex-shrink: 0;
+    transform: rotate(45deg);
 }
 
 .home-about .about-feature {
-    transition: color 0.3s ease;
+    align-items: center;
 }
 
 .home-about-btn {
     min-width: 250px;
     font-size: 0.98rem;
     padding: 1.25rem 2.4rem;
+    background: var(--bg-secondary);
 }
 
 /* Right column — editorial report stats, now as hoverable cards */
@@ -7036,9 +7132,9 @@ body.vsl-active .hero-vsl {
     background: linear-gradient(180deg, var(--row-accent), color-mix(in srgb, var(--row-accent) 10%, transparent));
 }
 
-.home-about-stat:nth-child(1) { --row-accent: #5EA8FF; } /* light sky blue */
-.home-about-stat:nth-child(2) { --row-accent: #3B82F6; } /* azure blue */
-.home-about-stat:nth-child(3) { --row-accent: #1E5FE0; } /* deep royal blue */
+.home-about-stat:nth-child(1) { --row-accent: #0866FF; } /* Meta blue */
+.home-about-stat:nth-child(2) { --row-accent: #4285F4; } /* Google blue */
+.home-about-stat:nth-child(3) { --row-accent: #00b8d4; } /* Adzio cyan */
 
 .home-about-stat:hover {
     border-color: color-mix(in srgb, var(--row-accent) 40%, transparent);

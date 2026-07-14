@@ -4,7 +4,7 @@
    ============================================ */
 
 .services-page-main {
-    padding-top: 80px;
+    padding-top: 0;
     overflow-x: clip;
 }
 
@@ -16,20 +16,18 @@
     z-index: 1;
 }
 
-.svc-hero .svc-shell {
-    padding-left: clamp(140px, 9.5vw, 190px);
-}
-
 /* Shared accent tokens (overridden per service) */
 .svc-detail {
     --svc: #0ea5e9;
     --svc-bright: #38bdf8;
     --svc-rgb: 14, 165, 233;
 }
-.svc-detail[data-accent="teal"]   { --svc: #0d9488; --svc-bright: #00b8d4; --svc-rgb: 0, 184, 212; }
-.svc-detail[data-accent="blue"]   { --svc: #1d4ed8; --svc-bright: #3b82f6; --svc-rgb: 59, 130, 246; }
-.svc-detail[data-accent="amber"]  { --svc: #d97706; --svc-bright: #fbbf24; --svc-rgb: 251, 191, 36; }
-.svc-detail[data-accent="purple"] { --svc: #7c3aed; --svc-bright: #a78bfa; --svc-rgb: 167, 139, 250; }
+/* Per-service accents match the home-page service-card highlight colors,
+   applied top→bottom: Meta blue → Google blue → Adzio cyan → Instagram magenta */
+.svc-detail[data-accent="teal"]   { --svc: #0866FF; --svc-bright: #4d8bff; --svc-rgb: 8, 102, 255; }
+.svc-detail[data-accent="blue"]   { --svc: #4285F4; --svc-bright: #6ba1f7; --svc-rgb: 66, 133, 244; }
+.svc-detail[data-accent="amber"]  { --svc: #00b8d4; --svc-bright: #33d6ee; --svc-rgb: 0, 184, 212; }
+.svc-detail[data-accent="purple"] { --svc: #7F00FF; --svc-bright: #a64dff; --svc-rgb: 127, 0, 255; }
 
 /* ============================================
    HERO
@@ -50,10 +48,8 @@
     inset: -120px -10% 0;
     background:
         radial-gradient(ellipse 45% 42% at 62% 18%, rgba(0, 184, 212, 0.16), transparent 64%),
-        radial-gradient(ellipse 35% 30% at 88% 54%, rgba(244, 199, 107, 0.08), transparent 68%),
-        linear-gradient(90deg, rgba(0, 184, 212, 0.08) 0 1px, transparent 1px 100%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 100%);
-    background-size: auto, auto, 88px 88px, 88px 88px;
+        radial-gradient(ellipse 35% 30% at 88% 54%, rgba(244, 199, 107, 0.08), transparent 68%);
+    background-size: auto, auto;
     mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.72) 52%, transparent 100%);
     opacity: 0.72;
     pointer-events: none;
@@ -162,7 +158,9 @@
     border-radius: 8px;
 }
 
+/* Hide command center graphic and stats */
 .svc-command-center {
+    display: none !important;
     position: relative;
     min-height: auto;
     padding: clamp(1rem, 1.5vw, 1.25rem);
@@ -357,6 +355,79 @@
 
 /* Stat band */
 .svc-stats {
+    display: none !important;
+}
+
+.svc-hero-layout {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+}
+
+.svc-hero-inner {
+    text-align: center;
+    max-width: 900px !important;
+}
+
+.svc-hero-title {
+    max-width: none;
+}
+
+.svc-hero-title-line {
+    display: block;
+}
+
+.svc-title-booked,
+.svc-title-revenue {
+    display: block;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.svc-title-booked {
+    background-image: linear-gradient(120deg, #57c7d4, #8fe3d9);
+}
+
+.svc-title-revenue {
+    background-image: linear-gradient(120deg, #00b8d4, #57c7d4);
+}
+
+@media (min-width: 1001px) {
+    .svc-hero-title-line {
+        white-space: nowrap;
+    }
+}
+
+.svc-hero-lead {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.svc-hero-cta {
+    justify-content: center;
+}
+
+.logo-slider {
+    margin-top: 1.5rem !important;
+}
+
+.svc-platform-heading {
+    gap: 0.35em;
+    font-size: clamp(0.85rem, 1.15vw, 1.05rem);
+    letter-spacing: 0.16em;
+}
+
+.svc-platform-heading::before,
+.svc-platform-heading::after {
+    display: none;
+}
+
+.svc-platform-heading > span {
+    color: var(--cyan);
+}
+
+/* Hidden stats backup */
+.svc-stats-hidden {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
@@ -427,6 +498,23 @@
 .svc-detail--reverse .svc-copy { order: 2; }
 .svc-detail--reverse .svc-visual { order: 1; }
 
+/* Enlarge each service copy block without changing its grid position. */
+.svc-copy.animate-on-scroll {
+    scale: 1.08;
+    transform-origin: left top;
+}
+
+.svc-detail--reverse .svc-copy.animate-on-scroll {
+    transform-origin: right top;
+}
+
+@media (min-width: 1001px) {
+    #social-media-management .svc-copy {
+        position: relative;
+        left: 120px;
+    }
+}
+
 /* Bigger type / breathing room now that the columns are wider */
 .svc-index {
     display: inline-flex;
@@ -488,21 +576,26 @@
     background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 11px no-repeat,
         linear-gradient(135deg, var(--svc-bright), var(--svc));
-    box-shadow: 0 0 12px rgba(var(--svc-rgb), 0.45);
+    box-shadow: none;
 }
 
-/* Themed CTA per service */
+/* Themed CTA per service — single flat color, no gradient, no glow */
 .svc-cta.btn-primary {
-    background: linear-gradient(135deg, var(--svc) 0%, color-mix(in srgb, var(--svc) 60%, #000) 100%);
+    background: var(--svc);
     color: #051014;
-    box-shadow: 0 6px 24px rgba(var(--svc-rgb), 0.34);
+    box-shadow: none;
+}
+
+/* Kill the diagonal white sheen so the fill stays one even color */
+.svc-cta.btn-primary::before {
+    display: none;
 }
 
 .svc-cta.btn-primary:hover {
     background: var(--bg-primary);
     color: var(--svc-bright);
     border-color: var(--svc);
-    box-shadow: 0 0 24px rgba(var(--svc-rgb), 0.4);
+    box-shadow: none;
 }
 
 /* ============================================
@@ -512,6 +605,83 @@
 .svc-visual {
     position: relative;
     padding: 1.5rem 0;
+}
+
+/* Real founder social case studies, stacked in the visual column */
+.svc-proof-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.svc-proof-stack .abt-proof-card {
+    padding: clamp(20px, 2vw, 28px);
+}
+
+.svc-proof-stack .abt-proof-card--cyan {
+    top: -14px;
+}
+
+.svc-proof-stack .abt-proof-feed {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Compact social proof metrics in the unused profile-header space. */
+.svc-proof-stack .svc-proof-stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: clamp(10px, 1.5vw, 20px);
+    margin-left: auto;
+    text-align: center;
+}
+
+.svc-proof-stack .svc-proof-stat {
+    min-width: 78px;
+}
+
+.svc-proof-stack .svc-proof-stat + .svc-proof-stat {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: clamp(10px, 1.5vw, 20px);
+}
+
+.svc-proof-stack .svc-proof-stat strong {
+    display: block;
+    color: var(--text-primary);
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(1.15rem, 1.45vw, 1.35rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.svc-proof-stack .svc-proof-stat span {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+@media (max-width: 540px) {
+    .svc-proof-stack .abt-proof-head {
+        flex-wrap: wrap;
+    }
+
+    .svc-proof-stack .svc-proof-stats {
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        margin-left: 0;
+        margin-top: 4px;
+    }
+
+    .svc-proof-stack .svc-proof-stat {
+        min-width: 0;
+    }
 }
 
 .svc-card {
@@ -935,11 +1105,14 @@
 
 /* Website — browser redesign */
 .svc-card--web {
-    padding: 22px;
+    padding: 0;
     min-height: 360px;
     position: relative;
-    max-width: 720px;
+    max-width: 860px;
     margin: 0 0 0 auto;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .svc-card--google {
@@ -948,11 +1121,12 @@
 }
 
 .svc-browser {
-    border-radius: 18px;
+    border-radius: 14px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 0;
     background: linear-gradient(180deg, rgba(12, 18, 24, 0.96), rgba(8, 12, 16, 0.96));
     width: 100%;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.48);
 }
 
 .svc-browser-bar {
@@ -977,12 +1151,23 @@
 }
 
 .svc-browser-secure {
-    font-size: 0.72rem;
     opacity: 0.5;
     margin-left: 4px;
 }
 
+.svc-browser-secure svg {
+    display: block;
+    width: 13px;
+    height: 13px;
+}
+
 .svc-browser-body { padding: 0; line-height: 0; overflow: hidden; }
+
+/* The new website creative already has clean edge-to-edge artwork. */
+.svc-browser-body > img {
+    width: 100% !important;
+    margin: 0 !important;
+}
 
 .svc-web-hero {
     border-radius: 14px;
@@ -1486,7 +1671,7 @@
 
 .services-cta-shell {
     position: relative;
-    max-width: 820px;
+    max-width: 1100px;
     margin: 0 auto;
     text-align: center;
 }
@@ -1509,15 +1694,22 @@
     line-height: 1.7;
 }
 
+@media (min-width: 769px) {
+    .services-cta-shell h2 {
+        max-width: none;
+        white-space: nowrap;
+    }
+
+    .services-cta-shell .quiz-step-title {
+        white-space: nowrap;
+    }
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */
 
 @media (max-width: 1000px) {
-    .svc-hero .svc-shell {
-        padding-left: clamp(22px, 4vw, 72px);
-    }
-
     .svc-hero {
         padding-top: 1.5rem;
     }

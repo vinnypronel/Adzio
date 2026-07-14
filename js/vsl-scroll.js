@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // is 1:1 bound to the scroll position and runs on the compositor.
         const ease = (t) => 1 - (1 - t) * (1 - t); // easeOutQuad, front-loads the dock
 
-        let startTop = 0, startLeft = 0, startW = 0, scaleTo = 1, dx = 0, dy = 0;
+        let startTop = 0, startLeft = 0, startW = 0, startH = 0, scaleTo = 1, dx = 0, dy = 0;
 
         function capture() {
             // Reset to natural flow, measure, then pin as a fixed layer.
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // if we re-capture while scrolled (e.g. on resize).
             startTop = r.top + window.scrollY;
             startLeft = r.left;
-            const startH = r.height || (startW * 9) / 16;
+            startH = r.height || (startW * 9) / 16;
 
             // Hold the grid cell open so the layout below doesn't jump.
             vslContainer.style.height = startH + 'px';
@@ -103,6 +103,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = (CONTENT_SHIFT * fp).toFixed(1) + 'px';
             if (heroTitle) heroTitle.style.transform = 'translate3d(0,' + y + ',0)';
             if (heroCta) heroCta.style.transform = 'translate3d(0,' + y + ',0)';
+
+            // Published for the silk background (js/silk-bg.js): dock progress
+            // and the video's current viewport rect, so the silk can carve a
+            // pocket around it and flood the space it vacates.
+            window._vslProgress = fp;
+            window._vslRect = {
+                x: startLeft + dx * fp,
+                y: startTop + dy * fp,
+                w: startW * s,
+                h: startH * s
+            };
         }
 
         let ticking = false;
@@ -211,6 +222,17 @@ document.addEventListener('DOMContentLoaded', () => {
             opacity: 1 - (0.28 * progress),
             transformOrigin: 'top right'
         });
+
+        // Published for the silk background (js/silk-bg.js). The element is
+        // corner-anchored (fixed top/right) for the whole scrub, so its
+        // viewport rect is fully described by the current size.
+        window._vslProgress = progress;
+        window._vslRect = {
+            x: window.innerWidth - config.pipRight - curW,
+            y: config.pipTop,
+            w: curW,
+            h: curH
+        };
     };
 
     // Create the ScrollTrigger

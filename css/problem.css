@@ -292,7 +292,7 @@
 }
 
 .pain-heading {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-heading);
     font-size: clamp(1.8rem, 3.4vw, 3rem);
     font-weight: 800;
     line-height: 1.1;
@@ -302,6 +302,11 @@
 
 .pain-heading em {
     font-style: normal;
+}
+
+/* Keep "right now" together so it wraps to its own line as one unit */
+.pain-heading em.nowrap {
+    white-space: nowrap;
 }
 
 .pain-body {
@@ -880,11 +885,24 @@
 .problem-card .icon-ring {
     width: clamp(96px, 9vw, 130px);
     height: clamp(96px, 9vw, 130px);
+    flex-shrink: 0;
 }
 
 .problem-card .pain-tag {
     font-size: 0.82rem;
     margin-bottom: 8px;
+}
+
+/* Ensure pain-visual is perfectly centered */
+.problem-card .pain-visual {
+    align-self: center;
+    flex-shrink: 0;
+}
+
+/* Shift right-side paragraphs in top and bottom cards */
+#problem-card-time .pain-body,
+#problem-card-competition .pain-body {
+    margin-left: 160px;
 }
 
 /* Mobile: single column, restore normal sizes */
@@ -1050,8 +1068,10 @@
     position: relative;
     right: auto;
     bottom: auto;
-    width: auto;
-    max-width: clamp(220px, 22vw, 300px);
+    /* Full width of .problem-spotlight-copy, which shrink-wraps to the widest
+       title line (CUSTOMERS) — so the box is exactly as wide as that word. */
+    width: 100%;
+    max-width: none;
     margin: clamp(20px, 3vh, 32px) 0 0 0;
     background: none;
     border: none;
@@ -1121,7 +1141,7 @@
     padding: 0;
     margin: 0;
     color: var(--teal);
-    font-size: clamp(0.68rem, 0.9vw, 0.78rem);
+    font-size: clamp(0.85rem, 1.15vw, 1rem);
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -1138,11 +1158,15 @@
 }
 
 .problem-spotlight .s4-card .s4-card-desc {
-    font-size: clamp(0.8rem, 1vw, 0.9rem);
+    /* Box is now much wider (matches CUSTOMERS), so the copy can be a lot larger
+       while wrapping to the same line count — line-height kept tight so the
+       card's vertical height is unchanged. */
+    font-size: clamp(1.05rem, 1.35vw, 1.35rem);
     font-weight: 300;
     color: white;
     line-height: 1.7;
     margin: 0;
+    text-align: left;
 }
 
 .problem-card-grid {
@@ -1281,59 +1305,59 @@
 }
 
 #problem-card-time {
-    --card-accent: var(--pain-gold);
+    --card-accent: #0866FF;
 }
 
 #problem-card-time .pain-tag {
-    color: var(--pain-gold);
+    color: var(--card-accent);
 }
 
 #problem-card-time .pain-heading em {
-    color: var(--pain-gold);
+    color: var(--card-accent);
 }
 
 #problem-card-time .icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(217, 164, 65, 0.38) 0%, rgba(217, 164, 65, 0.14) 58%, transparent 100%);
-    color: var(--pain-gold);
-    box-shadow: 0 0 64px -14px rgba(217, 164, 65, 0.6);
+    background: radial-gradient(circle at 50% 32%, rgba(8, 102, 255, 0.36) 0%, rgba(8, 102, 255, 0.12) 58%, transparent 100%);
+    color: var(--card-accent);
+    box-shadow: 0 0 64px -14px rgba(8, 102, 255, 0.58);
     width: clamp(96px, 9vw, 130px);
     height: clamp(96px, 9vw, 130px);
 }
 
 
 #problem-card-budget {
-    --card-accent: var(--red);
+    --card-accent: #4285F4;
 }
 
 #problem-card-budget .pain-tag {
-    color: var(--red);
+    color: var(--card-accent);
 }
 
 #problem-card-budget .pain-heading em {
-    color: var(--red);
+    color: var(--card-accent);
 }
 
 #problem-card-budget .icon-ring {
-    background: radial-gradient(circle at 50% 32%, rgba(255, 77, 77, 0.36) 0%, rgba(255, 77, 77, 0.12) 58%, transparent 100%);
-    color: var(--red);
-    box-shadow: 0 0 64px -14px rgba(255, 77, 77, 0.58);
+    background: radial-gradient(circle at 50% 32%, rgba(66, 133, 244, 0.36) 0%, rgba(66, 133, 244, 0.12) 58%, transparent 100%);
+    color: var(--card-accent);
+    box-shadow: 0 0 64px -14px rgba(66, 133, 244, 0.58);
 }
 
 #problem-card-competition {
-    --card-accent: var(--teal);
+    --card-accent: #00b8d4;
 }
 
 #problem-card-competition .pain-tag {
-    color: var(--teal);
+    color: var(--card-accent);
 }
 
 #problem-card-competition .pain-heading em {
-    color: var(--teal);
+    color: var(--card-accent);
 }
 
 #problem-card-competition .icon-ring {
     background: radial-gradient(circle at 50% 32%, rgba(0, 184, 212, 0.36) 0%, rgba(0, 184, 212, 0.12) 58%, transparent 100%);
-    color: var(--teal);
+    color: var(--card-accent);
     box-shadow: 0 0 64px -14px rgba(0, 184, 212, 0.6);
     width: clamp(96px, 9vw, 130px);
     height: clamp(96px, 9vw, 130px);
@@ -1472,6 +1496,7 @@
         grid-column: auto !important;
         grid-row: auto !important;
         text-align: center !important;
+        margin-left: 0 !important;
     }
 
     .problem-card .pain-visual {

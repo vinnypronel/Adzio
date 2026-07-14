@@ -124,7 +124,7 @@ function initProblemSection() {
     iconHosts.forEach(host => {
         ScrollTrigger.create({
             trigger: host,
-            start: 'top 50%',
+            start: 'top 85%',
             onEnter: () => restartIconAnimation(host, '.icon-ring'),
             onEnterBack: () => restartIconAnimation(host, '.icon-ring'),
             onLeave: () => {
@@ -229,10 +229,10 @@ function initProcessSection() {
 
     const glowColors = [
         'radial-gradient(circle, rgba(0, 184, 212,0.06) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(74,184,255,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(0,214,143,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(0,214,143,0.08) 0%, transparent 65%)'
+        'radial-gradient(circle, rgba(8,102,255,0.08) 0%, transparent 65%)',
+        'radial-gradient(circle, rgba(66,133,244,0.08) 0%, transparent 65%)',
+        'radial-gradient(circle, rgba(0,184,212,0.08) 0%, transparent 65%)',
+        'radial-gradient(circle, rgba(127,0,255,0.08) 0%, transparent 65%)'
     ];
 
     function setActivePip(i) {
@@ -370,6 +370,11 @@ function initProcessSection() {
             if (leftEls.length) {
                 gsap.set(leftEls, { opacity: 0, x: -150, force3D: true });
             }
+            // Keep the section title on screen while the panel enters the
+            // viewport, so the pre-pin handoff never becomes a blank screen.
+            if (labelEl) {
+                gsap.set(labelEl, { opacity: 1, x: 0, force3D: true });
+            }
             if (rightGroup) {
                 gsap.set(rightGroup, { opacity: 0, x: 150, force3D: true });
             }
@@ -390,7 +395,7 @@ function initProcessSection() {
             // draws across to connect them. The snap below rests the deck on the
             // title alone, so the rest reveal one-by-one as scrolling continues.
             if (labelEl) {
-                tl.fromTo(labelEl, { opacity: 0, x: -150 },
+                tl.fromTo(labelEl, { opacity: 1, x: 0 },
                     { opacity: 1, x: 0, ease: 'power2.out', duration: 0.24 }, 0.00);
             }
             if (subheadEl) {
@@ -481,10 +486,27 @@ function initProcessSection() {
             scrub: 0.08,
             animation: tl,
             onUpdate: self => {
+                // Visibility is derived directly from this same scrub progress
+                // (rather than from separate onEnter/onLeave/onEnterBack/onLeaveBack
+                // callbacks) so it can never drift out of sync with the timeline
+                // driving the actual content opacity. The old discrete-event
+                // version could leave a slide's wrapper hidden while its content
+                // had already scrubbed to partial/full opacity (or vice versa) —
+                // most visible when scrolling back UP fast, where every slide's
+                // wrapper ended up hidden at once, i.e. the deck going fully blank.
+                // The overview title is the visual bridge into the pinned deck,
+                // so slide 0 remains visible at zero progress while the panel is
+                // approaching the viewport. Later slides still hide outside their
+                // active scroll ranges.
+                const isVisible = si === 0
+                    ? self.progress < 1
+                    : self.progress > 0 && self.progress < 1;
+                wrapper.style.visibility = isVisible ? 'visible' : 'hidden';
+
                 if (si === 0) return;
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (!icon) return;
-                
+
                 const threshold = 0.28;
                 if (self.progress >= threshold) {
                     if (!icon.classList.contains('icon-animate')) {
@@ -494,23 +516,13 @@ function initProcessSection() {
                     icon.classList.remove('icon-animate');
                 }
             },
-            onEnter: () => {
-                wrapper.style.visibility = 'visible';
-                setActivePip(si);
-            },
-            onEnterBack: () => {
-                wrapper.style.visibility = 'visible';
-                setActivePip(si);
-            },
+            onEnter: () => setActivePip(si),
+            onEnterBack: () => setActivePip(si),
             onLeave: () => {
-                wrapper.style.visibility = 'hidden';
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
             },
             onLeaveBack: () => {
-                if (si > 0) {
-                    wrapper.style.visibility = 'hidden';
-                }
                 const icon = wrapper.querySelector('.process-icon-ring');
                 if (icon) icon.classList.remove('icon-animate');
             },

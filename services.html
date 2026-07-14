@@ -1,3 +1,4 @@
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,13 +16,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/styles.css?v=249.0">
+    <link rel="stylesheet" href="css/styles.css?v=258.0">
     <link rel="stylesheet" href="css/animations.css?v=40.0">
-    <link rel="stylesheet" href="css/services-page.css?v=11.0">
+    <link rel="stylesheet" href="css/services-page.css?v=28.0">
+    <link rel="stylesheet" href="css/about-page.css?v=1.0">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -30,7 +32,13 @@
 
 <body>
     <!-- Page load veil -->
-    <div class="page-veil" aria-hidden="true"><img src="assets/logo.png" alt="" class="veil-logo"></div>
+    <div class="page-veil" aria-hidden="true">
+        <div class="veil-content">
+            <img src="assets/logo.png" alt="" class="veil-logo">
+            <div class="veil-loader"><span class="veil-progress-fill"></span></div>
+            <span class="veil-percent">0%</span>
+        </div>
+    </div>
 
     <div class="nav-wrap" id="navWrap" data-nav-rest="center" data-nav-fixed-side="true">
         <div class="nav-svg-container" id="navContainer">
@@ -76,16 +84,6 @@
                             </div>
                         </div>
                     </a>
-                    <a href="index.html#contact" class="nav-item" data-section="contact">
-                        <div class="nav-item-inner">
-                            <div class="slide-hover"><span class="nav-label">Contact</span>
-                                <div class="nav-dot"></div>
-                            </div>
-                            <div class="slide-rest">
-                                <div class="nav-dot"></div><span class="nav-label">Contact</span>
-                            </div>
-                        </div>
-                    </a>
                     <a href="index.html#contact" class="nav-item nav-item--cta">
                         <div class="nav-item-inner">
                             <div class="slide-hover">
@@ -116,10 +114,11 @@
                     <div class="svc-hero-inner">
                         <div class="hero-eyebrow animate-on-scroll">
                             <span>Adzio</span>
-                            <span class="hero-eyebrow-dot" aria-hidden="true"></span>
                         </div>
                         <h1 class="svc-hero-title animate-on-scroll">
-                            Growth systems for <span class="text-gradient">booked local revenue.</span>
+                            <span class="svc-hero-title-line">Growth systems for</span>
+                            <span class="svc-hero-title-line svc-title-booked">booked local</span>
+                            <span class="svc-hero-title-line svc-title-revenue">revenue.</span>
                         </h1>
                         <p class="svc-hero-lead animate-on-scroll">
                             Ads, websites, content, and follow-up managed as one senior-run system for local businesses.
@@ -178,20 +177,6 @@
                     </div>
                 </div>
 
-                <div class="svc-trust animate-on-scroll">
-                    <span class="svc-trust-label">Platforms &amp; tools we run every day</span>
-                    <div class="svc-trust-logos">
-                        <img src="business-logos/meta.png" alt="Meta">
-                        <img src="business-logos/google.png" alt="Google">
-                        <img src="business-logos/shopify.png" alt="Shopify">
-                        <img src="business-logos/stripe.png" alt="Stripe">
-                        <img src="business-logos/hubspot.png" alt="HubSpot">
-                        <img src="business-logos/salesforce.png" alt="Salesforce">
-                        <img src="business-logos/notion.png" alt="Notion">
-                        <img src="business-logos/slack.png" alt="Slack">
-                    </div>
-                </div>
-
                 <div class="svc-stats animate-on-scroll">
                     <div class="svc-stat-item">
                         <strong>04</strong>
@@ -213,23 +198,62 @@
             </div>
         </section>
 
+        <!-- Logo Carousel Section -->
+        <section class="logo-slider">
+            <div class="logo-slider-shell">
+                <div class="slider-head">
+                    <span class="eyebrow eyebrow--center svc-platform-heading">Platforms &amp; tools we run <span>every day</span></span>
+                </div>
+
+                <div class="logo-slider-viewport">
+                    <div class="slide-track slide-track-top" data-carousel-row="top">
+                        <div class="slide"><img src="business-logos/google.png" alt="Google"></div>
+                        <div class="slide"><img src="business-logos/meta.png" alt="Meta"></div>
+                        <div class="slide"><img src="business-logos/amazon.png" alt="Amazon"></div>
+                        <div class="slide"><img src="business-logos/microsoft.png" alt="Microsoft"></div>
+                        <div class="slide"><img src="business-logos/apple.png" alt="Apple"></div>
+                        <div class="slide"><img src="business-logos/stripe.png" alt="Stripe"></div>
+                        <div class="slide"><img src="business-logos/shopify.png" alt="Shopify"></div>
+                        <div class="slide"><img src="business-logos/salesforce.png" alt="Salesforce"></div>
+                        <div class="slide"><img src="business-logos/hubspot.png" alt="HubSpot"></div>
+                        <div class="slide"><img src="business-logos/quickbooks.png" alt="QuickBooks"></div>
+                    </div>
+                </div>
+
+                <div class="logo-slider-viewport">
+                    <div class="slide-track slide-track-bottom" data-carousel-row="bottom">
+                        <div class="slide"><img src="business-logos/visa.png" alt="Visa"></div>
+                        <div class="slide"><img src="business-logos/mastercard.png" alt="Mastercard"></div>
+                        <div class="slide"><img src="business-logos/amex.png" alt="American Express"></div>
+                        <div class="slide"><img src="business-logos/ups.png" alt="UPS"></div>
+                        <div class="slide"><img src="business-logos/fedex.png" alt="FedEx"></div>
+                        <div class="slide"><img src="business-logos/square.png" alt="Square"></div>
+                        <div class="slide"><img src="business-logos/paypal.png" alt="PayPal"></div>
+                        <div class="slide"><img src="business-logos/zoom.png" alt="Zoom"></div>
+                        <div class="slide"><img src="business-logos/slack.png" alt="Slack"></div>
+                        <div class="slide"><img src="business-logos/notion.png" alt="Notion"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 01 / Meta Ad Management -->
         <section class="svc-detail" id="ad-management" data-accent="teal">
             <div class="svc-shell">
                 <div class="svc-detail-grid">
                     <div class="svc-copy animate-on-scroll">
                         <div class="svc-index">01 / Meta Ad Management</div>
-                        <h2 class="svc-detail-title">Put your offer in front of buyers ready to act.</h2>
+                        <h2 class="svc-detail-title">Put your offer in front of buyers ready to act</h2>
                         <p class="svc-detail-lead">
                             We build, test, and scale Meta campaigns that find your best customers on Facebook and
                             Instagram, then keep cutting what doesn't work so every dollar pushes toward booked
                             appointments.
                         </p>
                         <ul class="svc-list">
-                            <li>Full-funnel campaign builds with Pixel &amp; Conversions API tracking</li>
                             <li>Continuous testing of hooks, offers, and creative</li>
                             <li>Daily budget pacing, lead-quality, and cost monitoring</li>
                             <li>Clear weekly reporting on what's actually driving results</li>
+                            <li>Full-funnel campaign builds with Pixel &amp; Conversions API tracking</li>
                         </ul>
                         <a href="index.html#contact" class="btn btn-primary svc-cta">
                             <span>Scale My Meta Ads</span>
@@ -241,13 +265,13 @@
                         <div class="svc-ad-grid">
                             <!-- Ad Tile 1: Epoxy Flooring -->
                             <div class="svc-ad-tile">
-                                <img src="assets/epoxy_flooring_ad.png" alt="Epoxy Flooring Ad" class="ad-tile-img">
+                                <img src="assets/epoxy.png" alt="Epoxy Flooring Ad" class="ad-tile-img">
                                 <div class="ad-tile-badge badge--roas">
                                     <span class="badge-lbl">ROAS</span>
                                     <span class="badge-num">6.8x</span>
                                 </div>
                                 <div class="ad-tile-overlay">
-                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active • Scaling</span>
+                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active â€¢ Scaling</span>
                                     <span class="ad-tile-title">Epoxy Flooring</span>
                                     <span class="ad-tile-offer">Get a Free Estimate</span>
                                 </div>
@@ -261,7 +285,7 @@
                                     <span class="badge-num">+380%</span>
                                 </div>
                                 <div class="ad-tile-overlay">
-                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active • Scaling</span>
+                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active â€¢ Scaling</span>
                                     <span class="ad-tile-title">Roof Replacement</span>
                                     <span class="ad-tile-offer">$500 Off New Roof</span>
                                 </div>
@@ -269,13 +293,13 @@
                             
                             <!-- Ad Tile 3: Decks & Patios -->
                             <div class="svc-ad-tile">
-                                <img src="assets/custom_deck_ad.png" alt="Custom Deck Ad" class="ad-tile-img">
+                                <img src="assets/patios.png" alt="Custom Deck Ad" class="ad-tile-img">
                                 <div class="ad-tile-badge badge--roi">
                                     <span class="badge-lbl">ROI</span>
                                     <span class="badge-num">+420%</span>
                                 </div>
                                 <div class="ad-tile-overlay">
-                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active • Scaling</span>
+                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active â€¢ Scaling</span>
                                     <span class="ad-tile-title">Decks &amp; Patios</span>
                                     <span class="ad-tile-offer">Free 3D Deck Design</span>
                                 </div>
@@ -283,13 +307,13 @@
                             
                             <!-- Ad Tile 4: HVAC Services -->
                             <div class="svc-ad-tile">
-                                <img src="assets/hvac_ad.png" alt="HVAC Services Ad" class="ad-tile-img">
+                                <img src="assets/hvac.png" alt="HVAC Services Ad" class="ad-tile-img">
                                 <div class="ad-tile-badge badge--cpl">
                                     <span class="badge-lbl">Cost/Lead</span>
                                     <span class="badge-num">$18.50</span>
                                 </div>
                                 <div class="ad-tile-overlay">
-                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active • Scaling</span>
+                                    <span class="ad-tile-tag"><span class="tag-pulse"></span>Active â€¢ Scaling</span>
                                     <span class="ad-tile-title">A/C &amp; Heating</span>
                                     <span class="ad-tile-offer">Free System Diagnostics</span>
                                 </div>
@@ -309,16 +333,16 @@
                 <div class="svc-detail-grid">
                     <div class="svc-copy animate-on-scroll">
                         <div class="svc-index">02 / Google Ad Management</div>
-                        <h2 class="svc-detail-title">Capture demand the moment people search.</h2>
+                        <h2 class="svc-detail-title">Capture demand the moment people search</h2>
                         <p class="svc-detail-lead">
                             When someone in your area searches for what you sell, we make sure you're the first, most
-                            convincing option, across Google Search, Maps, and Performance Max.
+                            convincing option across Google Search, Maps &amp; Performance Max.
                         </p>
                         <ul class="svc-list">
-                            <li>High-intent Local Search &amp; Google Maps campaigns</li>
-                            <li>Performance Max across YouTube, Display &amp; Gmail</li>
                             <li>Conversion tracking tied to real revenue, not clicks</li>
                             <li>Ongoing keyword, bid, and negative-list refinement</li>
+                            <li>Performance Max across YouTube, Display &amp; Gmail</li>
+                            <li>High-intent Local Search &amp; Google Maps campaigns</li>
                         </ul>
                         <a href="index.html#contact" class="btn btn-primary svc-cta">
                             <span>Win My Local Searches</span>
@@ -344,16 +368,16 @@
                 <div class="svc-detail-grid">
                     <div class="svc-copy animate-on-scroll">
                         <div class="svc-index">03 / Website Development</div>
-                        <h2 class="svc-detail-title">A website built to convert, not just to look good.</h2>
+                        <h2 class="svc-detail-title">A website built to<br>convert, not just<br>to look good</h2>
                         <p class="svc-detail-lead">
-                            We design fast, mobile-first sites engineered around one job: turning the traffic you pay
-                            for into calls, forms, and booked jobs.
+                            We design fast, mobile-first sites engineered around one job: turning<br>
+                            the traffic you pay for into calls, forms, and booked jobs.
                         </p>
                         <ul class="svc-list">
+                            <li>Built to plug straight into your ad campaigns</li>
                             <li>Conversion-first design mapped to your offer</li>
                             <li>Mobile-first builds that load fast and rank well</li>
                             <li>Clear calls-to-action and frictionless booking flows</li>
-                            <li>Built to plug straight into your ad campaigns</li>
                         </ul>
                         <a href="index.html#contact" class="btn btn-primary svc-cta">
                             <span>Build My Website</span>
@@ -369,30 +393,21 @@
                                 <div class="svc-browser-bar">
                                     <span class="svc-dot" style="background:#ff5f57"></span>
                                     <span class="svc-dot" style="background:#febc2e"></span>
-                                    <span class="svc-dot svc-dot--accent"></span>
+                                    <span class="svc-dot" style="background:#28c840"></span>
                                     <div class="svc-url">yourbusiness.com/book</div>
-                                    <span class="svc-browser-secure">🔒</span>
+                                    <span class="svc-browser-secure" aria-label="Secure website">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                                            <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                                        </svg>
+                                    </span>
                                 </div>
                                 <div class="svc-browser-body">
-                                    <img src="assets/contractor_website_mockup.png" alt="High-Converting Contractor Website Design" style="width: 100%; height: auto; display: block;">
+                                    <img src="assets/premium-contractor-hero.png" alt="Premium Contractor Website Hero Design" style="width: 100%; height: auto; display: block;">
                                 </div>
                             </div>
 
-                            <!-- Floating conversion metric -->
-                            <div class="svc-web-metric-chip">
-                                <div class="svc-web-metric-icon">📈</div>
-                                <div>
-                                    <strong>+312%</strong>
-                                    <span>Conversion rate lift</span>
-                                </div>
-                            </div>
 
-                            <!-- Mobile preview pill -->
-                            <div class="svc-web-mobile-pill">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
-                                <span>Mobile-first &amp; fast</span>
-                                <div class="svc-web-speed">98</div>
-                            </div>
 
                         </div>
                         <div class="svc-float-chip svc-float-chip--a">
@@ -409,16 +424,16 @@
                 <div class="svc-detail-grid">
                     <div class="svc-copy animate-on-scroll">
                         <div class="svc-index">04 / Social Media Management</div>
-                        <h2 class="svc-detail-title">Look credible and worth choosing, before the first call.</h2>
+                        <h2 class="svc-detail-title">Look credible and<br>worth choosing<br>before the first call</h2>
                         <p class="svc-detail-lead">
                             We run the content that makes your brand look alive and trustworthy, so the leads our ads
                             send you are already sold by the time they reach you.
                         </p>
                         <ul class="svc-list">
-                            <li>A content calendar built around your offers and seasonality</li>
-                            <li>Branded reels, posts, and graphics that match your ads</li>
-                            <li>Consistent posting that keeps you visible between campaigns</li>
                             <li>Community-ready content that builds local trust</li>
+                            <li>Branded reels, posts, and graphics that match your ads</li>
+                            <li>A content calendar built around your offers and seasonality</li>
+                            <li>Consistent posting that keeps you visible between campaigns</li>
                         </ul>
                         <a href="index.html#contact" class="btn btn-primary svc-cta">
                             <span>Plan My Content</span>
@@ -426,12 +441,133 @@
                         </a>
                     </div>
 
-                    <div class="svc-visual animate-on-scroll">
-                        <div class="svc-card svc-card--social" style="padding: 0; overflow: hidden;">
-                            <img src="assets/instagram_contractor_mockup.png" alt="Instagram Contractor Social Feed Mockup" style="width: 100%; height: auto; display: block;">
+                    <div class="svc-visual svc-proof-stack animate-on-scroll">
+                        <div class="abt-proof-card abt-proof-card--cyan">
+                            <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
+                                <div class="abt-proof-head">
+                                    <div class="abt-proof-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="abt-proof-meta">
+                                        <span class="abt-proof-handle">@carsbydevyn</span>
+                                        <span class="abt-proof-by">Built by Devyn</span>
+                                    </div>
+                                    <div class="svc-proof-stats" aria-label="Cars by Devyn social media results">
+                                        <div class="svc-proof-stat"><strong>12.8K</strong><span>Followers</span></div>
+                                        <div class="svc-proof-stat"><strong>4.3K</strong><span>Avg. Likes</span></div>
+                                        <div class="svc-proof-stat"><strong>84K</strong><span>Monthly Reach</span></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="abt-proof-feed">
+                                <a href="https://www.instagram.com/reel/DWxJXIFje5G/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                    <img src="assets/instagram/carsbydevyn/ig-1.jpg" alt="Instagram Post" loading="lazy">
+                                    <div class="abt-feed-overlay">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/reel/DNv8_0UZAbW/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                    <img src="assets/instagram/carsbydevyn/ig-2.jpg" alt="Instagram Post" loading="lazy">
+                                    <div class="abt-feed-overlay">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/reel/DQLBExQDFhH/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                    <img src="assets/instagram/carsbydevyn/ig-3.jpg" alt="Instagram Post" loading="lazy">
+                                    <div class="abt-feed-overlay">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-cta">
+                                <span>View the page</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
                         </div>
-                        <div class="svc-float-chip svc-float-chip--a">
-                            <img src="business-logos/meta.png" alt="Meta"><span>Reels &amp; Posts</span>
+
+                        <div class="abt-proof-card abt-proof-card--purple">
+                            <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
+                                <div class="abt-proof-head">
+                                    <div class="abt-proof-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="abt-proof-meta">
+                                        <span class="abt-proof-handle">@twanwhips</span>
+                                        <span class="abt-proof-by">Built by Anton</span>
+                                    </div>
+                                    <div class="svc-proof-stats" aria-label="Twan Whips social media results">
+                                        <div class="svc-proof-stat"><strong>9.4K</strong><span>Followers</span></div>
+                                        <div class="svc-proof-stat"><strong>3.7K</strong><span>Avg. Likes</span></div>
+                                        <div class="svc-proof-stat"><strong>61K</strong><span>Monthly Reach</span></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="abt-proof-feed">
+                                <a href="https://www.instagram.com/p/DYcjQhgNava/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                    <img src="assets/instagram/twanwhips/ig-1.jpg" alt="Instagram Post" loading="lazy">
+                                    <div class="abt-feed-overlay">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/p/DQzRIX1jaH0/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                    <img src="assets/instagram/twanwhips/ig-2.jpg" alt="Instagram Post" loading="lazy">
+                                    <div class="abt-feed-overlay">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/p/DZLemaPBNVF/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                                    <img src="assets/instagram/twanwhips/ig-3.jpg" alt="Instagram Post" loading="lazy">
+                                    <div class="abt-feed-overlay">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-cta">
+                                <span>View the page</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
                         </div>
                     </div>
 
@@ -537,11 +673,11 @@
                                     <label for="revenue">Business Monthly Revenue <span class="label-required">*</span></label>
                                     <select id="revenue" name="revenue" required>
                                         <option value="">Select your revenue range</option>
-                                        <option value="5k-10k">$5,000 – $10,000 (We can't work with you)</option>
-                                        <option value="10k-25k">$10,000 – $25,000</option>
-                                        <option value="25k-50k">$25,000 – $50,000</option>
-                                        <option value="50k-100k">$50,000 – $100,000</option>
-                                        <option value="100k-200k">$100,000 – $200,000</option>
+                                        <option value="5k-10k">$5,000 â€“ $10,000 (We can't work with you)</option>
+                                        <option value="10k-25k">$10,000 â€“ $25,000</option>
+                                        <option value="25k-50k">$25,000 â€“ $50,000</option>
+                                        <option value="50k-100k">$50,000 â€“ $100,000</option>
+                                        <option value="100k-200k">$100,000 â€“ $200,000</option>
                                         <option value="200k+">$200,000+</option>
                                     </select>
                                 </div>
@@ -689,11 +825,12 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=3"></script>
+    <script src="js/footer.js?v=4"></script>
 
     <script src="js/inbox-animation-data.js?v=1007"></script>
     <script src="js/phone-animation-data.js?v=1007"></script>
     <script src="js/main.js?v=51.1"></script>
+    <script src="js/silk-bg.js?v=1"></script>
 
     <script>
         (function () {

@@ -284,70 +284,40 @@ function waitForCarouselImages(slider) {
     }));
 }
 
-// Hover: pause carousel + scale hovered logo
-// Only the row that contains the hovered logo is paused - the other row keeps running.
+// Hover: scale/reveal color on the hovered logo, without pausing the scroll
 function initCarouselHover() {
     const slider = document.querySelector('.logo-slider');
     if (!slider) return;
 
     let activeSlide = null;
-    let activeTrack = null;
 
-    function releaseActive() {
+    slider.addEventListener('mouseleave', () => {
         if (activeSlide) {
             activeSlide.classList.remove('is-hovered');
+            activeSlide = null;
         }
-
-        if (activeTrack) {
-            activeTrack.dataset.hoverPaused = 'false';
-        }
-
-        if (activeTrack && !activeTrack.classList.contains('is-paused-offscreen')) {
-            activeTrack.style.animationPlayState = 'running';
-        }
-
-        activeSlide = null;
-        activeTrack = null;
-    }
-
-    function activateSlide(slide) {
-        const track = slide.closest('.slide-track');
-        if (!track) return;
-
-        if (activeSlide === slide && activeTrack === track) return;
-        releaseActive();
-
-        activeSlide = slide;
-        activeTrack = track;
-        activeSlide.classList.add('is-hovered');
-        activeTrack.dataset.hoverPaused = 'true';
-        activeTrack.style.animationPlayState = 'paused';
-    }
+    });
 
     slider.addEventListener('mouseover', (event) => {
         const slide = event.target.closest('.slide');
-        if (!slide || !slider.contains(slide)) return;
-        activateSlide(slide);
+        if (!slide || !slider.contains(slide) || activeSlide === slide) return;
+
+        if (activeSlide) activeSlide.classList.remove('is-hovered');
+        activeSlide = slide;
+        activeSlide.classList.add('is-hovered');
     });
 
     slider.addEventListener('mouseout', (event) => {
         const slide = event.target.closest('.slide');
-        if (!slide || !slider.contains(slide)) return;
+        if (!slide || !slider.contains(slide) || activeSlide !== slide) return;
 
         const nextSlide = event.relatedTarget && event.relatedTarget.closest
             ? event.relatedTarget.closest('.slide')
             : null;
+        if (nextSlide && slider.contains(nextSlide)) return;
 
-        if (nextSlide && slider.contains(nextSlide)) {
-            activateSlide(nextSlide);
-            return;
-        }
-
-        releaseActive();
-    });
-
-    slider.addEventListener('mouseleave', () => {
-        releaseActive();
+        activeSlide.classList.remove('is-hovered');
+        activeSlide = null;
     });
 }
 
@@ -532,6 +502,22 @@ function initVSLPlayer() {
 
     // Close modal when video ends
     vslModalVideo.addEventListener('ended', closeModal);
+
+    // ── Keep the pinned/PiP thumbnail CONSTANTLY playing ──
+    // It's muted+loop+autoplay, but browsers can defer/stop muted autoplay (e.g.
+    // when the element is transformed into the fixed PiP, or on tab throttling),
+    // leaving a frozen frame in the corner. Re-start it whenever it pauses —
+    // except while the fullscreen modal is open, which pauses it on purpose.
+    if (vslThumbnail) {
+        const keepThumbnailPlaying = () => {
+            if (vslModal && vslModal.classList.contains('is-open')) return;
+            const p = vslThumbnail.play();
+            if (p && p.catch) p.catch(() => {});
+        };
+        vslThumbnail.addEventListener('pause', keepThumbnailPlaying);
+        vslThumbnail.muted = true; // guarantee muted so autoplay is always allowed
+        keepThumbnailPlaying();
+    }
 
     // ── Custom player controls (play/pause, seek + time pill, mute, fullscreen) ──
     const vslControls = document.getElementById('vslControls');
@@ -926,7 +912,7 @@ function initFormHandling() {
         const nextBtn = document.getElementById('quizNextBtn');
         if (nextBtn) {
             if (stepNum === totalSteps) {
-                nextBtn.querySelector('span').textContent = 'Submit Assessment';
+                nextBtn.querySelector('span').textContent = 'Submit';
             } else {
                 nextBtn.querySelector('span').textContent = 'Next';
             }

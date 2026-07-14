@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adzio | Get Seen & Booked. Every Month.</title>
+    <title>Adzio | Marketing Agency</title>
     <meta name="description"
-        content="Adzio is the boutique growth partner behind local market leaders – precision ad systems, conversion-built websites, and senior execution that compounds month after month.">
+        content="Adzio is the boutique growth partner behind local market leaders â€“ precision ad systems, conversion-built websites, and senior execution that compounds month after month.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico?v=2">
@@ -18,20 +18,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=249.0">
+    <link rel="stylesheet" href="css/styles.css?v=260.0">
     <link rel="stylesheet" href="css/animations.css?v=215.0">
-    <link rel="stylesheet" href="css/problem.css?v=222.0">
+    <link rel="stylesheet" href="css/problem.css?v=224.0">
     <link rel="stylesheet" href="css/process.css?v=238.0">
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- Lenis smooth scroll — gives the whole page momentum/inertia (the
+    <!-- Lenis smooth scroll â€” gives the whole page momentum/inertia (the
          "glides for a beat after you stop scrolling" feel from ribbit.dk). The
          VSL corner-dock resize is driven by ScrollTrigger, which we sync to
          Lenis below so the video follows this smoothed scroll. -->
@@ -39,7 +39,7 @@
     <script>
         (function () {
             // Skip smooth scroll on touch devices and for users who prefer
-            // reduced motion — they keep native scrolling.
+            // reduced motion â€” they keep native scrolling.
             var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             var isTouch = window.matchMedia('(max-width: 768px)').matches
                 || ('ontouchstart' in window);
@@ -69,14 +69,20 @@
 
 <body>
     <!-- Page load veil -->
-    <div class="page-veil" aria-hidden="true"><img src="assets/logo.png" alt="" class="veil-logo"></div>
+    <div class="page-veil" aria-hidden="true">
+        <div class="veil-content">
+            <img src="assets/logo.png" alt="" class="veil-logo">
+            <div class="veil-loader"><span class="veil-progress-fill"></span></div>
+            <span class="veil-percent">0%</span>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <div class="nav-wrap" id="navWrap">
         <div class="nav-svg-container" id="navContainer">
             <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
                 <path id="navFill" fill="#0d1a1f" stroke="none" />
-                <path id="navStroke" fill="none" stroke="#ffffff" stroke-width="1" />
+                <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5" />
             </svg>
             <div class="nav-content">
                 <div class="logo-row">
@@ -113,16 +119,6 @@
                             </div>
                             <div class="slide-rest">
                                 <div class="nav-dot"></div><span class="nav-label">About</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#contact" class="nav-item" data-section="contact">
-                        <div class="nav-item-inner">
-                            <div class="slide-hover"><span class="nav-label">Contact</span>
-                                <div class="nav-dot"></div>
-                            </div>
-                            <div class="slide-rest">
-                                <div class="nav-dot"></div><span class="nav-label">Contact</span>
                             </div>
                         </div>
                     </a>
@@ -167,15 +163,15 @@
             <div class="hero-split">
                 <div class="hero-left-col">
                     <div class="hero-eyebrow animate-fade-up delay-1">
-                        <span>Adzio</span>
-                        <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+                        <img src="assets/logo.png" alt="AD" class="hero-logo">
+                        <span>ZIO</span>
                     </div>
 
                     <h1 class="hero-title animate-fade-up delay-2">
                         <span class="title-line">Get</span>
                         <span class="title-line title-gradient">Seen &</span>
-                        <span class="title-line title-gradient">Booked.</span>
-                        <span class="title-line title-line--ghost">Every Month.</span>
+                        <span class="title-line title-gradient">Booked</span>
+                        <span class="title-line title-line--ghost">Every Month</span>
                     </h1>
 
                     <div class="hero-cta animate-fade-up delay-3">
@@ -253,71 +249,6 @@
         </div>
     </section>
 
-    <!-- About Teaser -->
-    <section class="home-about" id="about-teaser">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content animate-on-scroll">
-                    <span class="eyebrow home-about-eyebrow">The Agency</span>
-                    <h2 class="section-title">
-                        A growth partner, <br><span class="text-gradient">not another vendor.</span>
-                    </h2>
-                    <p class="about-text">
-                        Adzio runs your ads, website, and content as one integrated growth
-                        system &ndash; built and managed end to end by a small senior team
-                        that treats your budget like its own capital.
-                    </p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>Full transparency on every dollar</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>Senior partners on every account</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>24/7 Real-time performance tracking</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>Strategy driven by data, not guesswork</span>
-                        </div>
-                    </div>
-                    <a href="about-us.html" class="btn btn-ghost btn-lg home-about-btn" data-magnetic>
-                        <span>Inside the Agency</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="about-visual animate-on-scroll">
-                    <div class="home-about-stats">
-                        <div class="home-about-stat">
-                            <span class="stat-index">01</span>
-                            <strong>4</strong>
-                            <span>Growth disciplines, unified under one senior team</span>
-                        </div>
-                        <div class="home-about-stat">
-                            <span class="stat-index">02</span>
-                            <strong>100%</strong>
-                            <span>Built exclusively around local businesses</span>
-                        </div>
-                        <div class="home-about-stat">
-                            <span class="stat-index">03</span>
-                            <strong>Daily</strong>
-                            <span>Hands-on optimization. Never set-and-forget.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-blend" aria-hidden="true"></div>
 
     <!-- Problem Section -->
     <section class="problem-section" id="problem">
@@ -357,16 +288,16 @@
                                         <span class="line-solid">TO THE</span>
                                         <span class="line-red">CUSTOMERS</span>
                                     </div>
-                                </div>
-                                <div class="s4-grid">
-                                    <div class="s4-card">
-                                        <div class="s4-card-header">
-                                            <span class="s4-card-num">91%</span>
-                                            <span class="s4-card-label">Never found</span>
+                                    <div class="s4-grid">
+                                        <div class="s4-card">
+                                            <div class="s4-card-header">
+                                                <span class="s4-card-num">91%</span>
+                                                <span class="s4-card-label">Never found</span>
+                                            </div>
+                                            <p class="s4-card-desc">Of people search online before buying; if you're not
+                                                showing up,
+                                                they're buying from someone else.</p>
                                         </div>
-                                        <p class="s4-card-desc">Of people search online before buying; if you're not
-                                            showing up,
-                                            they're buying from someone else.</p>
                                     </div>
                                 </div>
                             </div>
@@ -378,7 +309,7 @@
                             data-shift="14">
                             <div class="pain-inner">
                                 <div class="pain-text">
-                                    <span class="pain-tag">01 · Time Drain</span>
+                                    <span class="pain-tag">01 Â· Time Drain</span>
                                     <h2 class="pain-heading">Hours spent on marketing <em>that goes nowhere</em></h2>
                                 </div>
                                 <p class="pain-body">You're burning your most valuable resource &ndash; time &ndash;
@@ -420,7 +351,7 @@
                                     </div>
                                 </div>
                                 <div class="pain-text">
-                                    <span class="pain-tag">02 · Budget Burn</span>
+                                    <span class="pain-tag">02 Â· Budget Burn</span>
                                     <h2 class="pain-heading">Ad spend that vanishes <em>without converting</em></h2>
                                 </div>
                             </div>
@@ -430,8 +361,8 @@
                             data-shift="12">
                             <div class="pain-inner">
                                 <div class="pain-text">
-                                    <span class="pain-tag">03 · Lost Customers</span>
-                                    <h2 class="pain-heading">Competitors winning your customers <em>right now</em></h2>
+                                    <span class="pain-tag">03 Â· Lost Customers</span>
+                                    <h2 class="pain-heading">Competitors winning your customers <em class="nowrap">right now</em></h2>
                                 </div>
                                 <p class="pain-body">While you read this, sharper campaigns are claiming your ideal
                                     clients. Every scroll is a lost sale. Every day without a real strategy is ground
@@ -625,7 +556,71 @@
         </div>
     </section>
 
+    <!-- About Teaser -->
+    <section class="home-about" id="about-teaser">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content animate-on-scroll">
+                    <span class="eyebrow home-about-eyebrow">The Agency</span>
+                    <h2 class="section-title">
+                        A growth partner, <br><span class="text-gradient">not another vendor.</span>
+                    </h2>
+                    <p class="about-text">
+                        Adzio runs your ads, website, and content as one integrated growth
+                        system built and managed end to end by a small senior team
+                        that treats your budget like its own capital.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>Full transparency on every dollar</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>Senior partners on every account</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>24/7 Real-time performance tracking</span>
+                        </div>
+                        <div class="about-feature">
+                            <span class="feature-marker" aria-hidden="true"></span>
+                            <span>Strategy driven by data, not guesswork</span>
+                        </div>
+                    </div>
+                    <a href="about-us.html" class="btn btn-ghost btn-lg home-about-btn" data-magnetic>
+                        <span>Inside the Agency</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
 
+                <div class="about-visual animate-on-scroll">
+                    <div class="home-about-stats">
+                        <div class="home-about-stat">
+                            <span class="stat-index">01</span>
+                            <strong>4</strong>
+                            <span>Growth disciplines, unified under one senior team</span>
+                        </div>
+                        <div class="home-about-stat">
+                            <span class="stat-index">02</span>
+                            <strong>100%</strong>
+                            <span>Built exclusively around local businesses</span>
+                        </div>
+                        <div class="home-about-stat">
+                            <span class="stat-index">03</span>
+                            <strong>Daily</strong>
+                            <span>Hands-on optimization. Never set-and-forget.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-blend" aria-hidden="true"></div>
 
     <!-- Process Section -->
     <section class="process-section" id="process">
@@ -661,7 +656,7 @@
                     <div class="process-s0-arrow" aria-hidden="true">
                         <svg class="process-s0-arrow-svg" viewBox="0 45 620 205" fill="none"
                             preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                            <!-- line is drawn left→right via stroke-dashoffset; head is a
+                            <!-- line is drawn leftâ†’right via stroke-dashoffset; head is a
                                  separate polygon so it can pop in once the line lands -->
                             <path class="ps-arrow-line" d="M25,245 C120,235 470,135 595,98" stroke="currentColor"
                                 stroke-width="36" stroke-linecap="butt" fill="none" />
@@ -700,8 +695,8 @@
                 <div class="process-slide" id="process-slide-2">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">01 · Discovery Call</span>
-                            <h2 class="process-pain-heading">We start with a <em>real conversation</em></h2>
+                            <span class="process-pain-tag">01 Â· Discovery Call</span>
+                            <h2 class="process-pain-heading">We start with a<br><em>real conversation</em></h2>
                         </div>
                         <div class="process-pain-visual">
                             <div class="process-icon-ring">
@@ -723,8 +718,8 @@
                 <div class="process-slide" id="process-slide-3">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">02 · Custom Strategy</span>
-                            <h2 class="process-pain-heading">A system built <em>around your&nbsp;business</em></h2>
+                            <span class="process-pain-tag">02 Â· Custom Strategy</span>
+                            <h2 class="process-pain-heading">A system built<br><em>around your&nbsp;business</em></h2>
                         </div>
                         <div class="process-pain-visual">
                             <div class="process-icon-ring">
@@ -746,8 +741,8 @@
                 <div class="process-slide" id="process-slide-4">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">03 · Launch &amp; Optimize</span>
-                            <h2 class="process-pain-heading">Live campaigns, <em>real results fast</em></h2>
+                            <span class="process-pain-tag">03 Â· Launch &amp; Optimize</span>
+                            <h2 class="process-pain-heading">Live campaigns,<br><em>real results fast</em></h2>
                         </div>
                         <div class="process-pain-visual">
                             <div class="process-icon-ring">
@@ -769,8 +764,8 @@
                 <div class="process-slide" id="process-slide-5">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">04 · Scale &amp; Grow</span>
-                            <h2 class="process-pain-heading">Find what works, <em>then scale it</em></h2>
+                            <span class="process-pain-tag">04 Â· Scale &amp; Grow</span>
+                            <h2 class="process-pain-heading">Find what works,<br><em>then scale it</em></h2>
                         </div>
                         <div class="process-pain-visual">
                             <div class="process-icon-ring">
@@ -800,7 +795,7 @@
             <div class="cta-pattern"></div>
         </div>
         <div class="container">
-            <div class="cta-content">
+            <div class="cta-content cta-content--wide-form">
                 <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Private Client Application</span>
                 <h2 class="cta-title animate-on-scroll">
                     Ready to <span class="text-gradient">Own Your Market?</span>
@@ -940,11 +935,11 @@
                                         class="label-required">*</span></label>
                                 <select id="revenue" name="revenue" required>
                                     <option value="">Select your revenue range</option>
-                                    <option value="5k-10k">$5,000 – $10,000</option>
-                                    <option value="10k-25k">$10,000 – $25,000</option>
-                                    <option value="25k-50k">$25,000 – $50,000</option>
-                                    <option value="50k-100k">$50,000 – $100,000</option>
-                                    <option value="100k-200k">$100,000 – $200,000</option>
+                                    <option value="5k-10k">$5,000 â€“ $10,000</option>
+                                    <option value="10k-25k">$10,000 â€“ $25,000</option>
+                                    <option value="25k-50k">$25,000 â€“ $50,000</option>
+                                    <option value="50k-100k">$50,000 â€“ $100,000</option>
+                                    <option value="100k-200k">$100,000 â€“ $200,000</option>
                                     <option value="200k+">$200,000+</option>
                                 </select>
                             </div>
@@ -1084,7 +1079,7 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=3"></script>
+    <script src="js/footer.js?v=4"></script>
 
     <!-- VSL Modal -->
     <div class="vsl-modal" id="vslModal">
@@ -1201,13 +1196,12 @@
 
 
     <script src="js/text-type.js"></script>
-    <script src="js/hero-rays.js"></script>
     <script src="js/inbox-animation-data.js?v=1007"></script>
     <script src="js/phone-animation-data.js?v=1007"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/main.js?v=55.0"></script>
-    <script src="js/problem.js?v=11.0"></script>
+    <script src="js/problem.js?v=12.0"></script>
 
 
     <!-- Navbar Morphing Script -->
@@ -1234,7 +1228,7 @@
             function buildPath(W, H, tabW) {
                 const cx = W / 2, tL = cx - tabW / 2, tR = cx + tabW / 2;
                 // Until the pill is tall enough to seat the tab cleanly, draw a plain
-                // rounded rectangle — this kills the spiky tab-ledge artifacts that
+                // rounded rectangle â€” this kills the spiky tab-ledge artifacts that
                 // appeared on the bottom corners during the first frames of a hover.
                 if (Math.abs(tabW - W) < 2 || H < TAB_H + 30) {
                     return `M ${CR} 0 L ${W - CR} 0 Q ${W} 0 ${W} ${CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${CR} Q 0 0 ${CR} 0 Z`;
@@ -1347,7 +1341,8 @@
             sections.forEach(s => observer.observe(s));
         })();
     </script>
-    <script src="js/vsl-scroll.js?v=19"></script>
+    <script src="js/vsl-scroll.js?v=20"></script>
+    <script src="js/silk-bg.js?v=1"></script>
 
     <!-- ===== LEGAL MODALS ===== -->
 
