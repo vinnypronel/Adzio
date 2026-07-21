@@ -1297,12 +1297,14 @@ p {
     font-family: 'Retro Floral', 'Cormorant Garamond', serif;
     font-weight: 400;
     letter-spacing: 0.14em;
+    gap: 10px;
 }
 
 .hero-logo {
-    height: clamp(2.4rem, 3.6vw, 3.2rem);
+    height: clamp(3rem, 4.6vw, 4.15rem);
     width: auto;
     object-fit: contain;
+    margin-right: -0.08em;
 }
 
 .hero-eyebrow-dot {
@@ -1603,7 +1605,7 @@ body.vsl-active .hero-vsl {
 .vsl-wrapper {
     position: relative;
     width: 100%;
-    background: rgba(8, 14, 18, 0.72);
+    background: rgba(8, 14, 18, 0.48);
     /* Pure white frame outline. */
     border: 1px solid #ffffff;
     box-shadow: 0 0 18px rgba(255, 255, 255, 0.08), 0 0 22px rgba(0, 0, 0, 0.28);
@@ -1622,7 +1624,7 @@ body.vsl-active .hero-vsl {
     z-index: 9000;
     margin: 0;
     pointer-events: auto;
-    background: rgba(8, 14, 18, 0.72);
+    background: rgba(8, 14, 18, 0.48);
     /* White frame outline (this rule wins over .vsl-wrapper via the id, and the
        JS keeps this class on even in the hero state, so this IS the visible border) */
     border: 1px solid #ffffff;
@@ -1823,7 +1825,7 @@ body.vsl-active .hero-vsl {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: rgba(8, 14, 18, 0.62);
+    background: rgba(8, 14, 18, 0.38);
 }
 
 /* Feather the VSL edges into the pitch-black page — a faint inner vignette so
@@ -1844,7 +1846,7 @@ body.vsl-active .hero-vsl {
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    opacity: 0.9;
+    opacity: 1;
     /* Darken + pull the neon out of the footage so the baked-in cyan rings /
        panel outlines read as deep blue, in line with the darker site. */
     filter: brightness(1.08) saturate(0.92);
@@ -1852,7 +1854,7 @@ body.vsl-active .hero-vsl {
 }
 
 .hero-vsl .vsl-wrapper:hover .vsl-thumbnail-video {
-    opacity: 0.94;
+    opacity: 1;
 }
 
 /* Modal Styles */

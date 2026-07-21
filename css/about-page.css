@@ -995,14 +995,25 @@
     border-radius: 10px;
     border: 1px solid var(--hairline);
     background: rgba(13, 19, 24, 0.7);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-        border-color 0.4s ease;
-    will-change: transform;
+    transition:
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, border-color, background-color, box-shadow;
 }
 
 .abt-team-card:hover {
-    transform: translateY(-6px);
+    transform: translate3d(0, -6px, 0);
     border-color: color-mix(in srgb, var(--cyan) 40%, var(--hairline));
+    background-color: rgba(15, 23, 29, 0.78);
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.24);
+}
+
+.abt-team-card.animate-on-scroll.visible {
+    transition-delay: 0s;
 }
 
 .abt-team-photo {
@@ -1062,7 +1073,13 @@
     border-radius: 50%;
     border: 1px solid var(--hairline);
     color: var(--text-primary);
-    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    transition:
+        background-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, background-color, border-color, color;
 }
 
 .abt-team-arrow svg {
@@ -1071,10 +1088,10 @@
 }
 
 .abt-team-card:hover .abt-team-arrow {
-    background: var(--cyan);
+    background-color: var(--cyan);
     border-color: var(--cyan);
     color: #06120F;
-    transform: rotate(45deg);
+    transform: translate3d(0, 0, 0) rotate(45deg);
 }
 
 /* Get in touch: general CTA under the team grid */

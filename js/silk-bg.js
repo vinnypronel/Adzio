@@ -125,7 +125,7 @@
             '',
             '    float mTitle = mix(1.0, rectMask(p, uRectTitle, aspect, 0.12),',
             '                       uMaskStrength * uTitleWeight);',
-            '    float mVsl = mix(1.0, rectMask(p, uRectVsl, aspect, 0.12), uMaskStrength);',
+            '    float mVsl = mix(1.0, rectMask(p, uRectVsl, aspect, 0.035), uMaskStrength);',
             '    silk *= mTitle * mVsl;',
             '',
             '    // As the VSL docks, silk floods the space it vacated.',
@@ -412,7 +412,7 @@
         var vr = window._vslRect;
         if (vr) {
             maskStrength = 1;
-            rectVsl = rectToUv(vr.x, vr.y, vr.w, vr.h, cssW, cssH, 24);
+            rectVsl = rectToUv(vr.x, vr.y, vr.w, vr.h, cssW, cssH, 4);
         }
         if (this.bloomDoc) {
             bloom = [

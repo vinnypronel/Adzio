@@ -374,9 +374,11 @@ function initScrollAnimations() {
                 observer.unobserve(entry.target);
                 // Remove transition after animation completes to free up browser resources
                 // Must be longer than max stagger delay (0.6s) + transition duration (0.8s)
-                setTimeout(() => {
-                    entry.target.style.transition = 'none';
-                }, 2000);
+                if (!entry.target.matches('.abt-team-card')) {
+                    setTimeout(() => {
+                        entry.target.style.transition = 'none';
+                    }, 2000);
+                }
             }
         });
     }, observerOptions);
