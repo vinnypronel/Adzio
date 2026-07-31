@@ -397,15 +397,25 @@ body {
         right: 0;
         bottom: 34px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 28px;
+        gap: 16px;
         opacity: 0;
         transition: opacity 0.4s ease 0.34s;
     }
 
     body.m-nav-open .m-nav-foot {
         opacity: 1;
+    }
+
+    .m-nav-socials,
+    .m-nav-contact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(16px, 5vw, 28px);
+        width: 100%;
     }
 
     .m-nav-foot a {
@@ -416,6 +426,39 @@ body {
         text-transform: uppercase;
         color: var(--text-secondary);
         text-decoration: none;
+    }
+
+    .m-nav-contact a {
+        font-size: clamp(0.68rem, 2.7vw, 0.78rem);
+        letter-spacing: 0.08em;
+        text-transform: none;
+        white-space: nowrap;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+    }
+
+    .m-nav-socials a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+    }
+
+    .m-nav-socials svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .m-nav-socials a:active svg {
+        color: var(--cyan);
+        transform: translateY(-2px);
     }
 
     .m-nav-foot a:active {
@@ -2206,6 +2249,32 @@ body.vsl-active .hero-vsl {
     border-color: #00cae3;
 }
 
+/* Home hero matches the Services CTA motion: its arrow is revealed only while
+   the primary button lifts diagonally. The secondary button shares the lift. */
+.hero-cta .btn-glow svg {
+    width: 20px;
+    height: 20px;
+    max-width: 0;
+    margin-left: -0.6rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: max-width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease;
+}
+
+.hero-cta .btn-glow:hover svg {
+    max-width: 20px;
+    margin-left: 0;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-cta .btn-ghost:hover {
+    transform: translate(3px, -3px);
+}
+
 /* Desktop hero CTAs scale with the headline/video composition so the primary
    action remains the longest visual line at every desktop width. */
 @media (min-width: 769px) {
@@ -2726,10 +2795,12 @@ body.vsl-active .hero-vsl {
    VSL video share the top row, headline and CTAs sit below. */
 @media (max-width: 768px) {
     .hero {
-        /* Sit the brand + video row just under the fixed nav bar */
-        padding-top: 54px;
-        /* content height, not a full empty viewport, once stacked */
-        min-height: auto;
+        /* Clears the fixed nav bar with real breathing room, so the video frame
+           no longer sits right up against it. */
+        padding-top: 84px;
+        /* Hold the fold: at `auto` the hero ended mid-screen and the logo
+           carousel was already visible on load. */
+        min-height: 100svh;
         padding-bottom: clamp(48px, 8vh, 72px);
     }
 
@@ -2784,7 +2855,8 @@ body.vsl-active .hero-vsl {
         justify-self: end;
         align-self: start;
         width: clamp(210px, 58vw, 280px);
-        margin: 0;
+        /* Sits lower and closer to the right edge, clear of the nav bar */
+        margin: clamp(10px, 2vh, 20px) calc(-1 * clamp(6px, 2vw, 14px)) 0 0;
     }
 
     .hero-vsl {
@@ -2804,7 +2876,7 @@ body.vsl-active .hero-vsl {
     /* Headline */
     .hero-title {
         grid-area: title;
-        font-size: clamp(2.5rem, 10.5vw, 3.6rem);
+        font-size: clamp(2.85rem, 12vw, 4.2rem);
         line-height: 0.98;
         margin: clamp(8px, 1.8vh, 16px) 0 0;
     }
@@ -2841,9 +2913,9 @@ body.vsl-active .hero-vsl {
     .hero-cta .btn.btn-lg,
     .hero-cta .btn-glow.btn-lg,
     .hero-cta .btn-ghost.btn-lg {
-        min-height: 40px;
-        padding: 0.55rem clamp(0.6rem, 2.2vw, 1rem);
-        font-size: clamp(0.68rem, 2.5vw, 0.82rem);
+        min-height: 50px;
+        padding: 0.72rem clamp(0.7rem, 3vw, 1.3rem);
+        font-size: clamp(0.74rem, 2.9vw, 0.92rem);
         letter-spacing: 0.02em;
     }
 
@@ -2851,6 +2923,21 @@ body.vsl-active .hero-vsl {
         width: 14px;
         height: 14px;
         flex-shrink: 0;
+    }
+}
+
+/* Narrowest phones: at the larger button size the two CTAs no longer fit on one
+   line, so they stack full width instead of the second one running off screen. */
+@media (max-width: 380px) {
+    .hero-cta {
+        flex-wrap: wrap;
+    }
+
+    .hero-cta .btn.btn-lg,
+    .hero-cta .btn-glow.btn-lg,
+    .hero-cta .btn-ghost.btn-lg {
+        flex: 1 1 100%;
+        justify-content: center;
     }
 }
 
@@ -5058,6 +5145,8 @@ body.vsl-active .hero-vsl {
     margin-inline: auto;
     margin-bottom: clamp(0.8rem, 2.5vh, 1.6rem);
     color: var(--text-secondary);
+    text-align: justify;
+    text-align-last: center;
 }
 
 .contact-form {
@@ -5446,6 +5535,13 @@ body.vsl-active .hero-vsl {
     }
 }
 
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
 .footer-column h4 {
     font-family: 'Archivo', sans-serif;
     font-size: 0.76rem;
@@ -5454,6 +5550,7 @@ body.vsl-active .hero-vsl {
     letter-spacing: 0.24em;
     color: var(--gold);
     margin-bottom: 20px;
+    text-align: left;
 }
 
 /* Let's talk CTA button */
@@ -5545,7 +5642,15 @@ body.vsl-active .hero-vsl {
     margin: 0;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 13px;
+    text-align: left;
+    width: 100%;
+}
+
+.footer .footer-links li {
+    text-align: left;
+    width: 100%;
 }
 
 .footer .footer-links li a {
@@ -5553,6 +5658,7 @@ body.vsl-active .hero-vsl {
     font-weight: 400;
     text-decoration: none;
     display: inline-block;
+    text-align: left;
     position: relative;
     background-image: linear-gradient(to right, var(--cyan) 50%, #8E95A0 50%);
     background-size: 200% 100%;
@@ -5819,8 +5925,14 @@ body.vsl-active .hero-vsl {
     .footer-nav {
         padding-left: 0;
         justify-content: flex-start;
-        gap: 48px;
-        flex-wrap: wrap;
+        gap: clamp(24px, 6vw, 48px);
+        flex-wrap: nowrap;
+        text-align: left;
+    }
+
+    .footer-column {
+        align-items: flex-start;
+        text-align: left;
     }
 
     .footer-content {
@@ -5972,8 +6084,22 @@ body.vsl-active .hero-vsl {
         padding: 1.25rem 1.5rem;
     }
 
-    .footer-links {
-        grid-template-columns: repeat(2, 1fr);
+    .footer-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: clamp(20px, 6vw, 40px);
+        text-align: left;
+        width: 100%;
+    }
+
+    .footer .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        width: 100%;
     }
 
     .footer-bottom {
@@ -7805,8 +7931,8 @@ html.silk-active .hero-bg {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.2rem;
-    bottom: 0.2rem;
+    top: -100px;
+    bottom: -20px;
     width: 1px;
     background: linear-gradient(180deg,
         rgba(0, 184, 212, 0.5) 0%,
@@ -7836,6 +7962,73 @@ html.silk-active .hero-bg {
     padding-inline: clamp(1.1rem, 1.5vw, 1.9rem);
     border-radius: 3px;
     font-size: clamp(0.8rem, 0.9vw, 0.94rem);
+}
+
+/* Match the Services CTAs: the arrow stays tucked away until hover, when the
+   button rises diagonally and opens its right edge to reveal it. */
+.ed-hero-cta .btn-primary:hover {
+    --btn-bg: var(--accent-gradient);
+    --btn-ring: none;
+    background: transparent;
+    color: var(--bg-primary);
+    box-shadow: none;
+    transform: translate(3px, -3px);
+}
+
+.ed-hero-cta .btn-primary svg {
+    width: 20px;
+    height: 20px;
+    max-width: 0;
+    margin-left: -0.6rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: max-width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease;
+}
+
+.ed-hero-cta .btn-primary:hover svg {
+    max-width: 20px;
+    margin-left: 0;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.ed-hero-cta .btn-ghost svg {
+    width: 20px;
+    height: 20px;
+    max-width: 0;
+    margin-left: -0.6rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: max-width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease;
+}
+
+.ed-hero-cta .btn-ghost:hover svg {
+    max-width: 20px;
+    margin-left: 0;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* With the supporting copy removed, lift the CTA cluster into the open hero
+   space and create a clear gutter from the aside's vertical divider. */
+@media (min-width: 1001px) {
+    .abt-hero .ed-hero-cta,
+    .svc-hero .ed-hero-cta {
+        margin-left: clamp(12px, 1.1vw, 22px);
+        transform: translateY(clamp(-130px, -13vh, -78px));
+    }
+
+    .abt-hero .ed-hero-aside::before,
+    .svc-hero .ed-hero-aside::before {
+        top: -2rem;
+        bottom: -2rem;
+    }
 }
 
 /* ── Closing meta strip: the agency's own facts, hairline separated ── */

@@ -117,9 +117,22 @@
         <a href="about-us.html">About</a>
     </nav>
     <a href="index.html#contact" class="m-nav-cta">Book a Call</a>
-    <div class="m-nav-foot">
-        <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="tel:7326546635">(732)&nbsp;654-6635</a>
+        <div class="m-nav-foot">
+        <div class="m-nav-socials" aria-label="Social media">
+            <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="m-nav-social-dot"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.8l.4-3h-3.2V8.1c0-.9.3-1.5 1.6-1.5H17V4a20 20 0 0 0-1.8-.1c-2.4 0-4 1.4-4 4.1V10H8.5v3h2.7v8h2.3Z" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://x.com/AdzioMarketing" target="_blank" rel="noopener noreferrer" aria-label="X">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor" stroke="none"/></svg>
+            </a>
+        </div>
+        <div class="m-nav-contact" aria-label="Contact information">
+            <a href="mailto:Marketing@Adzio.io">Marketing@Adzio.io</a>
+            <a href="tel:7326546635">(732)&nbsp;654-6635</a>
+        </div>
     </div>
 </div>`;
 
