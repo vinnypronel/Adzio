@@ -38,7 +38,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle, rgba(0, 184, 212, 0.06) 0%, transparent 65%);
+    background: transparent;
     transition: background 0.7s ease;
 }
 
@@ -457,21 +457,11 @@
 }
 
 .process-icon-ring::before {
-    content: '';
-    position: absolute;
-    inset: -12px;
-    border-radius: 50%;
-    border: 1.5px solid currentColor;
-    opacity: 0.32;
+    content: none;
 }
 
 .process-icon-ring::after {
-    content: '';
-    position: absolute;
-    inset: -26px;
-    border-radius: 50%;
-    border: 1px dashed currentColor;
-    opacity: 0.18;
+    content: none;
 }
 
 /* Editorial ghost numeral behind each step */
@@ -548,16 +538,16 @@
 }
 
 #process-slide-5 .process-pain-tag {
-    color: #4F46E5;
+    color: #0866FF;
 }
 
 #process-slide-5 .process-pain-heading em {
-    color: #4F46E5;
+    color: #0866FF;
 }
 
 #process-slide-5 .process-icon-ring {
-    background: color-mix(in srgb, #4F46E5 12%, rgba(13, 20, 26, 0.7));
-    color: #4F46E5;
+    background: color-mix(in srgb, #0866FF 10%, rgba(13, 20, 26, 0.7));
+    color: #0866FF;
 }
 
 /* ── Slide 1 - intro step, mirrors "INVISIBLE" slide exactly ── */
@@ -1124,7 +1114,7 @@
     }
 
     #process-slide-5 {
-        border-color: rgba(127, 0, 255, 0.3);
+        border-color: rgba(8, 102, 255, 0.3);
     }
 
     /* Slide 0 — stack the big title, the "4 steps" stat, and the steps card */
@@ -1311,5 +1301,5 @@
     #process-slide-2 .process-pain-inner::before { border-color: rgba(0, 184, 212, 0.3); }
     #process-slide-3 .process-pain-inner::before { border-color: rgba(66, 133, 244, 0.3); }
     #process-slide-4 .process-pain-inner::before { border-color: rgba(8, 102, 255, 0.3); }
-    #process-slide-5 .process-pain-inner::before { border-color: rgba(127, 0, 255, 0.3); }
+    #process-slide-5 .process-pain-inner::before { border-color: rgba(8, 102, 255, 0.3); }
 }

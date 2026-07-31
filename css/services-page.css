@@ -32,14 +32,14 @@
 /* The fixed Book a Call button takes on the accent of whichever service section
    is under it. JS only sets data-cta-accent, the colors stay here. Only the
    background changes, the ink stays near-black on every accent. */
-.pinned-header-cta[data-cta-accent="teal"]   { background: #0866FF; color: #070b10; }
-.pinned-header-cta[data-cta-accent="teal"]:hover   { background: #06449d; color: #ffffff; box-shadow: none; }
-.pinned-header-cta[data-cta-accent="blue"]   { background: #4285F4; color: #070b10; }
-.pinned-header-cta[data-cta-accent="blue"]:hover   { background: #245aa8; color: #ffffff; box-shadow: none; }
-.pinned-header-cta[data-cta-accent="amber"]  { background: #00b8d4; color: #070b10; }
-.pinned-header-cta[data-cta-accent="amber"]:hover  { background: #006477; color: #ffffff; box-shadow: none; }
-.pinned-header-cta[data-cta-accent="purple"] { background: #0A2FA0; color: #070b10; }
-.pinned-header-cta[data-cta-accent="purple"]:hover { background: #061b5d; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="teal"]   { --btn-bg: #0866FF; background: transparent; color: #070b10; }
+.pinned-header-cta[data-cta-accent="teal"]:hover   { --btn-bg: #06449d; background: transparent; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="blue"]   { --btn-bg: #4285F4; background: transparent; color: #070b10; }
+.pinned-header-cta[data-cta-accent="blue"]:hover   { --btn-bg: #245aa8; background: transparent; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="amber"]  { --btn-bg: #00b8d4; background: transparent; color: #070b10; }
+.pinned-header-cta[data-cta-accent="amber"]:hover  { --btn-bg: #006477; background: transparent; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="purple"] { --btn-bg: #0A2FA0; background: transparent; color: #070b10; }
+.pinned-header-cta[data-cta-accent="purple"]:hover { --btn-bg: #061b5d; background: transparent; color: #ffffff; box-shadow: none; }
 
 /* ============================================
    HERO
@@ -68,15 +68,11 @@
     z-index: -2;
 }
 
-.svc-hero::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0;
-    height: 24%;
-    background: linear-gradient(180deg, transparent, var(--bg-primary));
-    pointer-events: none;
-    z-index: -1;
-}
+/* The bottom fade-to-solid that used to live here was painting an opaque
+   var(--bg-primary) band over the animated silk canvas (html.silk-active lets
+   the canvas show through), which left a hard seam across the section's lower
+   edge and made the hero read as a darker panel than everything around it.
+   Removed so the background runs continuously through the hero. */
 
 .svc-hero-layout {
     display: grid;
@@ -637,22 +633,50 @@
 
 /* Themed CTA per service — single flat color, no gradient, no glow */
 .svc-cta.btn-primary {
-    background: var(--svc);
+    --btn-bg: var(--svc);
+    background: transparent;
     color: #051014;
     box-shadow: none;
     font-size: 0.855rem;
 }
 
-/* Kill the diagonal white sheen so the fill stays one even color */
+/* The global button shape now lives on ::before. Keep that layer visible here;
+   the flat --svc fill supplies the service-specific color without a sheen. */
 .svc-cta.btn-primary::before {
-    display: none;
+    display: block;
 }
 
+/* Hover is the arrow reveal only: the fill stays put and the button opens up to
+   the right to make room for the arrow sliding into place. */
 .svc-cta.btn-primary:hover {
-    background: var(--bg-primary);
-    color: var(--svc-bright);
-    border-color: var(--svc);
+    --btn-bg: var(--svc);
+    --btn-ring: none;
+    background: transparent;
+    color: #051014;
     box-shadow: none;
+    transform: translate(3px, -3px);
+}
+
+.svc-cta.btn-primary svg {
+    width: 18px;
+    height: 18px;
+    max-width: 0;
+    opacity: 0;
+    /* Cancels the .btn flex gap while the arrow is closed, so the rest state
+       sits tight to the label. */
+    margin-left: -0.6rem;
+    transform: translateX(-8px);
+    transition: max-width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease;
+}
+
+.svc-cta.btn-primary:hover svg {
+    max-width: 20px;
+    margin-left: 0;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* ============================================
@@ -665,7 +689,8 @@
 }
 
 #social-media-management .svc-copy {
-    transform: translateX(40px);
+    transform: translateX(clamp(58px, 4.5vw, 86px));
+    max-width: 660px;
 }
 
 #social-media-management .svc-visual {
@@ -673,11 +698,43 @@
     transform: translateY(16px);
 }
 
+@media (min-width: 1201px) {
+    #social-media-management .svc-detail-grid {
+        grid-template-columns: minmax(640px, 1.1fr) minmax(560px, 1.15fr);
+        gap: clamp(4.75rem, 6.2vw, 7rem);
+    }
+
+    #social-media-management .svc-detail-title {
+        font-size: clamp(3.05rem, 4.35vw, 4.55rem);
+        max-width: 17ch;
+    }
+
+    #social-media-management .svc-detail-lead {
+        max-width: 58ch;
+        font-size: clamp(1rem, 1.02vw, 1.12rem);
+    }
+
+    #social-media-management .svc-list {
+        gap: 1.08rem;
+    }
+
+    #social-media-management .svc-list li {
+        font-size: clamp(1.08rem, 1.03vw, 1.22rem);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    #social-media-management .svc-copy {
+        transform: none;
+        max-width: 760px;
+    }
+}
+
 .svc-proof-header {
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.25rem;
     display: flex;
     align-items: center;
-    transform: translateY(-10px);
+    transform: translateY(-2px);
 }
 
 .svc-proof-tag {
@@ -710,25 +767,30 @@
 .svc-proof-stack {
     display: flex;
     flex-direction: column;
-    gap: 1.15rem;
+    gap: clamp(1.25rem, 1.45vw, 1.65rem);
     /* Expanded width so all 3 stat columns sit comfortably without right
        clipping, and so the cards close the gap toward the nav. */
-    max-width: clamp(480px, 43vw, 840px);
+    width: min(100%, clamp(600px, 47vw, 920px));
+    max-width: none;
 }
 
 .svc-proof-stack .abt-proof-card {
-    padding: clamp(12px, 1.3vw, 16px) clamp(18px, 1.8vw, 24px);
-    /* Square corners on this page; the about page keeps the rounded version */
-    border-radius: 0;
+    padding: clamp(18px, 1.55vw, 24px) clamp(30px, 2.45vw, 44px) clamp(18px, 1.6vw, 26px);
+    border-radius: 10px;
+}
+
+.svc-proof-stack .abt-proof-card::before {
+    inset: 0 10px;
+    border-radius: 8px;
 }
 
 .svc-proof-stack .abt-feed-item,
 .svc-proof-stack .abt-feed-skeleton {
-    border-radius: 0;
+    border-radius: 3px;
 }
 
 .svc-proof-stack .abt-proof-head {
-    margin-bottom: 0.55rem;
+    margin-bottom: clamp(0.75rem, 1vw, 1.05rem);
 }
 
 .svc-proof-stack .abt-proof-card--cyan {
@@ -743,36 +805,43 @@
 
 .svc-proof-stack .abt-proof-feed {
     grid-template-columns: repeat(3, 1fr);
-    margin: 0.55rem 0 0.65rem;
+    gap: clamp(10px, 1.05vw, 16px);
+    margin: clamp(0.75rem, 0.95vw, 1rem) 0 clamp(0.65rem, 0.85vw, 0.9rem);
+    transform: translateX(-5px);
+    width: calc(100% - 5px);
+}
+
+.svc-proof-stack .abt-proof-cta {
+    transform: translateX(-6px);
 }
 
 .svc-proof-stack .abt-feed-item {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9.4;
 }
 
 /* Compact social proof metrics in the unused profile-header space. */
 .svc-proof-stack .svc-proof-stats {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    gap: clamp(6px, 1vw, 14px);
+    gap: clamp(12px, 1.35vw, 22px);
     margin-left: auto;
     text-align: center;
 }
 
 .svc-proof-stack .svc-proof-stat {
-    min-width: 68px;
+    min-width: clamp(76px, 5.3vw, 98px);
 }
 
 .svc-proof-stack .svc-proof-stat + .svc-proof-stat {
     border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding-left: clamp(6px, 1vw, 14px);
+    padding-left: clamp(12px, 1.35vw, 22px);
 }
 
 .svc-proof-stack .svc-proof-stat strong {
     display: block;
     color: var(--text-primary);
     font-family: 'Archivo', sans-serif;
-    font-size: clamp(1.15rem, 1.45vw, 1.35rem);
+    font-size: clamp(1.22rem, 1.55vw, 1.5rem);
     font-weight: 900;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -783,9 +852,9 @@
     margin-top: 4px;
     color: var(--text-muted);
     font-family: 'Archivo', sans-serif;
-    font-size: 0.66rem;
+    font-size: clamp(0.6rem, 0.6vw, 0.72rem);
     font-weight: 700;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.08em;
     line-height: 1.2;
     text-transform: uppercase;
 }
@@ -1582,16 +1651,60 @@
     border-radius: 999px;
 }
 
-/* Side by side stops being legible once the browser drops under ~280px, so
-   stack instead. Phone leads, which suits the mobile-first copy. */
+/* Side by side stops being legible once the browser drops under ~280px. Rather
+   than stacking them as two separate floating images, the browser takes the
+   full column and the phone sits in front of its lower-left corner: the same
+   depth relationship the desktop composition has, so the pair still reads as
+   one product shot instead of a list of two. */
 @media (max-width: 540px) {
     .svc-web-stage {
-        flex-direction: column;
-        align-items: center;
-        gap: 22px;
+        display: flex;
+        /* Both devices finish on the same bottom edge */
+        align-items: flex-end;
+        gap: 0;
     }
 
-    .svc-iphone { width: 178px; }
+    .svc-browser-col {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    /* The negative margin equals the phone's own width, so it takes no layout
+       space: the browser still spans the full column and the phone sits in
+       front of its left side. */
+    .svc-iphone {
+        position: relative;
+        flex: 0 0 auto;
+        width: min(34%, 138px);
+        margin-right: calc(-1 * min(34%, 138px));
+        left: 4px;
+        z-index: 2;
+    }
+
+    /* The phone covers the left end of the chrome bar, so its contents start
+       clear of it and the domain reads in full. Same width basis as the phone,
+       so the two stay in step. Scoped through .svc-browser because the base
+       rules for these live further down the file and would otherwise win. */
+    .svc-browser .svc-browser-bar {
+        padding-left: calc(min(34%, 138px) + 6px);
+        padding-right: 10px;
+        gap: 4px;
+    }
+
+    .svc-browser .svc-url {
+        margin-left: 3px;
+        padding: 3px 8px;
+        font-size: 0.47rem;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+
+    .svc-browser .svc-browser-secure svg {
+        width: 13px;
+        height: 13px;
+    }
 }
 
 .svc-browser-bar {
@@ -2393,6 +2506,15 @@
         padding-top: 1.5rem;
     }
 
+    /* Desktop-only optical nudges. Once the grid stacks they shove the copy
+       column past the right edge of the screen. */
+    #ad-management .svc-detail-grid,
+    #lead-generation .svc-detail-grid,
+    #landing-pages .svc-detail-grid,
+    #social-media-management .svc-copy {
+        transform: none;
+    }
+
     .svc-hero-layout {
         grid-template-columns: 1fr;
         min-height: 0;
@@ -2683,13 +2805,38 @@
     line-height: 1.2;
 }
 
-/* Scaling responsive behavior for smaller viewports */
+/* Scaling responsive behavior for smaller viewports. The 2x2 layout holds on
+   phones, the tiles just get smaller: stacking them made the section four
+   screens tall. */
 @media (max-width: 576px) {
     .svc-ad-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-        max-width: 280px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-width: 100%;
         margin: 0 auto;
+    }
+
+    /* Badges and captions are sized for a ~300px tile, so they scale down with
+       it rather than crowding the artwork. */
+    .svc-ad-tile .ad-tile-title {
+        font-size: 0.72rem;
+    }
+
+    .svc-ad-tile .ad-tile-offer {
+        font-size: 0.56rem;
+    }
+
+    .svc-ad-tile .ad-tile-badge {
+        padding: 5px 8px;
+        transform: none;
+    }
+
+    .svc-ad-tile .badge-lbl {
+        font-size: 0.44rem;
+    }
+
+    .svc-ad-tile .badge-num {
+        font-size: 0.78rem;
     }
 }
 
@@ -2958,5 +3105,93 @@
 
     .svc-detail-lead {
         font-size: 16px;
+    }
+
+    .svc-copy {
+        min-width: 0;
+    }
+
+    .svc-list {
+        min-width: 0;
+    }
+
+    .svc-list li {
+        font-size: clamp(0.78rem, 2.9vw, 0.92rem);
+        line-height: 1.35;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        padding-left: 1.55rem;
+        min-width: 0;
+    }
+
+    .svc-list li::before {
+        width: 14px;
+        height: 14px;
+        top: 2px;
+    }
+}
+
+
+/* ============================================
+   HERO SCALE-UP (desktop)
+   The nowrap headline was already filling its column, so the only way to make
+   this type meaningfully larger was to give the hero more canvas. The shell is
+   widened for THIS SECTION ONLY, so every .svc-detail below keeps the 1440px
+   measure. Vertical paddings are trimmed by roughly what the taller headline
+   adds, so the section's height stays put and nothing below it moves.
+   ============================================ */
+/* Extra canvas only where 1440px was actually the binding constraint. Below
+   ~1600 the shell is already narrower than 1440, so widening there would have
+   made the hero SMALLER, not bigger. */
+@media (min-width: 1600px) {
+    .svc-hero .svc-shell {
+        max-width: min(1680px, 94vw);
+    }
+}
+
+/* The headline is white-space: nowrap above 1400px, so its size is bounded by
+   the title column. 5.1vw is the largest coefficient that still clears the
+   aside at every width in this band (1526 is the tightest, where the aside and
+   gap clamps peak before the shell widens). Below 1400px the existing laptop
+   rule keeps its tuned size and is allowed to wrap, so it is left alone. */
+@media (min-width: 1400px) {
+    .svc-hero .ed-hero-title {
+        font-size: clamp(3.4rem, 5.1vw, 6.6rem);
+    }
+}
+
+@media (min-width: 1001px) {
+
+    /* Reclaim the vertical space the larger headline consumes. The taller type
+       adds ~60px; these trims give back about the same, so the section lands on
+       its original height and nothing below it shifts. */
+    .svc-hero .ed-hero {
+        padding-top: clamp(48px, 7.5vh, 96px);
+        padding-bottom: clamp(36px, 5vh, 64px);
+    }
+
+    .svc-hero .ed-hero-body {
+        padding: clamp(28px, 4vh, 48px) 0 clamp(20px, 3vh, 36px);
+    }
+
+    .svc-hero .ed-masthead {
+        padding-bottom: clamp(10px, 1.5vh, 18px);
+    }
+
+    .svc-hero .ed-masthead-brand {
+        font-size: clamp(1.5rem, 2vw, 2.15rem);
+    }
+
+    .svc-hero .ed-hero-lead {
+        font-size: clamp(1.05rem, 1.25vw, 1.35rem);
+    }
+
+    /* The aside is centre-aligned against the headline row, so growing these
+       does not add to the section's height. */
+    .svc-hero .ed-hero-cta .btn {
+        min-height: clamp(52px, 6.6vh, 62px);
+        font-size: clamp(0.82rem, 0.95vw, 0.95rem);
+        padding-inline: clamp(20px, 1.9vw, 32px);
     }
 }

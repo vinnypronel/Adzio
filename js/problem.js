@@ -229,11 +229,11 @@ function initProcessSection() {
     const hint = document.getElementById('process-scroll-hint');
 
     const glowColors = [
-        'radial-gradient(circle, rgba(0, 184, 212,0.06) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(8,102,255,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(66,133,244,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(0,184,212,0.08) 0%, transparent 65%)',
-        'radial-gradient(circle, rgba(127,0,255,0.08) 0%, transparent 65%)'
+        'transparent',
+        'transparent',
+        'transparent',
+        'transparent',
+        'transparent'
     ];
 
     function setActivePip(i) {

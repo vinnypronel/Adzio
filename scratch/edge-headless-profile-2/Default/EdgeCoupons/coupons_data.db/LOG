@@ -1,6 +1,0 @@
-2026/07/22-11:58:46.238 431c Reusing MANIFEST C:\MY PROJECTS\Adzio\scratch\edge-headless-profile-2\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/07/22-11:58:46.240 431c Recovering log #7
-2026/07/22-11:58:46.243 431c Reusing old log C:\MY PROJECTS\Adzio\scratch\edge-headless-profile-2\Default\EdgeCoupons/coupons_data.db/000007.log 
-2026/07/22-11:58:46.398 6238 Level-0 table #11: started
-2026/07/22-11:58:46.407 6238 Level-0 table #11: 683212 bytes OK
-2026/07/22-11:58:46.411 6238 Delete type=0 #7

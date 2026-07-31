@@ -66,10 +66,7 @@
                     <div class="contact-icon" id="lottie-phone"></div>
                     <span>(732) 654-6635</span>
                 </a>
-                <a href="index.html#contact" class="footer-lets-talk" data-text="Let's Talk">
-                    <span class="actual-text">&nbsp;Let's Talk&nbsp;</span>
-                    <span aria-hidden="true" class="hover-text">&nbsp;Let's Talk&nbsp;</span>
-                </a>
+                <div class="footer-lets-talk-spacer" aria-hidden="true"></div>
                 <div class="footer-founders">
                     <span class="founders-label">Founders</span>
                     <div class="contact-names">Anton Veliu &amp; Devyn Schroeder</div>
@@ -81,8 +78,8 @@
         <div class="footer-bottom">
             <p class="footer-copyright">&copy; 2026 Adzio.io. All rights reserved.</p>
             <div class="footer-legal">
-                <a href="#" onclick="typeof openLegal==='function'&&openLegal('privacy');return false;">Privacy Policy</a>
-                <a href="#" onclick="typeof openLegal==='function'&&openLegal('terms');return false;">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
             </div>
         </div>
     </div>

@@ -347,22 +347,37 @@ body {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 54px;
+        min-height: 52px;
         padding: 0 36px;
-        border-radius: var(--radius-sm);
-        background: var(--cyan);
+        background: transparent;
         color: #06120F !important;
         font-family: 'Archivo', sans-serif;
         font-size: 0.95rem;
         font-weight: 800;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         text-decoration: none;
+        border-radius: 8px;
         box-shadow: none;
+        position: relative;
+        isolation: isolate;
+        overflow: visible;
         opacity: 0;
         transform: translate3d(0, 18px, 0);
         will-change: opacity, transform;
         transition: opacity 0.4s ease 0.22s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.22s, filter 0.2s ease;
+    }
+
+    .m-nav-cta::before {
+        content: '';
+        position: absolute;
+        inset: 0 7px;
+        z-index: -1;
+        border-radius: 7px;
+        background: var(--cyan);
+        transform: skewX(-10deg);
+        transform-origin: center;
+        transition: background 0.25s ease;
     }
 
     body.m-nav-open .m-nav-cta {
@@ -370,8 +385,10 @@ body {
         transform: translate3d(0, 0, 0);
     }
 
+    .m-nav-cta:hover,
     .m-nav-cta:active {
-        filter: brightness(0.92);
+        transform: translate3d(3px, -3px, 0);
+        filter: brightness(0.95);
     }
 
     .m-nav-foot {
@@ -598,7 +615,8 @@ body {
 
 /* Pinned Header CTA (Fixed Top Right) */
 .pinned-header-cta {
-    --btn-slant: clamp(10px, 0.85em, 18px);
+    --btn-bg: #00b8d4;
+    --btn-ring: none;
     position: fixed;
     top: 20px;
     right: 28px;
@@ -608,11 +626,9 @@ body {
     justify-content: center;
     text-align: center;
     gap: 0;
-    padding: 10px 24px;
-    border-radius: 3px;
-    -webkit-clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
-    clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
-    background: #00b8d4;
+    padding: 10px 28px;
+    border-radius: 8px;
+    background: transparent;
     color: #070b10;
     font-family: 'Archivo', sans-serif;
     font-size: 0.76rem;
@@ -622,7 +638,21 @@ body {
     text-transform: uppercase;
     text-decoration: none;
     box-shadow: none;
+    isolation: isolate;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, color 0.4s ease, padding 0.35s cubic-bezier(0.16, 1, 0.3, 1), gap 0.35s ease;
+}
+
+.pinned-header-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0 7px;
+    z-index: -1;
+    border-radius: 7px;
+    background: var(--btn-bg);
+    box-shadow: var(--btn-ring);
+    transform: skewX(-10deg);
+    transform-origin: center;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .pinned-header-cta .phone-ring-icon {
@@ -635,11 +665,11 @@ body {
 }
 
 .pinned-header-cta:hover {
-    background: #005b73;
+    --btn-bg: #005b73;
     color: #ffffff;
-    transform: translateY(-2px);
-    padding-left: 20px;
-    padding-right: 24px;
+    transform: translate(3px, -3px);
+    padding-left: 24px;
+    padding-right: 28px;
     gap: 8px;
     box-shadow: none;
 }
@@ -825,7 +855,8 @@ p {
    ============================================ */
 
 .btn {
-    --btn-slant: clamp(12px, 0.9em, 20px);
+    --btn-bg: transparent;
+    --btn-ring: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -838,51 +869,66 @@ p {
     text-transform: uppercase;
     text-decoration: none;
     border: none;
-    border-radius: 3px;
-    -webkit-clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
-    clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
+    border-radius: 8px;
+    background: transparent;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    isolation: isolate;
     will-change: transform;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0 7px;
+    z-index: -1;
+    border-radius: 7px;
+    background: var(--btn-bg);
+    box-shadow: var(--btn-ring);
+    transform: skewX(-10deg);
+    transform-origin: center;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .btn-primary {
-    background: var(--accent-gradient);
+    --btn-bg: var(--accent-gradient);
+    --btn-ring: none;
+    background: transparent;
     color: var(--bg-primary);
     box-shadow: none;
-    border: 2px solid transparent;
+    border: none;
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-primary:hover {
-    background: var(--bg-primary);
+    --btn-bg: var(--bg-primary);
+    --btn-ring: inset 0 0 0 2px var(--accent-primary);
+    background: transparent;
     color: var(--accent-primary);
-    border-color: var(--accent-primary);
     box-shadow: none;
+    transform: translate(3px, -3px);
 }
 
 .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity var(--transition-base);
+    opacity: 1;
 }
 
 .btn-primary:hover::before {
-    opacity: 0;
+    opacity: 1;
 }
 
 /* Primary conviction CTA — solid Adzio cyan, weight without neon */
 .btn-glow {
-    background: var(--cyan);
-    border: 1px solid var(--cyan);
+    --btn-bg: var(--cyan);
+    --btn-ring: none;
+    background: transparent;
+    border: none;
     color: #06120F;
     border-radius: 3px;
     box-shadow: none;
-    overflow: hidden;
+    overflow: visible;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease,
@@ -890,7 +936,7 @@ p {
 }
 
 .btn-glow::before {
-    display: none;
+    display: block;
 }
 
 .btn-glow::after {
@@ -898,9 +944,10 @@ p {
 }
 
 .btn-glow:hover {
-    background: #2DF0D8;
+    --btn-bg: #2DF0D8;
+    background: transparent;
     color: #06120F;
-    transform: translateY(-3px);
+    transform: translate(3px, -3px);
     box-shadow: none;
 }
 
@@ -915,19 +962,23 @@ p {
 
 /* Quiet secondary — hairline border, cream text, cyan on hover */
 .btn-ghost {
+    --btn-bg: transparent;
+    --btn-ring: inset 0 0 0 1px rgba(244, 241, 234, 0.22);
     background: transparent;
     color: var(--text-primary);
     border: none;
-    box-shadow: inset 0 0 0 1px rgba(244, 241, 234, 0.22);
+    box-shadow: none;
     transition: box-shadow 0.3s ease, color 0.3s ease, background 0.3s ease,
         transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-ghost:hover {
-    background: var(--cyan-soft);
-    box-shadow: inset 0 0 0 1px var(--cyan-border);
+    --btn-bg: var(--cyan-soft);
+    --btn-ring: inset 0 0 0 1px var(--cyan-border);
+    background: transparent;
+    box-shadow: none;
     color: var(--cyan);
-    transform: translateY(-3px);
+    transform: translate(3px, -3px);
 }
 
 .btn-lg {
@@ -945,6 +996,14 @@ p {
 
 .btn:hover svg {
     transform: translateX(4px);
+}
+
+/* Keep legacy per-section button overrides from painting a rectangular fill
+   over the rounded skewed shape. Colors now flow through --btn-bg instead. */
+a.btn,
+button.btn,
+input.btn {
+    background: transparent !important;
 }
 
 /* ============================================
@@ -2626,7 +2685,7 @@ body.vsl-active .hero-vsl {
         padding-top: 66px;
         /* content height, not a full empty viewport, once stacked */
         min-height: auto;
-        padding-bottom: 48px;
+        padding-bottom: clamp(68px, 10vh, 96px);
     }
 
     /* ribbit.dk-style mobile header: brand on the LEFT, video pinned top-RIGHT
@@ -2636,7 +2695,7 @@ body.vsl-active .hero-vsl {
         display: grid;
         grid-template-columns: 1fr auto;
         grid-template-areas:
-            "brand video"
+            "video video"
             "title title"
             "cta   cta";
         align-items: center;
@@ -2657,14 +2716,8 @@ body.vsl-active .hero-vsl {
     }
 
     /* Top-left: ADZIO brand, vertically centred against the video thumbnail */
-    .hero-eyebrow {
-        grid-area: brand;
-        top: 0;
-        margin: 0;
-        gap: 0;
-        align-self: center;
-        font-size: clamp(1.2rem, 5.4vw, 1.8rem);
-        letter-spacing: 0.14em;
+    .hero .hero-eyebrow {
+        display: none;
     }
 
     /* The logo PNG has built-in whitespace around the "AD" mark, so a plain
@@ -2685,7 +2738,7 @@ body.vsl-active .hero-vsl {
         grid-area: video;
         justify-self: end;
         align-self: start;
-        width: min(56vw, 220px);
+        width: clamp(240px, 66vw, 320px);
         margin: 0;
     }
 
@@ -2706,8 +2759,9 @@ body.vsl-active .hero-vsl {
     /* Headline */
     .hero-title {
         grid-area: title;
-        font-size: clamp(2.1rem, 9.5vw, 3.6rem);
-        margin: 0;
+        font-size: clamp(3.2rem, 13.5vw, 4.8rem);
+        line-height: 0.95;
+        margin: clamp(20px, 4.5vh, 36px) 0 0;
     }
 
     .hero-title .title-line {
@@ -2721,7 +2775,7 @@ body.vsl-active .hero-vsl {
     /* CTA buttons */
     .hero-cta {
         grid-area: cta;
-        margin-top: 1.6rem;
+        margin-top: clamp(2rem, 4.5vh, 3rem);
     }
 }
 
@@ -3847,6 +3901,14 @@ body.vsl-active .hero-vsl {
     padding: clamp(26px, 4vh, 72px) 0;
 }
 
+@media (min-width: 769px) {
+    .services-section {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+    }
+}
+
 /* Header Section */
 /* Single left-aligned title sitting directly above the card row. Both this and
    .services-grid are children of the same .container, so the heading's left
@@ -3861,7 +3923,7 @@ body.vsl-active .hero-vsl {
 }
 
 .services-header h2 {
-    font-size: clamp(3rem, 4.7vw, 4.5rem);
+    font-size: clamp(2.75rem, 3.25vw, 4.5rem);
     font-weight: 800;
     font-family: var(--font-heading);
     line-height: 1.08;
@@ -3889,7 +3951,8 @@ body.vsl-active .hero-vsl {
 /* Symmetric even margins (110px left / 110px right minimum) so cards stay wide & roomy
    while leaving 100% clean clearance for the extended navbar on all monitors */
 .services-section .container {
-    max-width: min(1680px, calc(100vw - 220px));
+    width: 100%;
+    max-width: min(1680px, calc(100vw - clamp(176px, 11.5vw, 220px)));
     margin-inline: auto;
     padding-inline: clamp(16px, 1.5vw, 28px);
 }
@@ -3908,8 +3971,8 @@ body.vsl-active .hero-vsl {
     position: relative;
     background: rgba(15, 20, 26, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: clamp(20px, 3vh, 44px) clamp(16px, 1.6vw, 28px) clamp(18px, 2.5vh, 36px);
+    border-radius: clamp(11px, 0.72vw, 14px);
+    padding: clamp(18px, 2.7vh, 40px) clamp(14px, 1.35vw, 28px) clamp(17px, 2.3vh, 34px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3981,18 +4044,18 @@ body.vsl-active .hero-vsl {
 /* Exclusive indicator, not a sticker */
 .popular-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    padding: 4px 10px;
+    top: clamp(10px, 0.63vw, 12px);
+    right: clamp(10px, 0.63vw, 12px);
+    padding: clamp(3px, 0.21vw, 4px) clamp(7px, 0.52vw, 10px);
     background: rgba(197, 168, 128, 0.06);
     box-shadow: none;
     color: var(--gold-bright);
     font-family: 'Archivo', sans-serif;
-    font-size: 0.6rem;
+    font-size: clamp(0.5rem, 0.5vw, 0.6rem);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    border-radius: 6px;
+    border-radius: clamp(5px, 0.31vw, 6px);
     border: 1px solid var(--gold-border);
     z-index: 2;
 }
@@ -4002,7 +4065,7 @@ body.vsl-active .hero-vsl {
 /* Keep badge clear of the icon */
 /* Reserve badge clearance on ALL cards so the centered top rows stay aligned */
 .service-card-top {
-    margin-top: 26px;
+    margin-top: clamp(20px, 1.36vw, 26px);
 }
 
 /* Number + icon row — number top-left, icon centered */
@@ -4010,19 +4073,19 @@ body.vsl-active .hero-vsl {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 1rem;
+    gap: clamp(0.55rem, 0.5vw, 0.7rem);
+    margin-bottom: clamp(0.78rem, 0.73vw, 1rem);
 }
 
 .service-card-top .service-number {
     position: absolute;
-    top: clamp(16px, 1.8vw, 22px);
-    left: clamp(16px, 1.6vw, 22px);
+    top: clamp(15px, 1.4vw, 22px);
+    left: clamp(15px, 1.35vw, 22px);
 }
 
 .services-section .service-number {
     font-family: 'Archivo', sans-serif;
-    font-size: clamp(2.2rem, 2.5vw, 2.8rem);
+    font-size: clamp(1.8rem, 2.05vw, 2.8rem);
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -4047,8 +4110,8 @@ body.vsl-active .hero-vsl {
 .services-section .service-icon {
     position: relative;
     z-index: 2;
-    width: clamp(58px, 4.2vw, 66px);
-    height: clamp(58px, 4.2vw, 66px);
+    width: clamp(48px, 3.45vw, 66px);
+    height: clamp(48px, 3.45vw, 66px);
     background: transparent;
     border: 1px solid rgba(244, 241, 234, 0.14);
     border-radius: 16px;
@@ -4067,8 +4130,8 @@ body.vsl-active .hero-vsl {
 }
 
 .services-section .service-icon svg {
-    width: clamp(25px, 1.8vw, 29px);
-    height: clamp(25px, 1.8vw, 29px);
+    width: clamp(21px, 1.5vw, 29px);
+    height: clamp(21px, 1.5vw, 29px);
     stroke: var(--orb-color);
     stroke-width: 1.6;
     fill: none;
@@ -4107,7 +4170,7 @@ body.vsl-active .hero-vsl {
 }
 
 .services-section .service-title {
-    font-size: clamp(1.25rem, 1.45vw, 1.6rem);
+    font-size: clamp(1.05rem, 1.15vw, 1.6rem);
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.8rem;
@@ -4128,10 +4191,10 @@ body.vsl-active .hero-vsl {
 }
 
 .service-description {
-    font-size: clamp(0.9rem, 1.05vw, 1.08rem);
+    font-size: clamp(0.8rem, 0.82vw, 1.08rem);
     font-weight: 300;
     color: #FFFFFF;
-    line-height: 1.7;
+    line-height: 1.62;
     margin-bottom: clamp(0.6rem, 1.3vh, 1.3rem);
     /* Equalize so feature lists begin at the same y across all 4 cards */
     min-height: 6.2em;
@@ -4153,7 +4216,7 @@ body.vsl-active .hero-vsl {
     padding: clamp(6px, 1.1vh, 11px) 0;
     padding-left: 20px;
     position: relative;
-    font-size: clamp(0.88rem, 1.02vw, 1.05rem);
+    font-size: clamp(0.78rem, 0.8vw, 1.05rem);
     font-weight: 300;
     color: #ffffff;
     border-bottom: 1px solid rgba(244, 241, 234, 0.05);
@@ -4183,13 +4246,13 @@ body.vsl-active .hero-vsl {
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 12px;
+    gap: clamp(9px, 0.63vw, 12px);
     padding: 0.4rem 0;
     background: transparent;
     border: none;
     color: var(--text-primary);
     font-family: 'Archivo', sans-serif;
-    font-size: 0.9rem;
+    font-size: clamp(0.72rem, 0.75vw, 0.9rem);
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -4227,9 +4290,9 @@ body.vsl-active .hero-vsl {
 }
 
 .service-cta-icon {
-    width: 18px;
-    height: 18px;
-    flex: 0 0 18px;
+    width: clamp(14px, 0.94vw, 18px);
+    height: clamp(14px, 0.94vw, 18px);
+    flex: 0 0 clamp(14px, 0.94vw, 18px);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -4340,8 +4403,8 @@ body.vsl-active .hero-vsl {
 /* Brand-logo icons keep their native fills */
 .services-section .service-icon--brand svg {
     stroke: none;
-    width: 26px;
-    height: 26px;
+    width: clamp(21px, 1.35vw, 26px);
+    height: clamp(21px, 1.35vw, 26px);
     color: #9ca3af;
     transition: color 0.35s ease;
 }
@@ -5329,7 +5392,7 @@ body.vsl-active .hero-vsl {
     font-weight: 800;
     font-family: 'Archivo', sans-serif;
     color: transparent;
-    -webkit-text-stroke: 1px #ffffff;
+    -webkit-text-stroke: 0.5px #ffffff;
     -webkit-text-fill-color: transparent;
     transform-origin: left center;
     transform: scaleY(1.22);
@@ -5354,7 +5417,7 @@ body.vsl-active .hero-vsl {
     overflow: hidden;
     white-space: nowrap;
     transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
-    -webkit-text-stroke: 1px var(--animation-color);
+    -webkit-text-stroke: 0.5px var(--animation-color);
     -webkit-text-fill-color: var(--animation-color);
 }
 
@@ -5376,7 +5439,13 @@ body.vsl-active .hero-vsl {
 }
 
 .footer-lets-talk-spacer {
-    display: none;
+    display: block;
+    flex-shrink: 0;
+    width: 1px;
+    height: calc(2.6em + 6px);
+    margin: 18px 0 0;
+    padding: 0;
+    pointer-events: none;
 }
 
 .footer .footer-links {
@@ -5776,10 +5845,11 @@ body.vsl-active .hero-vsl {
 
     .hero-cta {
         flex-direction: column;
+        align-items: flex-start;
     }
 
     .hero-cta .btn {
-        width: 100%;
+        width: 66%;
     }
 
     .social-proof .container {
@@ -5834,10 +5904,17 @@ body.vsl-active .hero-vsl {
     .footer-content {
         display: flex;
         flex-direction: column;
+        padding-top: 44px;
     }
 
     .footer-main {
         order: 0;
+    }
+
+    .footer-brand,
+    .footer-nav,
+    .footer-contact > .contact-item {
+        transform: translateY(54px);
     }
 
 
@@ -6706,7 +6783,8 @@ html.silk-active .hero-bg {
 }
 
 .quiz-nav-buttons .btn-primary {
-    background: var(--cyan);
+    --btn-bg: var(--cyan);
+    background: transparent;
     color: #06120F;
     box-shadow: none;
     border: none;
@@ -6715,21 +6793,26 @@ html.silk-active .hero-bg {
 /* Inverted hover: button goes dark, label takes the accent color. The inset
    ring (not a border) keeps the shape defined without a 1px layout shift. */
 .quiz-nav-buttons .btn-primary:hover {
-    background: #06120F;
+    --btn-bg: #06120F;
+    --btn-ring: inset 0 0 0 1px var(--cyan);
+    background: transparent;
     color: var(--cyan);
-    box-shadow: inset 0 0 0 1px var(--cyan);
+    box-shadow: none;
     transform: translateY(-2px);
 }
 
 .quiz-nav-buttons .btn-secondary {
+    --btn-bg: transparent;
+    --btn-ring: inset 0 0 0 1px rgba(244, 241, 234, 0.14);
     background: transparent;
-    border: 1px solid rgba(244, 241, 234, 0.14) !important;
+    border: none !important;
     color: rgba(244, 241, 234, 0.65);
 }
 
 .quiz-nav-buttons .btn-secondary:hover {
-    background: rgba(244, 241, 234, 0.04);
-    border-color: rgba(244, 241, 234, 0.26) !important;
+    --btn-bg: rgba(244, 241, 234, 0.04);
+    --btn-ring: inset 0 0 0 1px rgba(244, 241, 234, 0.26);
+    background: transparent;
     color: var(--text-primary);
     transform: translateY(-2px);
 }
@@ -6865,6 +6948,28 @@ html.silk-active .hero-bg {
 }
 
 @media (max-width: 768px) {
+    .quiz-inline-card .quiz-form-grid > .form-row:first-child {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    .quiz-inline-card .quiz-form-grid > .form-row:first-child .form-group {
+        min-width: 0;
+        margin-bottom: 0.55rem;
+    }
+
+    .quiz-inline-card .quiz-form-grid > .form-row:first-child label {
+        font-size: 0.56rem;
+        letter-spacing: 0.12em;
+        margin-bottom: 0.45rem;
+        white-space: nowrap;
+    }
+
+    .quiz-inline-card .quiz-form-grid > .form-row:first-child input {
+        padding: 0.78rem 0.8rem;
+        min-height: 44px;
+    }
+
     .cta-title {
         font-size: 2.4rem;
     }
@@ -7016,19 +7121,19 @@ html.silk-active .hero-bg {
 
 .home-about .about-header {
     text-align: center;
-    max-width: 980px;
-    margin: 0 auto clamp(2.5rem, 4vh, 3.8rem);
+    max-width: 1140px;
+    margin: 0 auto clamp(2.8rem, 4.5vh, 4.2rem);
 }
 
 .home-about .about-header .home-about-eyebrow {
     justify-content: center;
     margin-bottom: 1.2rem;
-    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    font-size: clamp(0.85rem, 1.1vw, 0.98rem);
     letter-spacing: 0.25em;
 }
 
 .home-about .about-header .section-title {
-    font-size: clamp(2.4rem, 4vw, 4.4rem);
+    font-size: clamp(2.8rem, 4.8vw, 5.2rem);
     line-height: 1.08;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -7047,8 +7152,8 @@ html.silk-active .hero-bg {
 .home-about .about-header .about-text {
     margin: 0 auto;
     text-align: center;
-    max-width: 840px;
-    font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+    max-width: 960px;
+    font-size: clamp(1.22rem, 1.5vw, 1.55rem);
     line-height: 1.75;
     color: var(--text-secondary);
 }
@@ -7190,7 +7295,7 @@ html.silk-active .hero-bg {
 /* Growth Partner accordion — an editorial, full-width treatment that mirrors
    the numbered rows on the About page while keeping the detail expandable. */
 .home-about-accordion {
-    max-width: min(1100px, 92vw);
+    max-width: min(1280px, 94vw);
     width: 100%;
     margin: 0 auto;
     border: 0;
@@ -7252,7 +7357,7 @@ html.silk-active .hero-bg {
 .home-about-accordion .accordion-title {
     color: #F8F4EC;
     font-family: 'Archivo', sans-serif;
-    font-size: clamp(1.7rem, 2.7vw, 2.7rem);
+    font-size: clamp(1.9rem, 3.1vw, 3.1rem);
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1.04;
@@ -7302,7 +7407,87 @@ html.silk-active .hero-bg {
     outline-offset: -1px;
 }
 
+/* Short desktop/laptop viewports: keep the full growth-partner section inside
+   the screen instead of letting the open accordion row push item 4 below the fold. */
+@media (min-width: 769px) and (max-height: 850px) {
+    .home-about {
+        padding: clamp(36px, 5vh, 56px) 0;
+    }
+
+    .home-about .about-header {
+        max-width: 1060px;
+        margin-bottom: clamp(24px, 3vh, 34px);
+    }
+
+    .home-about .about-header .home-about-eyebrow {
+        margin-bottom: 0.8rem;
+        font-size: clamp(0.78rem, 0.95vw, 0.88rem);
+    }
+
+    .home-about .about-header .section-title {
+        font-size: clamp(2.7rem, 4.2vw, 4.6rem);
+        line-height: 1.04;
+        margin-bottom: 1.1rem;
+    }
+
+    .home-about .about-header .about-text {
+        max-width: 900px;
+        font-size: clamp(1.12rem, 1.3vw, 1.35rem);
+        line-height: 1.6;
+    }
+
+    .home-about-accordion {
+        max-width: min(1220px, 92vw);
+    }
+
+    .home-about-accordion .accordion-header {
+        grid-template-columns: clamp(56px, 6vw, 92px) minmax(0, 1fr) 28px;
+        gap: clamp(18px, 2.5vw, 42px);
+        padding: clamp(26px, 3.8vh, 40px) clamp(4px, 1vw, 12px);
+    }
+
+    .home-about-accordion .accordion-num {
+        font-size: clamp(1.02rem, 1.25vw, 1.25rem);
+        padding-top: 0.3em;
+    }
+
+    .home-about-accordion .accordion-title {
+        font-size: clamp(1.8rem, 2.7vw, 2.7rem);
+        line-height: 1.04;
+    }
+
+    .home-about-accordion .accordion-icon {
+        font-size: 1.95rem;
+    }
+
+    .home-about-accordion .accordion-body {
+        margin-left: calc(clamp(56px, 6vw, 92px) + clamp(18px, 2.5vw, 42px));
+        margin-right: clamp(30px, 4vw, 62px);
+    }
+
+    .home-about-accordion .accordion-item.is-open .accordion-body {
+        max-height: 280px;
+        padding-bottom: clamp(22px, 3.2vh, 32px);
+    }
+
+    .home-about-accordion .accordion-content {
+        max-width: 68ch;
+        font-size: clamp(1.02rem, 1.15vw, 1.18rem);
+        line-height: 1.6;
+    }
+}
+
 @media (max-width: 768px) {
+    .home-about .about-header .section-title {
+        font-size: clamp(1.6rem, 5.6vw, 2.4rem);
+        line-height: 1.12;
+    }
+
+    .home-about .about-header .section-title .title-line-1,
+    .home-about .about-header .section-title .title-line-2 {
+        white-space: nowrap;
+    }
+
     .home-about-lower {
         width: min(100%, 92vw);
         grid-template-columns: 1fr;
@@ -7452,6 +7637,11 @@ html.silk-active .hero-bg {
     .home-about .section-title {
         font-size: clamp(2rem, 8.5vw, 2.6rem);
         line-height: 1.15;
+    }
+
+    .home-about .about-header .section-title .title-line-1,
+    .home-about .about-header .section-title .title-line-2 {
+        white-space: normal;
     }
 
     .home-about-btn {
@@ -7691,8 +7881,35 @@ html.silk-active .hero-bg {
     color: rgba(244, 241, 234, 0.5);
 }
 
+/* The two-part platform label is an inline-flex row with a gap, which breaks
+   into a lopsided two-line block on phones. Inline flow wraps it as one
+   sentence instead. */
+@media (max-width: 620px) {
+    .svc-platform-heading {
+        display: inline;
+        text-align: center;
+    }
+}
+
 /* ── Responsive ── */
 @media (max-width: 1000px) {
+    /* The desktop composition indents the hero by a 140px minimum, which eats
+       more than a third of a phone's width and pushed the headline and buttons
+       off screen. Below the two-column layout the shell's own gutter is the
+       only indent needed. */
+    .ed-hero {
+        margin-top: 14px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* The line breaks are hand-set for the wide layout. Let them reflow once
+       the column is narrow, or a line like "We're the growth partner" runs
+       straight off the screen. */
+    .ed-hero-title .ed-line {
+        white-space: normal;
+    }
+
     .ed-hero-body {
         grid-template-columns: 1fr;
         align-items: start;
@@ -7735,7 +7952,7 @@ html.silk-active .hero-bg {
     }
 
     .ed-hero-cta .btn {
-        flex: 1 1 100%;
+        flex: 0 0 66%;
     }
 }
 
@@ -8065,5 +8282,158 @@ html.silk-active .hero-bg {
             animation: none;
             opacity: 1;
         }
+    }
+}
+
+
+/* ============================================
+   Growth-partner section: mid-height desktops
+   There was a compact treatment for max-height: 850px and the base sizing for
+   very tall screens, but nothing in between. In that gap the type sits at its
+   width-driven caps while the viewport is not tall enough to hold it, so the
+   section measured 1024px at 900px tall and 1120px at 1080px tall and pushed
+   the last accordion row off screen. This band scales the same pieces off vh so
+   the whole section lands inside the viewport at every desktop height.
+   ============================================ */
+@media (min-width: 769px) and (min-height: 851px) and (max-height: 1400px) {
+
+    .home-about {
+        padding: clamp(40px, 5vh, 76px) 0;
+    }
+
+    .home-about .about-header {
+        margin-bottom: clamp(22px, 3vh, 40px);
+    }
+
+    .home-about .about-header .section-title {
+        font-size: clamp(2.6rem, min(3.4vw, 6.2vh), 4rem);
+        line-height: 1.04;
+        margin-bottom: 0.8rem;
+    }
+
+    .home-about .about-header .about-text {
+        font-size: clamp(1rem, 1.05vw, 1.16rem);
+        line-height: 1.55;
+    }
+
+    .home-about-accordion .accordion-header {
+        padding: clamp(20px, 3vh, 34px) clamp(4px, 1vw, 12px);
+    }
+
+    .home-about-accordion .accordion-title {
+        font-size: clamp(1.6rem, min(2.3vw, 4vh), 2.35rem);
+        line-height: 1.04;
+    }
+
+    .home-about-accordion .accordion-item.is-open .accordion-body {
+        max-height: 200px;
+        padding-bottom: clamp(16px, 2.4vh, 24px);
+    }
+}
+
+
+/* ============================================
+   "Book a Call" typewriter link on an expanded accordion row
+   Mirrors the About page's .row-book-call on the way-we-work rows, with one
+   difference: those reveal on :hover, these key off .is-open because this
+   component expands rather than reveals. The underline picks up --row-accent,
+   which .home-about-accordion already sets per row, so each row underlines in
+   its own colour exactly like the reference.
+   The link is a sibling of .accordion-body, not a child: that element is
+   overflow: hidden for the expand animation and would clip an absolutely
+   positioned descendant.
+   ============================================ */
+.accordion-item {
+    position: relative;
+}
+
+.accordion-book-call {
+    position: absolute;
+    right: clamp(12px, 1.8vw, 24px);
+    bottom: clamp(14px, 2.2vh, 24px);
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(0.72rem, 0.85vw, 0.84rem);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
+}
+
+.accordion-book-call:hover {
+    color: var(--row-accent, var(--cyan));
+}
+
+.accordion-book-call .type-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+
+.accordion-item.is-open .accordion-book-call {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.accordion-item.is-open .accordion-book-call .type-text {
+    animation: accordionTypeOut 0.45s steps(14, end) forwards;
+}
+
+/* Named separately from the About page's typeOutWord so the two cannot collide
+   on pages that load both stylesheets. */
+@keyframes accordionTypeOut {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Underline in the row's accent colour, drawn only when the link itself is
+   hovered — same as the reference. */
+.accordion-book-call::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background: var(--row-accent, var(--cyan));
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-book-call:hover::after {
+    width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .accordion-item.is-open .accordion-book-call .type-text {
+        animation: none;
+        width: 100%;
+    }
+}
+
+
+/* On phones the absolute bottom-right placement would sit on top of the body
+   copy. The About page reference never hits this because it reveals on :hover,
+   which never fires on touch — this one keys off .is-open, so it is always
+   visible on an expanded row and has to take part in normal flow instead.
+   display: none while closed keeps collapsed rows at their current height. */
+@media (max-width: 768px) {
+    .accordion-book-call {
+        position: static;
+        display: none;
+    }
+
+    .accordion-item.is-open .accordion-book-call {
+        display: inline-flex;
+        width: max-content;
+        margin: 0 1.6rem 1.25rem auto;
+        opacity: 1;
     }
 }

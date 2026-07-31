@@ -1485,13 +1485,15 @@
     }
 
     .problem-stage {
-        width: min(100%, calc(100% - 28px));
+        width: 100%;
+        margin-inline: 0;
     }
 
     .problem-hero,
     .problem-spotlight,
     .problem-card {
-        padding: 0 14px;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .problem-card .pain-inner {
@@ -1656,9 +1658,40 @@
         transform: none !important;
     }
 
+    .problem-section {
+        height: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        background: transparent !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+    }
+
+    #pin-wrapper,
+    #pin-panel {
+        height: auto !important;
+        background: transparent !important;
+    }
+
+    #pin-panel {
+        padding-left: clamp(20px, 5vw, 28px) !important;
+        padding-right: clamp(20px, 5vw, 28px) !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+    }
+
+    #pin-panel::before,
+    #pin-panel::after,
+    #bg-glow {
+        display: none !important;
+    }
+
     /* Don't force a full empty viewport before the stacked cards begin */
     .problem-combined {
         min-height: 0;
+        width: 100%;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
     }
 
     .problem-combined-inner {
@@ -1667,15 +1700,22 @@
         align-items: flex-start;
         position: relative;
         gap: 0;
+        width: 100%;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
     }
 
     .problem-hero {
         width: 100%;
         margin-bottom: 0;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
     }
 
     .problem-intro-copy {
-        padding-left: 0;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        text-align: left !important;
     }
 
     /* "THE PROBLEM" made bigger on mobile */
@@ -1683,29 +1723,33 @@
     .s0-label {
         font-size: clamp(5.5rem, 26vw, 10.5rem) !important;
         line-height: 0.78 !important;
+        text-align: left !important;
     }
 
     .s0-label .the {
         line-height: 0.78 !important;
         margin-bottom: -0.05em;
+        text-align: left !important;
     }
 
     .s0-label .problem {
         line-height: 0.78 !important;
+        text-align: left !important;
     }
 
-    /* Curved arrow connecting "PROBLEM" out to the right and looping down-left to "MOST BUSINESSES ARE..." */
+    /* Curved arrow exits "PROBLEM" toward the right edge on mobile */
     .problem-connect-arrow {
         display: block !important;
         position: relative !important;
         inset: auto !important;
-        width: clamp(140px, 46vw, 220px) !important;
+        width: clamp(112px, 34vw, 160px) !important;
         height: auto !important;
         margin-left: auto !important;
-        margin-right: 10px !important;
-        margin-top: -20px !important;
-        margin-bottom: -15px !important;
-        transform: rotate(65deg) scaleX(-1) !important;
+        margin-right: clamp(4px, 2vw, 12px) !important;
+        margin-top: -10px !important;
+        margin-bottom: -4px !important;
+        transform: rotate(18deg) !important;
+        transform-origin: center !important;
         z-index: 5 !important;
         opacity: 1 !important;
     }
@@ -1723,10 +1767,11 @@
     }
 
     .s4-label {
-        font-size: clamp(0.95rem, 4vw, 1.35rem) !important;
-        letter-spacing: 0.26em !important;
+        font-size: clamp(0.72rem, 3.25vw, 1rem) !important;
+        letter-spacing: clamp(0.12em, 0.7vw, 0.22em) !important;
         margin-bottom: 8px !important;
         text-align: left !important;
+        white-space: nowrap !important;
     }
 
     .problem-spotlight .s4-title,
