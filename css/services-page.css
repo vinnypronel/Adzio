@@ -3103,6 +3103,21 @@
    ============================================ */
 @media (max-width: 768px) {
 
+    /* Founders Instagram Cards on mobile */
+    .svc-proof-header {
+        margin-bottom: 1.25rem;
+        transform: translateY(-4px);
+    }
+
+    .svc-proof-stack .abt-proof-card--cyan {
+        top: 0;
+    }
+
+    .svc-proof-stack .abt-proof-feed {
+        transform: translate(-5px, -8px);
+        margin-bottom: 10px;
+    }
+
     .svc-detail-lead {
         font-size: 16px;
     }

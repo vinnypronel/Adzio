@@ -1326,7 +1326,7 @@
 #problem-card-time .icon-ring {
     background: radial-gradient(circle at 50% 32%, rgba(8, 102, 255, 0.36) 0%, rgba(8, 102, 255, 0.12) 58%, transparent 100%);
     color: var(--card-accent);
-    box-shadow: 0 0 64px -14px rgba(8, 102, 255, 0.58);
+    box-shadow: none;
     width: clamp(96px, 9vw, 130px);
     height: clamp(96px, 9vw, 130px);
 }
@@ -1347,7 +1347,7 @@
 #problem-card-budget .icon-ring {
     background: radial-gradient(circle at 50% 32%, rgba(66, 133, 244, 0.36) 0%, rgba(66, 133, 244, 0.12) 58%, transparent 100%);
     color: var(--card-accent);
-    box-shadow: 0 0 64px -14px rgba(66, 133, 244, 0.58);
+    box-shadow: none;
 }
 
 #problem-card-competition {
@@ -1365,7 +1365,7 @@
 #problem-card-competition .icon-ring {
     background: radial-gradient(circle at 50% 32%, rgba(0, 184, 212, 0.36) 0%, rgba(0, 184, 212, 0.12) 58%, transparent 100%);
     color: var(--card-accent);
-    box-shadow: 0 0 64px -14px rgba(0, 184, 212, 0.6);
+    box-shadow: none;
     width: clamp(96px, 9vw, 130px);
     height: clamp(96px, 9vw, 130px);
 }
@@ -1480,8 +1480,18 @@
 }
 
 @media (max-width: 900px) {
+    /* Was 72px, which stacked on the section's own padding and left a large
+       dead band above "THE" on phones. The fixed mobile bar is 60px tall but
+       this section sits mid-page, so content scrolls under it either way and
+       does not need that clearance reserved here. */
     #pin-panel {
-        padding-top: 72px;
+        padding-top: 8px;
+    }
+
+    /* Trim the section's own leading padding too - between the two there was
+       ~100px of empty screen above "THE". */
+    .problem-section {
+        padding-top: 10px !important;
     }
 
     .problem-stage {
@@ -1726,29 +1736,48 @@
         text-align: left !important;
     }
 
+    /* Matched to the "INVISIBLE / TO THE" stack below, which runs at a 0.82
+       line-height ratio with no negative margin. This pair was at 0.78 plus a
+       -0.05em pull, so THE sat noticeably tighter to PROBLEM than INVISIBLE
+       does to TO THE. */
     .s0-label .the {
-        line-height: 0.78 !important;
-        margin-bottom: -0.05em;
+        line-height: 0.82 !important;
+        margin-bottom: 0 !important;
         text-align: left !important;
     }
 
     .s0-label .problem {
-        line-height: 0.78 !important;
+        line-height: 0.82 !important;
         text-align: left !important;
     }
 
-    /* Curved arrow exits "PROBLEM" toward the right edge on mobile */
+    /* Arrow leaves the right side of the M and points DOWN at the copy block
+       below. The SVG is authored pointing left-to-right, so the rotation is
+       what aims it: ~100deg puts the tail at the top (against the M) and the
+       head at the bottom, angled a touch left toward the text. It previously
+       sat at 18deg, which aimed it off into empty space at the right edge. */
     .problem-connect-arrow {
         display: block !important;
         position: relative !important;
         inset: auto !important;
-        width: clamp(112px, 34vw, 160px) !important;
+        /* The old 132px cap kept this tiny on tablets while the headline scaled
+           up, so it read as an afterthought next to 100px+ type. The cap is now
+           high enough that the arrow tracks 28vw all the way up. */
+        width: clamp(92px, 28vw, 260px) !important;
         height: auto !important;
         margin-left: auto !important;
-        margin-right: clamp(4px, 2vw, 12px) !important;
-        margin-top: -10px !important;
-        margin-bottom: -4px !important;
-        transform: rotate(18deg) !important;
+        margin-right: 4px !important;
+        /* A rotated element still occupies its UNROTATED box in flow. At 140deg
+           this paints almost exactly its own width in height (~1.0x) while its
+           layout box is only ~0.47x, so without these it bleeds over PROBLEM
+           above and the copy below. 7.5vw keeps the reserved lane in step with
+           the 28vw width instead of going stale at one size. */
+        margin-top: clamp(24px, 7.5vw, 70px) !important;
+        margin-bottom: clamp(24px, 7.5vw, 70px) !important;
+        /* 140deg aims the head down-and-left, straight at "INVISIBLE", while
+           the tail stays up against the right of the M. At 100deg it pointed
+           essentially straight down, past the copy rather than into it. */
+        transform: rotate(140deg) !important;
         transform-origin: center !important;
         z-index: 5 !important;
         opacity: 1 !important;
@@ -1785,17 +1814,25 @@
     /* ── Stacked pain cards: uniform size + breathing room ── */
     .problem-card-grid {
         gap: clamp(18px, 5vw, 28px);
+        margin-inline: clamp(14px, 4vw, 24px);
+        width: auto;
         /* Every card row takes the height of the tallest card → all three end
            up exactly the same size (no fixed px guesswork, fully fluid). */
         grid-auto-rows: 1fr;
     }
 
     .problem-card {
-        /* An earlier ≤900 rule zeroed the vertical padding (`padding: 0 14px`),
-           which is why the icon/body were touching the border. Restore generous
-           top/bottom padding so content never kisses the edge. */
-        padding: clamp(32px, 8vw, 44px) clamp(18px, 5vw, 26px);
-        /* Center the content block within the now-equal-height card */
+        /* Match the mobile process-step card shell: same gutters, radius,
+           glass treatment, and proportional padding. */
+        padding: clamp(38px, 9vw, 52px) clamp(18px, 5vw, 28px) clamp(30px, 7vw, 42px);
+        margin-top: 0 !important;
+        width: auto;
+        border-radius: 20px;
+        background: rgba(15, 20, 26, 0.55);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1803,6 +1840,11 @@
 
     .problem-card .pain-inner {
         width: 100%;
+    }
+
+    .problem-card .icon-ring {
+        width: clamp(120px, 36vw, 160px);
+        height: clamp(120px, 36vw, 160px);
     }
 
     /* Middle card (Budget Burn) is authored body → icon → heading, so on mobile

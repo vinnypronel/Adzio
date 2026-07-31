@@ -285,7 +285,15 @@ function initCarouselTracks() {
     const slider = document.querySelector('.logo-slider');
     if (!slider) return;
 
-    const rebuild = debounce(() => prepareCarouselTracks(slider), 120);
+    // Mobile browsers fire resize when the address bar shows/hides (height-only
+    // change). Rebuilding the track on that resets the animation mid-scroll,
+    // which reads as a glitch/stutter. Only rebuild when width actually changes.
+    let lastWidth = window.innerWidth;
+    const rebuild = debounce(() => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
+        prepareCarouselTracks(slider);
+    }, 150);
 
     prepareCarouselTracks(slider);
 
@@ -336,11 +344,13 @@ async function prepareCarouselTracks(slider) {
             slide.dataset.clone = 'true';
         });
 
+        // Duration scales with content width so the scroll speed (px/sec) stays
+        // constant across screen sizes — a fixed duration made the shorter mobile
+        // track visibly crawl since it covers less distance in the same time.
+        const pxPerSecond = track.classList.contains('slide-track-top') ? 95 : 80;
+        const duration = Math.min(30, Math.max(8, baseWidth / pxPerSecond));
         track.style.setProperty('--carousel-shift', `${baseWidth}px`);
-        track.style.setProperty(
-            '--carousel-duration',
-            track.classList.contains('slide-track-top') ? '21s' : '17s'
-        );
+        track.style.setProperty('--carousel-duration', `${duration}s`);
 
         if (!track.classList.contains('is-paused-offscreen')) {
             track.style.animationPlayState = 'running';

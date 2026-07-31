@@ -625,8 +625,37 @@ function initProcessSection() {
     ScrollTrigger.refresh();
 }
 
+// Mobile has no pinned deck: initProcessSection() bails at 900px, and that is
+// the only thing that ever added .icon-animate. Step 3's icon draws itself in
+// from a hidden dash offset, so with the class never applied its ring rendered
+// empty. Play each icon as its ring scrolls into view instead.
+function initProcessIconScrollPlay() {
+    if (!window.matchMedia('(max-width: 900px)').matches) return;
+
+    const rings = document.querySelectorAll('.process-slide .process-icon-ring');
+    if (!rings.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        rings.forEach(ring => ring.classList.add('icon-animate'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const ring = entry.target;
+            ring.classList.remove('icon-animate');
+            void ring.offsetWidth;
+            ring.classList.add('icon-animate');
+        });
+    }, { threshold: 0.4 });
+
+    rings.forEach(ring => observer.observe(ring));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initProblemSection();
     initProcessSection();
     initProcessIconReplay();
+    initProcessIconScrollPlay();
 });

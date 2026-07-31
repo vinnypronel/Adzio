@@ -23,9 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=291.0">
+    <link rel="stylesheet" href="css/styles.css?v=293.0">
     <link rel="stylesheet" href="css/animations.css?v=40.0">
-    <link rel="stylesheet" href="css/about-page.css?v=16.0">
+    <link rel="stylesheet" href="css/about-page.css?v=17.0">
     <!-- Lottie Player -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
@@ -144,8 +144,11 @@
 
                     <div class="ed-hero-body">
                         <h1 class="ed-hero-title animate-on-scroll">
-                            <span class="ed-line">We're the growth partner</span>
-                            <span class="ed-line">local businesses</span>
+                            <span class="ed-line d-desktop-only">We're the growth partner</span>
+                            <span class="ed-line d-desktop-only">local businesses</span>
+                            <span class="ed-line d-mobile-only">We're the growth</span>
+                            <span class="ed-line d-mobile-only">partner local</span>
+                            <span class="ed-line d-mobile-only">businesses</span>
                             <span class="ed-line ed-line--accent">actually keep.</span>
                         </h1>
 
@@ -231,107 +234,8 @@
                             into a single growth engine, handled end to end by a small, senior team that treats your
                             budget like our own and tells you the truth about what's working.
                         </p>
-                        <p class="abt-story-kicker">You focus on the work you do best. We'll handle the growth.</p>
                     </div>
 
-                    <div class="abt-story-visual animate-on-scroll">
-                        <div class="growth-console" data-growth-console
-                            aria-label="Interactive marketing growth dashboard">
-                            <div class="growth-console-glow" aria-hidden="true"></div>
-                            <div class="growth-console-head">
-                                <div>
-                                    <span class="growth-console-kicker"><i aria-hidden="true"></i> Client Performance
-                                        Dashboard</span>
-                                    <strong>See what drives booked revenue</strong>
-                                    <p>Explore each report view to see how demand turns into qualified leads and
-                                        revenue.</p>
-                                </div>
-                                <div class="growth-view-picker">
-                                    <span>Choose a report view</span>
-                                    <div class="growth-periods" aria-label="Select reporting period">
-                                        <button type="button" data-period="7"
-                                            aria-label="Show 7-day report"><b>7D</b><small>Week</small></button>
-                                        <button type="button" data-period="30" class="active"
-                                            aria-label="Show 30-day report"><b>30D</b><small>Month</small></button>
-                                        <button type="button" data-period="90"
-                                            aria-label="Show 90-day report"><b>90D</b><small>Quarter</small></button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="growth-kpis" aria-live="polite">
-                                <div class="growth-kpi growth-kpi--primary">
-                                    <span>Booked revenue</span>
-                                    <strong data-metric="revenue">$38.4K</strong>
-                                    <em data-delta="revenue">+60% vs baseline</em>
-                                    <small>Baseline <b data-base="revenue">$24.2K</b></small>
-                                </div>
-                                <div class="growth-kpi">
-                                    <span>Qualified leads</span>
-                                    <strong data-metric="leads">126</strong>
-                                    <em data-delta="leads">+37% vs baseline</em>
-                                    <small>Baseline <b data-base="leads">92</b></small>
-                                </div>
-                                <div class="growth-kpi">
-                                    <span>Cost per booked job</span>
-                                    <strong data-metric="cpa">$41</strong>
-                                    <em data-delta="cpa" class="is-down">&minus;34% vs baseline</em>
-                                    <small>Baseline <b data-base="cpa">$62</b></small>
-                                </div>
-                            </div>
-
-                            <div class="growth-chart-wrap">
-                                <div class="growth-chart-head">
-                                    <span>Booked revenue per <b data-chart-unit>week</b></span>
-                                    <span class="growth-legend">
-                                        <i><s class="growth-swatch growth-swatch--base"></s>Baseline</i>
-                                        <i><s class="growth-swatch growth-swatch--adzio"></s>With Adzio</i>
-                                    </span>
-                                </div>
-                                <svg class="growth-chart" viewBox="0 0 520 196" role="img" data-chart-svg
-                                    aria-label="Booked revenue with Adzio compared against the pre-Adzio baseline">
-                                    <defs>
-                                        <linearGradient id="growthArea" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.26"></stop>
-                                            <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"></stop>
-                                        </linearGradient>
-                                    </defs>
-                                    <g class="growth-grid" data-chart-grid aria-hidden="true"></g>
-                                    <g class="growth-ylabels" data-chart-ylabels aria-hidden="true"></g>
-                                    <g class="growth-xlabels" data-chart-xlabels aria-hidden="true"></g>
-                                    <path class="growth-area" data-chart-area d=""></path>
-                                    <path class="growth-baseline" data-chart-baseline d=""></path>
-                                    <path class="growth-line" data-chart-line d=""></path>
-                                    <g data-chart-dots></g>
-                                </svg>
-                            </div>
-
-                            <div class="growth-channels">
-                                <div class="growth-channels-head">
-                                    <span>Booked jobs by channel</span>
-                                    <span data-channel-total>126 total</span>
-                                </div>
-                                <div class="growth-channel" style="--channel-color: #3B78E0">
-                                    <span><i class="growth-channel-dot"></i>Meta Ads</span>
-                                    <div><b style="--channel-width: 46%"></b></div>
-                                    <strong data-channel="meta">58</strong>
-                                </div>
-                                <div class="growth-channel" style="--channel-color: #C08420">
-                                    <span><i class="growth-channel-dot"></i>Google Ads</span>
-                                    <div><b style="--channel-width: 34%"></b></div>
-                                    <strong data-channel="google">43</strong>
-                                </div>
-                                <div class="growth-channel" style="--channel-color: #129FB0">
-                                    <span><i class="growth-channel-dot"></i>Organic / SEO</span>
-                                    <div><b style="--channel-width: 20%"></b></div>
-                                    <strong data-channel="organic">25</strong>
-                                </div>
-                            </div>
-
-                            <p class="growth-console-note">Illustrative sample dashboard, not a specific client
-                                account.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -1037,8 +941,7 @@
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="js/smooth-scroll.js?v=1"></script>
     <script src="js/main.js?v=58.0"></script>
-    <script src="js/about-growth.js?v=2"></script>
-    <script src="js/problem.js?v=13.0"></script>
+    <script src="js/problem.js?v=15.0"></script>
     <script src="js/silk-bg.js?v=1"></script>
 
     <!-- Navbar Morphing Script -->

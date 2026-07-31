@@ -965,6 +965,14 @@
     animation: processDrawLine 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* Safety net: the markup ships this polyline fully offset, i.e. invisible until
+   something draws it in. If the reveal never fires the icon must still be
+   there, so the resting state is the drawn one; the animation still starts from
+   its own hidden keyframe. */
+#process-slide-4 .process-icon-ring polyline {
+    stroke-dashoffset: 0;
+}
+
 #process-slide-5 .process-icon-ring line {
     transform-origin: center bottom;
     transform-box: fill-box;
@@ -1123,7 +1131,7 @@
         align-items: flex-start;
         justify-content: flex-start;
         gap: 8px;
-        padding-top: clamp(16px, 3vw, 24px);
+        padding-top: 0;
         overflow: visible;
     }
 
@@ -1135,15 +1143,21 @@
         overflow: visible;
     }
 
+    /* Pull the whole title block up: the section's own 80px top padding plus
+       the label's 40px lead left a screen of dead space above ADZIO'S. */
+    .process-section {
+        padding-top: 0;
+    }
+
     /* ADZIO'S — bright solid fill and stacked tight against PROCESS */
     #process-slide-0 .process-s0-label .our,
     .process-s0-label .our {
         color: rgba(244, 241, 234, 0.92);
         -webkit-text-stroke: 0;
         transform: none;
-        margin-top: 40px;
-        line-height: 0.72;
-        margin-bottom: -0.2em;
+        margin-top: 6px;
+        line-height: 0.92;
+        margin-bottom: 0;
         text-shadow: none !important;
         filter: none !important;
     }
@@ -1151,9 +1165,13 @@
     #process-slide-0 .process-s0-label .process,
     .process-s0-label .process {
         color: var(--teal);
-        transform: none;
+        transform: translateY(-12px);
         line-height: 0.72;
-        margin-top: -50px;
+        margin-top: -6px;
+        /* The legacy `.process` section rule in styles.css matches this span by
+           name and was adding 90px of padding above and below the word, which
+           is what opened the gap under ADZIO'S. */
+        padding: 0;
     }
 
     .process-s0-subhead {
