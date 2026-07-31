@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,9 +20,9 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/styles.css?v=258.0">
+    <link rel="stylesheet" href="css/styles.css?v=279.0">
     <link rel="stylesheet" href="css/animations.css?v=40.0">
-    <link rel="stylesheet" href="css/services-page.css?v=28.0">
+    <link rel="stylesheet" href="css/services-page.css?v=46.0">
     <link rel="stylesheet" href="css/about-page.css?v=1.0">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
@@ -39,14 +39,23 @@
             <img src="assets/logo.png" alt="" class="veil-logo">
             <div class="veil-loader"><span class="veil-progress-fill"></span></div>
             <span class="veil-percent">0%</span>
+            <div class="veil-loading-text" aria-hidden="true">
+                <span class="veil-letter" style="--i:0">L</span>
+                <span class="veil-letter" style="--i:1">O</span>
+                <span class="veil-letter" style="--i:2">A</span>
+                <span class="veil-letter" style="--i:3">D</span>
+                <span class="veil-letter" style="--i:4">I</span>
+                <span class="veil-letter" style="--i:5">N</span>
+                <span class="veil-letter" style="--i:6">G</span>
+            </div>
         </div>
     </div>
 
     <div class="nav-wrap" id="navWrap" data-nav-rest="center" data-nav-fixed-side="true">
         <div class="nav-svg-container" id="navContainer">
             <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
-                <path id="navFill" fill="#0d1a1f" stroke="none"></path>
-                <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5"></path>
+                <path id="navFill" fill="#16252c" stroke="none"></path>
+                <path id="navStroke" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.5"></path>
             </svg>
             <div class="nav-content">
                 <div class="logo-row">
@@ -109,34 +118,50 @@
         </div>
     </div>
 
+    <!-- Pinned Header CTA -->
+    <a href="index.html#contact" class="pinned-header-cta" id="pinnedHeaderCta">
+        <svg class="phone-ring-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        <span>Book a Call</span>
+    </a>
+
     <main class="services-page-main">
         <section class="svc-hero" id="services-overview">
             <div class="svc-shell">
-                <div class="svc-hero-layout">
-                    <div class="svc-hero-inner">
-                        <div class="hero-eyebrow animate-on-scroll">
-                            <span>Adzio</span>
-                        </div>
-                        <h1 class="svc-hero-title animate-on-scroll">
-                            <span class="svc-hero-title-line">Growth systems for</span>
-                            <span class="svc-hero-title-line svc-title-booked">booked local</span>
-                            <span class="svc-hero-title-line svc-title-revenue">revenue.</span>
+                <div class="ed-hero">
+                    <div class="ed-masthead animate-on-scroll">
+                        <span class="ed-masthead-brand">Adzio</span>
+                    </div>
+
+                    <div class="ed-hero-body">
+                        <h1 class="ed-hero-title animate-on-scroll">
+                            <span class="ed-line">Growth systems for</span>
+                            <span class="ed-line ed-line--accent">booked local</span>
+                            <span class="ed-line ed-line--accent">revenue.</span>
                         </h1>
-                        <p class="svc-hero-lead animate-on-scroll">
-                            Ads, websites, content, and follow-up managed as one senior-run system for local businesses.
-                        </p>
-                        <div class="svc-hero-cta animate-on-scroll">
-                            <a href="index.html#contact" class="btn btn-primary btn-lg">
-                                <span>Get My Growth Plan</span>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                            <a href="index.html#process" class="btn btn-ghost btn-lg">
-                                <span>See How We Work</span>
-                            </a>
+
+                        <div class="ed-hero-aside animate-on-scroll">
+                            <p class="ed-hero-lead">
+                                Ads, websites, content, and follow-up managed as one senior-run system for local
+                                businesses.
+                            </p>
+                            <div class="ed-hero-cta">
+                                <a href="index.html#contact" class="btn btn-primary btn-lg">
+                                    <span>Get My Growth Plan</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                                <a href="index.html#process" class="btn btn-ghost btn-lg">
+                                    <span>See How We Work</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="svc-hero-layout">
 
                     <div class="svc-command-center animate-on-scroll" aria-label="Growth system preview">
                         <div class="svc-command-head">
@@ -240,7 +265,7 @@
         </section>
 
         <!-- 01 / Meta Ad Management -->
-        <section class="svc-detail" id="ad-management" data-accent="teal">
+        <section class="svc-detail" id="ad-management" data-accent="amber">
             <div class="svc-shell">
                 <div class="svc-detail-grid">
                     <div class="svc-copy animate-on-scroll">
@@ -365,7 +390,7 @@
         </section>
 
         <!-- 03 / Website Development -->
-        <section class="svc-detail" id="landing-pages" data-accent="amber">
+        <section class="svc-detail" id="landing-pages" data-accent="teal">
             <div class="svc-shell">
                 <div class="svc-detail-grid">
                     <div class="svc-copy animate-on-scroll">
@@ -389,31 +414,83 @@
 
                     <div class="svc-visual animate-on-scroll">
                         <div class="svc-card svc-card--web">
+                            <div class="svc-web-stage">
 
-                            <!-- Browser chrome -->
-                            <div class="svc-browser">
-                                <div class="svc-browser-bar">
-                                    <span class="svc-dot" style="background:#ff5f57"></span>
-                                    <span class="svc-dot" style="background:#febc2e"></span>
-                                    <span class="svc-dot" style="background:#28c840"></span>
-                                    <div class="svc-url">yourbusiness.com/book</div>
-                                    <span class="svc-browser-secure" aria-label="Secure website">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                            <rect x="5" y="10" width="14" height="10" rx="2"></rect>
-                                            <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
-                                        </svg>
-                                    </span>
+                                <!-- Mobile build, same site -->
+                                <div class="svc-iphone">
+                                    <div class="svc-iphone-screen">
+                                        <img class="svc-iphone-photo" src="assets/premium-contractor-hero.png" alt="Mobile view of the same contractor website">
+                                        <div class="svc-iphone-ui">
+                                            <div class="svc-iphone-topbar">
+                                                <span class="svc-iphone-brand">Blackwood Contracting</span>
+                                                <span class="svc-iphone-burger" aria-hidden="true"><i></i><i></i><i></i></span>
+                                            </div>
+                                            <div class="svc-iphone-hero">
+                                                <h4 class="svc-iphone-title">Elevate Your Home.<br><em>Built to Last.</em></h4>
+                                                <p class="svc-iphone-sub">Luxury remodeling and roofing that enhance beauty, protect what matters, and stand the test of time.</p>
+                                                <span class="svc-iphone-cta">Schedule a Consultation</span>
+                                                <div class="svc-iphone-trust">
+                                                    <span class="svc-iphone-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                                    <span>5.0</span>
+                                                    <i></i>
+                                                    <span>Licensed &amp; Insured</span>
+                                                </div>
+                                            </div>
+                                            <div class="svc-iphone-safari">
+                                                <span class="svc-iphone-url">blackwoodcontracting.com</span>
+                                                <span class="svc-iphone-home-bar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="svc-browser-body">
-                                    <img src="assets/premium-contractor-hero.png" alt="Premium Contractor Website Hero Design" style="width: 100%; height: auto; display: block;">
+
+                                <!-- Browser chrome, with the Stripe chip sitting above its top-left corner -->
+                                <div class="svc-browser-col">
+                                    <div class="svc-float-chip svc-float-chip--stacked">
+                                        <img src="business-logos/stripe.png" alt="Stripe"><span>Checkout Ready</span>
+                                    </div>
+                                    <div class="svc-browser">
+                                        <div class="svc-browser-bar">
+                                            <span class="svc-dot" style="background:#ff5f57"></span>
+                                            <span class="svc-dot" style="background:#febc2e"></span>
+                                            <span class="svc-dot" style="background:#28c840"></span>
+                                            <div class="svc-url">www.blackwoodcontracting.com</div>
+                                            <span class="svc-browser-secure" aria-label="Secure website">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                                                    <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="svc-browser-body">
+                                            <!-- Photo only: the source art has the old UI baked in, so it is
+                                                 cropped to the clean right-hand band of the house. -->
+                                            <div class="svc-site-shot" role="img" aria-label="Desktop view of the same contractor website"></div>
+                                            <div class="svc-site-ui">
+                                                <div class="svc-site-nav">
+                                                    <span class="svc-site-brand">Blackwood<em>Contracting</em></span>
+                                                    <span class="svc-site-links">
+                                                        <b>Home</b><span>Roofing</span><span>Remodeling</span><span>Exteriors</span><span>Our Work</span><span>About</span><span>Financing</span>
+                                                    </span>
+                                                    <span class="svc-site-quote">Get a Quote</span>
+                                                </div>
+                                                <div class="svc-site-hero">
+                                                    <h4 class="svc-site-title">Elevate Your Home.<br><em>Built to Last.</em></h4>
+                                                    <p class="svc-site-sub">Luxury remodeling and roofing that enhance beauty, protect what matters, and stand the test of time.</p>
+                                                    <span class="svc-site-cta">Schedule a Consultation</span>
+                                                    <div class="svc-site-trust">
+                                                        <span class="svc-site-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                                        <span>5.0</span>
+                                                        <i></i>
+                                                        <span>Licensed &amp; Insured</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
-
-
-
-                        </div>
-                        <div class="svc-float-chip svc-float-chip--a">
-                            <img src="business-logos/stripe.png" alt="Stripe"><span>Checkout Ready</span>
                         </div>
                     </div>
                 </div>
@@ -443,26 +520,41 @@
                         </a>
                     </div>
 
-                    <div class="svc-visual svc-proof-stack animate-on-scroll">
-                        <div class="abt-proof-card abt-proof-card--cyan">
+                    <div class="svc-visual animate-on-scroll">
+                        <div class="svc-proof-header">
+                            <div class="svc-proof-tag">
+                                <svg class="svc-ig-gradient-icon" viewBox="0 0 24 24" fill="none">
+                                    <defs>
+                                        <linearGradient id="igGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#f09433" />
+                                            <stop offset="25%" stop-color="#e6683c" />
+                                            <stop offset="50%" stop-color="#dc2743" />
+                                            <stop offset="75%" stop-color="#cc2366" />
+                                            <stop offset="100%" stop-color="#bc1888" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#igGradient)" stroke-width="2.2"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#igGradient)" stroke-width="2.2"></path>
+                                    <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igGradient)"></circle>
+                                </svg>
+                                <span>The Founders' Instagram Pages</span>
+                            </div>
+                        </div>
+                        <div class="svc-proof-stack">
+                            <div class="abt-proof-card abt-proof-card--cyan">
                             <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
                                 <div class="abt-proof-head">
                                     <div class="abt-proof-icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                        </svg>
+                                        <img src="assets/instagram/carsbydevyn/devyn_ig_pfp.jpg" alt="@carsbydevyn profile picture" class="abt-proof-avatar">
                                     </div>
                                     <div class="abt-proof-meta">
                                         <span class="abt-proof-handle">@carsbydevyn</span>
                                         <span class="abt-proof-by">Built by Devyn</span>
                                     </div>
                                     <div class="svc-proof-stats" aria-label="Cars by Devyn social media results">
-                                        <div class="svc-proof-stat"><strong>12.8K</strong><span>Followers</span></div>
-                                        <div class="svc-proof-stat"><strong>4.3K</strong><span>Avg. Likes</span></div>
-                                        <div class="svc-proof-stat"><strong>84K</strong><span>Monthly Reach</span></div>
+                                        <div class="svc-proof-stat"><strong>27.1K</strong><span>Followers</span></div>
+                                        <div class="svc-proof-stat"><strong>19K</strong><span>Avg. Likes</span></div>
+                                        <div class="svc-proof-stat"><strong>11.2M</strong><span>Monthly Reach</span></div>
                                     </div>
                                 </div>
                             </a>
@@ -512,21 +604,16 @@
                             <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
                                 <div class="abt-proof-head">
                                     <div class="abt-proof-icon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                        </svg>
+                                        <img src="assets/instagram/twanwhips/anton_ig_pfp.jpg" alt="@twanwhips profile picture" class="abt-proof-avatar">
                                     </div>
                                     <div class="abt-proof-meta">
                                         <span class="abt-proof-handle">@twanwhips</span>
                                         <span class="abt-proof-by">Built by Anton</span>
                                     </div>
                                     <div class="svc-proof-stats" aria-label="Twan Whips social media results">
-                                        <div class="svc-proof-stat"><strong>9.4K</strong><span>Followers</span></div>
-                                        <div class="svc-proof-stat"><strong>3.7K</strong><span>Avg. Likes</span></div>
-                                        <div class="svc-proof-stat"><strong>61K</strong><span>Monthly Reach</span></div>
+                                        <div class="svc-proof-stat"><strong>40.3K</strong><span>Followers</span></div>
+                                        <div class="svc-proof-stat"><strong>25K</strong><span>Avg. Likes</span></div>
+                                        <div class="svc-proof-stat"><strong>6.4M</strong><span>Monthly Reach</span></div>
                                     </div>
                                 </div>
                             </a>
@@ -572,6 +659,7 @@
                             </a>
                         </div>
                     </div>
+                </div>
 
                 </div>
             </div>
@@ -581,14 +669,25 @@
 
 
 
-        <section class="services-cta-panel">
-            <div class="services-shell">
-                <div class="services-cta-shell animate-on-scroll">
-                    <div class="svc-eyebrow svc-eyebrow--center">Get Started</div>
-                    <h2>Ready to turn attention into booked revenue?</h2>
-                    <p class="svc-cta-intro">Answer a few quick questions and we'll build a custom growth plan for your business, no pressure, no obligation.</p>
+        <!-- CTA Section -->
+        <section class="cta" id="contact">
+            <div class="cta-bg">
+                <div class="cta-gradient"></div>
+                <div class="cta-pattern"></div>
+            </div>
+            <div class="container">
+                <div class="cta-content cta-content--wide-form">
+                    <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Book a Call</span>
+                    <h2 class="cta-title animate-on-scroll">
+                        Ready to <span class="text-gradient">Own Your Market?</span>
+                    </h2>
+                    <p class="cta-subtitle animate-on-scroll">
+                        We partner with a limited number of local businesses each quarter. Apply for a
+                        private strategy session &ndash; if we're the right fit, you'll leave with a
+                        custom growth plan. Free, and yours to keep.
+                    </p>
 
-                    <!-- Inline Quiz / Contact Form -->
+                    <!-- Inline Quiz -->
                     <div class="quiz-inline-card animate-on-scroll" id="quizInlineCard">
                         <!-- Progress Bar -->
                         <div class="quiz-progress-wrapper">
@@ -602,8 +701,8 @@
                         <form id="quizForm" novalidate>
                             <!-- Step 1: Contact Details -->
                             <div class="quiz-step active" data-step="1">
-                                <h2 class="quiz-step-title">Let's start with your contact details</h2>
-                                <p class="quiz-step-subtitle">Introduce yourself so we can customize your strategy call.</p>
+                                <h2 class="quiz-step-title">Introduce yourself</h2>
+                                <p class="quiz-step-subtitle">Tell us who you are so we can prepare your private strategy session.</p>
                                 <div class="quiz-form-grid">
                                     <div class="form-row">
                                         <div class="form-group">
@@ -625,17 +724,22 @@
                                             <input type="email" id="email" name="email" placeholder="john@example.com" required>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="website">Website <span class="label-optional">(Optional)</span></label>
-                                        <input type="url" id="website" name="website" placeholder="e.x. www.yourbusiness.com">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="website">Website <span class="label-optional">(Optional)</span></label>
+                                            <input type="url" id="website" name="website" placeholder="e.x. www.yourbusiness.com">
+                                        </div>
+                                        <!-- On desktop step 1 the nav buttons are moved in here so Next
+                                             sits beside the website field instead of on its own row. -->
+                                        <div class="quiz-nav-slot" id="quizNavSlot"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Step 2: Situation -->
                             <div class="quiz-step" data-step="2">
-                                <h2 class="quiz-step-title">Which best describes your current situation?</h2>
-                                <p class="quiz-step-subtitle">Pick the option that sounds most like where your business is right now.</p>
+                                <h2 class="quiz-step-title">Where does your business stand?</h2>
+                                <p class="quiz-step-subtitle">Choose the option closest to where you are right now.</p>
                                 <div class="form-group">
                                     <label for="business">Your Current Situation <span class="label-required">*</span></label>
                                     <select id="business" name="business" required>
@@ -652,8 +756,8 @@
 
                             <!-- Step 3: Service Type -->
                             <div class="quiz-step" data-step="3">
-                                <h2 class="quiz-step-title">Which service are you looking for?</h2>
-                                <p class="quiz-step-subtitle">Select the main marketing channel you'd like to scale first.</p>
+                                <h2 class="quiz-step-title">Which service do you need first?</h2>
+                                <p class="quiz-step-subtitle">Select the channel you want to scale first &ndash; we'll map the rest on the call.</p>
                                 <div class="form-group">
                                     <label for="service">Interested Service <span class="label-required">*</span></label>
                                     <select id="service" name="service" required>
@@ -670,16 +774,16 @@
                             <!-- Step 4: Revenue -->
                             <div class="quiz-step" data-step="4">
                                 <h2 class="quiz-step-title">What is your approximate monthly revenue?</h2>
-                                <p class="quiz-step-subtitle">This helps us gauge your scale potential and recommend appropriate channels.</p>
+                                <p class="quiz-step-subtitle">This calibrates your growth plan &ndash; and confirms we're the right fit for each other.</p>
                                 <div class="form-group">
                                     <label for="revenue">Business Monthly Revenue <span class="label-required">*</span></label>
                                     <select id="revenue" name="revenue" required>
                                         <option value="">Select your revenue range</option>
-                                        <option value="5k-10k">$5,000 â€“ $10,000 (We can't work with you)</option>
-                                        <option value="10k-25k">$10,000 â€“ $25,000</option>
-                                        <option value="25k-50k">$25,000 â€“ $50,000</option>
-                                        <option value="50k-100k">$50,000 â€“ $100,000</option>
-                                        <option value="100k-200k">$100,000 â€“ $200,000</option>
+                                        <option value="5k-10k">$5,000 &ndash; $10,000</option>
+                                        <option value="10k-25k">$10,000 &ndash; $25,000</option>
+                                        <option value="25k-50k">$25,000 &ndash; $50,000</option>
+                                        <option value="50k-100k">$50,000 &ndash; $100,000</option>
+                                        <option value="100k-200k">$100,000 &ndash; $200,000</option>
                                         <option value="200k+">$200,000+</option>
                                     </select>
                                 </div>
@@ -687,8 +791,8 @@
 
                             <!-- Step 5: Timeline -->
                             <div class="quiz-step" data-step="5">
-                                <h2 class="quiz-step-title">How soon would you like to start?</h2>
-                                <p class="quiz-step-subtitle">How quickly are you looking to launch and see results?</p>
+                                <h2 class="quiz-step-title">When do you want to start?</h2>
+                                <p class="quiz-step-subtitle">How quickly do you want campaigns live and producing?</p>
                                 <div class="form-group">
                                     <label for="timeline">Target Timeline <span class="label-required">*</span></label>
                                     <select id="timeline" name="timeline" required>
@@ -703,8 +807,8 @@
 
                             <!-- Step 6: Website & Growth Goals -->
                             <div class="quiz-step" data-step="6">
-                                <h2 class="quiz-step-title">Additional details (Optional)</h2>
-                                <p class="quiz-step-subtitle">Tell us about your digital presence and custom growth goals.</p>
+                                <h2 class="quiz-step-title">Anything we should know?</h2>
+                                <p class="quiz-step-subtitle">Optional &ndash; share your goals so we arrive at the call prepared.</p>
                                 <div class="quiz-form-grid">
                                     <div class="form-group" style="margin-top: 1rem;">
                                         <label for="message">Your Growth Goals <span class="label-optional">(Optional)</span></label>
@@ -730,9 +834,6 @@
                                         <path d="M5 12h14M12 5l7 7-7 7" />
                                     </svg>
                                 </button>
-                                <a href="index.html#services" class="btn btn-ghost">
-                                    <span>Back To Home Services</span>
-                                </a>
                             </div>
                         </form>
 
@@ -827,11 +928,11 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=4"></script>
+    <script src="js/footer.js?v=5"></script>
 
     <script src="js/inbox-animation-data.js?v=1007"></script>
     <script src="js/phone-animation-data.js?v=1007"></script>
-    <script src="js/main.js?v=51.1"></script>
+    <script src="js/main.js?v=58.0"></script>
     <script src="js/silk-bg.js?v=1"></script>
 
     <script>

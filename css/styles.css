@@ -215,7 +215,7 @@ body {
     }
 
     .m-nav-brand img {
-        height: 30px;
+        height: 42px;
         width: auto;
     }
 
@@ -315,7 +315,7 @@ body {
         display: block;
         padding: 10px 8px;
         font-family: 'Archivo', sans-serif;
-        font-size: clamp(1.8rem, 8.5vw, 2.6rem);
+        font-size: clamp(2.5rem, 11.5vw, 3.6rem);
         font-weight: 800;
         line-height: 1.1;
         letter-spacing: -0.015em;
@@ -337,8 +337,9 @@ body {
     body.m-nav-open .m-nav-links a:nth-child(3) { transition-delay: 0.14s; }
     body.m-nav-open .m-nav-links a:nth-child(4) { transition-delay: 0.18s; }
 
+    .m-nav-links a.active,
     .m-nav-links a:active {
-        color: var(--cyan);
+        color: #00d2c8;
     }
 
     .m-nav-cta {
@@ -357,7 +358,7 @@ body {
         letter-spacing: 0.05em;
         text-transform: uppercase;
         text-decoration: none;
-        box-shadow: 0 12px 26px -12px rgba(0, 184, 212, 0.5);
+        box-shadow: none;
         opacity: 0;
         transform: translate3d(0, 18px, 0);
         will-change: opacity, transform;
@@ -404,10 +405,45 @@ body {
         color: var(--cyan);
     }
 
-    /* Prevent body scroll behind an open menu */
+    /* Prevent body scroll behind an open menu & hide picture-in-picture video */
     body.m-nav-open {
         overflow: hidden;
     }
+
+    body.m-nav-open #vsl-main-element,
+    body.m-nav-open .vsl-pip-active,
+    body.m-nav-open .vsl-wrapper {
+        display: none !important;
+    }
+}
+
+.legal-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999999 !important;
+    display: none !important;
+}
+
+.legal-modal.is-open {
+    display: flex !important;
+}
+
+.legal-modal__backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.82) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.legal-modal__panel {  justify-content: center;
+    background: #090D11;
+    pointer-events: none;
+    animation: pageVeilOut 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
 }
 
 /* ── Page load veil — content reveals from charcoal ── */
@@ -452,9 +488,10 @@ body {
 }
 
 .veil-logo {
-    width: clamp(180px, 22vw, 300px);
+    width: clamp(260px, 28vw, 380px);
     height: auto;
-    animation: veilPulse 1.3s ease-in-out infinite;
+    animation: veilPulse 1.8s ease-in-out infinite;
+    filter: none;
 }
 
 .veil-content {
@@ -464,35 +501,91 @@ body {
 }
 
 @keyframes veilPulse {
-    0%, 100% { transform: scale(1); opacity: 0.65; }
-    50% { transform: scale(1.05); opacity: 1; }
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.04); opacity: 1; }
 }
 
 .veil-loader {
-    width: clamp(150px, 14vw, 220px);
-    height: 3px;
-    margin-top: 28px;
+    width: clamp(320px, 35vw, 480px);
+    height: 12px;
+    margin-top: 36px;
     overflow: hidden;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(15, 22, 30, 0.85);
+    border: 1px solid rgba(0, 184, 212, 0.3);
+    box-shadow: 0 0 16px rgba(0, 184, 212, 0.12), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 .veil-progress-fill {
     display: block;
-    width: 0;
+    width: 0%;
     height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(90deg, #00b8d4, #8fe3d9);
-    box-shadow: 0 0 14px rgba(0, 184, 212, 0.55);
+    border-radius: 999px;
+    background: linear-gradient(90deg, #00b8d4 0%, #4285F4 50%, #0866FF 100%);
+    box-shadow: 0 0 16px rgba(0, 184, 212, 0.8), 0 0 28px rgba(8, 102, 255, 0.6);
+    position: relative;
+    transition: width 0.15s ease-out;
+}
+
+.veil-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 14px;
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 0 12px #ffffff, 0 0 20px #00b8d4;
+    opacity: 0.9;
 }
 
 .veil-percent {
-    margin-top: 10px;
-    color: rgba(244, 241, 234, 0.8);
+    margin-top: 14px;
+    color: rgba(255, 255, 255, 0.95);
     font-family: 'Archivo', sans-serif;
-    font-size: 0.67rem;
-    font-weight: 800;
+    font-size: 0.85rem;
+    font-weight: 900;
     letter-spacing: 0.16em;
+    background: rgba(0, 184, 212, 0.1);
+    border: 1px solid rgba(0, 184, 212, 0.25);
+    padding: 3px 12px;
+    border-radius: 6px;
+    box-shadow: 0 0 12px rgba(0, 184, 212, 0.2);
+}
+
+.veil-loading-text {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    color: #00b8d4;
+    text-transform: uppercase;
+}
+
+.veil-letter {
+    display: inline-block;
+    animation: veilLetterBounce 1.4s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.12s);
+}
+
+@keyframes veilLetterBounce {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.45;
+        color: #00b8d4;
+        text-shadow: none;
+    }
+    40% {
+        transform: translateY(-9px);
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 12px rgba(0, 184, 212, 0.9), 0 0 24px rgba(0, 184, 212, 0.6);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -502,6 +595,141 @@ body {
 }
 
 
+
+/* Pinned Header CTA (Fixed Top Right) */
+.pinned-header-cta {
+    --btn-slant: clamp(10px, 0.85em, 18px);
+    position: fixed;
+    top: 20px;
+    right: 28px;
+    z-index: 9998;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0;
+    padding: 10px 24px;
+    border-radius: 3px;
+    -webkit-clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
+    clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
+    background: #00b8d4;
+    color: #070b10;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-indent: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, color 0.4s ease, padding 0.35s cubic-bezier(0.16, 1, 0.3, 1), gap 0.35s ease;
+}
+
+.pinned-header-cta .phone-ring-icon {
+    width: 0;
+    height: 16px;
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s ease;
+    flex-shrink: 0;
+}
+
+.pinned-header-cta:hover {
+    background: #005b73;
+    color: #ffffff;
+    transform: translateY(-2px);
+    padding-left: 20px;
+    padding-right: 24px;
+    gap: 8px;
+    box-shadow: none;
+}
+
+/* ============================================
+   Editorial hero sizing — desktop only
+   Keep the Services and About heroes vertically balanced and let the
+   title/aside columns breathe at both laptop and wide-desktop widths.
+   ============================================ */
+@media (min-width: 1001px) {
+    .abt-hero,
+    .svc-hero {
+        min-height: clamp(560px, 68vh, 760px);
+        display: flex;
+        align-items: stretch;
+    }
+
+    .abt-hero > .abt-shell,
+    .svc-hero > .svc-shell {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .abt-hero .ed-hero,
+    .svc-hero .ed-hero {
+        width: 100%;
+        margin-top: 0;
+        padding: clamp(28px, 4vh, 56px) clamp(24px, 3vw, 48px) clamp(32px, 5vh, 64px) clamp(96px, 8vw, 144px);
+    }
+
+    .ed-hero-body {
+        grid-template-columns: minmax(0, 1fr) clamp(260px, 22vw, 340px);
+        align-items: center;
+        gap: clamp(32px, 4vw, 72px);
+        padding: clamp(34px, 5vh, 64px) 0 clamp(26px, 4vh, 52px);
+    }
+
+    .ed-hero-title {
+        font-size: clamp(3rem, 4.4vw, 5.2rem);
+    }
+
+    .svc-hero .ed-hero-aside {
+        margin-bottom: 0;
+    }
+}
+
+/* Give narrower desktop/laptop widths a little more usable title space and
+   allow an intentional line to wrap before it collides with the aside. */
+@media (min-width: 1001px) and (max-width: 1399px) {
+    .abt-hero .ed-hero,
+    .svc-hero .ed-hero {
+        padding-left: clamp(72px, 7vw, 108px);
+    }
+
+    .ed-hero-body {
+        grid-template-columns: minmax(0, 1fr) clamp(240px, 24vw, 300px);
+        gap: clamp(24px, 3vw, 42px);
+    }
+
+    .ed-hero-title {
+        font-size: clamp(2.8rem, 4.1vw, 4rem);
+    }
+
+    .ed-hero-title .ed-line {
+        white-space: normal;
+    }
+}
+
+.pinned-header-cta:hover .phone-ring-icon {
+    width: 16px;
+    opacity: 1;
+    transform: scale(1);
+    animation: phoneRing 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes phoneRing {
+    0% { transform: rotate(0deg) scale(1); }
+    20% { transform: rotate(-16deg) scale(1.12); }
+    40% { transform: rotate(16deg) scale(1.12); }
+    60% { transform: rotate(-12deg) scale(1.08); }
+    80% { transform: rotate(12deg) scale(1.08); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+@media (max-width: 768px) {
+    .pinned-header-cta {
+        display: none !important;
+    }
+}
 
 /* ============================================
    Typography
@@ -540,10 +768,11 @@ p {
 }
 
 .text-gradient {
-    background: linear-gradient(120deg, #00b8d4 0%, #57c7d4 55%, #8fe3d9 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    color: var(--cyan);
 }
 
 /* ── Editorial eyebrow label — the luxury brand marker ── */
@@ -560,22 +789,9 @@ p {
     line-height: 1;
 }
 
-.eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 28px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.7;
-}
-
+.eyebrow::before,
 .eyebrow--center::after {
-    content: '';
-    display: inline-block;
-    width: 28px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.7;
+    display: none;
 }
 
 .eyebrow--cyan {
@@ -609,6 +825,7 @@ p {
    ============================================ */
 
 .btn {
+    --btn-slant: clamp(12px, 0.9em, 20px);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -621,7 +838,9 @@ p {
     text-transform: uppercase;
     text-decoration: none;
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: 3px;
+    -webkit-clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
+    clip-path: polygon(var(--btn-slant) 0, 100% 0, calc(100% - var(--btn-slant)) 100%, 0 100%);
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -661,9 +880,9 @@ p {
     background: var(--cyan);
     border: 1px solid var(--cyan);
     color: #06120F;
-    border-radius: var(--radius-sm);
+    border-radius: 3px;
     box-shadow: none;
-    overflow: visible;
+    overflow: hidden;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease,
@@ -698,17 +917,17 @@ p {
 .btn-ghost {
     background: transparent;
     color: var(--text-primary);
-    border: 1px solid rgba(244, 241, 234, 0.22);
-    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease,
+    border: none;
+    box-shadow: inset 0 0 0 1px rgba(244, 241, 234, 0.22);
+    transition: box-shadow 0.3s ease, color 0.3s ease, background 0.3s ease,
         transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-ghost:hover {
     background: var(--cyan-soft);
-    border-color: var(--cyan-border);
+    box-shadow: inset 0 0 0 1px var(--cyan-border);
     color: var(--cyan);
     transform: translateY(-3px);
-    box-shadow: none;
 }
 
 .btn-lg {
@@ -784,7 +1003,7 @@ p {
 }
 
 .nav-wrap:hover .nav-svg-container {
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.16)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.07));
+    filter: none;
 }
 
 .nav-wrap.nav-vertical:hover .nav-svg-container {
@@ -796,7 +1015,12 @@ p {
     overflow: visible;
 }
 
+#navFill {
+    fill: #16252c !important;
+}
+
 #navStroke {
+    stroke: rgba(255, 255, 255, 0.12) !important;
     stroke-width: 0.5px;
     vector-effect: non-scaling-stroke;
 }
@@ -934,7 +1158,13 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;
+    gap: 5px;
+}
+
+/* Larger dot + label so the options fill more of the pill (pill size unchanged) */
+.nav-wrap.nav-vertical .nav-dot {
+    width: 7px;
+    height: 7px;
 }
 
 .nav-wrap.nav-vertical .nav-item-inner {
@@ -955,8 +1185,8 @@ p {
 }
 
 .nav-wrap.nav-vertical .nav-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    letter-spacing: 0.13em;
 }
 
 .nav-wrap.nav-vertical .nav-label--stacked {
@@ -978,7 +1208,6 @@ p {
 
 .nav-wrap.nav-vertical .slide-hover .nav-dot {
     background: var(--accent-primary);
-    order: -1;
 }
 
 
@@ -1014,9 +1243,9 @@ p {
 
 /* REST state: white */
 .slide-rest .nav-label {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     white-space: nowrap;
     line-height: 1;
@@ -1033,9 +1262,9 @@ p {
 
 /* HOVER state: teal */
 .slide-hover .nav-label {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     white-space: nowrap;
     line-height: 1;
@@ -1062,6 +1291,18 @@ p {
     transition: opacity 0.2s ease;
 }
 
+/* Keep each item's hover layer fully hidden until the item is hovered, so a
+   sliver of the (teal) hover content can never peek through the mask at rest —
+   this is what showed as a faint mark above the taller "Book a Call" item. */
+.slide-hover {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.nav-item:hover .slide-hover {
+    opacity: 1;
+}
+
 /* CTA item - teal only on hover, white at rest like all other items */
 .nav-item--cta .slide-hover .nav-label {
     color: #00d2c8;
@@ -1070,10 +1311,12 @@ p {
 /* Active state */
 .nav-item.active .slide-rest .nav-label {
     color: #00d2c8;
+    order: 0;
 }
 
 .nav-item.active .slide-rest .nav-dot {
     background: #00d2c8;
+    order: 1;
 }
 
 /* Stacked label (e.x. "Book / a Call") */
@@ -1204,12 +1447,12 @@ p {
    ============================================ */
 
 .hero {
-    min-height: 110svh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     position: relative;
-    padding: clamp(100px, 6vw, 130px) 0 120px;
+    padding: clamp(88px, 10vh, 128px) 0 clamp(28px, 4vh, 56px);
     overflow: hidden;
 }
 
@@ -1226,9 +1469,12 @@ p {
 
 .hero-content {
     width: 100%;
-    max-width: 100%;
+    /* High cap so the hero keeps scaling on 1920/2560 monitors instead of
+       freezing into a fixed-size island; only ultrawides get centred. */
+    max-width: 2600px;
     margin: 0 auto;
-    padding: 0 clamp(12px, 1.6vw, 22px) 0 clamp(24px, 3vw, 56px);
+    padding: 0 clamp(24px, 3.4vw, 110px);
+    padding-left: clamp(25px, 3.5vw, 80px);
     position: relative;
     z-index: 2;
     display: flex;
@@ -1237,22 +1483,22 @@ p {
 
 .hero-split {
     display: grid;
-    grid-template-columns: minmax(480px, 580px) minmax(0, 1fr);
+    grid-template-columns: minmax(clamp(440px, 29vw, 600px), 0.86fr) minmax(0, 2.14fr);
     align-items: center;
-    gap: clamp(20px, 2.2vw, 40px);
+    gap: clamp(18px, 2vw, 32px);
     width: 100%;
 }
 
 .hero-left-col {
     width: 100%;
-    max-width: 530px;
+    max-width: none;
     text-align: left;
-    margin-top: clamp(12px, 1.8vw, 26px);
-    margin-left: -15px;
-    padding-top: 20px;
-    padding-left: clamp(8px, 1.8vw, 24px);
+    /* Drop the copy stack clear of the navbar. vh-based so the gap scales with
+       the viewport instead of collapsing on short screens. */
+    margin: clamp(28px, 5.5vh, 72px) 0 0;
+    padding: 0;
     position: relative;
-    top: 35px;
+    top: 15px;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity;
 }
@@ -1264,11 +1510,11 @@ p {
 
 .hero-right-col {
     min-width: 0;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    align-self: start;
-    margin-top: clamp(-52px, -3.8vw, -26px);
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
 }
 
 /* ── Eyebrow pill above the H1 — thin champagne border, live cyan dot ── */
@@ -1277,19 +1523,22 @@ p {
     align-items: center;
     gap: 16px;
     padding: 0;
+    /* nudge the logo + headline group up 5px; the title adds it back below so
+       the CTA row does not move */
+    margin-top: -5px;
     margin-bottom: 1.2rem;
     border: none;
     border-radius: 0;
     background: none;
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 4.5vw, 4rem);
+    font-size: clamp(2rem, min(3.6vw, 6.4vh), 6rem);
     font-weight: 800;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-primary);
     line-height: 1;
     position: relative;
-    top: -18px;
+    top: 0;
 }
 
 /* Home hero wordmark uses the custom Retro Floral display font */
@@ -1301,7 +1550,7 @@ p {
 }
 
 .hero-logo {
-    height: clamp(3rem, 4.6vw, 4.15rem);
+    height: clamp(2.25rem, min(3.9vw, 6.9vh), 6.4rem);
     width: auto;
     object-fit: contain;
     margin-right: -0.08em;
@@ -1332,9 +1581,13 @@ p {
 
 /* ── Massive editorial H1 — staggered line treatments ── */
 .hero-title {
-    font-size: clamp(4.8rem, 9.5vw, 8.5rem);
-    margin-bottom: var(--spacing-md);
-    line-height: 1.02;
+    /* Bound by width AND viewport height so the four lines plus the CTA row
+       always land inside the first screen without scrolling. The 8vw/14.2vh
+       pair crosses over at exactly 16:9, so every standard monitor scales off
+       width identically; only shorter-than-16:9 windows fall back to height. */
+    font-size: clamp(3.4rem, min(8vw, 14.2vh), 13rem);
+    margin-bottom: calc(clamp(0.6rem, 1.4vh, 1rem) + 5px);
+    line-height: 1;
     font-weight: 800;
     font-family: var(--font-heading);
     letter-spacing: -0.03em;
@@ -1344,7 +1597,7 @@ p {
 
 .hero-title .title-line {
     font-size: 1em;
-    margin-bottom: 8px;
+    margin-bottom: clamp(2px, 0.5vh, 5px);
 }
 .hero-title .title-line:last-child {
     margin-bottom: 0;
@@ -1359,11 +1612,11 @@ p {
 }
 
 .hero-subtitle {
-    font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-    max-width: 540px;
+    font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+    max-width: 640px;
     margin: 0 0 var(--spacing-xl);
     color: var(--text-secondary);
-    line-height: 1.8;
+    line-height: 1.7;
     font-weight: 300;
     font-family: var(--font-body);
 }
@@ -1380,7 +1633,7 @@ p {
     flex-wrap: nowrap;
     align-items: center;
     position: relative;
-    top: -120px;
+    top: 0;
 }
 
 /* Containing layer for all hero atmosphere — clips grid/orbs even when
@@ -1588,27 +1841,33 @@ body.vsl-active .hero-vsl {
 }
 
 /* VSL Transition Container */
+.hero-eyebrow span {
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    left: -3px;
+    color: var(--cyan, #00b8d4);
+}
+
 .hero-vsl {
-    /* Cap the video by viewport HEIGHT (while keeping 16:9) so on short desktop
-       viewports it scales down to fit the screen instead of overflowing and
-       pushing the hero's CTA buttons off the bottom. On tall/normal screens the
-       100% term wins, so those layouts are unchanged. 200px ≈ navbar + hero
-       top/bottom padding reserved so nothing ever gets clipped. */
-    width: min(100%, calc((100svh - 200px) * 16 / 9));
-    max-width: 100%;
+    /* Fill the right column, expanding diagonally to the left and downwards. */
+    width: 100%;
+    max-width: clamp(680px, 66vw, 1140px);
     position: relative;
     z-index: 10;
-    margin-left: auto;
+    margin-left: 0;
 }
 
 /* The actual video wrapper */
 .vsl-wrapper {
     position: relative;
+    /* Sizing context for the play button, so it scales with the frame as GSAP
+       shrinks it into the corner dock. */
+    container-type: inline-size;
     width: 100%;
     background: rgba(8, 14, 18, 0.48);
-    /* Pure white frame outline. */
-    border: 1px solid #ffffff;
-    box-shadow: 0 0 18px rgba(255, 255, 255, 0.08), 0 0 22px rgba(0, 0, 0, 0.28);
+    border: none;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.12);
     border-radius: var(--radius-xl);
     overflow: hidden;
     aspect-ratio: 16 / 9;
@@ -1625,19 +1884,25 @@ body.vsl-active .hero-vsl {
     margin: 0;
     pointer-events: auto;
     background: rgba(8, 14, 18, 0.48);
-    /* White frame outline (this rule wins over .vsl-wrapper via the id, and the
-       JS keeps this class on even in the hero state, so this IS the visible border) */
-    border: 1px solid #ffffff;
-    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.38), 0 0 18px rgba(255, 255, 255, 0.08);
+    /* No frame outline. This rule wins over .vsl-wrapper via the id and the JS
+       keeps the class on even in the hero state, so it has to be cleared here too. */
+    border: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
     max-width: none !important;
     border-radius: 12px;
     overflow: hidden;
-    opacity: 0.72;
+    opacity: 1;
 }
 
 /* Remove inner wrapper border during PiP to avoid double borders */
 #vsl-main-element.vsl-pip-active .vsl-thumbnail-video {
     border-radius: 0;
+}
+
+/* Keep the compact PiP play pill fully inside the thumbnail when its label
+   opens on hover. The full-size hero keeps the wider interaction. */
+#vsl-main-element.vsl-pip-active .vsl-play-btn {
+    --btn-open: calc(var(--btn-w) + var(--size) * 0.98);
 }
 
 
@@ -1714,49 +1979,70 @@ body.vsl-active .hero-vsl {
     z-index: 10;
     width: 80px;
     height: 80px;
-    background: var(--accent-gradient);
+    /* Clean frosted-white disc, no color glow or pulse ring - reads clearly
+       against any thumbnail without fighting its own colors. */
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--transition-base);
-    box-shadow: 0 10px 40px var(--accent-glow);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.legal-link:hover {
+    background-position: 0% 0;
+    text-decoration-color: var(--accent-primary);
+}
+
+.legal-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    z-index: 999999 !important;
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.legal-modal.is-open {
+    display: flex !important;
+    pointer-events: all !important;
+    opacity: 1 !important;
+}
+
+.legal-modal__backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.82) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .vsl-play-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 15px 60px var(--accent-glow);
+    transform: scale(1.08);
+    background: #fff;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.42);
 }
 
 .vsl-play-btn svg {
     width: 40px;
     height: 40px;
     margin-left: 5px;
-    color: var(--bg-primary);
-}
-
-.vsl-play-btn::before {
-    content: '';
-    position: absolute;
-    inset: -10px;
-    /* White expanding pulse ring (was cyan) */
-    border: 2px solid #fff;
-    border-radius: 50%;
-    opacity: 0.5;
-    animation: playPulse 2s ease-out infinite;
-}
-
-@keyframes playPulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.5;
-    }
-
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
+    color: #0a0c10;
 }
 
 .vsl-duration {
@@ -1793,8 +2079,8 @@ body.vsl-active .hero-vsl {
     align-items: center;
     justify-content: flex-start;
     gap: var(--spacing-md);
-    margin-top: calc(clamp(3.2rem, 7vh, 4.5rem) + 105px);
-    margin-bottom: var(--spacing-2xl);
+    margin-top: clamp(1rem, 2.2vh, 1.6rem);
+    margin-bottom: 0;
     flex-wrap: nowrap;
 }
 
@@ -1813,6 +2099,16 @@ body.vsl-active .hero-vsl {
 .hero-cta .btn-glow.btn-lg:hover {
     background: #00cae3;
     border-color: #00cae3;
+}
+
+/* Desktop hero CTAs scale with the headline/video composition so the primary
+   action remains the longest visual line at every desktop width. */
+@media (min-width: 769px) {
+    .hero-cta .btn.btn-lg {
+        min-height: clamp(54px, 6.5vh, 66px);
+        padding: clamp(1rem, 1.8vh, 1.35rem) clamp(2.5rem, 3.2vw, 3.8rem);
+        font-size: clamp(0.95rem, 1.05vw, 1.15rem);
+    }
 }
 
 
@@ -1836,7 +2132,7 @@ body.vsl-active .hero-vsl {
     inset: 0;
     pointer-events: none;
     border-radius: inherit;
-    box-shadow: inset 0 0 14px 1px rgba(0, 0, 0, 0.22);
+    box-shadow: inset 0 0 12px 1px rgba(0, 0, 0, 0.10);
     z-index: 2;
 }
 
@@ -1857,6 +2153,113 @@ body.vsl-active .hero-vsl {
     opacity: 1;
 }
 
+.hero-vsl .vsl-play-btn {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    /* Sized off the video frame via container units, so the button rides the
+       frame down as it docks into the corner. Prevents over-shrinking when docked. */
+    /* Slightly more restrained than the original control so the mark behind
+       it remains the focal point on the full hero video. */
+    --size: clamp(54px, 13cqw, 80px);
+    --btn-h: calc(var(--size) * 0.65);
+    /* Width is narrower than the sizing base so the box stays compact without
+       touching the height, which keys off --size directly. */
+    --btn-w: calc(var(--size) * 0.88);
+    --btn-icon: calc(var(--btn-h) * 0.48);
+    /* How far the box opens is proportional too, so the label still fits the
+       frame at the docked size. */
+    --btn-open: calc(var(--btn-w) + var(--size) * 1.15);
+    --btn-r: calc(var(--btn-h) * 0.17);
+    transform: translate(calc(var(--btn-w) / 2), calc(-1 * var(--btn-h) / 2)) skewX(-14deg);
+    z-index: 3;
+    /* Laid out at its open width from the start and clipped back to the closed
+       box. Hover animates the clip, not the width, so nothing relayouts and the
+       corner radius is not recomputed each frame: that per-frame recalc on a
+       skewed box is what made the edges tremble. */
+    width: var(--btn-open);
+    clip-path: inset(0 0 0 calc(var(--btn-open) - var(--btn-w)) round var(--btn-r));
+    height: var(--btn-h);
+    /* The right padding is exactly the rest-state gap on either side of the
+       triangle, so pinning the content to the right edge still leaves the
+       triangle optically centred while the box is closed. The left padding is
+       only ever seen once the label has opened the box up. */
+    padding: 0 calc((var(--btn-w) - var(--btn-icon)) / 2) 0 calc(var(--btn-h) * 0.2);
+    /* Player-chrome corners: tight relative to the box, not a squircle */
+    border-radius: var(--btn-r);
+    border: none !important;
+    outline: none !important;
+    background: #ffffff;
+    color: #0a0c10;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    /* Reversed row, so flex-start packs against the right edge: the triangle
+       holds its position while the box opens leftward. */
+    justify-content: flex-start;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: clip-path 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    /* drop-shadow tracks the clipped silhouette; a box-shadow would be cut away
+       by the clip along with the hidden part of the box. */
+    box-shadow: none;
+    filter: drop-shadow(0 9px 16px rgba(0, 0, 0, 0.45));
+}
+
+/* Only the button itself opens up, not a hover anywhere on the video. The clip
+   is what expands, and it also gates hit-testing, so the hidden part of the box
+   is not hoverable while the button is closed. */
+.hero-vsl .vsl-play-btn:hover {
+    clip-path: inset(0 0 0 0 round var(--btn-r));
+    background: #ffffff;
+    border: none !important;
+    outline: none !important;
+}
+
+.hero-vsl .vsl-play-btn svg {
+    flex: 0 0 auto;
+    width: var(--btn-icon);
+    height: var(--btn-icon);
+    transform: skewX(14deg);
+    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Just a hint of travel, so the triangle reacts without sliding across the box */
+.hero-vsl .vsl-play-btn:hover svg {
+    transform: skewX(14deg) translateX(-3px);
+}
+
+/* The label keeps a fixed slot beside the triangle and flies in as one piece,
+   travelling left to right into that slot while the box itself opens the other
+   way. At rest it sits outside the closed box and is clipped away by the
+   button's own overflow. */
+.vsl-play-btn-label {
+    display: inline-block;
+    flex: 0 0 auto;
+    /* Type and gap scale with the button so the word still fits once the frame
+       docks into the corner. */
+    margin-right: calc(var(--btn-h) * 0.2);
+    white-space: nowrap;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: max(11px, calc(var(--btn-h) * 0.27));
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #0a0c10;
+    opacity: 0;
+    transform: skewX(14deg) translateX(-32px);
+    transition: opacity 0.26s ease, transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-vsl .vsl-play-btn:hover .vsl-play-btn-label {
+    opacity: 1;
+    transform: skewX(14deg) translateX(0);
+    /* Let the box open first, then run the word across */
+    transition-delay: 0.08s;
+}
+
 /* Modal Styles */
 .vsl-modal {
     position: fixed;
@@ -1875,9 +2278,8 @@ body.vsl-active .hero-vsl {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    /* Tighter spacing for 500px width */
-    padding: 0 10px;
+    gap: 8px;
+    padding: 0 8px;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -1897,72 +2299,83 @@ body.vsl-active .hero-vsl {
 
 .vsl-modal-content {
     position: relative;
-    /* Big cinematic player: fill most of the viewport, capped so a 16:9 video
-       never overflows the screen height (≈85vh ÷ 9 × 16 bounds the width). */
-    width: min(95vw, calc(85vh * 16 / 9), 1700px);
-    max-width: 1700px;
+    width: min(94vw, calc(88vh * (16 / 9)));
+    aspect-ratio: 16 / 9;
+    max-height: 88vh;
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: scale(0.95) translateY(20px);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 16px;
+    overflow: hidden;
+    transform: scale(0.92) translateY(10px);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
 }
 
 .vsl-modal.is-open .vsl-modal-content {
     transform: scale(1) translateY(0);
 }
 
-.vsl-modal-close {
-    position: fixed;
-    top: 18px;
-    right: 24px;
-    z-index: 10002;
-    width: 46px;
-    height: 46px;
+/* Shared corner-button chip: glass circle, used by the close (X) and the
+   fullscreen expand button so both read as one consistent control family. */
+.vsl-corner-btn {
     display: grid;
     place-items: center;
-    background: transparent;
-    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(10, 12, 15, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     color: white;
     cursor: pointer;
     padding: 0;
-    opacity: 0.78;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    opacity: 0.88;
+    transition: opacity var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
 }
 
-.vsl-modal-close:hover {
+.vsl-corner-btn:hover {
     opacity: 1;
-    transform: scale(1.1);
+    background: rgba(20, 24, 28, 0.75);
+    transform: scale(1.08);
 }
 
-.vsl-modal-close svg {
-    width: 34px;
-    height: 34px;
+.vsl-corner-btn svg {
+    width: 19px;
+    height: 19px;
+}
+
+.vsl-modal-close {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    z-index: 10002;
 }
 
 .vsl-modal-video-container {
     position: relative;
     width: 100%;
-    border-radius: var(--radius-lg);
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 255, 255, 0.12);
-    background: #000;
+    border: none;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+    background: transparent;
 }
 
 .vsl-modal-video-container video {
     display: block;
     width: 100%;
-    height: auto;
-    max-height: 85vh;
-    object-fit: contain;
-    background: #000;
+    height: 100%;
+    object-fit: cover;
+    background: transparent;
     cursor: pointer;
 }
 
 /* True fullscreen: let the container fill the whole screen and the video scale
-   up to fill it (the default max-height:85vh would otherwise leave the video
+   up to fill it (the default max-height would otherwise leave the video
    small + letterboxed inside a big black fullscreen frame). */
 .vsl-modal-video-container:fullscreen,
 .vsl-modal-video-container:-webkit-full-screen {
@@ -1987,391 +2400,225 @@ body.vsl-active .hero-vsl {
 .vsl-controls {
     position: absolute;
     inset: 0;
-    display: block;
-    padding: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, transparent 22%, transparent 58%, rgba(0, 0, 0, 0.72) 100%);
+    padding: 18px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, transparent 24%, transparent 58%, rgba(0, 0, 0, 0.78) 100%);
     z-index: 4;
-    opacity: 0;
-    transition: opacity 0.28s ease;
+    opacity: 1;
+    transition: opacity 0.35s ease;
+    /* .vsl-modal is inert (pointer-events:none) while closed, but this modal
+       stays in the DOM - without scoping to .is-open, auto here would punch
+       a click-through hole over whatever sits behind the closed modal. */
     pointer-events: none;
 }
 
-/* Show on hover, and always while paused so the play button is reachable */
-.vsl-modal-video-container:hover .vsl-controls,
-.vsl-controls:not(.is-playing) {
-    opacity: 1;
-}
-
-.vsl-ctrl-btn {
-    position: absolute;
-    width: 42px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 11px;
-    color: #fff;
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    transition: background 0.2s ease, transform 0.18s ease;
+.vsl-modal.is-open .vsl-controls {
     pointer-events: auto;
 }
 
+/* Fade the chrome out during uninterrupted playback (JS toggles this after a
+   couple seconds of no pointer movement) so the video plays clean, same as
+   the reference player - controls return instantly on any hover/move. */
+.vsl-controls.is-idle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Custom VSL player controls - White Card/Pill aesthetic matching reference UI */
+
+.vsl-corner-btn--close {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 34px;
+    height: 34px;
+    background: #ffffff;
+    color: #111111;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.vsl-corner-btn--close:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.vsl-corner-btn--close svg {
+    width: 15px;
+    height: 15px;
+    stroke: #111111;
+}
+
+.vsl-corner-btn--fs {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    background: #ffffff;
+    color: #111111;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.vsl-corner-btn--fs:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.vsl-corner-btn--fs svg {
+    width: 16px;
+    height: 16px;
+    stroke: #111111;
+}
+
+.vsl-bottombar {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.vsl-ctrl-btn {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: none;
+    color: #111111;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
 .vsl-ctrl-btn:hover {
-    background: rgba(255, 255, 255, 0.24);
+    background: #f5f5f5;
     transform: scale(1.06);
 }
 
 .vsl-ctrl-btn svg {
     width: 20px;
     height: 20px;
+    color: #111111;
+    fill: #111111;
+}
+
+.vsl-ic-pause { display: none; }
+.vsl-controls.is-playing .vsl-ic-play { display: none; }
+.vsl-controls.is-playing .vsl-ic-pause { display: block; }
+
+.vsl-speaker-slash { display: none; }
+.vsl-controls.is-muted .vsl-speaker-slash { display: block; }
+
+/* Double music note reads bigger than the old single note at the same box. */
+.vsl-ic-music {
+    width: 21px;
+    height: 21px;
+}
+
+/* Mute state draws a diagonal bar across the note. The "cut" line is the white
+   backing that separates the bar from the note strokes it crosses. */
+.vsl-mute-slash,
+.vsl-mute-slash-cut {
+    display: none;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.vsl-mute-slash-cut {
+    stroke: #ffffff;
+    stroke-width: 96;
+}
+
+.vsl-mute-slash {
+    stroke: #111111;
+    stroke-width: 46;
+}
+
+.vsl-controls.is-muted .vsl-mute-slash,
+.vsl-controls.is-muted .vsl-mute-slash-cut {
     display: block;
 }
 
-#vslPlayPause {
-    left: 20px;
-    bottom: 16px;
-}
-
-#vslMute {
-    top: 16px;
-    left: 18px;
-}
-
-#vslFullscreen {
-    right: 20px;
-    bottom: 16px;
-}
-
-/* Icon state toggles (driven by .is-playing / .is-muted on .vsl-controls) */
-.vsl-ic-pause {
-    display: none;
-}
-
-.vsl-controls.is-playing .vsl-ic-play {
-    display: none;
-}
-
-.vsl-controls.is-playing .vsl-ic-pause {
-    display: block;
-}
-
-.vsl-speaker-slash {
-    opacity: 0;
-    transition: opacity 0.16s ease;
-}
-
-.vsl-controls.is-muted .vsl-speaker-slash {
-    opacity: 1;
-}
+.vsl-ctrl-btn:hover .vsl-mute-slash-cut { stroke: #f5f5f5; }
 
 .vsl-progress {
-    position: absolute;
-    left: 84px;
-    right: 84px;
-    bottom: 34px;
-    width: auto;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.26);
-    border-radius: 99px;
+    position: relative;
+    flex: 1 1 auto;
+    height: 34px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    pointer-events: auto;
     touch-action: none;
-    overflow: visible;
+}
+
+.vsl-progress-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
 }
 
 .vsl-progress-fill {
     position: absolute;
     left: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    border-radius: 99px;
-    pointer-events: none;
+    right: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: #ffffff;
     transform: scaleX(0);
     transform-origin: left center;
-    will-change: transform;
+    pointer-events: none;
 }
 
 .vsl-progress-pill {
     position: absolute;
+    left: 0;
     top: 50%;
-    left: 0%;
-    transform: translate(-50%, -50%) translateX(0);
-    background: rgba(10, 12, 16, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    color: #fff;
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 600;
-    line-height: 1;
-    padding: 5px 9px;
-    border-radius: 7px;
-    white-space: nowrap;
-    pointer-events: none;
-    will-change: transform;
-}
-
-@media (max-width: 768px) {
-    .vsl-modal-close {
-        top: 12px;
-        right: 12px;
-    }
-}
-
-.hero-vsl .vsl-play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
-    /* Sit above the edge-feather vignette so it stays crisp & clickable */
-    z-index: 3;
-    width: 15%;
-    /* Slightly larger for visibility */
-    height: auto;
-    aspect-ratio: 1/1;
-    min-width: 44px;
-    max-width: 80px;
-    border-radius: 50%;
-    /* White ring + glow (was cyan); neutral-dark disc so the white pops */
-    background: rgba(10, 12, 16, 0.45);
-    border: 2px solid rgba(255, 255, 255, 0.85);
-    color: #fff;
-    cursor: pointer;
+    z-index: 5;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.22);
-    z-index: 2;
+    height: 16px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
-.hero-vsl .vsl-play-btn:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 32px rgba(255, 255, 255, 0.4);
-}
-
-.hero-vsl .vsl-play-btn svg {
-    width: 40%;
-    /* Scale with button container */
-    height: 32px;
-    margin-left: 6px;
-    /* Offset to natively center the play triangle */
-}
-
-/* Hero Stats */
-.hero-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: end;
-    gap: clamp(1.25rem, 2vw, 2.5rem);
-    padding: clamp(2.5rem, 5vh, 4rem) 0 4.1rem;
-    width: 100%;
-}
-
-
-@media (max-width: 1600px) {
-    .hero-content {
-        padding: 0 clamp(12px, 1.5vw, 18px) 0 clamp(22px, 2.4vw, 42px);
-    }
-
-    .hero-split {
-        grid-template-columns: minmax(440px, 510px) minmax(0, 1fr);
-        gap: clamp(18px, 2vw, 30px);
-    }
-
-    .hero-left-col {
-        max-width: 510px;
-    }
-
-    .hero-right-col {
-        margin-top: clamp(-46px, -3.2vw, -22px);
-    }
-}
-
-@media (max-width: 1366px) {
-    .hero {
-        padding-top: clamp(79px, 5vw, 93px);
-    }
-
-    .hero-content {
-        padding: 0 clamp(10px, 1.2vw, 16px) 0 clamp(20px, 2vw, 32px);
-    }
-
-    .hero-split {
-        grid-template-columns: minmax(430px, 500px) minmax(0, 1fr);
-        gap: clamp(16px, 1.6vw, 22px);
-        min-height: calc(100svh - clamp(64px, 5vw, 78px) - 80px);
-    }
-
-    .hero-left-col {
-        max-width: 500px;
-        padding-left: clamp(4px, 1vw, 12px);
-    }
-
-    .hero-title {
-        font-size: clamp(2.8rem, 5.4vw, 4.5rem);
-    }
-
-    .hero-subtitle {
-        font-size: 1.05rem;
-        max-width: 500px;
-    }
-
-    .hero-cta {
-        gap: 0.8rem;
-    }
-
-    .hero-cta .btn.btn-lg {
-        padding: 0.95rem 1.3rem;
-        font-size: 1rem;
-    }
-
-    .hero-right-col {
-        margin-top: clamp(-38px, -2.6vw, -18px);
-    }
-}
-
-@media (max-width: 1180px) {
-    .hero-content {
-        padding: 0 10px 0 20px;
-    }
-
-    .hero-split {
-        grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
-        gap: 16px;
-        min-height: calc(100svh - clamp(64px, 5vw, 78px) - 80px);
-    }
-
-    .hero-left-col {
-        max-width: 420px;
-        margin-top: 12px;
-        padding-left: 0;
-    }
-
-    .hero-title {
-        font-size: clamp(2.4rem, 3.8vw, 3.4rem);
-    }
-
-    .hero-subtitle {
-        font-size: 0.95rem;
-        max-width: 400px;
-    }
-
-    .hero-eyebrow {
-        font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-    }
-
-    .hero-cta {
-        gap: 0.7rem;
-    }
-
-    .hero-cta .btn.btn-lg {
-        padding: 0.85rem 1rem;
-        font-size: 0.92rem;
-    }
-
-    .hero-right-col {
-        margin-top: -18px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .hero-content {
-        padding: 0 10px 0 16px;
-    }
-
-    .hero-split {
-        grid-template-columns: minmax(280px, 370px) minmax(0, 1fr);
-        gap: 14px;
-    }
-
-    .hero-left-col {
-        max-width: 370px;
-    }
-
-    .hero-title {
-        font-size: clamp(2.2rem, 3.4vw, 3rem);
-    }
-
-    .hero-subtitle {
-        font-size: 0.9rem;
-        max-width: 360px;
-    }
-
-    .hero-eyebrow {
-        font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-        gap: 12px;
-    }
-
-    .hero-eyebrow-dot {
-        width: 12px;
-        height: 12px;
-    }
-
-    .hero-cta .btn.btn-lg {
-        padding: 0.8rem 0.9rem;
-        font-size: 0.88rem;
-    }
-
-    .hero-right-col {
-        margin-top: -12px;
-    }
-}
-
-@media (max-width: 900px) {
-    .hero-split {
-        grid-template-columns: minmax(250px, 330px) minmax(0, 1fr);
-        gap: 12px;
-    }
-
-    .hero-left-col {
-        max-width: 330px;
-    }
-
-    .hero-title {
-        font-size: clamp(2rem, 3.2vw, 2.6rem);
-    }
-
-    .hero-subtitle {
-        font-size: 0.88rem;
-        max-width: 320px;
-    }
-
-    .hero-eyebrow {
-        font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-        gap: 10px;
-        margin-bottom: 2.2rem;
-    }
-
-    .hero-eyebrow-dot {
-        width: 10px;
-        height: 10px;
-    }
-
-    .hero-cta {
-        gap: 0.5rem;
-    }
-
-    .hero-cta .btn.btn-lg {
-        padding: 0.75rem 0.85rem;
-        font-size: 0.84rem;
-    }
-
-    .hero-right-col {
-        margin-top: -8px;
-    }
-}
-
-/* Hero stacks to a single column on tablet/mobile screens.
-   Mobile reading order (per request): ADZIO eyebrow → VSL video → headline →
-   CTA buttons. The eyebrow / headline / CTAs all live inside .hero-left-col,
-   while the VSL lives in the separate .hero-right-col — so we collapse
-   .hero-left-col to `display:contents`, which promotes its three children to be
-   direct flex items of .hero-split. All four can then be re-ordered freely. */
+/* Hero stacks to a single column on tablet/mobile screens: ADZIO eyebrow +
+   VSL video share the top row, headline and CTAs sit below. */
 @media (max-width: 768px) {
     .hero {
         /* Sit the brand + video row just under the 60px fixed nav bar (was 88px,
@@ -2412,7 +2659,7 @@ body.vsl-active .hero-vsl {
     /* Top-left: ADZIO brand, vertically centred against the video thumbnail */
     .hero-eyebrow {
         grid-area: brand;
-        top: 0;                              /* drop the desktop -8px lift */
+        top: 0;
         margin: 0;
         gap: 0;
         align-self: center;
@@ -2444,15 +2691,16 @@ body.vsl-active .hero-vsl {
 
     .hero-vsl {
         width: 100%;
+        max-width: none;
         margin-left: 0;
     }
 
-    /* Mobile video frame: less rounded + thinner white outline (per request).
-       Applies to both the in-flow start state and the docked PiP. */
+    /* Mobile video frame: less rounded, no outline. Applies to both the in-flow
+       start state and the docked PiP. */
     .vsl-wrapper,
     #vsl-main-element.vsl-pip-active {
         border-radius: 12px;
-        border-width: 0.5px;
+        border: none;
     }
 
     /* Headline */
@@ -2466,6 +2714,10 @@ body.vsl-active .hero-vsl {
         white-space: nowrap;
     }
 
+    .hero-title .title-line--ghost {
+        font-size: 0.85em;
+    }
+
     /* CTA buttons */
     .hero-cta {
         grid-area: cta;
@@ -2473,45 +2725,32 @@ body.vsl-active .hero-vsl {
     }
 }
 
-/* ── Short desktop viewports (laptops with limited vertical room): keep the hero
-   text column at FULL size (identical scale to large monitors) and instead
-   reclaim the generous top offsets / vertical spacing so the eyebrow + headline
-   + CTA buttons still fit without getting clipped. Fonts are deliberately NOT
-   scaled here. Only triggers below ~900px tall; taller screens are untouched. ── */
-@media (min-width: 769px) and (max-height: 900px) {
+/* Short desktop viewports: scale the left hero stack by available height and
+   reclaim the generous vertical spacing so the full headline and CTA row remain
+   inside the first viewport on wide laptop/desktop screens. */
+@media (min-width: 769px) and (max-height: 980px) {
     .hero {
-        /* Enough top room to clear the fixed nav pill (top:8px) so the "ADZIO"
-           eyebrow isn't overlapped, while still tighter than the base layout. */
-        padding-top: clamp(80px, 9vh, 100px);
-        padding-bottom: clamp(24px, 3.5vh, 64px);
-    }
-
-    .hero-left-col {
-        /* Nudge the left column down ~50px so it clears the (expanded) nav pill
-           on short viewports. Bigger screens keep the base top:35px, untouched. */
-        top: 50px;
-        margin-top: 0;
-        padding-top: clamp(0px, 1vh, 12px);
+        padding-top: clamp(82px, 9.5vh, 104px);
+        padding-bottom: clamp(18px, 2.5vh, 32px);
     }
 
     .hero-eyebrow {
-        top: 0;
-        margin-bottom: clamp(1.6rem, 3.5vh, 3rem);
+        margin-bottom: clamp(0.75rem, 1.8vh, 1.35rem);
     }
 
-    .hero-title {
-        margin-bottom: clamp(0.5rem, 1.4vh, 1.3rem);
+    .hero-title .title-line--ghost {
+        font-size: 0.66em;
     }
 
-    .hero-right-col {
-        margin-top: 0;
+    .hero-cta .btn.btn-lg {
+        padding: clamp(0.88rem, 1.45vh, 1.05rem) clamp(1.1rem, 1.7vw, 1.65rem);
+        font-size: clamp(0.88rem, 0.95vw, 0.98rem);
     }
 
-    /* Let the VSL grow larger on short viewports — a smaller height reserve lets
-       it fill the right column instead of leaving a side gap, while staying
-       bounded so it never overflows or clips below. */
+    /* Reclaim the height the trimmed padding freed up so the frame still fills
+       the right column instead of leaving a side gap. */
     .hero-vsl {
-        width: min(100%, calc((100svh - 140px) * 16 / 9));
+        max-width: min(62vw, calc((100svh - 150px) * 16 / 9));
     }
 }
 
@@ -3605,29 +3844,32 @@ body.vsl-active .hero-vsl {
    ============================================ */
 
 .services-section {
-    padding: clamp(44px, 6vh, 80px) 0;
+    padding: clamp(26px, 4vh, 72px) 0;
 }
 
 /* Header Section */
+/* Single left-aligned title sitting directly above the card row. Both this and
+   .services-grid are children of the same .container, so the heading's left
+   edge lands flush with the first card's left edge at every width. */
 .services-header {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: clamp(32px, 4vw, 52px);
-    gap: 0.9rem;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: clamp(18px, 2.6vh, 46px);
+    gap: clamp(0.4rem, 0.9vh, 0.9rem);
 }
 
 .services-header h2 {
-    font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+    font-size: clamp(3rem, 4.7vw, 4.5rem);
     font-weight: 800;
     font-family: var(--font-heading);
     line-height: 1.08;
     letter-spacing: -0.03em;
     margin-bottom: 0;
     color: var(--text-primary);
-    text-align: center;
-    max-width: 720px;
+    text-align: left;
+    max-width: none;
 }
 
 .red-text {
@@ -3635,25 +3877,27 @@ body.vsl-active .hero-vsl {
 }
 
 .services-subtitle {
-    font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+    font-size: clamp(1.05rem, 1.25vw, 1.25rem);
     font-weight: 300;
     color: var(--text-secondary);
-    max-width: 560px;
+    max-width: 660px;
     margin: 0 auto;
     line-height: 1.8;
 }
 
 /* Services Grid — 4 premium product cards in one row */
-/* The shared .container caps at 1200px; let the services section breathe
-   wider so 4 cards stay roomy on big monitors */
+/* Symmetric even margins (110px left / 110px right minimum) so cards stay wide & roomy
+   while leaving 100% clean clearance for the extended navbar on all monitors */
 .services-section .container {
-    max-width: min(1560px, 94vw);
+    max-width: min(1680px, calc(100vw - 220px));
+    margin-inline: auto;
+    padding-inline: clamp(16px, 1.5vw, 28px);
 }
 
 .services-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: clamp(16px, 1.6vw, 28px);
+    gap: clamp(14px, 1.5vw, 28px);
     margin-top: 0;
     max-width: 100%;
     margin-inline: auto;
@@ -3665,7 +3909,7 @@ body.vsl-active .hero-vsl {
     background: rgba(15, 20, 26, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 14px;
-    padding: clamp(32px, 3vw, 44px) clamp(24px, 2.2vw, 32px) clamp(28px, 2.6vw, 36px);
+    padding: clamp(20px, 3vh, 44px) clamp(16px, 1.6vw, 28px) clamp(18px, 2.5vh, 36px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3712,8 +3956,8 @@ body.vsl-active .hero-vsl {
 /* Color variants */
 .service-card:nth-child(1),
 .service-card--teal {
-    --orb-color: #0866FF; /* Meta blue */
-    --orb-shadow: rgba(8, 102, 255, 0.12);
+    --orb-color: #00b8d4; /* Adzio cyan */
+    --orb-shadow: rgba(0, 184, 212, 0.12);
 }
 
 .service-card:nth-child(2),
@@ -3724,14 +3968,14 @@ body.vsl-active .hero-vsl {
 
 .service-card:nth-child(3),
 .service-card--cyan {
-    --orb-color: #00b8d4; /* Adzio cyan */
-    --orb-shadow: rgba(0, 184, 212, 0.12);
+    --orb-color: #0866FF; /* Meta blue */
+    --orb-shadow: rgba(8, 102, 255, 0.12);
 }
 
 .service-card:nth-child(4),
 .service-card--purple {
-    --orb-color: #7F00FF; /* Instagram magenta */
-    --orb-shadow: rgba(127, 0, 255, 0.12);
+    --orb-color: #0866FF; /* Royal blue */
+    --orb-shadow: rgba(8, 102, 255, 0.12);
 }
 
 /* Exclusive indicator, not a sticker */
@@ -3778,7 +4022,7 @@ body.vsl-active .hero-vsl {
 
 .services-section .service-number {
     font-family: 'Archivo', sans-serif;
-    font-size: 2.1rem;
+    font-size: clamp(2.2rem, 2.5vw, 2.8rem);
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -3803,11 +4047,11 @@ body.vsl-active .hero-vsl {
 .services-section .service-icon {
     position: relative;
     z-index: 2;
-    width: 58px;
-    height: 58px;
+    width: clamp(58px, 4.2vw, 66px);
+    height: clamp(58px, 4.2vw, 66px);
     background: transparent;
     border: 1px solid rgba(244, 241, 234, 0.14);
-    border-radius: 14px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3823,8 +4067,8 @@ body.vsl-active .hero-vsl {
 }
 
 .services-section .service-icon svg {
-    width: 25px;
-    height: 25px;
+    width: clamp(25px, 1.8vw, 29px);
+    height: clamp(25px, 1.8vw, 29px);
     stroke: var(--orb-color);
     stroke-width: 1.6;
     fill: none;
@@ -3833,7 +4077,7 @@ body.vsl-active .hero-vsl {
 /* ── Brand colours on the service-card logos ── */
 /* Meta — single filled glyph, brand blue */
 .services-section .service-card--teal .service-icon svg path {
-    fill: #0866FF;
+    fill: var(--orb-color);
     stroke: none;
 }
 
@@ -3846,12 +4090,12 @@ body.vsl-active .hero-vsl {
 .services-section .service-card--blue .service-icon svg path:nth-of-type(3) { fill: #FBBC05; }
 .services-section .service-card--blue .service-icon svg path:nth-of-type(4) { fill: #EA4335; }
 
-/* Social — Instagram magenta, Facebook blue, X white */
+/* Social — Instagram authentic gradient, Facebook blue, X white */
 .services-section .service-card--purple .service-icon svg g:nth-of-type(1) {
-    stroke: #7F00FF;
+    stroke: url(#instaGradient);
 }
 .services-section .service-card--purple .service-icon svg g:nth-of-type(1) circle[stroke="none"] {
-    fill: #7F00FF;
+    fill: url(#instaGradient);
 }
 .services-section .service-card--purple .service-icon svg g:nth-of-type(2) path {
     fill: #1877F2;
@@ -3863,7 +4107,7 @@ body.vsl-active .hero-vsl {
 }
 
 .services-section .service-title {
-    font-size: 1.2rem;
+    font-size: clamp(1.25rem, 1.45vw, 1.6rem);
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.8rem;
@@ -3884,21 +4128,20 @@ body.vsl-active .hero-vsl {
 }
 
 .service-description {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 1.05vw, 1.08rem);
     font-weight: 300;
     color: #FFFFFF;
-    line-height: 1.75;
-    margin-bottom: 1.3rem;
-    /* Equalize so feature lists begin at the same y across all 4 cards
-       (sized to the tallest, 4-line, description) */
-    min-height: 6.6em;
+    line-height: 1.7;
+    margin-bottom: clamp(0.6rem, 1.3vh, 1.3rem);
+    /* Equalize so feature lists begin at the same y across all 4 cards */
+    min-height: 6.2em;
 }
 
 /* Service Features — centered block, bullets aligned */
 .services-section .service-features {
     list-style: none;
     text-align: left;
-    margin-bottom: 1.4rem;
+    margin-bottom: clamp(0.6rem, 1.4vh, 1.4rem);
     padding-left: 0;
     display: flex;
     flex-direction: column;
@@ -3907,10 +4150,10 @@ body.vsl-active .hero-vsl {
 }
 
 .services-section .service-features li {
-    padding: 10px 0;
-    padding-left: 22px;
+    padding: clamp(6px, 1.1vh, 11px) 0;
+    padding-left: 20px;
     position: relative;
-    font-size: 0.95rem;
+    font-size: clamp(0.88rem, 1.02vw, 1.05rem);
     font-weight: 300;
     color: #ffffff;
     border-bottom: 1px solid rgba(244, 241, 234, 0.05);
@@ -3924,14 +4167,14 @@ body.vsl-active .hero-vsl {
 }
 
 .services-section .service-features li::before {
-    content: '';
+    content: '-';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 18px;
-    height: 1px;
-    background: var(--orb-color);
+    color: var(--orb-color);
+    font-weight: 700;
+    line-height: 1;
     opacity: 0.85;
 }
 
@@ -3939,7 +4182,7 @@ body.vsl-active .hero-vsl {
 .service-cta {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 12px;
     padding: 0.4rem 0;
     background: transparent;
@@ -3953,7 +4196,7 @@ body.vsl-active .hero-vsl {
     text-decoration: none;
     border-radius: 0;
     transition: color 0.3s ease;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
     width: fit-content;
     margin-top: auto;
@@ -3994,446 +4237,78 @@ body.vsl-active .hero-vsl {
     transition: transform 0.35s ease;
 }
 
-.service-cta-icon svg {
-    width: 16px;
-    height: 16px;
-    display: block;
-}
+/* Fluid Desktop Responsive Sizing down to tablet */
+@media (max-width: 1280px) {
+    .services-section .container {
+        padding-inline: clamp(12px, 1.2vw, 22px);
+    }
 
-.service-cta:hover .service-cta-icon {
-    transform: translateX(8px);
-}
-
-@media (max-width: 1366px) {
     .services-grid {
-        gap: clamp(12px, 1.4vw, 18px);
-        max-width: 100%;
+        gap: clamp(12px, 1.4vw, 24px);
     }
 
     .service-card {
-        padding: clamp(20px, 2vw, 26px) clamp(14px, 1.4vw, 20px) clamp(18px, 1.8vw, 24px);
-        min-height: 460px;
+        padding: clamp(20px, 2.8vh, 36px) clamp(16px, 1.8vw, 26px) clamp(18px, 2.4vh, 32px);
     }
 
     .services-section .service-title {
-        font-size: 1.15rem;
-        min-height: 1.2em;
-        margin-bottom: 0.8rem;
+        font-size: clamp(1.1rem, 1.3vw, 1.4rem);
     }
 
     .service-description {
-        font-size: 0.98rem;
-        min-height: 7.2em;
-        margin-bottom: 1.8rem;
-    }
-
-    .services-section .service-features {
-        margin-bottom: 1.8rem;
+        font-size: clamp(0.85rem, 0.96vw, 1rem);
+        min-height: 5.8em;
     }
 
     .services-section .service-features li {
-        font-size: 0.92rem;
-        padding: 12px 0;
-        padding-left: 22px;
+        font-size: clamp(0.82rem, 0.92vw, 0.96rem);
+        padding: clamp(5px, 1vh, 9px) 0;
+        padding-left: 18px;
     }
 
-    .service-cta {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 1180px) {
-    .services-grid {
-        gap: clamp(8px, 1vw, 12px);
-    }
-
-    .service-card {
-        padding: clamp(14px, 1.4vw, 18px) clamp(10px, 1vw, 14px) clamp(12px, 1.2vw, 16px);
-        min-height: 400px;
+    .services-section .service-icon {
+        width: clamp(48px, 3.6vw, 58px);
+        height: clamp(48px, 3.6vw, 58px);
         border-radius: 12px;
     }
 
-    .services-section .service-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
-    }
-
     .services-section .service-icon svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .services-section .service-number {
-        font-size: 1.6rem;
-    }
-
-    .services-section .service-title {
-        font-size: 0.95rem;
-        min-height: 1.2em;
-        margin-bottom: 0.5rem;
-    }
-
-    .service-description {
-        font-size: 0.76rem;
-        line-height: 1.7;
-        margin-bottom: 1rem;
-        min-height: 6em;
-    }
-
-    .services-section .service-features li {
-        font-size: 0.7rem;
-        padding: 6px 0;
-        padding-left: 18px;
-    }
-
-    .services-section .service-features li::before {
-        width: 12px;
-    }
-
-    .service-cta {
-        font-size: 0.66rem;
-        gap: 8px;
-        letter-spacing: 0.14em;
-    }
-
-    .service-cta-icon {
-        width: 14px;
-        height: 14px;
-        flex: 0 0 14px;
-    }
-
-    .service-cta-icon svg {
-        width: 13px;
-        height: 13px;
-    }
-
-    .popular-badge {
-        font-size: 0.5rem;
-        padding: 3px 8px;
-        top: 10px;
-        right: 10px;
-    }
-
-    .service-card-top {
-        margin-top: 20px;
-        gap: 0.7rem;
-        margin-bottom: 1rem;
-    }
-
-    .services-section .service-features {
-        margin-bottom: 1.2rem;
-    }
-
-    .services-header h2 {
-        font-size: clamp(1.8rem, 3.2vw, 2.8rem);
-    }
-
-    .services-subtitle {
-        font-size: clamp(0.88rem, 1.1vw, 1rem);
+        width: clamp(20px, 1.5vw, 25px);
+        height: clamp(20px, 1.5vw, 25px);
     }
 }
 
-@media (max-width: 1024px) {
-    .services-grid {
-        gap: 8px;
-    }
-
-    .service-card {
-        padding: 12px 10px 12px;
-        min-height: 370px;
-        border-radius: 10px;
-    }
-
-    .services-section .service-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-    }
-
-    .services-section .service-icon svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .services-section .service-number {
-        font-size: 1.4rem;
-    }
-
-    .services-section .service-title {
-        font-size: 0.85rem;
-        min-height: 1.2em;
-        margin-bottom: 0.4rem;
-    }
-
-    .service-description {
-        font-size: 0.72rem;
-        line-height: 1.65;
-        margin-bottom: 0.8rem;
-        min-height: 5.4em;
-    }
-
-    .services-section .service-features li {
-        font-size: 0.66rem;
-        padding: 5px 0;
-        padding-left: 16px;
-    }
-
-    .services-section .service-features li::before {
-        width: 10px;
-    }
-
-    .service-cta {
-        font-size: 0.62rem;
-        gap: 6px;
-        letter-spacing: 0.12em;
-    }
-
-    .service-card-top {
-        margin-top: 16px;
-        gap: 0.5rem;
-        margin-bottom: 0.8rem;
-    }
-
-    .services-section .service-features {
-        margin-bottom: 0.8rem;
-    }
-
-    .services-section .service-icon--brand svg {
-        width: 22px;
-        height: 22px;
-    }
-}
-
-@media (max-width: 900px) {
-    .services-grid {
-        gap: 6px;
-    }
-
-    .service-card {
-        padding: 10px 8px 10px;
-        min-height: 340px;
-        border-radius: 8px;
-    }
-
-    .services-section .service-icon {
-        width: 36px;
-        height: 36px;
-    }
-
-    .services-section .service-icon svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    .services-section .service-number {
-        font-size: 1.2rem;
-    }
-
-    .services-section .service-title {
-        font-size: 0.78rem;
-        min-height: 1.2em;
-    }
-
-    .service-description {
-        font-size: 0.68rem;
-        min-height: 5em;
-    }
-
-    .services-section .service-features li {
-        font-size: 0.62rem;
-        padding: 4px 0;
-        padding-left: 14px;
-    }
-
-    .service-cta {
-        font-size: 0.58rem;
-        gap: 5px;
-    }
-
-    .popular-badge {
-        font-size: 0.45rem;
-        padding: 2px 6px;
-        top: 8px;
-        right: 8px;
-    }
-
-    .service-card-top {
-        margin-top: 14px;
-    }
-
-    .services-section .service-icon--brand svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .services-header h2 {
-        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-    }
-
-    .services-subtitle {
-        font-size: clamp(0.82rem, 1vw, 0.92rem);
-    }
-}
-
-/* Height-based desktop media queries to ensure services fit on screen */
-@media (min-width: 769px) and (max-height: 900px) {
-    .services-section {
-        padding: clamp(30px, 4vh, 50px) 0;
-    }
-    .services-header {
-        margin-bottom: clamp(20px, 3vh, 32px);
-        gap: 0.8rem;
-    }
-    .services-header h2 {
-        font-size: clamp(1.8rem, 3.2vh, 2.8rem);
-    }
-    .services-subtitle {
-        font-size: clamp(0.85rem, 1.6vh, 1rem);
-        max-width: 500px;
-    }
-    .service-card {
-        padding: clamp(20px, 2.5vh, 28px) clamp(14px, 1.4vw, 20px) clamp(18px, 2.2vh, 24px);
-        min-height: 570px;
-    }
-    .service-card-top {
-        margin-top: 20px;
-        margin-bottom: 1.2rem;
-    }
-    .services-section .service-title {
-        font-size: 1.25rem;
-        min-height: 1.2em;
-        margin-bottom: 0.8rem;
-    }
-    .service-description {
-        font-size: 1.08rem;
-        min-height: 7.2em;
-        margin-bottom: 1.8rem;
-    }
-    .services-section .service-features {
-        margin-bottom: 1.8rem;
-    }
-    .services-section .service-features li {
-        font-size: 1.0rem;
-        padding: 18px 0;
-    }
-}
-
-@media (min-width: 769px) and (max-height: 700px) {
-    .services-section {
-        padding: clamp(10px, 2vh, 20px) 0;
-    }
-    .services-header {
-        margin-bottom: clamp(10px, 2vh, 16px);
-        gap: 0.5rem;
-    }
-    .services-header h2 {
-        font-size: clamp(1.6rem, 4vh, 2.2rem);
-    }
-    .services-subtitle {
-        font-size: clamp(0.78rem, 2vh, 0.88rem);
-        max-width: 480px;
-        line-height: 1.6;
-    }
-    .service-card {
-        padding: clamp(14px, 2vh, 20px) clamp(12px, 1.2vw, 18px) clamp(12px, 1.8vh, 16px);
-        min-height: 430px;
-    }
-    .service-card-top {
-        margin-top: 16px;
-        margin-bottom: 1.0rem;
-        gap: 0.8rem;
-    }
-    .services-section .service-number {
-        font-size: 1.6rem;
-        top: 12px;
-        left: 12px;
-    }
-    .services-section .service-icon {
-        width: 56px;
-        height: 56px;
-        border-radius: 10px;
-    }
-    .services-section .service-icon svg {
-        width: 24px;
-        height: 24px;
-    }
-    .services-section .service-icon--brand svg {
-        width: 22px;
-        height: 22px;
-    }
-    .services-section .service-title {
-        font-size: 1.05rem;
-        min-height: 1.2em;
-        margin-bottom: 0.6rem;
-    }
-    .service-description {
-        font-size: 0.96rem;
-        min-height: 6.4em;
-        margin-bottom: 1.4rem;
-        line-height: 1.6;
-    }
-    .services-section .service-features {
-        margin-bottom: 1.4rem;
-    }
-    .services-section .service-features li {
-        font-size: 0.90rem;
-        padding: 11px 0;
-        padding-left: 18px;
-    }
-    .services-section .service-features li::before {
-        width: 12px;
-    }
-    .service-cta {
-        font-size: 0.75rem;
-        padding: 0.3rem 0;
-    }
-    .popular-badge {
-        font-size: 0.45rem;
-        padding: 2px 6px;
-        top: 8px;
-        right: 8px;
-    }
-}
-
-/* 4 cards get cramped below ~1180px — drop to 2 columns (still desktop-styled) */
-@media (max-width: 1180px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .service-card {
-        min-height: 0;
-    }
-}
-
-/* Services stacks to 2 columns on tablet */
+/* Tablet: 2 columns */
 @media (max-width: 768px) {
+    .services-section .container {
+        padding-left: clamp(20px, 4vw, 32px);
+        padding-right: clamp(20px, 4vw, 32px);
+    }
+
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 16px;
     }
 
     .service-card {
-        min-height: 0;
-        padding: clamp(18px, 2vw, 24px) clamp(14px, 1.6vw, 20px) clamp(16px, 1.8vw, 22px);
+        padding: clamp(20px, 2.5vw, 28px) clamp(16px, 2vw, 22px);
         border-radius: 14px;
     }
 
     .services-section .service-title {
-        font-size: 1rem;
-        min-height: 2.4em;
+        font-size: 1.05rem;
+        min-height: auto;
     }
 
     .service-description {
-        font-size: 0.82rem;
-        min-height: 0;
+        font-size: 0.86rem;
+        min-height: auto;
     }
 
     .services-section .service-features li {
-        font-size: 0.76rem;
+        font-size: 0.8rem;
         padding: 7px 0;
-        padding-left: 22px;
+        padding-left: 20px;
     }
 
     .service-cta {
@@ -4455,7 +4330,7 @@ body.vsl-active .hero-vsl {
     }
 }
 
-/* Services stacks to 1 column on mobile */
+/* Mobile: 1 column */
 @media (max-width: 500px) {
     .services-grid {
         grid-template-columns: 1fr;
@@ -5219,6 +5094,8 @@ body.vsl-active .hero-vsl {
     border-radius: 0 0 10px 10px;
     max-height: 150px;
     overflow-y: auto;
+    /* Stop the page from taking over once the list hits its top/bottom */
+    overscroll-behavior: contain;
     scrollbar-width: thin;
     scrollbar-color: rgba(59, 165, 181, 0.25) transparent;
 }
@@ -5299,7 +5176,7 @@ body.vsl-active .hero-vsl {
     width: 100%;
     padding: 0.85rem;
     font-size: 0.95rem;
-    border-radius: 10px;
+    border-radius: 3px;
     margin-top: 0.25rem;
 }
 
@@ -5383,6 +5260,7 @@ body.vsl-active .hero-vsl {
 .footer-logo img {
     height: 60px;
     width: auto;
+    margin-top: 14px;
     margin-bottom: 6px;
 }
 
@@ -5425,18 +5303,18 @@ body.vsl-active .hero-vsl {
 }
 
 /* Let's talk CTA button */
-/* Uiverse-style text-reveal button (adapted to site cyan) */
+/* Uiverse-style text-reveal button (adapted to site cyan) with lift, scale, glow, and underline */
 .footer-lets-talk {
-    --border-right: 2px;
+    --border-right: 3px;
     --text-stroke-color: #ffffff;
-    --animation-color: #0092a8;
-    --fs-size: 2.3em;
+    --animation-color: #00b8d4;
+    --fs-size: 2.6em;
 
     display: inline-block;
     align-self: flex-start;
     flex-shrink: 0;
-    margin: 14px 0 0;
-    padding: 0;
+    margin: 18px 0 0;
+    padding: 0 0 6px 0;
     background: transparent;
     border: none;
     outline: none;
@@ -5444,15 +5322,25 @@ body.vsl-active .hero-vsl {
 
     position: relative;
     line-height: 1;
-    letter-spacing: 3px;
+    letter-spacing: clamp(6px, 0.22em, 10px);
     text-decoration: none;
     text-transform: uppercase;
     font-size: var(--fs-size);
-    font-weight: bold;
+    font-weight: 800;
     font-family: 'Archivo', sans-serif;
     color: transparent;
-    -webkit-text-stroke: 0.55px var(--text-stroke-color);
+    -webkit-text-stroke: 1px #ffffff;
     -webkit-text-fill-color: transparent;
+    transform-origin: left center;
+    transform: scaleY(1.22);
+
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+.footer-lets-talk:hover {
+    transform: translateY(-5px) scaleY(1.22) scaleX(1.02);
+    filter: none;
 }
 
 /* The colored text that wipes in on hover, with a trailing cursor bar */
@@ -5465,12 +5353,22 @@ body.vsl-active .hero-vsl {
     border-right: var(--border-right) solid var(--animation-color);
     overflow: hidden;
     white-space: nowrap;
-    transition: width 0.5s;
-    -webkit-text-stroke: 0.55px var(--animation-color);
-    /* Fill the letters solid blue too (not just the outline). Without this the
-       parent's transparent color propagates to -webkit-text-fill-color, leaving
-       the interior hollow. */
+    transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    -webkit-text-stroke: 1px var(--animation-color);
     -webkit-text-fill-color: var(--animation-color);
+}
+
+/* Cyan animated underline that draws out with the text fill */
+.footer-lets-talk .hover-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--animation-color);
+    border-radius: 2px;
+    box-shadow: none;
 }
 
 .footer-lets-talk:hover .hover-text {
@@ -5502,7 +5400,7 @@ body.vsl-active .hero-vsl {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    transition: background-position 0.4s ease;
+    transition: background-position 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer .footer-links li a::after {
@@ -5520,6 +5418,7 @@ body.vsl-active .hero-vsl {
 
 .footer .footer-links li a:hover {
     background-position: 0% 0;
+    transform: translateX(7px);
 }
 
 .footer .footer-links li a:hover::after {
@@ -5538,16 +5437,41 @@ body.vsl-active .hero-vsl {
     display: flex;
     align-items: center;
     gap: 14px;
-    font-size: 1.05rem;
+    font-size: 1.18rem;
     font-weight: 400;
     color: var(--text-secondary);
     text-decoration: none;
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast), transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .contact-item:hover {
     color: var(--cyan);
     text-shadow: none;
+    transform: translateY(-3px);
+}
+
+/* Same wipe-in underline the footer nav links use, scoped to the label so it
+   does not run under the icon. */
+.contact-item span {
+    position: relative;
+    display: inline-block;
+}
+
+.contact-item span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: var(--cyan);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s ease;
+}
+
+.contact-item:hover span::after {
+    transform: scaleX(1);
 }
 
 .contact-item:hover .contact-icon {
@@ -5709,7 +5633,7 @@ body.vsl-active .hero-vsl {
     background: var(--cyan-soft);
     border-color: var(--cyan-border);
     transform: translateY(-2px);
-    color: var(--cyan);
+    color: #ffffff;
     box-shadow: none;
 }
 
@@ -5761,7 +5685,7 @@ body.vsl-active .hero-vsl {
 
     .about-content {
         max-width: none;
-        text-align: center;
+        text-align: left;
     }
 
     .about-content .section-title {
@@ -5892,9 +5816,15 @@ body.vsl-active .hero-vsl {
 
     .footer-bottom {
         flex-direction: column;
-        gap: var(--spacing-md);
-        text-align: center;
+        align-items: flex-start;
+        gap: var(--spacing-sm, 12px);
+        text-align: left;
         order: 2;
+    }
+
+    .footer-copyright,
+    .footer-legal {
+        text-align: left;
     }
 
     .footer-bottom-cta {
@@ -6477,6 +6407,29 @@ html.silk-active .hero-bg {
     flex: 1;
 }
 
+/* Step 1 desktop: the nav buttons get relocated into this slot (see showStep in
+   main.js) so Next lines up with the website field. Bottom-aligned so the button
+   baseline matches the input, and the divider/spacing of the standalone row is
+   dropped since it is no longer its own row. */
+.quiz-nav-slot {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Kill the field's bottom margin in that row so the button and the input share
+   the same baseline. */
+.form-row:has(> .quiz-nav-slot) > .form-group {
+    margin-bottom: 0;
+}
+
+.quiz-nav-slot .quiz-nav-buttons {
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: none;
+}
+
 .quiz-form-terms-note {
     font-size: 0.78rem;
     color: rgba(255, 255, 255, 0.35);
@@ -6587,6 +6540,11 @@ html.silk-active .hero-bg {
 .quiz-inline-card .custom-select-trigger {
     height: auto;
     min-height: clamp(48px, 3.6vw, 56px);
+}
+
+/* Unselected state reads as placeholder text, same grey as the inputs */
+.quiz-inline-card .custom-select-trigger.is-placeholder {
+    color: rgba(255, 255, 255, 0.2);
 }
 
 .quiz-inline-card .custom-select.is-open .custom-select-trigger {
@@ -6736,7 +6694,7 @@ html.silk-active .hero-bg {
     padding: clamp(0.8rem, 1.6vh, 1.15rem) clamp(1.75rem, 2.6vw, 2.5rem);
     font-size: clamp(0.95rem, 1.1vw, 1.05rem);
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 3px;
     height: auto;
     min-height: clamp(46px, 5.6vh, 56px);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -7030,157 +6988,450 @@ html.silk-active .hero-bg {
    Home — About Teaser
    ============================================ */
 
+/* ============================================
+   Home — About Teaser
+   ============================================ */
+
 .home-about {
-    padding: calc(clamp(100px, 12vh, 160px) + 50px) 0 clamp(40px, 6vh, 80px);
+    padding: calc(clamp(110px, 13vh, 180px) + 30px) 0 clamp(50px, 8vh, 100px);
 }
 
 /* Wider container + bigger gap so the section fills the screen */
 .home-about .container {
-    max-width: 1500px;
+    max-width: 1750px;
 }
 
 .home-about .about-grid {
-    gap: clamp(3rem, 7vw, 7rem);
+    gap: clamp(3rem, 6.5vw, 7.5rem);
     align-items: center;
 }
 
-/* Tight luxury label, not a headline */
-.home-about-eyebrow {
-    margin-bottom: 1.8rem;
-    font-size: 0.76rem;
-    letter-spacing: 0.24em;
+/* ============================================
+   Home About Section — Styled like "The Way We Work"
+   ============================================ */
+
+.home-about {
+    padding: clamp(4.5rem, 8vh, 7.5rem) 0;
 }
 
-.home-about .section-title {
-    font-size: clamp(2.8rem, 4.3vw, 4.4rem);
+.home-about .about-header {
+    text-align: center;
+    max-width: 980px;
+    margin: 0 auto clamp(2.5rem, 4vh, 3.8rem);
+}
+
+.home-about .about-header .home-about-eyebrow {
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    letter-spacing: 0.25em;
+}
+
+.home-about .about-header .section-title {
+    font-size: clamp(2.4rem, 4vw, 4.4rem);
     line-height: 1.08;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-.home-about .about-text {
-    max-width: 600px;
-    font-size: 1.25rem;
-    line-height: 1.8;
-    margin-bottom: 0.5rem;
+.home-about .about-header .section-title .title-line-1 {
+    display: block;
+    white-space: nowrap;
 }
 
-.home-about .about-features {
-    margin-bottom: 2.8rem;
-    margin-top: 2.4rem;
-    grid-template-columns: 1fr;
-    gap: 1.1rem;
+.home-about .about-header .section-title .title-line-2 {
+    display: block;
+    white-space: nowrap;
 }
 
-.home-about .about-feature {
-    align-items: center;
-    gap: 1.2rem;
-    font-size: 1.16rem;
-    font-weight: 300;
+.home-about .about-header .about-text {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 840px;
+    font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+    line-height: 1.75;
     color: var(--text-secondary);
 }
 
-.home-about .feature-marker {
-    display: inline-flex;
+
+/* ============================================
+   About Section — Interactive Accordion Menu
+   ============================================ */
+
+.about-accordion {
+    margin-top: 2.2rem;
+    margin-bottom: 2.8rem;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 0;
+    background: rgba(15, 20, 26, 0.45);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.accordion-item {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    border-radius: 0;
+    position: relative;
+    transition: background 0.35s ease;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+.accordion-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--cyan);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.accordion-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.accordion-item.is-open {
+    background: color-mix(in srgb, var(--cyan) 6%, rgba(15, 20, 26, 0.65));
+}
+
+.accordion-item.is-open::before {
+    opacity: 1;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 0.65rem;
-    height: 0.65rem;
+    gap: 1.2rem;
+    padding: 1.35rem 1.8rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.accordion-header .feature-marker {
+    display: inline-block;
+    width: 14px;
+    height: 2px;
     background: var(--cyan);
     border-radius: 1px;
     flex-shrink: 0;
-    transform: rotate(45deg);
+    transform: none;
+    transition: background 0.35s ease;
 }
 
-.home-about .about-feature {
+.accordion-item.is-open .accordion-header .feature-marker {
+    background: #2DF0D8;
+    transform: none;
+}
+
+.accordion-title {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+    font-weight: 500;
+    color: var(--text-primary);
+    flex: 1;
+    letter-spacing: -0.01em;
+}
+
+.accordion-icon {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.accordion-item.is-open .accordion-icon {
+    transform: rotate(45deg);
+    color: #2DF0D8;
+}
+
+.accordion-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease, padding 0.35s ease;
+    padding: 0 1.6rem;
+}
+
+.accordion-item.is-open .accordion-body {
+    max-height: 220px;
+    opacity: 1;
+    padding: 0 1.6rem 1.4rem 3.5rem;
+}
+
+.accordion-content {
+    font-size: clamp(1.02rem, 1.2vw, 1.18rem);
+    line-height: 1.65;
+    color: var(--text-secondary);
+    font-weight: 300;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    padding-top: 1rem;
+}
+
+/* Growth Partner accordion — an editorial, full-width treatment that mirrors
+   the numbered rows on the About page while keeping the detail expandable. */
+.home-about-accordion {
+    max-width: min(1100px, 92vw);
+    width: 100%;
+    margin: 0 auto;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    overflow: visible;
+}
+
+.home-about-accordion .accordion-item {
+    --row-accent: var(--cyan);
+    border-bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    background: transparent;
+}
+
+.home-about-accordion .accordion-item:nth-child(2) { --row-accent: #4285F4; }
+.home-about-accordion .accordion-item:nth-child(3) { --row-accent: #0866FF; }
+.home-about-accordion .accordion-item:nth-child(4) { --row-accent: #0A2FA0; }
+
+.home-about-accordion .accordion-item::before {
+    top: -1px;
+    bottom: auto;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--row-accent), transparent);
+    opacity: 1;
+    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-about-accordion .accordion-item:hover::before,
+.home-about-accordion .accordion-item.is-open::before {
+    width: 100%;
+}
+
+.home-about-accordion .accordion-item:hover,
+.home-about-accordion .accordion-item.is-open {
+    background: transparent;
+}
+
+.home-about-accordion .accordion-header {
+    display: grid;
+    grid-template-columns: clamp(64px, 7vw, 110px) minmax(0, 1fr) 30px;
+    align-items: start;
+    gap: clamp(18px, 3vw, 52px);
+    padding: clamp(30px, 4.5vh, 48px) clamp(4px, 1vw, 12px);
+}
+
+.home-about-accordion .accordion-num {
+    padding-top: 0.35em;
+    color: var(--row-accent);
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.home-about-accordion .accordion-title {
+    color: #F8F4EC;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(1.7rem, 2.7vw, 2.7rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+    transition: color 0.35s ease;
+}
+
+.home-about-accordion .accordion-item:hover .accordion-title,
+.home-about-accordion .accordion-item.is-open .accordion-title {
+    color: var(--row-accent);
+}
+
+.home-about-accordion .accordion-icon {
+    padding-top: 0.08em;
+    color: var(--row-accent);
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.home-about-accordion .accordion-item.is-open .accordion-icon {
+    color: var(--row-accent);
+}
+
+.home-about-accordion .accordion-body {
+    padding: 0;
+    margin-left: calc(clamp(64px, 7vw, 110px) + clamp(18px, 3vw, 52px));
+    margin-right: clamp(38px, 5vw, 82px);
+}
+
+.home-about-accordion .accordion-item.is-open .accordion-body {
+    max-height: 360px;
+    padding: 0 0 clamp(30px, 4.5vh, 48px);
+}
+
+.home-about-accordion .accordion-content {
+    max-width: 62ch;
+    border-top: 0;
+    padding: 0;
+    color: rgba(244, 241, 234, 0.82);
+    font-size: clamp(0.98rem, 1.1vw, 1.1rem);
+    font-weight: 600;
+    line-height: 1.65;
+}
+
+.home-about-accordion .accordion-header:focus-visible {
+    outline: 1px solid var(--row-accent);
+    outline-offset: -1px;
+}
+
+@media (max-width: 768px) {
+    .home-about-lower {
+        width: min(100%, 92vw);
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .home-about .about-cta-wrap {
+        justify-content: flex-start;
+        margin: 0;
+    }
+
+    .home-about-accordion .accordion-header {
+        grid-template-columns: 42px minmax(0, 1fr) 24px;
+        gap: 12px;
+        padding: 26px 2px;
+    }
+
+    .home-about-accordion .accordion-title {
+        font-size: clamp(1.45rem, 7vw, 2rem);
+    line-height: 1.08;
+}
+
+    .home-about-accordion .accordion-body {
+        margin-left: 54px;
+        margin-right: 24px;
+    }
+
+    .home-about-accordion .accordion-item.is-open .accordion-body {
+        padding-bottom: 28px;
+    }
 }
 
 .home-about-btn {
-    min-width: 250px;
-    font-size: 0.98rem;
-    padding: 1.25rem 2.4rem;
-    background: var(--bg-secondary);
-}
-
-/* Right column — editorial report stats, now as hoverable cards */
-.home-about-stats {
-    max-width: 560px;
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.home-about-stat {
-    --row-accent: var(--cyan);
-    position: relative;
-    overflow: hidden;
-    padding: clamp(1.6rem, 2.4vw, 2.4rem) clamp(1.4rem, 2vw, 2rem);
-    border: 1px solid var(--hairline);
-    border-radius: 14px;
-    display: grid;
-    grid-template-columns: minmax(150px, auto) 1fr;
-    column-gap: 2rem;
-    align-items: center;
-    background: rgba(15, 20, 26, 0.4);
-    transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.home-about-stat::before {
-    content: '';
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--row-accent), color-mix(in srgb, var(--row-accent) 10%, transparent));
-}
-
-.home-about-stat:nth-child(1) { --row-accent: #0866FF; } /* Meta blue */
-.home-about-stat:nth-child(2) { --row-accent: #4285F4; } /* Google blue */
-.home-about-stat:nth-child(3) { --row-accent: #00b8d4; } /* Adzio cyan */
-
-.home-about-stat:hover {
-    border-color: color-mix(in srgb, var(--row-accent) 40%, transparent);
-    background: color-mix(in srgb, var(--row-accent) 7%, rgba(15, 20, 26, 0.4));
-    transform: translateX(6px);
-}
-
-.home-about-stat .stat-index {
-    grid-column: 1 / -1;
-    display: block;
-    font-family: 'Archivo', sans-serif;
-    font-size: 0.64rem;
-    font-weight: 700;
-    letter-spacing: 0.26em;
-    color: var(--gold);
-    margin-bottom: 0.9rem;
-    transition: color 0.35s ease;
-}
-
-.home-about-stat:hover .stat-index {
-    color: var(--row-accent);
-}
-
-.home-about-stat strong {
-    display: block;
-    font-family: 'Archivo', sans-serif;
-    font-weight: 900;
-    font-size: clamp(3.4rem, 5.2vw, 4.8rem);
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-    color: var(--text-primary);
-    transition: color 0.35s ease;
-}
-
-.home-about-stat:hover strong {
-    color: var(--row-accent);
-}
-
-.home-about-stat span:not(.stat-index) {
-    display: block;
-    color: var(--text-secondary);
+    min-width: 270px;
     font-size: 1.02rem;
-    font-weight: 300;
-    line-height: 1.6;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1.3rem 2.6rem;
+    background: var(--cyan);
+    border: 1px solid var(--cyan);
+    color: #06120F;
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+.home-about-btn span {
+    color: #06120F;
+    font-weight: 700;
+}
+
+.home-about-btn svg {
+    stroke: #06120F;
+}
+
+.home-about-btn:hover {
+    background: #2DF0D8;
+    border-color: #2DF0D8;
+    color: #06120F;
+    transform: translateY(-3px);
+    box-shadow: none;
+}
+
+.home-about-btn:hover span {
+    color: #06120F;
+}
+
+.home-about-btn:hover svg {
+    stroke: #06120F;
+}
+
+@media (max-width: 900px) {
+    .home-about .about-content {
+        padding-left: clamp(16px, 5vw, 24px) !important;
+        padding-right: clamp(16px, 5vw, 24px) !important;
+        text-align: left !important;
+        align-items: flex-start !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .home-about-eyebrow {
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+
+    .home-about .section-title {
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
+
+    .home-about .about-text {
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
+
+    .home-about .about-features {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        text-align: left !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+    }
+
+    .home-about .about-feature {
+        justify-content: flex-start !important;
+        text-align: left !important;
+    }
+
+    .home-about-btn {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        align-self: flex-start !important;
+        display: inline-flex !important;
+        width: auto !important;
+        max-width: 100% !important;
+        text-align: left !important;
+        justify-content: flex-start !important;
+    }
 }
 
 @media (max-width: 768px) {
@@ -7204,7 +7455,10 @@ html.silk-active .hero-bg {
     }
 
     .home-about-btn {
-        width: 100%;
+        width: auto !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        align-self: flex-start !important;
     }
 
     .home-about-stats {
@@ -7229,10 +7483,587 @@ html.silk-active .hero-bg {
         font-size: clamp(0.86rem, 4vw, 1rem);
         gap: 0.7rem;
     }
+
+    .home-about .about-features {
+        max-width: none;
+    }
 }
 
 @media (min-width: 500px) {
     .home-about .section-title .text-gradient {
         white-space: nowrap;
+    }
+}
+
+/* ============================================
+   Editorial Hero — shared masthead layout for
+   the Services and About page tops.
+   Broadsheet structure: masthead rule, oversized
+   left headline, supporting column behind a
+   vertical hairline, closing meta strip.
+   ============================================ */
+
+.ed-hero {
+    position: relative;
+    text-align: left;
+    margin-top: 30px;
+    padding: clamp(14px, 2.4vh, 30px) 0 clamp(18px, 3vh, 38px);
+    padding-left: clamp(140px, 16vw, 250px);
+}
+
+/* ── Masthead: wordmark sits left, above the hairline ── */
+.ed-masthead {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(14px, 1.6vw, 26px);
+    padding-bottom: clamp(14px, 2.2vh, 26px);
+    border-bottom: 1px solid rgba(244, 241, 234, 0.14);
+}
+
+.ed-masthead-label {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(0.62rem, 0.72vw, 0.74rem);
+    font-weight: 800;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    white-space: nowrap;
+}
+
+.ed-masthead-index {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(0.62rem, 0.72vw, 0.74rem);
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: rgba(244, 241, 234, 0.38);
+    white-space: nowrap;
+}
+
+.ed-masthead-rule {
+    display: none;
+}
+
+.ed-masthead-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.15rem, 1.5vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+/* ── Body: headline vs. supporting column ── */
+.ed-hero-body {
+    display: grid;
+    /* Give title column maximum horizontal space so 3-line layout stays huge without wrapping */
+    grid-template-columns: minmax(0, 1.2fr) clamp(240px, 22vw, 310px);
+    align-items: end;
+    gap: clamp(24px, 3vw, 56px);
+    padding: clamp(16px, 2.8vh, 36px) 0 clamp(12px, 2vh, 26px);
+}
+
+.ed-hero-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.4rem, 4.2vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: #F8F4EC;
+    text-align: left;
+}
+
+.ed-hero-title .ed-line {
+    display: block;
+    white-space: nowrap;
+}
+
+/* Accent lines use solid cyan blue color */
+.ed-hero-title .ed-line--accent {
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    color: var(--cyan);
+}
+
+/* Supporting column sits behind a vertical hairline */
+.ed-hero-aside {
+    position: relative;
+    padding-left: clamp(20px, 2.4vw, 40px);
+    padding-bottom: 0.35rem;
+}
+
+/* Two-column layout only: drop the supporting column into the empty band below
+   the hero so it lands just above the section's closing hairline. The negative
+   margin cancels the body's and the section's bottom padding, less a small gap,
+   and only this column moves - the headline keeps its position. */
+@media (min-width: 1001px) {
+    .svc-hero .ed-hero-aside {
+        margin-bottom: calc(20px - clamp(24px, 4vh, 54px) - clamp(2.6rem, 5vh, 4.6rem));
+    }
+}
+
+.ed-hero-aside::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.2rem;
+    bottom: 0.2rem;
+    width: 1px;
+    background: linear-gradient(180deg,
+        rgba(0, 184, 212, 0.5) 0%,
+        rgba(244, 241, 234, 0.16) 55%,
+        transparent 100%);
+}
+
+.ed-hero-lead {
+    margin: 0 0 clamp(18px, 2.6vh, 30px);
+    font-size: clamp(0.98rem, min(1.08vw, 1.9vh), 1.16rem);
+    line-height: 1.72;
+    color: rgba(244, 241, 234, 0.74);
+    font-weight: 400;
+    max-width: 44ch;
+    text-align: left;
+}
+
+.ed-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(10px, 0.9vw, 15px);
+}
+
+.ed-hero-cta .btn {
+    min-width: 0;
+    min-height: clamp(46px, 6vh, 54px);
+    padding-inline: clamp(1.1rem, 1.5vw, 1.9rem);
+    border-radius: 3px;
+    font-size: clamp(0.8rem, 0.9vw, 0.94rem);
+}
+
+/* ── Closing meta strip: the agency's own facts, hairline separated ── */
+.ed-hero-meta {
+    list-style: none;
+    margin: 0;
+    padding: clamp(16px, 2.4vh, 26px) 0 0;
+    border-top: 1px solid rgba(244, 241, 234, 0.14);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(14px, 1.8vw, 34px);
+}
+
+.ed-hero-meta li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.34rem;
+    padding-left: clamp(14px, 1.5vw, 26px);
+}
+
+.ed-hero-meta li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+    bottom: 0.15rem;
+    width: 1px;
+    background: rgba(244, 241, 234, 0.12);
+}
+
+.ed-hero-meta li:first-child::before {
+    background: var(--cyan);
+}
+
+.ed-hero-meta b {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.25rem, min(1.9vw, 3.2vh), 2rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #F8F4EC;
+}
+
+.ed-hero-meta span {
+    font-size: clamp(0.7rem, 0.8vw, 0.82rem);
+    line-height: 1.4;
+    color: rgba(244, 241, 234, 0.5);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+    .ed-hero-body {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: clamp(22px, 3vh, 32px);
+    }
+
+    .ed-hero-aside {
+        padding-left: 0;
+        padding-top: clamp(18px, 2.6vh, 26px);
+    }
+
+    /* Hairline flips from vertical to horizontal once stacked */
+    .ed-hero-aside::before {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: auto;
+        width: auto;
+        height: 1px;
+        background: linear-gradient(90deg,
+            rgba(0, 184, 212, 0.5) 0%,
+            rgba(244, 241, 234, 0.16) 46%,
+            transparent 100%);
+    }
+
+    .ed-hero-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(14px, 2.4vh, 22px) 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ed-masthead-brand {
+        letter-spacing: 0.24em;
+    }
+
+    .ed-hero-title {
+        font-size: clamp(2.05rem, 9.2vw, 3.1rem);
+        line-height: 1;
+    }
+
+    .ed-hero-cta .btn {
+        flex: 1 1 100%;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS - tap targets, input zoom, modal title
+   Everything below is scoped to (max-width: 768px). Desktop base rules are
+   untouched, so desktop rendering cannot change.
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* ── 1. iOS zoom-on-focus ──
+       Safari zooms the whole page when a focused field is under 16px. The root
+       font-size is 15px here, so `1rem` was landing at 15px and tripping it on
+       every step of the quiz. Pinned in px so it can't drift with the root. */
+    .quiz-inline-card .form-group input,
+    .quiz-inline-card .form-group textarea,
+    .quiz-inline-card .form-group select,
+    .quiz-inline-card .custom-select-trigger,
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 16px;
+    }
+
+    /* ── 2. Tap targets ──
+       Two techniques. Where an element has room around it, an invisible
+       ::before grows the touch region to 44px without moving a single pixel of
+       the visual box. Where neighbours sit too close for that (the expansions
+       would overlap and steal each other's taps), the box itself grows. */
+
+    /* 2a. Hit-area expansion - no visual change.
+       Each of these already establishes a containing block, or gets one below,
+       and none of them use ::before for anything. */
+    .footer-legal a::before,
+    .m-nav-foot a::before,
+    .service-cta::before,
+    .social-link::before,
+    .vsl-corner-btn--close::before,
+    .vsl-corner-btn--fs::before,
+    .vsl-ctrl-btn::before,
+    .legal-modal__close::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: max(100%, 44px);
+        height: max(100%, 44px);
+        transform: translate(-50%, -50%);
+        /* Hit area only - never painted. */
+        background: transparent;
+        pointer-events: auto;
+    }
+
+    /* These two are statically positioned, so the pseudo needs an anchor.
+       The corner/close buttons are already absolute - deliberately not
+       re-positioned here, that would break where they sit. */
+    .m-nav-foot a,
+    .vsl-ctrl-btn {
+        position: relative;
+    }
+
+    /* 2b. Real sizing, where a pseudo overlay would collide with a sibling.
+       Footer link column: rows were 25px tall on a 38px pitch, so a centred
+       44px hit area would have overlapped its neighbour inside the 13px gap.
+       Growing the row and tightening the gap keeps the block's rhythm close to
+       what it was while making each row unambiguously tappable. */
+    .footer .footer-links {
+        gap: 0;
+    }
+
+    /* Padding rather than min-height + flex: these links paint their text with
+       -webkit-background-clip: text over a transparent color, and that pairing
+       is quirky on flex containers. Leaving `display` alone keeps the gradient
+       text rendering exactly as it does today. The hover underline sits at
+       bottom: -2px and so rides down with the padding, but it only ever appears
+       on :hover, which never fires on touch. */
+    .footer .footer-links li a {
+        padding: 10px 0;
+        /* "Home" is only 43px of text. The box extends invisibly to the right in
+           a left-aligned column, so nothing moves. */
+        min-width: 44px;
+    }
+
+    /* Logo lockup was 42px - the image size is left alone, the link grows. */
+    .m-nav-brand {
+        min-height: 44px;
+    }
+
+    /* Footer email/phone rows were 42px. Already centred flex rows with a 14px
+       gap, so 2px of extra height costs nothing visually. */
+    .contact-item {
+        min-height: 44px;
+    }
+
+    /* Hero play button: height is derived from --btn-h, and the element's
+       clip-path would have cropped any pseudo overlay, so the variable is
+       overridden instead. Width and open-state geometry still key off --size,
+       which is unchanged; the icon scales with the height, which also fixes a
+       12px triangle that was too small to read. */
+    .hero-vsl .vsl-play-btn {
+        --btn-h: 44px;
+    }
+
+    /* ── 3. Disclaimer modal title ──
+       `min(4cqi, 1.7rem)` with nowrap resolved against a 92vw panel, so the
+       heading came out at 14.3px on a 390px screen and 11.7px at 320px -
+       smaller than the body copy under it, and clipped vertically by the
+       nowrap. Letting it wrap is what makes a readable size possible. The
+       desktop panel is 640px wide, where the cqi rule already caps at 1.7rem,
+       so this is invisible above 768px. */
+    #disclaimer-title {
+        font-size: 1.35rem;
+        white-space: normal;
+        line-height: 1.25;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 2 - typography + section rhythm
+   Also scoped entirely to (max-width: 768px). Kept as a separate block from the
+   tap-target pass above so either can be reviewed or reverted on its own.
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* ── Body copy to a 16px floor ──
+       Only text a visitor reads as prose. Deliberate micro-type is left alone:
+       uppercase eyebrows, form labels, .footer-copyright, the dashboard
+       captions, and the phone/site mockup text (which is meant to look like
+       tiny screenshot copy). Sizes are px, not rem, so the 15px root cannot
+       pull them back under the floor. */
+    .service-description,
+    .services-section .service-features li,
+    /* .home-about .about-feature (specificity 0,2,0) sets this at mobile, so a
+       bare .about-feature would lose. The inner .feature-marker span has no
+       size of its own and inherits from here. */
+    .home-about .about-feature,
+    .cta-subtitle,
+    .footer-tagline,
+    .ed-hero-lead,
+    .quiz-inline-card .quiz-step-subtitle,
+    .quiz-inline-card .custom-select-item,
+    /* Two success panels exist: #quizSuccess sits inside .quiz-inline-card,
+       #formSuccess does not, so scoping to .form-success covers both. */
+    .form-success .success-subtitle,
+    .form-success .success-detail-item,
+    .legal-modal__body p,
+    .legal-modal__date {
+        font-size: 16px;
+    }
+
+    /* The card title was 15px - the same size as body copy, and about to be
+       smaller than its own description. 1.2rem puts it back above the text it
+       heads. min-height on this rule is in em, so it scales with this. */
+    .services-section .service-title {
+        font-size: 1.2rem;
+    }
+
+    /* Was 13.2px uppercase, i.e. smaller than the paragraphs underneath it.
+       Caps plus weight 700 still read as a heading at 16px. */
+    .legal-modal__body h3 {
+        font-size: 16px;
+    }
+
+    /* The base .multi-service-option rule declares font-size !important, so the
+       checkbox label text (a span that inherits from it) stays at 13.5px unless
+       this matches that priority. */
+    .multi-service-option {
+        font-size: 16px !important;
+    }
+
+    /* The existing mobile rule for this one is itself !important
+       (.disclaimer-modal__body p, 0.92rem), so matching it is the only way to
+       win without raising specificity for no reason. Covers the fine-print
+       note in the same panel, which is also a p. */
+    .disclaimer-modal__body p {
+        font-size: 16px !important;
+    }
+
+    /* ── Multi-line heading line-height ──
+       These were 1.0 to 1.08. On a headline that wraps to 3-4 lines at phone
+       widths that reads as one solid block. The hero grows ~20px taller as a
+       result, which is the accepted cost. */
+    .hero-title {
+        line-height: 1.14;
+    }
+
+    .cta-title {
+        line-height: 1.14;
+    }
+
+    .services-header h2 {
+        line-height: 1.16;
+    }
+
+    /* ── Section rhythm ──
+       Outlier only. This section was padding: clamp(5.5rem, 11vh, 9.5rem),
+       resolving to 92.8px top AND bottom against a 2.25rem house unit, which
+       put ~120px of dead space around one logo strip. Neighbouring sections are
+       deliberately left as they are. */
+    .logo-slider {
+        padding: 2.25rem 0;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 3 - layout + spacing
+   Scoped to (max-width: 768px). Desktop base rules untouched.
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* The 88vw desktop inset leaves roughly double the side gutter of the
+       neighbouring sections at phone widths (43px vs 22.5px), so the services
+       block looked inset from everything above and below it. Match the site's
+       standard section gutter instead. */
+    .services-section .container {
+        max-width: 100%;
+        padding-inline: var(--spacing-lg);
+    }
+}
+
+
+/* ============================================
+   Social icon hover tooltip
+   Types the label out left to right with a caret that trails the text.
+   Pointer-hover only: on touch, :hover sticks after a tap and would strand
+   the panel over the footer, so both this block and the JS opt out.
+   ============================================ */
+@media (hover: hover) and (pointer: fine) {
+
+    /* Lift the hovered icon above its neighbours so the panel is never
+       painted over by a later sibling (they are all position: relative with
+       no z-index, so DOM order would otherwise win). */
+    .social-link:hover,
+    .social-link:focus-visible {
+        z-index: 10;
+    }
+
+    .social-tip {
+        position: absolute;
+        top: calc(100% + 10px);
+        bottom: auto;
+        /* Anchored to the icon's left edge, not centred on it. These icons sit
+           hard against the left edge of the footer column, so a centred panel
+           ran off the viewport and clipped the first word. Growing rightward
+           keeps all three in bounds. */
+        left: 0;
+        transform: translateY(-3px);
+        /* Grid stacking: the hidden sizer holds the final width so the box is
+           laid out once, and the typed line fills that same cell. Without it
+           the panel would widen per character and drift as you read. */
+        display: inline-grid;
+        align-items: center;
+        padding: 7px 10px;
+        /* A box, not a pill. */
+        border-radius: 6px;
+        background: rgba(11, 15, 19, 0.97);
+        border: 1px solid var(--hairline);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        font-family: 'Archivo', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        line-height: 1.2;
+        color: var(--text-primary);
+        white-space: nowrap;
+        /* .footer-brand switches to text-align: center below 1024px, and the
+           panel would inherit it — the line would then centre itself inside the
+           reserved box and creep outward instead of typing left to right. */
+        text-align: left;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+    }
+
+    .social-tip-sizer,
+    .social-tip-text {
+        grid-area: 1 / 1;
+    }
+
+    /* Reserves the width only; never read by AT or the eye. */
+    .social-tip-sizer {
+        visibility: hidden;
+    }
+
+    /* Trailing caret. Sits immediately after the last typed character, so it
+       walks left to right as the text lands. */
+    .social-tip-text::after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 0.95em;
+        margin-left: 2px;
+        vertical-align: text-bottom;
+        background: var(--cyan);
+        animation: social-tip-caret 1s steps(1, end) infinite;
+    }
+
+    /* Solid while characters are still landing, blinking once it settles. */
+    .social-tip.is-typing .social-tip-text::after {
+        animation: none;
+        opacity: 1;
+    }
+
+    .social-link:hover .social-tip,
+    .social-link:focus-visible .social-tip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
+    }
+
+    @keyframes social-tip-caret {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .social-tip {
+            transition: none;
+        }
+
+        .social-tip-text::after {
+            animation: none;
+            opacity: 1;
+        }
     }
 }

@@ -4,7 +4,7 @@
    ============================================ */
 
 .about-page-main {
-    padding-top: 80px;
+    padding-top: 0;
     overflow-x: clip;
 }
 
@@ -22,7 +22,7 @@
 
 .abt-hero {
     position: relative;
-    padding: 0.5rem 0 4.5rem;
+    padding: 0.5rem 0 1rem;
     text-align: center;
     overflow: visible;
 }
@@ -206,8 +206,9 @@
 .abt-story-grid {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
-    gap: clamp(2.5rem, 5vw, 5rem);
+    gap: clamp(2rem, 4vw, 4rem);
     align-items: center;
+    padding-left: clamp(42px, 4.5vw, 75px);
 }
 
 .abt-story-copy .abt-section-title {
@@ -684,29 +685,51 @@
     overflow: visible;
 }
 
+/* Recessive grid: present enough to read a value off, never competing with the data */
 .growth-grid line {
-    display: none;
+    stroke: rgba(244, 241, 234, 0.07);
+    stroke-width: 1;
+}
+
+.growth-ylabels text,
+.growth-xlabels text {
+    fill: rgba(244, 241, 234, 0.42);
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
 }
 
 .growth-area {
     fill: url(#growthArea);
 }
 
+/* Baseline = what the business was already doing. Deliberately grey and dashed so
+   it reads as the reference, and so the two series are never colour-alone. */
+.growth-baseline {
+    fill: none;
+    stroke: rgba(244, 241, 234, 0.36);
+    stroke-width: 2;
+    stroke-dasharray: 5 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: d 0.4s ease;
+}
+
 .growth-line {
     fill: none;
-    stroke: url(#growthLine);
-    stroke-width: 3;
+    stroke: #22d3ee;
+    stroke-width: 2.5;
     stroke-linecap: round;
-    filter: none;
+    stroke-linejoin: round;
     transition: d 0.4s ease;
 }
 
 .growth-chart-end {
-    fill: #eafcff;
-    stroke: #00b8d4;
-    stroke-width: 4;
-    filter: none;
-    transition: cy 0.4s ease;
+    fill: #22d3ee;
+    stroke: #080d12;
+    stroke-width: 3;
+    transition: cx 0.4s ease, cy 0.4s ease;
 }
 
 .growth-channels {
@@ -738,12 +761,14 @@
     background: rgba(255, 255, 255, 0.065);
 }
 
+/* Each bar carries its own channel colour. This used to be one shared blue-to-cyan
+   gradient on all three, which made the bars impossible to tell apart. */
 .growth-channel b {
     display: block;
     width: var(--channel-width);
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, #3b82f6, #33d6ee);
+    background: var(--channel-color, #129FB0);
     transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -760,9 +785,92 @@
     border-radius: 2px;
 }
 
-.growth-channel-dot--meta { background: #0866ff; }
-.growth-channel-dot--google { background: #4285f4; }
-.growth-channel-dot--organic { background: #55d6c2; }
+.growth-channel-dot { background: var(--channel-color, #129FB0); }
+
+/* ── Channel + chart legend, KPI baselines, sample-data note ──
+   Categorical hues are validated for colour-blind separation against this
+   surface (worst adjacent pair ΔE 17.6 CVD / 22.0 normal). The previous
+   Meta/Google pair sat at ΔE 9.0 normal, which is below the readable floor. */
+.growth-channels-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: rgba(244, 241, 234, 0.52);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.growth-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.growth-legend i {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(244, 241, 234, 0.55);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.56rem;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.growth-swatch {
+    width: 14px;
+    height: 0;
+    flex: none;
+    border-radius: 2px;
+}
+
+.growth-swatch--base {
+    border-top: 2px dashed rgba(244, 241, 234, 0.5);
+}
+
+.growth-swatch--adzio {
+    border-top: 2px solid #22d3ee;
+}
+
+.growth-chart-head b {
+    color: rgba(244, 241, 234, 0.72);
+    font-weight: 800;
+}
+
+/* Baseline reference under each KPI, so a number is never shown on its own */
+.growth-kpi small {
+    display: block;
+    margin-top: 4px;
+    color: rgba(244, 241, 234, 0.4);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.growth-kpi small b {
+    color: rgba(244, 241, 234, 0.62);
+    font-weight: 700;
+}
+
+/* Cost per booked job improves by going DOWN, so it gets the same positive
+   treatment rather than reading as a loss. */
+.growth-kpi em.is-down {
+    color: #5ee7a8;
+}
+
+.growth-console-note {
+    margin: 14px 0 0;
+    color: rgba(244, 241, 234, 0.34);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
 
 .growth-console--updated .growth-kpi strong,
 .growth-console--updated .growth-kpi em {
@@ -855,7 +963,17 @@
     border-top: 1px solid rgba(255, 255, 255, 0.09);
 }
 
-/* Cyan line sweeps along the divider on hover */
+.abt-value-row:nth-child(1) { --row-accent: #00b8d4; }
+.abt-value-row:nth-child(2) { --row-accent: #4285F4; }
+.abt-value-row:nth-child(3) { --row-accent: #0866FF; }
+.abt-value-row:nth-child(4) { --row-accent: #0A2FA0; }
+
+.abt-value-row h3 .val-accent {
+    color: var(--row-accent, #00b8d4);
+    transition: color 0.35s ease;
+}
+
+/* Dynamic accent line sweeps along the divider on hover */
 .abt-value-row::before {
     content: '';
     position: absolute;
@@ -863,7 +981,7 @@
     left: 0;
     height: 1px;
     width: 0;
-    background: linear-gradient(90deg, var(--cyan, #00b8d4), rgba(0, 184, 212, 0));
+    background: linear-gradient(90deg, var(--row-accent, #00b8d4), transparent);
     transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -873,16 +991,19 @@
 
 .abt-value-num {
     font-family: 'Archivo', sans-serif;
-    font-weight: 800;
-    font-size: 0.92rem;
+    font-weight: 900;
+    font-size: clamp(1.25rem, 1.6vw, 1.55rem);
     letter-spacing: 0.14em;
-    color: rgba(244, 241, 234, 0.35);
-    padding-top: 0.85em; /* optical alignment with the title's cap height */
-    transition: color 0.35s ease;
+    color: var(--row-accent, #00b8d4);
+    padding-top: 0.35em; /* optical alignment with the title's cap height */
+    transition: color 0.35s ease, text-shadow 0.35s ease;
+    opacity: 0.9;
 }
 
+
 .abt-value-row:hover .abt-value-num {
-    color: var(--cyan, #00b8d4);
+    opacity: 1;
+    text-shadow: 0 0 14px var(--row-accent);
 }
 
 .abt-value-row h3 {
@@ -893,15 +1014,83 @@
     line-height: 1.04;
     color: #F8F4EC;
     margin: 0;
+    transition: color 0.35s ease;
+}
+
+.abt-value-row:hover h3 {
+    color: var(--row-accent);
 }
 
 .abt-value-row p {
     font-size: clamp(0.98rem, 1.1vw, 1.1rem);
-    line-height: 1.7;
-    color: var(--text-secondary);
+    font-weight: 600;
+    line-height: 1.65;
+    color: rgba(244, 241, 234, 0.88);
     max-width: 54ch;
     margin: 0;
     padding-top: 0.4em;
+}
+
+/* ── Hover Typewriter "Book a Call →" link in far right bottom corner ── */
+.row-book-call {
+    position: absolute;
+    bottom: clamp(14px, 2.2vh, 24px);
+    right: clamp(12px, 1.8vw, 24px);
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(0.72rem, 0.85vw, 0.84rem);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 5;
+}
+
+.row-book-call .type-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+
+.abt-value-row:hover .row-book-call {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.abt-value-row:hover .row-book-call .type-text {
+    animation: typeOutWord 0.45s steps(14, end) forwards;
+}
+
+@keyframes typeOutWord {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Underline in the section's accent color — only when hovering the link itself */
+.row-book-call::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--row-accent, #00b8d4);
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.row-book-call:hover::after {
+    width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -920,16 +1109,19 @@
     }
 }
 
-/* ============================================
-   TEAM
-   ============================================ */
-
 .abt-team {
     padding: clamp(5rem, 9vh, 9rem) 0;
 }
 
 .abt-team-heading {
     margin-bottom: clamp(3.5rem, 7vw, 6.5rem);
+    margin-left: calc(-1 * clamp(32px, 4.7vw, 90px));
+}
+
+@media (max-width: 768px) {
+    .abt-team-heading {
+        margin-left: 0;
+    }
 }
 
 .abt-team-heading .abt-section-title {
@@ -937,6 +1129,14 @@
     font-size: clamp(3.2rem, 6.2vw, 6.8rem);
     line-height: 0.95;
     letter-spacing: -0.055em;
+}
+
+.abt-team-heading .abt-grad {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: #00b8d4;
+    color: #00b8d4;
 }
 
 .abt-grad {
@@ -947,26 +1147,17 @@
 }
 
 .abt-team-layout {
-    display: grid;
-    grid-template-columns: minmax(260px, 380px) 1fr;
-    gap: clamp(2.5rem, 5vw, 5rem);
-    align-items: start;
+    display: block;
     margin-bottom: clamp(3rem, 5vw, 4.5rem);
-}
-
-.abt-team-intro {
-    text-align: left;
-}
-
-.abt-team-intro .abt-section-sub {
-    max-width: 31ch;
-    margin-top: 1.4rem;
 }
 
 .abt-team-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(20px, 2vw, 30px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(18px, 2.2vw, 42px);
+    width: min(1000px, 62vw);
+    max-width: none;
+    margin-left: auto;
 }
 
 .abt-team-photo-placeholder {
@@ -987,6 +1178,7 @@
 }
 
 .abt-team-card {
+    --team-accent: var(--cyan, #00b8d4);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1005,9 +1197,13 @@
     will-change: transform, border-color, background-color, box-shadow;
 }
 
+.abt-team-card--anton {
+    --team-accent: #2854CC;
+}
+
 .abt-team-card:hover {
     transform: translate3d(0, -6px, 0);
-    border-color: color-mix(in srgb, var(--cyan) 40%, var(--hairline));
+    border-color: color-mix(in srgb, var(--team-accent) 40%, var(--hairline));
     background-color: rgba(15, 23, 29, 0.78);
     box-shadow: 0 20px 42px rgba(0, 0, 0, 0.24);
 }
@@ -1021,7 +1217,7 @@
     width: 100%;
     aspect-ratio: 1.42 / 1;
     overflow: hidden;
-    background: linear-gradient(160deg, rgba(0, 184, 212, 0.14), rgba(9, 13, 18, 0.92));
+    background: linear-gradient(160deg, color-mix(in srgb, var(--team-accent) 14%, transparent), rgba(9, 13, 18, 0.92));
 }
 
 .abt-team-photo img {
@@ -1030,6 +1226,10 @@
     object-fit: cover;
     display: block;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.abt-team-photo-devyn img {
+    object-position: center 65%;
 }
 
 .abt-team-card:hover .abt-team-photo img {
@@ -1041,14 +1241,14 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    min-height: 118px;
-    padding: clamp(20px, 2vw, 26px);
+    min-height: clamp(92px, 6.2vw, 118px);
+    padding: clamp(16px, 1.4vw, 26px);
 }
 
 .abt-team-card h3 {
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: 1.35rem;
+    font-size: clamp(1.05rem, 1.1vw, 1.35rem);
     letter-spacing: -0.02em;
     margin-bottom: 0.3rem;
     color: var(--text-primary);
@@ -1056,42 +1256,75 @@
 
 .abt-role {
     display: block;
-    font-size: 0.92rem;
+    font-size: clamp(0.78rem, 0.75vw, 0.92rem);
     font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
     color: var(--text-secondary);
 }
 
-.abt-team-arrow {
-    display: flex;
+.abt-team-email-link {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    flex: none;
-    border-radius: 50%;
-    border: 1px solid var(--hairline);
+    gap: 8px;
+    padding: 0.4rem 0;
+    background: transparent;
+    border: none;
     color: var(--text-primary);
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    transition:
-        background-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, background-color, border-color, color;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(0.68rem, 0.65vw, 0.82rem);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    align-self: center;
 }
 
-.abt-team-arrow svg {
+.abt-team-email-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--team-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.abt-team-email-link:hover,
+.abt-team-card:hover .abt-team-email-link {
+    color: var(--team-accent);
+}
+
+.abt-team-email-link:hover::after,
+.abt-team-card:hover .abt-team-email-link::after {
+    transform: scaleX(1);
+}
+
+.abt-team-email-icon {
     width: 16px;
     height: 16px;
+    flex: 0 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s ease;
 }
 
-.abt-team-card:hover .abt-team-arrow {
-    background-color: var(--cyan);
-    border-color: var(--cyan);
-    color: #06120F;
-    transform: translate3d(0, 0, 0) rotate(45deg);
+.abt-team-email-icon svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+.abt-team-email-link:hover .abt-team-email-icon,
+.abt-team-card:hover .abt-team-email-icon {
+    transform: translateX(6px);
 }
 
 /* Get in touch: general CTA under the team grid */
@@ -1171,6 +1404,41 @@
     margin: 0 auto;
 }
 
+/* On narrower desktop screens the fixed side nav occupies the left gutter.
+   Reserve that space before sizing the proof cards so the section stays
+   comfortably inside the viewport instead of running beneath the nav. */
+@media (min-width: 769px) and (max-width: 1700px) {
+    .abt-proof .abt-shell {
+        padding-left: clamp(84px, 5.5vw, 96px);
+        padding-right: clamp(24px, 3vw, 48px);
+    }
+
+    .abt-proof-grid {
+        max-width: 100%;
+    }
+
+    .abt-proof-card {
+        padding: clamp(22px, 2.1vw, 30px);
+    }
+}
+
+/* Keep the same navbar clearance on wide desktop too; the cards scale into
+   the remaining width instead of starting flush against the fixed nav gutter. */
+@media (min-width: 769px) {
+    .abt-proof .abt-shell {
+        padding-left: clamp(84px, 4.5vw, 100px);
+        padding-right: clamp(28px, 3vw, 54px);
+    }
+
+    .abt-proof-grid {
+        max-width: 100%;
+    }
+
+    .abt-proof-card {
+        padding: clamp(22px, 2.1vw, 32px);
+    }
+}
+
 .abt-proof-card {
     --proof: #00b8d4;
     position: relative;
@@ -1181,37 +1449,14 @@
     text-decoration: none;
     background: linear-gradient(145deg, rgba(16, 24, 30, 0.9), rgba(9, 13, 18, 0.9));
     border: 1px solid rgba(255, 255, 255, 0.07);
-    overflow: hidden;
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        border-color 0.45s ease, background 0.45s ease, box-shadow 0.45s ease;
-}
-
-.abt-proof-card.visible {
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        border-color 0.45s ease, background 0.45s ease, box-shadow 0.45s ease !important;
-}
-
-.abt-proof-card--cyan {
-    --proof: #00b8d4;
-}
-
-.abt-proof-card--purple {
-    --proof: #B08CFF;
-}
-
-.abt-proof-card::before {
-    content: '';
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--proof), color-mix(in srgb, var(--proof) 10%, transparent));
-}
-
-.abt-proof-card:hover {
-    transform: translateY(-5px);
     border-color: color-mix(in srgb, var(--proof) 40%, transparent);
     background: linear-gradient(145deg, color-mix(in srgb, var(--proof) 8%, rgba(16, 24, 30, 0.9)), rgba(9, 13, 18, 0.9));
     box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Match the Twan Whips proof card to its blue treatment on the Services page. */
+.abt-proof-card--purple {
+    --proof: #2854CC;
 }
 
 .abt-proof-head {
@@ -1221,17 +1466,43 @@
     margin-bottom: 1.3rem;
 }
 
+/* Instagram mark in the card's top corner, so the account source is obvious
+   without reading the handle. */
+.abt-proof-ig {
+    width: clamp(20px, 1.7vw, 26px);
+    height: clamp(20px, 1.7vw, 26px);
+    margin-left: auto;
+    flex-shrink: 0;
+    align-self: flex-start;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.abt-proof-card:hover .abt-proof-ig {
+    opacity: 1;
+    transform: scale(1.06);
+}
+
 .abt-proof-icon {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
+    border-radius: 50%;
     background: color-mix(in srgb, var(--proof) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--proof) 28%, transparent);
+    border: 2px solid color-mix(in srgb, var(--proof) 40%, transparent);
     color: var(--proof);
+    overflow: hidden;
+}
+
+.abt-proof-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
 }
 
 .abt-proof-icon svg {
@@ -1275,6 +1546,8 @@
     align-items: center;
     gap: 9px;
     margin-top: auto;
+    margin-left: auto;
+    align-self: flex-end;
     font-family: 'Archivo', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
@@ -1302,12 +1575,11 @@
     transition: transform 0.35s ease;
 }
 
-.abt-proof-cta:hover span::after,
-.abt-proof-card:hover .abt-proof-cta span::after {
+.abt-proof-cta:hover span::after {
     transform: scaleX(1);
 }
 
-.abt-proof-card:hover .abt-proof-cta {
+.abt-proof-cta:hover {
     color: var(--proof);
     gap: 14px;
 }
@@ -1438,6 +1710,7 @@
     }
 }
 
+
 /* ============================================
    INSTAGRAM FEED INTEGRATION
    ============================================ */
@@ -1449,7 +1722,6 @@
     margin-bottom: 0.5rem;
 }
 
-.abt-proof-card:hover .abt-proof-handle,
 .abt-proof-header-link:hover .abt-proof-handle {
     color: var(--proof);
 }
@@ -1483,7 +1755,7 @@
 
 .abt-feed-item:hover {
     border-color: color-mix(in srgb, var(--proof) 60%, transparent);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px color-mix(in srgb, var(--proof) 18%, transparent);
+    box-shadow: none;
 }
 
 .abt-feed-item:hover img {
@@ -1493,7 +1765,7 @@
 .abt-feed-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.82) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1507,16 +1779,30 @@
 }
 
 .abt-feed-overlay svg {
-    width: 24px;
-    height: 24px;
-    color: var(--proof);
-    filter: drop-shadow(0 0 6px var(--proof));
-    transform: scale(0.7) translateY(5px);
-    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: none !important;
 }
 
-.abt-feed-item:hover .abt-feed-overlay svg {
+.abt-feed-overlay::after {
+    content: 'View Post';
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--proof);
+    transform: scale(0.85) translateY(3px);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                background-size 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+    /* Left-to-right underline sweep in the same color as the text */
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 2px;
+}
+
+.abt-feed-item:hover .abt-feed-overlay::after {
     transform: scale(1) translateY(0);
+    background-size: 100% 2px;
 }
 
 /* Skeletons & Shimmer Animation */
@@ -1530,11 +1816,95 @@
 }
 
 @keyframes abt-shimmer {
-    0% {
-        background-position: 200% 0;
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Logo carousel heading. This page does not load services-page.css, so the
+   accent phrase and the tighter word gap are declared here. */
+.svc-platform-heading {
+    gap: 0.35em;
+}
+
+.svc-platform-heading > span {
+    color: var(--cyan);
+}
+
+/* ============================================
+   MOBILE PASS - tap targets
+   Scoped to (max-width: 768px); desktop base rules untouched.
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Hit-area expansion - grows the touch region to 44px with no visual
+       change. Both of these sit alone in their cards, so there is no sibling
+       for the expanded area to collide with. Neither uses ::before. */
+    .abt-proof-cta::before,
+    .abt-team-email-link::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: max(100%, 44px);
+        height: max(100%, 44px);
+        transform: translate(-50%, -50%);
+        background: transparent;
+        pointer-events: auto;
     }
 
-    100% {
-        background-position: -200% 0;
+    /* .abt-team-email-link is already relative; this one is not. */
+    .abt-proof-cta {
+        position: relative;
+    }
+
+    /* Reporting-period segmented control: adjacent buttons, so the boxes
+       themselves grow rather than overlaying hit areas that would steal each
+       other's taps. */
+    .growth-periods button {
+        min-height: 44px;
+        justify-content: center;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 2 - typography
+   Scoped to (max-width: 768px). Desktop base rules untouched.
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Story paragraphs were 15.6px. :not([class]) deliberately excludes
+       .abt-story-kicker, which is a p in the same block already sitting at
+       17.25px - a blanket rule would have shrunk it. */
+    .abt-story-copy > p:not([class]) {
+        font-size: 16px;
+    }
+
+    /* Role line under each team member's name. The name is an h3 at 20.25px,
+       so 16px here keeps a clear step down. */
+    .abt-role {
+        font-size: 16px;
+    }
+
+    .abt-proof-text {
+        font-size: 16px;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 3 - single-column alignment
+   Scoped to (max-width: 1000px), the width at which .abt-story-grid already
+   collapses to one column, so no two-column desktop layout is affected.
+   ============================================ */
+@media (max-width: 1000px) {
+
+    /* .abt-story-grid carries padding-left: clamp(42px, 4.5vw, 75px) to offset
+       its two-column desktop layout. The existing block at this width collapses
+       the grid to one column but leaves that padding behind, so the story copy
+       and the growth console both sat ~42px right of centre (77px left gutter
+       against 35px right) while every other block on the page was symmetric. */
+    .abt-story-grid {
+        padding-left: 0;
     }
 }

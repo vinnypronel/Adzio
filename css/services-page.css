@@ -27,7 +27,19 @@
 .svc-detail[data-accent="teal"]   { --svc: #0866FF; --svc-bright: #4d8bff; --svc-rgb: 8, 102, 255; }
 .svc-detail[data-accent="blue"]   { --svc: #4285F4; --svc-bright: #6ba1f7; --svc-rgb: 66, 133, 244; }
 .svc-detail[data-accent="amber"]  { --svc: #00b8d4; --svc-bright: #33d6ee; --svc-rgb: 0, 184, 212; }
-.svc-detail[data-accent="purple"] { --svc: #7F00FF; --svc-bright: #a64dff; --svc-rgb: 127, 0, 255; }
+.svc-detail[data-accent="purple"] { --svc: #0A2FA0; --svc-bright: #2854CC; --svc-rgb: 10, 47, 160; }
+
+/* The fixed Book a Call button takes on the accent of whichever service section
+   is under it. JS only sets data-cta-accent, the colors stay here. Only the
+   background changes, the ink stays near-black on every accent. */
+.pinned-header-cta[data-cta-accent="teal"]   { background: #0866FF; color: #070b10; }
+.pinned-header-cta[data-cta-accent="teal"]:hover   { background: #06449d; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="blue"]   { background: #4285F4; color: #070b10; }
+.pinned-header-cta[data-cta-accent="blue"]:hover   { background: #245aa8; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="amber"]  { background: #00b8d4; color: #070b10; }
+.pinned-header-cta[data-cta-accent="amber"]:hover  { background: #006477; color: #ffffff; box-shadow: none; }
+.pinned-header-cta[data-cta-accent="purple"] { background: #0A2FA0; color: #070b10; }
+.pinned-header-cta[data-cta-accent="purple"]:hover { background: #061b5d; color: #ffffff; box-shadow: none; }
 
 /* ============================================
    HERO
@@ -155,7 +167,14 @@
 .svc-hero-cta .btn {
     min-width: 210px;
     min-height: 54px;
-    border-radius: 8px;
+    border-radius: 3px;
+}
+
+/* The editorial masthead hero replaced this column layout; its only remaining
+   child is the hidden command centre, so drop it (its min-height would
+   otherwise leave ~500px of dead space under the hero). */
+.svc-hero-layout {
+    display: none !important;
 }
 
 /* Hide command center graphic and stats */
@@ -484,35 +503,71 @@
     padding: 0 clamp(28px, 4vw, 80px);
 }
 
+/* The docked side nav is position:fixed over the left gutter (its right edge
+   lands at ~106-117px once the 1.12 scale is applied on wide screens). Below
+   ~1700px the default 4vw gutter is narrower than that, so detail content ran
+   underneath it. Reserve a floor that always clears the pill. */
+@media (min-width: 769px) {
+    .svc-detail .svc-shell {
+        padding-left: max(clamp(24px, 3.5vw, 70px), 110px);
+    }
+
+    /* Social proof cards section shifted 40px to the right as a group */
+    #social-media-management .svc-shell {
+        padding-left: max(clamp(24px, 3.5vw, 70px), 150px);
+    }
+}
+
+/* The proof cards carry a 3-column stat header, so their min-content width
+   stops the visual column shrinking. Below ~1200px that starves the copy and
+   the heading over-wraps, so this section stacks earlier than the others. */
+@media (min-width: 769px) and (max-width: 1200px) {
+    #social-media-management .svc-detail-grid {
+        grid-template-columns: 1fr;
+        row-gap: 2.6rem;
+    }
+
+    #social-media-management .svc-copy,
+    #social-media-management .svc-visual {
+        order: initial;
+        left: 0;
+    }
+
+    #social-media-management .svc-proof-stack {
+        max-width: min(100%, 760px);
+    }
+}
+
 .svc-detail-grid {
     display: grid;
-    grid-template-columns: 1fr 1.25fr;
+    /* Copy column now leads; the visual hugs the smaller artwork instead of
+       reserving the old width and leaving a dead gap mid-row. */
+    grid-template-columns: 1.3fr 1fr;
     gap: clamp(2.5rem, 5vw, 5.5rem);
     align-items: center;
 }
 
 .svc-detail--reverse .svc-detail-grid {
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: 1fr 1.3fr;
+}
+
+#ad-management .svc-detail-grid,
+#lead-generation .svc-detail-grid,
+#landing-pages .svc-detail-grid {
+    transform: translateX(25px);
 }
 
 .svc-detail--reverse .svc-copy { order: 2; }
 .svc-detail--reverse .svc-visual { order: 1; }
 
-/* Enlarge each service copy block without changing its grid position. */
+/* Copy renders at its true size — the old scale:1.08 pushed the text 8% past
+   its own grid box, which is what made this section read "zoomed in". */
 .svc-copy.animate-on-scroll {
-    scale: 1.08;
     transform-origin: left top;
 }
 
 .svc-detail--reverse .svc-copy.animate-on-scroll {
     transform-origin: right top;
-}
-
-@media (min-width: 1001px) {
-    #social-media-management .svc-copy {
-        position: relative;
-        left: 120px;
-    }
 }
 
 /* Bigger type / breathing room now that the columns are wider */
@@ -526,7 +581,7 @@
     border: none;
     color: var(--svc-bright);
     font-family: 'Archivo', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.07rem;
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -535,7 +590,7 @@
 .svc-detail-title {
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: clamp(2.5rem, 4.2vw, 4.2rem);
+    font-size: clamp(2.43rem, 4.08vw, 4.08rem);
     line-height: 1.02;
     letter-spacing: -0.045em;
     margin-bottom: 1.2rem;
@@ -543,9 +598,10 @@
 }
 
 .svc-detail-lead {
-    color: var(--text-muted);
-    font-size: 1.24rem;
-    line-height: 1.7;
+    color: rgba(248, 244, 236, 0.82);
+    font-size: 0.97rem;
+    font-style: italic;
+    line-height: 1.65;
     max-width: 54ch;
     margin-bottom: 2rem;
 }
@@ -559,9 +615,9 @@
 
 .svc-list li {
     position: relative;
-    padding-left: 2.2rem;
+    padding-left: 1.85rem;
     color: var(--dust-grey);
-    font-size: 1.16rem;
+    font-size: 1.13rem;
     line-height: 1.55;
 }
 
@@ -569,9 +625,9 @@
     content: '';
     position: absolute;
     left: 0;
-    top: 4px;
-    width: 20px;
-    height: 20px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 11px no-repeat,
@@ -584,6 +640,7 @@
     background: var(--svc);
     color: #051014;
     box-shadow: none;
+    font-size: 0.855rem;
 }
 
 /* Kill the diagonal white sheen so the fill stays one even color */
@@ -607,41 +664,108 @@
     padding: 1.5rem 0;
 }
 
+#social-media-management .svc-copy {
+    transform: translateX(40px);
+}
+
+#social-media-management .svc-visual {
+    margin-top: 1.2rem;
+    transform: translateY(16px);
+}
+
+.svc-proof-header {
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    transform: translateY(-10px);
+}
+
+.svc-proof-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.svc-ig-gradient-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.svc-proof-tag span {
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+
 /* Real founder social case studies, stacked in the visual column */
 .svc-proof-stack {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.15rem;
+    /* Expanded width so all 3 stat columns sit comfortably without right
+       clipping, and so the cards close the gap toward the nav. */
+    max-width: clamp(480px, 43vw, 840px);
 }
 
 .svc-proof-stack .abt-proof-card {
-    padding: clamp(20px, 2vw, 28px);
+    padding: clamp(12px, 1.3vw, 16px) clamp(18px, 1.8vw, 24px);
+    /* Square corners on this page; the about page keeps the rounded version */
+    border-radius: 0;
+}
+
+.svc-proof-stack .abt-feed-item,
+.svc-proof-stack .abt-feed-skeleton {
+    border-radius: 0;
+}
+
+.svc-proof-stack .abt-proof-head {
+    margin-bottom: 0.55rem;
 }
 
 .svc-proof-stack .abt-proof-card--cyan {
     top: -14px;
 }
 
+/* The second card ships purple from the about page. On services it sits inside
+   the social section, so it takes that section's blue instead. */
+.svc-proof-stack .abt-proof-card--purple {
+    --proof: #2854CC;
+}
+
 .svc-proof-stack .abt-proof-feed {
     grid-template-columns: repeat(3, 1fr);
+    margin: 0.55rem 0 0.65rem;
+}
+
+.svc-proof-stack .abt-feed-item {
+    aspect-ratio: 16 / 10;
 }
 
 /* Compact social proof metrics in the unused profile-header space. */
 .svc-proof-stack .svc-proof-stats {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    gap: clamp(10px, 1.5vw, 20px);
+    gap: clamp(6px, 1vw, 14px);
     margin-left: auto;
     text-align: center;
 }
 
 .svc-proof-stack .svc-proof-stat {
-    min-width: 78px;
+    min-width: 68px;
 }
 
 .svc-proof-stack .svc-proof-stat + .svc-proof-stat {
     border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding-left: clamp(10px, 1.5vw, 20px);
+    padding-left: clamp(6px, 1vw, 14px);
 }
 
 .svc-proof-stack .svc-proof-stat strong {
@@ -734,6 +858,17 @@
 /* Float above the card so it never overlaps the card's content */
 .svc-float-chip--a { top: -36px; right: 0; bottom: auto; left: auto; }
 .svc-detail--reverse .svc-float-chip--a { left: 0; right: auto; top: -36px; bottom: auto; }
+
+/* Meta section: the ad grid is narrower than .svc-visual and centred, so the
+   chip borrows the grid's own width and left-aligns inside it. That lands it on
+   the tiles' left edge instead of the column edge. */
+.svc-visual:has(.svc-ad-grid) .svc-float-chip--a {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(100%, clamp(410px, 31.5vw, 645px));
+    justify-content: flex-start;
+}
 
 @keyframes svc-float {
     0%, 100% { transform: translateY(0); }
@@ -1106,27 +1241,357 @@
 /* Website — browser redesign */
 .svc-card--web {
     padding: 0;
-    min-height: 360px;
+    min-height: 0;
     position: relative;
-    max-width: 860px;
+    max-width: clamp(500px, 41vw, 840px);
     margin: 0 0 0 auto;
     border: 0;
     background: transparent;
     box-shadow: none;
+    overflow: visible;
 }
 
+/* The ambient halo lives on .svc-browser-col (see below) so it tracks the
+   browser mock's own bottom-left corner instead of a fixed offset from the
+   card, which drifted as the phone column resized. */
+
 .svc-card--google {
-    max-width: 720px;
+    max-width: clamp(400px, 31vw, 630px);
     margin: 0 auto 0 0;
+}
+
+/* This section carries two devices instead of one, so its visual column is
+   sized explicitly rather than by fr. An fr ratio wide enough for the devices
+   squeezed the copy column past the manual line breaks in the headline. */
+@media (min-width: 1001px) {
+    #landing-pages .svc-detail-grid {
+        /* Capped at 1080px: past that the shell stops growing, so the copy
+           column is what gives, and the headline needs ~477px to hold its
+           manual line breaks. */
+        grid-template-columns: 1fr clamp(560px, 50vw, 1080px);
+        gap: clamp(2rem, 3.4vw, 4rem);
+    }
+
+    /* Column governs the width here, not the single-mockup cap. */
+    #landing-pages .svc-card--web {
+        max-width: 100%;
+    }
+
+    /* Cap holds the phone taller than the browser at the widest viewports,
+       where the browser stops gaining width and starts gaining height. */
+    #landing-pages .svc-iphone {
+        width: clamp(158px, 14vw, 242px);
+    }
+}
+
+/* Phone + desktop shown side by side: the mobile build sits left and runs
+   taller, so the browser gives up width rather than the card growing. */
+.svc-web-stage {
+    display: flex;
+    /* Both devices sit on the same baseline */
+    align-items: flex-end;
+    gap: clamp(10px, 1.1vw, 18px);
+    width: 100%;
+}
+
+.svc-web-stage .svc-browser {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* The Stripe chip rides directly above the browser mock's top-left corner, so
+   it shares the browser's column instead of being positioned off the card. */
+.svc-browser-col {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+}
+
+/* Soft ambient light halo straddling the bottom-left corner of the browser
+   mock. The browser itself is z-index 1, so this sits behind it. */
+.svc-browser-col::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: clamp(190px, 19vw, 320px);
+    height: clamp(190px, 19vw, 320px);
+    transform: translate(-38%, 38%);
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.07) 42%, transparent 70%);
+    filter: blur(22px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Directional edge light along that same corner */
+.svc-browser-col::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 42%;
+    height: 42%;
+    border-bottom-left-radius: 14px;
+    box-shadow:
+        -12px 12px 30px rgba(255, 255, 255, 0.16),
+        -4px 4px 12px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    z-index: 0;
+    mask-image: linear-gradient(to top right, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to top right, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+}
+
+.svc-float-chip--stacked {
+    position: static;
+    align-self: flex-start;
 }
 
 .svc-browser {
     border-radius: 14px;
     overflow: hidden;
-    border: 0;
+    border: none;
     background: linear-gradient(180deg, rgba(12, 18, 24, 0.96), rgba(8, 12, 16, 0.96));
     width: 100%;
-    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.48);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- iPhone mockup ---- */
+.svc-iphone {
+    container-type: inline-size;
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    width: clamp(146px, 15.2vw, 212px);
+    aspect-ratio: 9 / 19.5;
+    padding: 4.5px;
+    border-radius: 30px;
+    /* Brushed titanium rim, lit from the top-left like the browser chrome */
+    background: linear-gradient(158deg, #454d55 0%, #171c21 26%, #0b0e12 62%, #333a42 100%);
+    box-shadow:
+        0 34px 70px rgba(0, 0, 0, 0.62),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.svc-iphone-screen {
+    position: relative;
+    height: 100%;
+    border-radius: 26px;
+    overflow: hidden;
+    background: #05080b;
+}
+
+/* Dynamic Island */
+.svc-iphone-screen::before {
+    content: '';
+    position: absolute;
+    z-index: 4;
+    top: 2.6cqw;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 4.2cqw;
+    border-radius: 999px;
+    background: #04070a;
+}
+
+/* Legibility scrim: dark at the ends, clear across the middle of the photo */
+.svc-iphone-screen::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    background: linear-gradient(180deg,
+        rgba(4, 7, 10, 0.78) 0%,
+        rgba(4, 7, 10, 0.14) 30%,
+        rgba(4, 7, 10, 0.58) 58%,
+        rgba(4, 7, 10, 0.94) 100%);
+}
+
+/* Crop to the right of the source art, clear of its baked-in desktop copy.
+   The frame is tall and narrow, so cover scales by height and object-position
+   Y does nothing - the zoom + lift is what pushes the source's desktop nav
+   bar up out of shot. */
+.svc-iphone-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 74% 50%;
+    transform: scale(1.2) translateY(-5.5%);
+}
+
+.svc-iphone-ui {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 9.5cqw 6cqw 6cqw;
+    font-family: 'Outfit', sans-serif;
+}
+
+.svc-iphone-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(8px);
+}
+
+.svc-iphone-brand {
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5.2cqw;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.svc-iphone-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1cqw;
+    width: 5cqw;
+}
+
+.svc-iphone-burger i {
+    height: 0.85cqw;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.svc-iphone-burger i:first-child {
+    width: 62%;
+    align-self: flex-end;
+}
+
+.svc-iphone-hero {
+    margin-top: auto;
+    transform: translateY(-15px);
+}
+
+.svc-iphone-title {
+    margin: 0 0 2.4cqw;
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10.4cqw;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+}
+
+/* Luxury brown accent for the mock client site. Scoped to the mockup only so
+   the section's own branding (index label, list ticks, "Build My Website")
+   keeps the Adzio cyan. */
+.svc-web-stage {
+    --mock-accent: #B08D57;
+    --mock-accent-soft: #E3C7A0;
+    --mock-ink: #1F1305;
+}
+
+.svc-iphone-title em {
+    font-style: normal;
+    color: var(--mock-accent-soft, var(--svc-bright));
+}
+
+.svc-iphone-sub {
+    margin: 0 0 4.4cqw;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 4.1cqw;
+    line-height: 1.45;
+}
+
+.svc-iphone-cta {
+    display: block;
+    padding: 3.9cqw 0;
+    border-radius: 1.8cqw;
+    background: var(--mock-accent, var(--svc));
+    color: var(--mock-ink, #04141a);
+    font-size: 4.1cqw;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.svc-iphone-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.2cqw;
+    margin-top: 4.2cqw;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 3.5cqw;
+    font-weight: 500;
+}
+
+.svc-iphone-stars {
+    color: #f5b544;
+    font-size: 3.4cqw;
+    letter-spacing: 0.06em;
+}
+
+.svc-iphone-trust i {
+    width: 1px;
+    height: 3cqw;
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.svc-iphone-safari {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(18, 22, 28, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.2cqw 0 2.2cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4cqw;
+    z-index: 10;
+    border-bottom-left-radius: 9cqw;
+    border-bottom-right-radius: 9cqw;
+}
+
+.svc-iphone-url {
+    color: rgba(255, 255, 255, 0.72);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    font-size: 3.2cqw;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    text-align: center;
+}
+
+.svc-iphone-home-bar {
+    width: 32%;
+    height: 1.1cqw;
+    min-height: 2.5px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 999px;
+}
+
+/* Side by side stops being legible once the browser drops under ~280px, so
+   stack instead. Phone leads, which suits the mobile-first copy. */
+@media (max-width: 540px) {
+    .svc-web-stage {
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+    }
+
+    .svc-iphone { width: 178px; }
 }
 
 .svc-browser-bar {
@@ -1161,12 +1626,193 @@
     height: 13px;
 }
 
-.svc-browser-body { padding: 0; line-height: 0; overflow: hidden; }
+.svc-browser-body {
+    padding: 0;
+    line-height: 0;
+    overflow: hidden;
+    /* cqw units below scale the whole mock site with the frame */
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 2 / 1;
+}
 
-/* The new website creative already has clean edge-to-edge artwork. */
 .svc-browser-body > img {
     width: 100% !important;
     margin: 0 !important;
+}
+
+/* ---- Mock desktop site: photo plate + HTML UI ----
+   Source art is 1672x941 with the old cyan UI painted in, so the plate samples
+   only the clean house band (x 850-1672, y 350-761) and the interface is real
+   markup on top. That is what lets the accent below be themed. */
+.svc-site-shot {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url('../assets/premium-contractor-hero.png');
+    background-repeat: no-repeat;
+    background-size: 203.4% auto;
+    background-position: 100% 66%;
+}
+
+/* Legibility scrim, darkest at the left where the headline sits */
+.svc-site-shot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(4, 7, 10, 0.94) 0%, rgba(4, 7, 10, 0.78) 34%, rgba(4, 7, 10, 0.28) 62%, rgba(4, 7, 10, 0.12) 100%),
+        linear-gradient(180deg, rgba(4, 7, 10, 0.82) 0%, rgba(4, 7, 10, 0.1) 22%, rgba(4, 7, 10, 0.1) 70%, rgba(4, 7, 10, 0.55) 100%);
+}
+
+.svc-site-ui {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    line-height: 1.4;
+    font-family: 'Outfit', sans-serif;
+}
+
+.svc-site-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.6cqw;
+    padding: 2.5cqw 3.4cqw;
+}
+
+.svc-site-brand {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2cqw;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    white-space: nowrap;
+}
+
+.svc-site-brand em {
+    font-style: normal;
+    font-size: 0.42em;
+    letter-spacing: 0.34em;
+    color: var(--mock-accent-soft, rgba(255, 255, 255, 0.7));
+}
+
+.svc-site-links {
+    display: flex;
+    align-items: center;
+    gap: 2.1cqw;
+    margin-left: auto;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.02cqw;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.svc-site-links b {
+    position: relative;
+    font-weight: 600;
+    color: var(--mock-accent-soft, #fff);
+}
+
+.svc-site-links b::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.7cqw;
+    height: 0.16cqw;
+    background: var(--mock-accent, currentColor);
+}
+
+.svc-site-quote {
+    flex-shrink: 0;
+    padding: 0.95cqw 1.7cqw;
+    border: 0.09cqw solid var(--mock-accent, rgba(255, 255, 255, 0.5));
+    border-radius: 0.4cqw;
+    color: var(--mock-accent-soft, #fff);
+    font-size: 0.98cqw;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.svc-site-hero {
+    margin-top: auto;
+    padding: 0 3.4cqw 3.6cqw;
+    max-width: 62%;
+}
+
+.svc-site-title {
+    margin: 0 0 1.5cqw;
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.3cqw;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.svc-site-title em {
+    font-style: normal;
+    color: var(--mock-accent-soft, var(--svc-bright));
+}
+
+.svc-site-sub {
+    margin: 0 0 2.2cqw;
+    max-width: 34cqw;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 1.42cqw;
+    line-height: 1.5;
+}
+
+.svc-site-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 1.35cqw 2.3cqw;
+    border-radius: 0.45cqw;
+    background: var(--mock-accent, var(--svc));
+    color: var(--mock-ink, #04141a);
+    font-size: 1.24cqw;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.svc-site-cta::after {
+    content: '\2192';
+    font-size: 1.1em;
+    line-height: 1;
+}
+
+.svc-site-trust {
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+    margin-top: 2.4cqw;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.14cqw;
+    font-weight: 500;
+}
+
+.svc-site-stars {
+    color: #f5b544;
+    font-size: 1.1cqw;
+    letter-spacing: 0.08em;
+}
+
+.svc-site-trust i {
+    width: 1px;
+    height: 1.6cqw;
+    background: rgba(255, 255, 255, 0.26);
 }
 
 .svc-web-hero {
@@ -1666,12 +2312,12 @@
    ============================================ */
 
 .services-cta-panel {
-    padding: 2rem 0 6rem;
+    padding: 1.25rem 0 4rem;
 }
 
 .services-cta-shell {
     position: relative;
-    max-width: 1100px;
+    max-width: 980px;
     margin: 0 auto;
     text-align: center;
 }
@@ -1679,7 +2325,7 @@
 .services-cta-shell h2 {
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-size: clamp(1.8rem, 3.4vw, 2.9rem);
     line-height: 1.04;
     letter-spacing: -0.05em;
     margin: 0 auto 1rem;
@@ -1688,10 +2334,43 @@
 
 .svc-cta-intro {
     max-width: 54ch;
-    margin: 0 auto 2.6rem;
+    margin: 0 auto 1.9rem;
     color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+/* The panel ran nearly the full viewport height on a laptop. Trimmed here
+   only - .quiz-inline-card and its form styles are shared with the home page
+   quiz, so these stay scoped to this panel. */
+.services-cta-panel .quiz-inline-card {
+    max-width: 920px;
+    min-height: min(280px, 34vh);
+    padding: clamp(1rem, 2.6vh, 1.9rem) clamp(1.5rem, 2.5vw, 2.6rem) clamp(1rem, 2.4vh, 1.75rem);
+}
+
+.services-cta-panel .quiz-progress-wrapper {
+    margin-bottom: clamp(0.9rem, 3vh, 1.7rem);
+}
+
+.services-cta-panel .quiz-step-title {
+    font-size: 1.72rem;
+}
+
+.services-cta-panel .quiz-step-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.7rem;
+}
+
+.services-cta-panel .form-group label {
+    margin-bottom: 0.3rem;
+}
+
+/* Kept at a comfortable tap target - the rest of the trim comes from spacing */
+.services-cta-panel .form-group input,
+.services-cta-panel .form-group select,
+.services-cta-panel .form-group textarea {
+    padding: 0.85rem 0.9rem;
 }
 
 @media (min-width: 769px) {
@@ -1732,7 +2411,11 @@
         max-width: 760px;
     }
 
-    .svc-detail-grid {
+    .svc-detail-grid,
+    /* The unscoped .svc-detail--reverse rule is more specific than a bare
+       .svc-detail-grid here, so it has to be restated or those two sections
+       stay in two squeezed columns on phones. */
+    .svc-detail--reverse .svc-detail-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
@@ -1740,6 +2423,14 @@
     .svc-detail--reverse .svc-copy,
     .svc-detail--reverse .svc-visual {
         order: initial;
+    }
+
+    /* Centre the artwork once stacked so it doesn't hug one edge */
+    .svc-ad-grid,
+    .svc-card--google,
+    .svc-card--web {
+        max-width: min(100%, 560px);
+        margin-inline: auto;
     }
 
     .svc-detail--reverse .svc-float-chip--a { right: 0; left: auto; top: -36px; bottom: auto; }
@@ -1839,9 +2530,9 @@
 .svc-ad-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 18px;
     width: 100%;
-    max-width: 730px;
+    max-width: clamp(410px, 31.5vw, 645px);
     margin: 0 auto;
 }
 
@@ -2256,4 +2947,16 @@
     box-shadow: 0 0 7px var(--svc-bright);
     animation: svc-pulse 1.8s ease-in-out infinite;
     flex-shrink: 0;
+}
+
+
+/* ============================================
+   MOBILE PASS 2 - typography
+   Scoped to (max-width: 768px). Desktop base rules untouched.
+   ============================================ */
+@media (max-width: 768px) {
+
+    .svc-detail-lead {
+        font-size: 16px;
+    }
 }

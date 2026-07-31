@@ -272,9 +272,9 @@
     align-items: center;
     gap: 10px;
     font-family: 'Archivo', sans-serif;
-    font-size: 0.78rem;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
     font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     padding: 0;
     border-radius: 0;
@@ -283,12 +283,7 @@
 }
 
 .pain-tag::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.8;
+    display: none;
 }
 
 .pain-heading {
@@ -683,9 +678,9 @@
 
 .s4-label {
     font-family: 'Archivo', sans-serif;
-    font-size: clamp(0.68rem, 0.9vw, 0.78rem);
+    font-size: clamp(1.05rem, 1.35vw, 1.45rem);
     font-weight: 700;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: white;
     margin-bottom: 18px;
@@ -1172,7 +1167,7 @@
 .problem-card-grid {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: clamp(12px, 2vw, 24px);
+    gap: clamp(10px, 1.5vw, 20px);
     /* All three rows take the height of the tallest → cards end up identical,
        and stretch makes each card fill its equal row. */
     grid-auto-rows: 1fr;
@@ -1182,7 +1177,7 @@
 /* Card chrome re-asserted AFTER the .problem-panel reset above — the cards
    carry both classes, so these must win the cascade. */
 .problem-card {
-    padding: clamp(16px, 2vw, 26px) clamp(20px, 2.6vw, 40px);
+    padding: clamp(14px, 1.7vw, 23px) clamp(20px, 2.6vw, 40px);
     background: rgba(15, 20, 26, 0.72);
     border: 1px solid rgba(244, 241, 234, 0.07);
     border-radius: 14px;
@@ -1200,19 +1195,19 @@
 #problem-card-time {
     grid-column: 1 / -1;
     grid-row: 1;
-    margin-top: clamp(8px, 1.2vw, 16px);
+    margin-top: clamp(6px, 0.9vw, 14px);
 }
 
 #problem-card-budget {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-top: clamp(8px, 1.2vw, 16px);
+    margin-top: clamp(6px, 0.9vw, 14px);
 }
 
 #problem-card-competition {
     grid-column: 1 / -1;
     grid-row: 3;
-    margin-top: clamp(8px, 1.2vw, 16px);
+    margin-top: clamp(6px, 0.9vw, 14px);
 }
 
 .problem-card .pain-heading {
@@ -1280,6 +1275,13 @@
 #problem-card-budget .pain-body {
     grid-column: 1;
     grid-row: 1;
+    justify-self: start;
+    /* Wider measure so the copy runs longer horizontally and takes fewer lines,
+       while still keeping a gap to the centre icon. */
+    max-width: 42ch;
+    text-align: justify;
+    text-align-last: left;
+    padding-right: clamp(24px, 3vw, 56px);
 }
 #problem-card-budget .pain-heading {
     overflow-wrap: break-word;
@@ -1302,6 +1304,11 @@
     grid-row: 1;
     align-self: center;
     max-width: 42ch;
+}
+
+#problem-card-time .pain-body {
+    max-width: 60ch !important;
+    line-height: 1.75;
 }
 
 #problem-card-time {
@@ -1369,20 +1376,23 @@
 #problem-card-time .pain-heading,
 #problem-card-budget .pain-heading,
 #problem-card-competition .pain-heading {
-    font-size: clamp(1.6rem, 2.3vw, 2.6rem);
+    font-size: clamp(1.4rem, 2vw, 2.25rem);
 }
 
 #problem-card-time .pain-body,
 #problem-card-budget .pain-body,
 #problem-card-competition .pain-body {
-    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+    font-size: clamp(0.9rem, 1.02vw, 1.05rem) !important;
+    line-height: 1.7;
 }
 
+/* Ring size also keys off viewport height, so short laptop screens shrink it
+   further and all three cards still land inside one screen. */
 #problem-card-time .icon-ring,
 #problem-card-budget .icon-ring,
 #problem-card-competition .icon-ring {
-    width: clamp(120px, 11vw, 165px);
-    height: clamp(120px, 11vw, 165px);
+    width: clamp(105px, min(10vw, 18vh), 160px);
+    height: clamp(105px, min(10vw, 18vh), 160px);
 }
 
 #problem-card-time .icon-ring.icon-animate svg {
@@ -1651,6 +1661,82 @@
         min-height: 0;
     }
 
+    .problem-combined-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        gap: 0;
+    }
+
+    .problem-hero {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .problem-intro-copy {
+        padding-left: 0;
+    }
+
+    /* "THE PROBLEM" made bigger on mobile */
+    .problem-hero .s0-label,
+    .s0-label {
+        font-size: clamp(5.5rem, 26vw, 10.5rem) !important;
+        line-height: 0.78 !important;
+    }
+
+    .s0-label .the {
+        line-height: 0.78 !important;
+        margin-bottom: -0.05em;
+    }
+
+    .s0-label .problem {
+        line-height: 0.78 !important;
+    }
+
+    /* Curved arrow connecting "PROBLEM" out to the right and looping down-left to "MOST BUSINESSES ARE..." */
+    .problem-connect-arrow {
+        display: block !important;
+        position: relative !important;
+        inset: auto !important;
+        width: clamp(140px, 46vw, 220px) !important;
+        height: auto !important;
+        margin-left: auto !important;
+        margin-right: 10px !important;
+        margin-top: -20px !important;
+        margin-bottom: -15px !important;
+        transform: rotate(65deg) scaleX(-1) !important;
+        z-index: 5 !important;
+        opacity: 1 !important;
+    }
+
+    /* Spotlight copy: "MOST BUSINESSES ARE INVISIBLE TO THE CUSTOMERS" made bigger on mobile */
+    .problem-spotlight {
+        width: 100%;
+        align-items: flex-start !important;
+        margin-top: 10px;
+    }
+
+    .problem-spotlight .problem-spotlight-copy {
+        text-align: left !important;
+        width: 100%;
+    }
+
+    .s4-label {
+        font-size: clamp(0.95rem, 4vw, 1.35rem) !important;
+        letter-spacing: 0.26em !important;
+        margin-bottom: 8px !important;
+        text-align: left !important;
+    }
+
+    .problem-spotlight .s4-title,
+    .s4-title {
+        font-size: clamp(4.8rem, 22vw, 9.2rem) !important;
+        line-height: 0.82 !important;
+        text-align: left !important;
+        width: 100%;
+    }
+
     /* ── Stacked pain cards: uniform size + breathing room ── */
     .problem-card-grid {
         gap: clamp(18px, 5vw, 28px);
@@ -1683,5 +1769,65 @@
 
     #problem-card-budget .pain-body {
         order: 1;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 2 - typography
+   Scoped to (max-width: 768px). Desktop base rules untouched.
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Card body copy was 13.5px. The winning rule is the three-ID group above
+       (font-size ... !important, spec 0,1,1,0), so matching both its
+       specificity and its !important is the only way to override it without
+       inventing a heavier selector. */
+    #problem-card-time .pain-body,
+    #problem-card-budget .pain-body,
+    #problem-card-competition .pain-body {
+        font-size: 16px !important;
+    }
+
+    /* Was line-height 1.1 on a heading that wraps to 2 lines at phone widths.
+       The ID-level rules only set font-size, so .problem-card .pain-heading is
+       the most specific rule that sets line-height and this wins on order. */
+    .problem-card .pain-heading {
+        line-height: 1.18;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 3 - single-column alignment
+   Scoped to (max-width: 900px), the width at which .pain-inner already
+   collapses to one column, so no multi-column desktop layout is affected.
+   ============================================ */
+@media (max-width: 900px) {
+
+    /* Three desktop-only rules survived the collapse and threw the copy
+       off-axis. The reset above covers .pain-text / .pain-visual / .pain-body
+       margins, but not the heading, and not this padding. */
+
+    /* Was capped at 17ch, so headings used ~51% of the viewport and their
+       centring looked arbitrary against the full-width card. */
+    .problem-card .pain-heading {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* margin-left: auto (ID specificity, so the .problem-card reset could not
+       reach it) pushed card 2's heading 126px right while cards 1 and 3 sat
+       left. That mismatch is the most visible thing in this section. */
+    #problem-card-budget .pain-heading {
+        margin-left: 0;
+    }
+
+    /* Leftover right padding of up to 56px shifted card 2's centred body copy
+       about 12px left of the card's axis, so it never lined up with cards 1
+       and 3. */
+    #problem-card-budget .pain-body {
+        padding-right: 0;
     }
 }

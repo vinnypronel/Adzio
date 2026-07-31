@@ -10,7 +10,6 @@
                 <a href="index.html#home" class="footer-logo">
                     <img src="assets/logo.png" alt="Adzio Logo">
                 </a>
-                <p class="footer-tagline">The boutique growth partner behind local market leaders.</p>
                 <div class="footer-social">
                     <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -18,16 +17,19 @@
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                         </svg>
+                        <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Follow Adzio on Instagram</span><span class="social-tip-text"></span></span>
                     </a>
                     <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                         </svg>
+                        <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Follow Adzio on Facebook</span><span class="social-tip-text"></span></span>
                     </a>
                     <a href="https://x.com/AdzioMarketing" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
                         <svg fill="currentColor" viewBox="0 0 24 24">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
                         </svg>
+                        <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Follow Adzio on X</span><span class="social-tip-text"></span></span>
                     </a>
                 </div>
             </div>
@@ -143,6 +145,20 @@
             toggle.setAttribute('aria-expanded', 'true');
         }
 
+        // Highlight active page in mobile menu
+        var currentPath = window.location.pathname.toLowerCase();
+        var navLinks = panel.querySelectorAll('.m-nav-links a');
+        navLinks.forEach(function (link) {
+            var href = (link.getAttribute('href') || '').toLowerCase();
+            if (currentPath.indexOf('services') !== -1 && href.indexOf('services') !== -1) {
+                link.classList.add('active');
+            } else if (currentPath.indexOf('about') !== -1 && href.indexOf('about') !== -1) {
+                link.classList.add('active');
+            } else if ((currentPath === '/' || currentPath.endsWith('/') || currentPath.indexOf('index') !== -1) && (href.indexOf('index') !== -1 || href === '#home')) {
+                link.classList.add('active');
+            }
+        });
+
         toggle.addEventListener('click', function () {
             document.body.classList.contains('m-nav-open') ? close() : open();
         });
@@ -178,12 +194,20 @@
             requestAnimationFrame(update);
         }
 
-        animateVeilProgress(document.querySelector('.page-veil'), 320);
+        // Only animate the initial page-veil if navigation was triggered by an
+        // actual link click (not a resize, monitor move, or direct URL entry).
+        var initialVeil = document.querySelector('.page-veil');
+        var navKey = 'adzio_nav_intent';
+        var wasIntentional = sessionStorage.getItem(navKey) === '1';
+        sessionStorage.removeItem(navKey);
+        if (wasIntentional && initialVeil) {
+            animateVeilProgress(initialVeil, 320);
+        }
 
         var veil = document.createElement('div');
         veil.className = 'pt-veil';
         veil.setAttribute('aria-hidden', 'true');
-        veil.innerHTML = '<div class="veil-content"><img src="assets/logo.png" alt="" class="veil-logo"><div class="veil-loader"><span class="veil-progress-fill"></span></div><span class="veil-percent">0%</span></div>';
+        veil.innerHTML = '<div class="veil-content"><img src="assets/logo.png" alt="" class="veil-logo"><div class="veil-loader"><span class="veil-progress-fill"></span></div><span class="veil-percent">0%</span><div class="veil-loading-text" aria-hidden="true"><span class="veil-letter" style="--i:0">L</span><span class="veil-letter" style="--i:1">O</span><span class="veil-letter" style="--i:2">A</span><span class="veil-letter" style="--i:3">D</span><span class="veil-letter" style="--i:4">I</span><span class="veil-letter" style="--i:5">N</span><span class="veil-letter" style="--i:6">G</span></div></div>';
         document.body.appendChild(veil);
 
         function normPath(p) {
@@ -221,6 +245,9 @@
                 return;
             }
 
+            // Mark this as an intentional navigation so the next page shows its veil.
+            sessionStorage.setItem(navKey, '1');
+
             e.preventDefault();
             animateVeilProgress(veil, 320);
             veil.classList.add('is-active');
@@ -233,9 +260,71 @@
         });
     }
 
+    // ── Social icon hover tooltips ──
+    // Types "Follow Adzio on <Network>" out left to right with a caret that
+    // advances behind the text. The label lives in the markup (.social-tip-sizer)
+    // so there is one source of truth, and that hidden copy also reserves the
+    // box's final width — without it the panel would grow character by character
+    // and shove itself sideways while you read it.
+    function initSocialTips() {
+        var links = document.querySelectorAll('.social-link');
+        if (!links.length) return;
+
+        // Touch devices fire a sticky :hover on tap, which would leave a tooltip
+        // stranded over the footer. Pointer-based hover only.
+        var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (!canHover) return;
+
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        Array.prototype.forEach.call(links, function (link) {
+            var tip = link.querySelector('.social-tip');
+            var sizer = tip && tip.querySelector('.social-tip-sizer');
+            var out = tip && tip.querySelector('.social-tip-text');
+            if (!tip || !sizer || !out) return;
+
+            var full = sizer.textContent.trim();
+            var timer = null;
+
+            function type() {
+                clearTimeout(timer);
+                if (reduce) {
+                    out.textContent = full;
+                    tip.classList.remove('is-typing');
+                    return;
+                }
+                var i = 0;
+                out.textContent = '';
+                // Caret holds solid while characters are landing, then blinks.
+                tip.classList.add('is-typing');
+                (function step() {
+                    out.textContent = full.slice(0, ++i);
+                    if (i < full.length) {
+                        timer = setTimeout(step, 26);
+                    } else {
+                        tip.classList.remove('is-typing');
+                    }
+                })();
+            }
+
+            function reset() {
+                clearTimeout(timer);
+                out.textContent = '';
+                tip.classList.remove('is-typing');
+            }
+
+            link.addEventListener('mouseenter', type);
+            link.addEventListener('mouseleave', reset);
+            // Keyboard users get the same affordance.
+            link.addEventListener('focus', type);
+            link.addEventListener('blur', reset);
+        });
+    }
+
     function run() {
         inject();
         injectMobileNav();
+        initSocialTips();
         setupPageTransitions();
     }
 

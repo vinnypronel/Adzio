@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             vslElement.style.margin = '0';
             vslElement.style.borderRadius = '12px';
             vslElement.style.transformOrigin = 'top left';
-            vslElement.style.willChange = 'transform, opacity';
+            vslElement.style.willChange = 'transform';
             vslElement.style.zIndex = '9000';
             vslElement.classList.add('vsl-pip-active');
             document.body.classList.add('vsl-active');
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const s = 1 + (scaleTo - 1) * fp;
             vslElement.style.transform =
                 'translate3d(' + (dx * fp).toFixed(2) + 'px,' + (dy * fp).toFixed(2) + 'px,0) scale(' + s.toFixed(4) + ')';
-            vslElement.style.opacity = String(1 - 0.15 * fp);
+            vslElement.style.opacity = '1';
             const y = (CONTENT_SHIFT * fp).toFixed(1) + 'px';
             if (heroTitle) heroTitle.style.transform = 'translate3d(0,' + y + ',0)';
             if (heroCta) heroCta.style.transform = 'translate3d(0,' + y + ',0)';
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             y: 0,
             position: 'fixed',
             zIndex: 9000,
-            opacity: 1 - (0.28 * progress),
+            opacity: 1,
             transformOrigin: 'top right'
         });
 

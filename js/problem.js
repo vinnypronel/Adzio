@@ -11,9 +11,9 @@ function restartIconAnimation(wrapper, selector) {
     icon.classList.add('icon-animate');
 }
 
-// Make each step's circular icon clickable so visitors can replay its animation
-// on demand. Pure-CSS animations only fire on `.icon-animate`, so a click just
-// re-triggers that class (remove → reflow → add). Works on desktop and the
+// Make each step's circular icon replay its animation on hover or click. The
+// pure-CSS animations only fire on `.icon-animate`, so both just re-trigger
+// that class (remove → reflow → add). Works on desktop and the
 // mobile vertical stack, independent of the GSAP scroll wiring.
 function initProcessIconReplay() {
     const rings = document.querySelectorAll('.process-icon-ring');
@@ -29,6 +29,7 @@ function initProcessIconReplay() {
         ring.setAttribute('aria-label', 'Replay step animation');
 
         ring.addEventListener('click', replay);
+        ring.addEventListener('mouseenter', replay);
         ring.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -448,6 +449,21 @@ function initProcessSection() {
 
             tl.to({}, { duration: 0.25 }, ENTER_FRAC);
 
+            // The step's card chrome (.process-pain-inner::before, desktop only)
+            // rides --card-op so it arrives and leaves with the step's content.
+            // Without this the wrapper's plain visibility toggle would flash an
+            // empty card over whichever slide is on screen.
+            const cardEl = wrapper.querySelector('.process-pain-inner');
+            if (cardEl) {
+                gsap.set(cardEl, { '--card-op': 0 });
+                tl.fromTo(
+                    cardEl,
+                    { '--card-op': 0 },
+                    { '--card-op': 1, ease: 'power2.out', duration: entranceStep },
+                    0
+                );
+            }
+
             if (!isLast) {
                 // Keep the step fully settled across most of its scroll zone and
                 // exit late+quick. A long early exit (the old 0.60→1.00) meant the
@@ -458,6 +474,9 @@ function initProcessSection() {
                     { opacity: 0, y: -60, ease: 'power2.inOut', force3D: true, stagger: 0, duration: 0.25 },
                     0.75
                 );
+                if (cardEl) {
+                    tl.to(cardEl, { '--card-op': 0, ease: 'power2.inOut', duration: 0.25 }, 0.75);
+                }
                 tl.set(wrapper, { visibility: 'hidden' }, 1.00);
             }
         }
@@ -564,6 +583,45 @@ function initProcessSection() {
     }
 
     setActivePip(0);
+
+    // ── Clickable Slide Navigation for Overview Items & PIP dots ──
+    const snapValues = [0.1724, 0.4310, 0.6034, 0.7759, 0.9310];
+
+    function jumpToProcessSlide(slideIndex) {
+        if (!pinST) return;
+        const targetProgress = snapValues[slideIndex] !== undefined ? snapValues[slideIndex] : (slideIndex / 4);
+        const targetScroll = pinST.start + targetProgress * (pinST.end - pinST.start) + 5;
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
+    }
+
+    const processItems = document.querySelectorAll('.process-s1-card-item');
+    processItems.forEach((item, index) => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            jumpToProcessSlide(index + 1);
+        });
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                jumpToProcessSlide(index + 1);
+            }
+        });
+    });
+
+    pipEls.forEach((pip, index) => {
+        pip.style.cursor = 'pointer';
+        pip.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            jumpToProcessSlide(index);
+        });
+    });
+
     ScrollTrigger.refresh();
 }
 

@@ -119,6 +119,9 @@
     align-items: center;
     justify-content: center;
     padding: 0 8vw;
+    /* The docked side nav is position:fixed over the left gutter and expands
+       downward on hover, so 8vw alone is not enough room below ~1900px. */
+    padding-left: max(8vw, 150px);
     z-index: 2;
     pointer-events: none;
     visibility: hidden;
@@ -130,6 +133,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 8vw;
+    padding-left: max(8vw, 150px);
     gap: clamp(32px, 5vw, 72px);
 }
 
@@ -188,8 +192,8 @@
 .process-s0-right {
     display: flex;
     flex-direction: column;
-    gap: clamp(16px, 2vh, 24px);
-    width: clamp(280px, 24vw, 360px);
+    gap: clamp(16px, 2vh, 28px);
+    width: clamp(280px, 23vw, 480px);
     flex-shrink: 0;
     align-self: center;
 }
@@ -253,11 +257,11 @@
 }
 
 .process-s0-desc {
-    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    font-size: clamp(1.2rem, 1.55vw, 1.45rem);
     font-weight: 300;
     color: var(--text-secondary);
     line-height: 1.75;
-    max-width: 560px;
+    max-width: 660px;
 }
 
 .process-s0-stat {
@@ -288,10 +292,35 @@
     background: linear-gradient(90deg, var(--teal) 0%, rgba(0, 184, 212, 0.15) 80%, transparent 100%);
 }
 
+/* bare icon, colour-matched to the big .process-icon-ring on each step */
+.process-s0-stat-icon,
+.process-s1-card-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(30px, 2.4vw, 46px);
+    height: clamp(30px, 2.4vw, 46px);
+    pointer-events: none;
+}
+
+.process-s0-stat-icon svg,
+.process-s1-card-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.5;
+}
+
+.process-s0-stat-icon {
+    top: clamp(34px, 3.6vw, 46px);
+    right: clamp(26px, 2.4vw, 36px);
+    color: var(--teal);
+}
+
 .process-s0-stat-num {
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: clamp(2.6rem, 4vw, 3.6rem);
+    font-size: clamp(2.6rem, 3.5vw, 4.5rem);
     line-height: 1;
     color: var(--teal);
     display: block;
@@ -300,7 +329,7 @@
 }
 
 .process-s0-stat-label {
-    font-size: clamp(0.7rem, 1.1vw, 0.82rem);
+    font-size: clamp(0.7rem, 0.9vw, 1.05rem);
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -312,21 +341,26 @@
 /* ── Slides 1-4 - pain-inner layout, matching problem-card grid exactly ── */
 .process-pain-inner {
     display: grid;
-    grid-template-columns: 1fr clamp(160px, 14vw, 220px) 1fr;
+    /* Title column carries more weight now that it no longer overhangs left,
+       so headings keep their authored line breaks instead of re-wrapping. */
+    grid-template-columns: 1.25fr clamp(150px, 12.5vw, 205px) 1fr;
     align-items: center;
-    column-gap: clamp(40px, 5vw, 70px);
+    column-gap: clamp(36px, 4.4vw, 64px);
     max-width: 100%;
     width: 100%;
     position: relative;
     z-index: 1;
+    transform: translateX(-5px);
 }
 
 .process-pain-text {
     grid-column: 1;
     grid-row: 1;
     min-width: 0;
-    margin-left: -70px;
-    padding-right: 25px;
+    /* was -70px, which pulled the title group out of its column and under the
+       docked nav */
+    margin-left: 0;
+    padding-right: 10px;
 }
 
 .process-pain-visual {
@@ -340,11 +374,8 @@
     grid-column: 3;
     grid-row: 1;
     align-self: center;
-    justify-self: end;
-    /* Mirror the heading's left offset on the right so both columns sit the
-       same distance from their screen edge */
-    margin-right: -25px;
-    padding-left: 25px;
+    justify-self: start;
+    margin-left: clamp(60px, 7vw, 130px);
     max-width: 42ch;
     font-size: clamp(1.2rem, 1.55vw, 1.5rem);
     font-weight: 300;
@@ -358,28 +389,23 @@
     align-items: center;
     gap: 10px;
     font-family: 'Archivo', sans-serif;
-    font-size: 0.78rem;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
     font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     padding: 0;
     border-radius: 0;
     background: none;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .process-pain-tag::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.8;
+    display: none;
 }
 
 .process-pain-heading {
     font-family: var(--font-body), sans-serif;
-    font-size: clamp(2.2rem, 3.6vw, 4.4rem);
+    font-size: clamp(2.1rem, 3.42vw, 4.4rem);
     font-weight: 800;
     line-height: 1.06;
     letter-spacing: -0.025em;
@@ -399,27 +425,23 @@
 }
 
 .process-icon-ring {
-    width: clamp(130px, 16vw, 210px);
-    height: clamp(130px, 16vw, 210px);
+    width: clamp(135px, 16.5vw, 215px);
+    height: clamp(135px, 16.5vw, 215px);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+    border: 1.5px solid color-mix(in srgb, currentColor 55%, transparent);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    /* Clickable: click/tap (or Enter/Space when focused) replays the icon
-       animation — see initProcessIconReplay() in js/problem.js.
-       The parent slide wrapper is set to pointer-events:none in JS so hidden
-       slides don't intercept clicks; re-enable it here so the ring stays
-       clickable even on the active slide. */
     cursor: pointer;
     pointer-events: auto;
-    transition: transform 0.25s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .process-icon-ring:hover {
     transform: scale(1.04);
+    border-color: currentColor;
 }
 
 .process-icon-ring:focus-visible {
@@ -428,9 +450,10 @@
 }
 
 .process-icon-ring svg {
-    width: 32%;
-    height: 32%;
-    stroke-width: 1.4;
+    width: 38%;
+    height: 38%;
+    stroke-width: 1.6;
+    filter: none;
 }
 
 .process-icon-ring::before {
@@ -438,8 +461,8 @@
     position: absolute;
     inset: -12px;
     border-radius: 50%;
-    border: 1px solid currentColor;
-    opacity: 0.16;
+    border: 1.5px solid currentColor;
+    opacity: 0.32;
 }
 
 .process-icon-ring::after {
@@ -448,23 +471,21 @@
     inset: -26px;
     border-radius: 50%;
     border: 1px dashed currentColor;
-    opacity: 0.08;
+    opacity: 0.18;
 }
 
 /* Editorial ghost numeral behind each step */
 .process-ghost-num {
     display: block;
     position: absolute;
-    right: clamp(2vw, 4vw, 6vw);
-    bottom: -4vh;
+    right: clamp(2vw, 4vw, 5vw);
+    bottom: -2vh;
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: clamp(11rem, 24vw, 22rem);
+    font-size: clamp(8.5rem, 17vw, 15.5rem);
     line-height: 1;
     letter-spacing: -0.05em;
-    /* Faint solid fill renders perfectly smooth/consistent edges at this scale,
-       unlike -webkit-text-stroke which gets jagged on huge glyphs */
-    color: rgba(244, 241, 234, 0.05);
+    color: rgba(244, 241, 234, 0.11);
     -webkit-text-stroke: 0;
     text-rendering: geometricPrecision;
     z-index: 0;
@@ -488,17 +509,16 @@
 }
 
 #process-slide-2 .process-pain-tag {
-    color: #0866FF;
+    color: #00b8d4;
 }
 
 #process-slide-2 .process-pain-heading em {
-    color: #0866FF;
+    color: #00b8d4;
 }
 
 #process-slide-2 .process-icon-ring {
-    background: rgba(255, 255, 255, 0.03);
-    color: #0866FF;
-    box-shadow: none;
+    background: color-mix(in srgb, #00b8d4 10%, rgba(13, 20, 26, 0.7));
+    color: #00b8d4;
 }
 
 #process-slide-3 .process-pain-tag {
@@ -510,37 +530,34 @@
 }
 
 #process-slide-3 .process-icon-ring {
-    background: rgba(255, 255, 255, 0.03);
+    background: color-mix(in srgb, #4285F4 10%, rgba(13, 20, 26, 0.7));
     color: #4285F4;
-    box-shadow: none;
 }
 
 #process-slide-4 .process-pain-tag {
-    color: #00b8d4;
+    color: #0866FF;
 }
 
 #process-slide-4 .process-pain-heading em {
-    color: #00b8d4;
+    color: #0866FF;
 }
 
 #process-slide-4 .process-icon-ring {
-    background: rgba(255, 255, 255, 0.03);
-    color: #00b8d4;
-    box-shadow: none;
+    background: color-mix(in srgb, #0866FF 10%, rgba(13, 20, 26, 0.7));
+    color: #0866FF;
 }
 
 #process-slide-5 .process-pain-tag {
-    color: #7F00FF;
+    color: #4F46E5;
 }
 
 #process-slide-5 .process-pain-heading em {
-    color: #7F00FF;
+    color: #4F46E5;
 }
 
 #process-slide-5 .process-icon-ring {
-    background: rgba(255, 255, 255, 0.03);
-    color: #7F00FF;
-    box-shadow: none;
+    background: color-mix(in srgb, #4F46E5 12%, rgba(13, 20, 26, 0.7));
+    color: #4F46E5;
 }
 
 /* ── Slide 1 - intro step, mirrors "INVISIBLE" slide exactly ── */
@@ -616,8 +633,11 @@
 }
 
 .process-s1-card-item {
+    cursor: pointer;
+    pointer-events: auto;
     background: transparent;
-    padding: clamp(14px, 2.2vh, 22px) clamp(20px, 1.8vw, 28px);
+    /* extra right padding reserves room for the chip icon */
+    padding: clamp(14px, 2.2vh, 22px) clamp(74px, 6vw, 94px) clamp(14px, 2.2vh, 22px) clamp(20px, 1.8vw, 28px);
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     transition: background 0.3s ease;
@@ -644,8 +664,8 @@
 }
 
 .process-s1-card-item:nth-child(1)::before {
-    background: #0866FF;
-    box-shadow: 0 0 10px rgba(8, 102, 255, 0.5);
+    background: #00b8d4;
+    box-shadow: 0 0 10px rgba(0, 184, 212, 0.5);
 }
 
 .process-s1-card-item:nth-child(2)::before {
@@ -654,22 +674,49 @@
 }
 
 .process-s1-card-item:nth-child(3)::before {
-    background: #00b8d4;
-    box-shadow: 0 0 10px rgba(0, 184, 212, 0.5);
+    background: #0866FF;
+    box-shadow: 0 0 10px rgba(8, 102, 255, 0.5);
 }
 
 .process-s1-card-item:nth-child(4)::before {
-    background: #7F00FF;
-    box-shadow: 0 0 10px rgba(127, 0, 255, 0.5);
+    background: #0866FF;
+    box-shadow: 0 0 10px rgba(8, 102, 255, 0.5);
 }
 
 .process-s1-card-item:hover {
     background: rgba(255, 255, 255, 0.03);
 }
 
+.process-s1-card-icon {
+    top: 50%;
+    right: clamp(30px, 2.6vw, 40px);
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.process-s1-card-item:hover .process-s1-card-icon {
+    transform: translateY(-50%) scale(1.08);
+}
+
+.process-s1-card-item:nth-child(1) .process-s1-card-icon {
+    color: #00b8d4;
+}
+
+.process-s1-card-item:nth-child(2) .process-s1-card-icon {
+    color: #4285F4;
+}
+
+.process-s1-card-item:nth-child(3) .process-s1-card-icon {
+    color: #0866FF;
+}
+
+.process-s1-card-item:nth-child(4) .process-s1-card-icon {
+    color: #0866FF;
+}
+
 .process-s1-card-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 2.8vw, 2.6rem);
+    font-size: clamp(2rem, 2.4vw, 3.4rem);
     line-height: 1;
     display: block;
     margin-bottom: 3px;
@@ -681,8 +728,8 @@
 }
 
 .process-s1-card-item:nth-child(1) .process-s1-card-num {
-    color: #0866FF;
-    text-shadow: 0 0 10px rgba(8, 102, 255, 0.2);
+    color: #00b8d4;
+    text-shadow: 0 0 10px rgba(0, 184, 212, 0.2);
 }
 
 .process-s1-card-item:nth-child(2) .process-s1-card-num {
@@ -691,17 +738,17 @@
 }
 
 .process-s1-card-item:nth-child(3) .process-s1-card-num {
-    color: #00b8d4;
-    text-shadow: 0 0 10px rgba(0, 184, 212, 0.2);
+    color: #0866FF;
+    text-shadow: 0 0 10px rgba(8, 102, 255, 0.2);
 }
 
 .process-s1-card-item:nth-child(4) .process-s1-card-num {
-    color: #7F00FF;
-    text-shadow: 0 0 10px rgba(127, 0, 255, 0.2);
+    color: #0866FF;
+    text-shadow: 0 0 10px rgba(8, 102, 255, 0.2);
 }
 
 .process-s1-card-label {
-    font-size: 0.9rem;
+    font-size: clamp(0.85rem, 1.05vw, 1.15rem);
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -1023,7 +1070,7 @@
         display: block;
         /* clip the centered 800px bg-glow so it can't create horizontal scroll */
         overflow: hidden;
-        padding: clamp(8px, 4vw, 24px) 0;
+        padding: 0;
     }
 
     /* Each slide: absolute → static, always visible, no leftover transforms */
@@ -1035,34 +1082,78 @@
         transform: none !important;
         pointer-events: auto;
         min-height: 0;
-        padding: clamp(40px, 10vw, 60px) clamp(18px, 6vw, 28px);
+        padding: clamp(16px, 4vw, 28px) clamp(18px, 6vw, 28px);
+    }
+
+    /* Enclose each of the 4 process steps in a sleek glass outline card on mobile */
+    .process-slide:not(#process-slide-0) {
+        background: rgba(15, 20, 26, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: clamp(38px, 9vw, 52px) clamp(18px, 5vw, 28px) clamp(30px, 7vw, 42px);
+        margin-inline: clamp(14px, 4vw, 24px);
+        width: auto;
+        margin-bottom: 24px;
+        box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    .process-pain-visual {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .process-icon-ring {
+        width: clamp(120px, 36vw, 160px);
+        height: clamp(120px, 36vw, 160px);
+    }
+
+    /* Step-specific neon accent borders */
+    #process-slide-2 {
+        border-color: rgba(0, 184, 212, 0.3);
+        margin-top: 40px;
+    }
+
+    #process-slide-3 {
+        border-color: rgba(66, 133, 244, 0.3);
+    }
+
+    #process-slide-4 {
+        border-color: rgba(8, 102, 255, 0.3);
+    }
+
+    #process-slide-5 {
+        border-color: rgba(127, 0, 255, 0.3);
     }
 
     /* Slide 0 — stack the big title, the "4 steps" stat, and the steps card */
     #process-slide-0 {
         flex-direction: column;
         align-items: flex-start;
-        justify-content: center;
-        gap: clamp(18px, 5vw, 28px);
-        padding-top: clamp(28px, 7vw, 44px);
+        justify-content: flex-start;
+        gap: 8px;
+        padding-top: clamp(16px, 3vw, 24px);
+        overflow: visible;
     }
 
     /* Big enough to fill the space, still safe on a 320px screen */
     #process-slide-0 .process-s0-label,
     .process-s0-label {
         font-size: clamp(4.8rem, 25vw, 9.5rem);
-        line-height: 0.78;
+        line-height: 0.85;
+        overflow: visible;
     }
 
-    /* ADZIO'S — bright solid fill (was a near-invisible ghost outline) and
-       stacked tight against PROCESS (kill desktop offsets + leading) */
+    /* ADZIO'S — bright solid fill and stacked tight against PROCESS */
     #process-slide-0 .process-s0-label .our,
     .process-s0-label .our {
         color: rgba(244, 241, 234, 0.92);
         -webkit-text-stroke: 0;
         transform: none;
-        line-height: 0.78;
-        margin-bottom: -0.06em;
+        margin-top: 40px;
+        line-height: 0.72;
+        margin-bottom: -0.2em;
         text-shadow: none !important;
         filter: none !important;
     }
@@ -1071,7 +1162,13 @@
     .process-s0-label .process {
         color: var(--teal);
         transform: none;
-        line-height: 0.78;
+        line-height: 0.72;
+        margin-top: -50px;
+    }
+
+    .process-s0-subhead {
+        margin-top: 2px;
+        margin-bottom: 6px;
     }
 
     .process-s0-right {
@@ -1100,4 +1197,119 @@
     #process-scroll-hint {
         display: none;
     }
+}
+
+
+/* ============================================
+   MOBILE PASS 2 - typography
+   Scoped to (max-width: 768px). Desktop base rules untouched.
+   ============================================ */
+@media (max-width: 768px) {
+
+    .process-s0-desc {
+        font-size: 16px;
+    }
+
+    /* Was 1.06, and this heading wraps to 2-3 lines on a phone. */
+    .process-pain-heading {
+        line-height: 1.15;
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 3 - slide 0 horizontal padding
+   Scoped to (max-width: 900px), where .process-slide is already static and
+   stacked, so no desktop pinned layout is affected.
+   ============================================ */
+@media (max-width: 900px) {
+
+    /* #process-slide-0 carries `padding-left: max(8vw, 150px)` at ID
+       specificity so the desktop docked side nav has clearance. The existing
+       mobile block only resets padding-top, so on a phone the slide kept a
+       150px left inset and a 40px right one. On a 490px screen that is 31% of
+       the width lost on the left, and it pushed the 25vw display heading 21px
+       past the right edge with "PROCESS" clipped off.
+       .process-slide already switches to a symmetric gutter at this width;
+       match it so slide 0 lines up with every other slide. */
+    #process-slide-0 {
+        padding-left: clamp(18px, 6vw, 28px);
+        padding-right: clamp(18px, 6vw, 28px);
+    }
+}
+
+
+/* ============================================
+   MOBILE PASS 4 - step slide centring
+   Scoped to (max-width: 900px), where .process-pain-inner is already a single
+   column, so the desktop 3-column layout is untouched.
+   ============================================ */
+@media (max-width: 900px) {
+
+    /* .process-pain-body carries margin-left: clamp(60px, 7vw, 130px) to hold
+       it clear of the centre icon in the desktop [text][icon][body] layout.
+       The existing mobile blocks reset its grid placement, max-width,
+       margin-right and padding-left, but never this margin-left. Stacked, that
+       left the body copy 30px right of the axis the icon, tag and heading all
+       share, which is what reads as "not lined up". */
+    .process-pain-body {
+        margin-left: 0;
+        margin-inline: auto;
+    }
+
+    /* Base rule adds padding-right: 10px to balance the desktop column gap;
+       stacked it makes the whole text block sit 5px left of centre. */
+    .process-pain-text {
+        padding-right: 0;
+        padding-left: 0;
+        margin-inline: auto;
+    }
+
+    /* .process-pain-inner carries transform: translateX(-5px), a desktop
+       micro-nudge for the 3-column layout. Stacked it just shifts the entire
+       step 5px left of the slide's centre, which is why the gutters read 23px
+       left against 33px right. */
+    .process-pain-inner {
+        transform: none;
+    }
+}
+
+/* ============================================
+   DESKTOP STEP CARDS
+   The four step slides get the same glass outline card the mobile stack uses,
+   so a step reads as its own panel instead of loose text on the background.
+   The ghost numeral is a sibling of .process-pain-inner, so it stays outside
+   the card as decoration.
+   ============================================ */
+@media (min-width: 901px) {
+    /* Vertical padding clears the icon's outermost dashed ring, which overflows
+       its own box by 26px, so the circles never touch the card edge. */
+    .process-pain-inner {
+        padding: clamp(46px, 5vh, 72px) clamp(28px, 3vw, 54px);
+    }
+
+    /* The chrome is a pseudo-element, not the box itself, so its opacity can be
+       driven by --card-op. The deck's GSAP timeline fades that in and out with
+       the step's own content, which keeps a card off every slide but its own
+       (the wrapper is briefly visible before its content animates in). */
+    .process-pain-inner::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        background: rgba(15, 20, 26, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        opacity: var(--card-op, 0);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    /* Step-specific accent borders, matching the mobile cards */
+    #process-slide-2 .process-pain-inner::before { border-color: rgba(0, 184, 212, 0.3); }
+    #process-slide-3 .process-pain-inner::before { border-color: rgba(66, 133, 244, 0.3); }
+    #process-slide-4 .process-pain-inner::before { border-color: rgba(8, 102, 255, 0.3); }
+    #process-slide-5 .process-pain-inner::before { border-color: rgba(127, 0, 255, 0.3); }
 }

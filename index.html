@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,10 +23,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=260.1">
+    <link rel="stylesheet" href="css/styles.css?v=280.0">
     <link rel="stylesheet" href="css/animations.css?v=215.0">
     <link rel="stylesheet" href="css/problem.css?v=224.0">
-    <link rel="stylesheet" href="css/process.css?v=238.0">
+    <link rel="stylesheet" href="css/process.css?v=240.0">
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -42,6 +42,15 @@
             <img src="assets/logo.png" alt="" class="veil-logo">
             <div class="veil-loader"><span class="veil-progress-fill"></span></div>
             <span class="veil-percent">0%</span>
+            <div class="veil-loading-text" aria-hidden="true">
+                <span class="veil-letter" style="--i:0">L</span>
+                <span class="veil-letter" style="--i:1">O</span>
+                <span class="veil-letter" style="--i:2">A</span>
+                <span class="veil-letter" style="--i:3">D</span>
+                <span class="veil-letter" style="--i:4">I</span>
+                <span class="veil-letter" style="--i:5">N</span>
+                <span class="veil-letter" style="--i:6">G</span>
+            </div>
         </div>
     </div>
 
@@ -49,8 +58,8 @@
     <div class="nav-wrap" id="navWrap">
         <div class="nav-svg-container" id="navContainer">
             <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
-                <path id="navFill" fill="#0d1a1f" stroke="none" />
-                <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5" />
+                <path id="navFill" fill="#16252c" stroke="none" />
+                <path id="navStroke" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.5" />
             </svg>
             <div class="nav-content">
                 <div class="logo-row">
@@ -113,6 +122,8 @@
         </div>
     </div>
 
+
+
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg">
@@ -167,6 +178,7 @@
                                 <svg viewBox="0 0 24 24" fill="currentColor">
                                     <polygon points="5 3 19 12 5 21 5 3"></polygon>
                                 </svg>
+                                <span class="vsl-play-btn-label">Play</span>
                             </button>
                         </div>
                     </div>
@@ -179,7 +191,7 @@
     <section class="logo-slider">
         <div class="logo-slider-shell">
             <div class="slider-head">
-                <span class="eyebrow eyebrow--center">Platform Mastery</span>
+                <span class="eyebrow eyebrow--center">Platform Precision</span>
                 <h2 class="slider-label">Revenue, engineered on the world's
                     <span class="slider-label-em">leading platforms</span>
                 </h2>
@@ -256,17 +268,6 @@
                                         <span class="line-solid">TO THE</span>
                                         <span class="line-red">CUSTOMERS</span>
                                     </div>
-                                    <div class="s4-grid">
-                                        <div class="s4-card">
-                                            <div class="s4-card-header">
-                                                <span class="s4-card-num">91%</span>
-                                                <span class="s4-card-label">Never found</span>
-                                            </div>
-                                            <p class="s4-card-desc">Of people search online before buying; if you're not
-                                                showing up,
-                                                they're buying from someone else.</p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -277,11 +278,12 @@
                             data-shift="14">
                             <div class="pain-inner">
                                 <div class="pain-text">
-                                    <span class="pain-tag">01 Â· Time Drain</span>
-                                    <h2 class="pain-heading">Hours spent on marketing <em>that goes nowhere</em></h2>
+                                    <span class="pain-tag">01. Time Drain</span>
+                                    <h2 class="pain-heading">Hours on marketing<br><em>that goes nowhere</em></h2>
                                 </div>
-                                <p class="pain-body">You're burning your most valuable resource &ndash; time &ndash;
-                                    on random posts and boosted content that earn zero engagement and zero revenue.
+                                <p class="pain-body">You're burning your most valuable resource: Time!
+                                    Making random posts and boosted content that earn zero engagement and zero revenue
+                                    is a huge mistake.
                                     Every hour spent guessing is an hour your competitor spends winning your
                                     customers.</p>
                                 <div class="pain-visual">
@@ -319,7 +321,7 @@
                                     </div>
                                 </div>
                                 <div class="pain-text">
-                                    <span class="pain-tag">02 Â· Budget Burn</span>
+                                    <span class="pain-tag">02. Budget Burn</span>
                                     <h2 class="pain-heading">Ad spend that vanishes <em>without converting</em></h2>
                                 </div>
                             </div>
@@ -329,8 +331,8 @@
                             data-shift="12">
                             <div class="pain-inner">
                                 <div class="pain-text">
-                                    <span class="pain-tag">03 Â· Lost Customers</span>
-                                    <h2 class="pain-heading">Competitors winning your customers <em class="nowrap">right now</em></h2>
+                                    <span class="pain-tag">03. Lost Customers</span>
+                                    <h2 class="pain-heading">Competitors taking<br><em>your customers</em></h2>
                                 </div>
                                 <p class="pain-body">While you read this, sharper campaigns are claiming your ideal
                                     clients. Every scroll is a lost sale. Every day without a real strategy is ground
@@ -359,14 +361,11 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services-section" id="services">
+    <section class="services-section" id="home-services">
         <div class="container">
             <!-- Header -->
             <div class="services-header">
-                <span class="eyebrow eyebrow--center">Services</span>
-                <h2>Market Dominance, <span class="text-gradient text-glow">Made Predictable</span></h2>
-                <p class="services-subtitle">We don't sell ads. We install the complete growth system that turns
-                    strangers into booked customers &ndash; and keeps them coming back.</p>
+                <h2>Adzio's <span class="text-gradient">Services:</span></h2>
             </div>
 
             <!-- Services Grid -->
@@ -460,10 +459,10 @@
                     <p class="service-description">Digital architecture designed to convert &ndash; fast, precise
                         websites that turn visitors into paying customers.</p>
                     <ul class="service-features">
-                        <li>Conversion-first design</li>
-                        <li>Mobile-first build</li>
-                        <li>Speed optimization</li>
-                        <li>A/B testing</li>
+                        <li>Responsive &amp; Conversion-First Design</li>
+                        <li>SEO &amp; Generative AI Search (GEO)</li>
+                        <li>Ultra-Fast Speed &amp; Performance</li>
+                        <li>Continuous A/B Testing &amp; Scaling</li>
                     </ul>
                     <a href="services.html#landing-pages" class="service-cta">
                         <span>Explore this Service</span>
@@ -483,11 +482,20 @@
                         <div class="service-number">04</div>
                         <div class="service-icon service-icon--brand" aria-hidden="true">
                             <svg viewBox="0 0 48 48">
-                                <g transform="translate(3.5,3.5)" stroke="currentColor" stroke-width="2" fill="none"
+                                <defs>
+                                    <linearGradient id="instaGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#f09433" />
+                                        <stop offset="25%" stop-color="#e6683c" />
+                                        <stop offset="50%" stop-color="#dc2743" />
+                                        <stop offset="75%" stop-color="#cc2366" />
+                                        <stop offset="100%" stop-color="#bc1888" />
+                                    </linearGradient>
+                                </defs>
+                                <g transform="translate(3.5,3.5)" stroke="url(#instaGradient)" stroke-width="2" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="1" y="1" width="18" height="18" rx="5"></rect>
                                     <circle cx="10" cy="10" r="4"></circle>
-                                    <circle cx="15.2" cy="4.8" r="0.7" fill="currentColor" stroke="none"></circle>
+                                    <circle cx="15.2" cy="4.8" r="0.7" fill="url(#instaGradient)" stroke="none"></circle>
                                 </g>
                                 <g transform="translate(26.5,2.5) scale(0.8)">
                                     <path fill="currentColor"
@@ -527,66 +535,67 @@
     <!-- About Teaser -->
     <section class="home-about" id="about-teaser">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-content animate-on-scroll">
-                    <span class="eyebrow home-about-eyebrow">The Agency</span>
-                    <h2 class="section-title">
-                        A growth partner, <br><span class="text-gradient">not another vendor.</span>
-                    </h2>
-                    <p class="about-text">
-                        Adzio runs your ads, website, and content as one integrated growth
-                        system built and managed end to end by a small senior team
-                        that treats your budget like its own capital.
-                    </p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>Full transparency on every dollar</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>Senior partners on every account</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>24/7 Real-time performance tracking</span>
-                        </div>
-                        <div class="about-feature">
-                            <span class="feature-marker" aria-hidden="true"></span>
-                            <span>Strategy driven by data, not guesswork</span>
-                        </div>
+            <div class="about-header animate-on-scroll">
+                <span class="eyebrow home-about-eyebrow">Our Agency</span>
+                <h2 class="section-title">
+                    <span class="title-line-1">Adzio is YOUR growth partner.</span>
+                    <span class="text-gradient title-line-2">Not just another vendor.</span>
+                </h2>
+                <p class="about-text">
+                    Adzio runs your ads, website, and content as one integrated growth
+                    system built and managed end to end by a small senior team
+                    that treats your budget like its own capital.
+                </p>
+            </div>
+
+            <div class="about-accordion home-about-accordion animate-on-scroll" id="aboutAccordion">
+                <div class="accordion-item is-open">
+                    <button class="accordion-header" type="button" aria-expanded="true" aria-controls="growth-detail-1">
+                        <span class="accordion-num" aria-hidden="true">01</span>
+                        <span class="accordion-title">Full transparency on every dollar</span>
+                        <span class="accordion-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="accordion-body" id="growth-detail-1">
+                        <p class="accordion-content">Every ad dollar is accounted for inside a live reporting system that shows spend, leads, acquisition costs, and outcomes as they happen. You always know what is working, what we are changing, and why.</p>
                     </div>
-                    <a href="about-us.html" class="btn btn-ghost btn-lg home-about-btn" data-magnetic>
-                        <span>Inside the Agency</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
                 </div>
 
-                <div class="about-visual animate-on-scroll">
-                    <div class="home-about-stats">
-                        <div class="home-about-stat">
-                            <span class="stat-index">01</span>
-                            <strong>4</strong>
-                            <span>Growth disciplines, unified under one senior team</span>
-                        </div>
-                        <div class="home-about-stat">
-                            <span class="stat-index">02</span>
-                            <strong>100%</strong>
-                            <span>Built exclusively around local businesses</span>
-                        </div>
-                        <div class="home-about-stat">
-                            <span class="stat-index">03</span>
-                            <strong>Daily</strong>
-                            <span>Hands-on optimization. Never set-and-forget.</span>
-                        </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" type="button" aria-expanded="false" aria-controls="growth-detail-2">
+                        <span class="accordion-num" aria-hidden="true">02</span>
+                        <span class="accordion-title">Senior partners on every account</span>
+                        <span class="accordion-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="accordion-body" id="growth-detail-2">
+                        <p class="accordion-content">The people shaping your strategy are the same people reviewing creative, reading the numbers, and making optimization decisions. You get experienced partners—not a junior account manager or offshore hand-off.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" type="button" aria-expanded="false" aria-controls="growth-detail-3">
+                        <span class="accordion-num" aria-hidden="true">03</span>
+                        <span class="accordion-title">24/7 real-time performance tracking</span>
+                        <span class="accordion-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="accordion-body" id="growth-detail-3">
+                        <p class="accordion-content">Your custom performance portal keeps lead volume, ROAS, cost per acquisition, booked revenue, and pipeline movement visible between meetings so decisions stay grounded in the same information we use.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" type="button" aria-expanded="false" aria-controls="growth-detail-4">
+                        <span class="accordion-num" aria-hidden="true">04</span>
+                        <span class="accordion-title">Strategy driven by data, not guesswork</span>
+                        <span class="accordion-icon" aria-hidden="true">+</span>
+                    </button>
+                    <div class="accordion-body" id="growth-detail-4">
+                        <p class="accordion-content">We turn performance data into focused experiments across creative, audiences, offers, landing pages, and follow-up flows. Winners get more budget while weak points get rebuilt.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <div class="section-blend" aria-hidden="true"></div>
 
@@ -617,7 +626,7 @@
                             <span class="subhead-to">TO SUCCESS</span>
                         </div>
                         <div class="process-s0-left-content">
-                            <p class="process-s0-desc">A proven 4-step system that turns your ad spend into consistent,
+                            <p class="process-s0-desc">Our proven 4-step system that turns your ad spend into consistent,
                                 compounding revenue tailored to your business, not a template.</p>
                         </div>
                     </div>
@@ -635,23 +644,62 @@
                     </div>
                     <div class="process-s0-right">
                         <div class="process-s0-stat">
+                            <span class="process-s0-stat-icon" aria-hidden="true">
+                                <!-- ascending steps - summary of the 4-step path -->
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="2 20 7 20 7 15 12 15 12 10 17 10 17 5 22 5" />
+                                </svg>
+                            </span>
                             <span class="process-s0-stat-num">4</span>
                             <span class="process-s0-stat-label">Steps to reach results</span>
                         </div>
                         <div class="process-s1-card">
-                            <div class="process-s1-card-item">
+                            <div class="process-s1-card-item" data-step="1" role="button" tabindex="0" aria-label="Go to Step 01 Discovery Call">
+                                <span class="process-s1-card-icon" aria-hidden="true">
+                                    <!-- phone - matches slide 01 -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                                    </svg>
+                                </span>
                                 <span class="process-s1-card-num">01</span>
                                 <span class="process-s1-card-label">Discovery Call</span>
                             </div>
-                            <div class="process-s1-card-item">
+                            <div class="process-s1-card-item" data-step="2" role="button" tabindex="0" aria-label="Go to Step 02 Custom Strategy">
+                                <span class="process-s1-card-icon" aria-hidden="true">
+                                    <!-- star - matches slide 02 -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                    </svg>
+                                </span>
                                 <span class="process-s1-card-num">02</span>
                                 <span class="process-s1-card-label">Custom Strategy</span>
                             </div>
-                            <div class="process-s1-card-item">
+                            <div class="process-s1-card-item" data-step="3" role="button" tabindex="0" aria-label="Go to Step 03 Launch and Optimize">
+                                <span class="process-s1-card-icon" aria-hidden="true">
+                                    <!-- activity pulse - matches slide 03 -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                    </svg>
+                                </span>
                                 <span class="process-s1-card-num">03</span>
                                 <span class="process-s1-card-label">Launch &amp; Optimize</span>
                             </div>
-                            <div class="process-s1-card-item">
+                            <div class="process-s1-card-item" data-step="4" role="button" tabindex="0" aria-label="Go to Step 04 Scale and Grow">
+                                <span class="process-s1-card-icon" aria-hidden="true">
+                                    <!-- rising bars - matches slide 04 -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="20" x2="18" y2="10" />
+                                        <line x1="12" y1="20" x2="12" y2="4" />
+                                        <line x1="6" y1="20" x2="6" y2="14" />
+                                    </svg>
+                                </span>
                                 <span class="process-s1-card-num">04</span>
                                 <span class="process-s1-card-label">Scale &amp; Grow</span>
                             </div>
@@ -663,7 +711,7 @@
                 <div class="process-slide" id="process-slide-2">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">01 Â· Discovery Call</span>
+                            <span class="process-pain-tag">01. Discovery Call</span>
                             <h2 class="process-pain-heading">We start with a<br><em>real conversation</em></h2>
                         </div>
                         <div class="process-pain-visual">
@@ -686,8 +734,9 @@
                 <div class="process-slide" id="process-slide-3">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">02 Â· Custom Strategy</span>
-                            <h2 class="process-pain-heading">A system built<br><em>around your&nbsp;business</em></h2>
+                            <span class="process-pain-tag">02. Custom Strategy</span>
+                            <h2 class="process-pain-heading">A system built<br><em>around your</em><br><em>business</em>
+                            </h2>
                         </div>
                         <div class="process-pain-visual">
                             <div class="process-icon-ring">
@@ -709,7 +758,7 @@
                 <div class="process-slide" id="process-slide-4">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">03 Â· Launch &amp; Optimize</span>
+                            <span class="process-pain-tag">03. Launch &amp; Optimize</span>
                             <h2 class="process-pain-heading">Live campaigns,<br><em>real results fast</em></h2>
                         </div>
                         <div class="process-pain-visual">
@@ -732,7 +781,7 @@
                 <div class="process-slide" id="process-slide-5">
                     <div class="process-pain-inner">
                         <div class="process-pain-text">
-                            <span class="process-pain-tag">04 Â· Scale &amp; Grow</span>
+                            <span class="process-pain-tag">04. Scale &amp; Grow</span>
                             <h2 class="process-pain-heading">Find what works,<br><em>then scale it</em></h2>
                         </div>
                         <div class="process-pain-visual">
@@ -764,7 +813,7 @@
         </div>
         <div class="container">
             <div class="cta-content cta-content--wide-form">
-                <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Private Client Application</span>
+                <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Book a Call</span>
                 <h2 class="cta-title animate-on-scroll">
                     Ready to <span class="text-gradient">Own Your Market?</span>
                 </h2>
@@ -814,10 +863,16 @@
                                             required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="website">Website <span class="label-optional">(Optional)</span></label>
-                                    <input type="url" id="website" name="website"
-                                        placeholder="e.x. www.yourbusiness.com">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="website">Website <span
+                                                class="label-optional">(Optional)</span></label>
+                                        <input type="url" id="website" name="website"
+                                            placeholder="e.x. www.yourbusiness.com">
+                                    </div>
+                                    <!-- On desktop step 1 the nav buttons are moved in here so Next
+                                         sits beside the website field instead of on its own row. -->
+                                    <div class="quiz-nav-slot" id="quizNavSlot"></div>
                                 </div>
                             </div>
                         </div>
@@ -1047,47 +1102,62 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=4"></script>
+    <script src="js/footer.js?v=5"></script>
 
     <!-- VSL Modal -->
     <div class="vsl-modal" id="vslModal">
         <div class="vsl-modal-overlay" id="vslModalOverlay"></div>
         <div class="vsl-modal-content">
-            <button class="vsl-modal-close" id="vslModalClose" aria-label="Close Video">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
             <div class="vsl-modal-video-container" id="vslVideoContainer">
                 <video id="vslModalVideo" src="Create_an_ultra_premium_seco.mp4" playsinline></video>
                 <div class="vsl-controls" id="vslControls">
-                    <button class="vsl-ctrl-btn" id="vslPlayPause" type="button" aria-label="Play / Pause">
-                        <svg class="vsl-ic vsl-ic-play" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                        <svg class="vsl-ic vsl-ic-pause" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
-                        </svg>
-                    </button>
-                    <div class="vsl-progress" id="vslProgress">
-                        <div class="vsl-progress-fill" id="vslProgressFill"></div>
-                        <div class="vsl-progress-pill" id="vslProgressPill">0:00</div>
-                    </div>
-                    <button class="vsl-ctrl-btn" id="vslMute" type="button" aria-label="Mute / Unmute">
-                        <svg class="vsl-ic vsl-ic-speaker" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3 9v6h4l5 5V4L7 9H3z" />
-                            <path d="M16.5 12a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z" />
-                            <path class="vsl-speaker-slash" d="M4 20L20 4" fill="none" stroke="currentColor"
-                                stroke-width="2.4" stroke-linecap="round" />
-                        </svg>
-                    </button>
-                    <button class="vsl-ctrl-btn" id="vslFullscreen" type="button" aria-label="Fullscreen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <!-- Top Left: White Close Button -->
+                    <button class="vsl-corner-btn vsl-corner-btn--close" id="vslModalClose" type="button"
+                        aria-label="Close Video">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                             stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3m0 8v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3" />
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
                     </button>
+
+                    <!-- Top Right: White Fullscreen Button -->
+                    <button class="vsl-corner-btn vsl-corner-btn--fs" id="vslFullscreen" type="button"
+                        aria-label="Fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                        </svg>
+                    </button>
+
+                    <div class="vsl-bottombar">
+                        <!-- Play / Pause: White card -->
+                        <button class="vsl-ctrl-btn" id="vslPlayPause" type="button" aria-label="Play / Pause">
+                            <svg class="vsl-ic vsl-ic-play" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            <svg class="vsl-ic vsl-ic-pause" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                            </svg>
+                        </button>
+
+                        <div class="vsl-progress" id="vslProgress">
+                            <div class="vsl-progress-track"></div>
+                            <div class="vsl-progress-fill" id="vslProgressFill"></div>
+                            <div class="vsl-progress-pill" id="vslProgressPill">0:00</div>
+                        </div>
+
+                        <!-- Mute / Music Note: White card -->
+                        <button class="vsl-ctrl-btn" id="vslMute" type="button" aria-label="Mute / Unmute">
+                            <svg class="vsl-ic vsl-ic-music" viewBox="0 0 512 512" fill="currentColor">
+                                <path
+                                    d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1 28.3 5z" />
+                                <line class="vsl-mute-slash-cut" x1="44" y1="468" x2="468" y2="44" />
+                                <line class="vsl-mute-slash" x1="44" y1="468" x2="468" y2="44" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1170,8 +1240,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="js/smooth-scroll.js?v=1"></script>
-    <script src="js/main.js?v=55.0"></script>
-    <script src="js/problem.js?v=12.0"></script>
+    <script src="js/main.js?v=58.0"></script>
+    <script src="js/problem.js?v=14.0"></script>
 
 
     <!-- Navbar Morphing Script -->
@@ -1197,13 +1267,28 @@
 
             function buildPath(W, H, tabW) {
                 const cx = W / 2, tL = cx - tabW / 2, tR = cx + tabW / 2;
-                // Until the pill is tall enough to seat the tab cleanly, draw a plain
-                // rounded rectangle â€” this kills the spiky tab-ledge artifacts that
-                // appeared on the bottom corners during the first frames of a hover.
-                if (Math.abs(tabW - W) < 2 || H < TAB_H + 30) {
+                // Only the true rest/docked state is a plain pill (tab spans full width).
+                if (Math.abs(tabW - W) < 2) {
                     return `M ${CR} 0 L ${W - CR} 0 Q ${W} 0 ${W} ${CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${CR} Q 0 0 ${CR} 0 Z`;
                 }
-                return `M ${tL + TAB_CR} 0 L ${tR - TAB_CR} 0 Q ${tR} 0 ${tR} ${TAB_CR} L ${tR} ${TAB_H - STEP_R} Q ${tR} ${TAB_H} ${tR + STEP_R} ${TAB_H} L ${W - CR} ${TAB_H} Q ${W} ${TAB_H} ${W} ${TAB_H + CR} L ${W} ${H - CR} Q ${W} ${H} ${W - CR} ${H} L ${CR} ${H} Q 0 ${H} 0 ${H - CR} L 0 ${TAB_H + CR} Q 0 ${TAB_H} ${CR} ${TAB_H} L ${tL - STEP_R} ${TAB_H} Q ${tL} ${TAB_H} ${tL} ${TAB_H - STEP_R} L ${tL} ${TAB_CR} Q ${tL} 0 ${tL + TAB_CR} 0 Z`;
+                // Previously a short pill fell back to a full-width rounded rect, so the
+                // TOP grew with W for the first half of the hover morph and then snapped
+                // back to the tab width. Instead, always draw the tab silhouette and clamp
+                // the ledge height/radii to whatever the current box can seat. Everything
+                // below scales continuously from 0, so the shape eases out of the rest pill
+                // with no pop and no spiky ledge artifacts.
+                const shoulder = (W - tabW) / 2;
+                const tabH = Math.min(TAB_H, Math.max(TAB_CR + STEP_R, H - 2 * CR));
+                // Ease the tab's top radius from the rest pill's CR to TAB_CR as the
+                // shoulder opens up, so the silhouette leaves the rest state continuously
+                // instead of stepping its corner radius the moment the ledge appears.
+                const tabCr = Math.min(CR - (CR - TAB_CR) * Math.min(1, shoulder / 16), tabH / 2, tabW / 2);
+                const step = Math.min(STEP_R, tabH - tabCr, shoulder / 2);
+                // Corners where the body meets the ledge are limited by the shoulder width;
+                // the bottom corners are not, so they keep their full radius throughout.
+                const ledgeCr = Math.min(CR, shoulder - step, (H - tabH) / 2);
+                const crB = Math.min(CR, (H - tabH) / 2);
+                return `M ${tL + tabCr} 0 L ${tR - tabCr} 0 Q ${tR} 0 ${tR} ${tabCr} L ${tR} ${tabH - step} Q ${tR} ${tabH} ${tR + step} ${tabH} L ${W - ledgeCr} ${tabH} Q ${W} ${tabH} ${W} ${tabH + ledgeCr} L ${W} ${H - crB} Q ${W} ${H} ${W - crB} ${H} L ${crB} ${H} Q 0 ${H} 0 ${H - crB} L 0 ${tabH + ledgeCr} Q 0 ${tabH} ${ledgeCr} ${tabH} L ${tL - step} ${tabH} Q ${tL} ${tabH} ${tL} ${tabH - step} L ${tL} ${tabCr} Q ${tL} 0 ${tL + tabCr} 0 Z`;
             }
 
             let curW = REST_W, curH = REST_H, curTabW = REST_W;
@@ -1279,36 +1364,25 @@
             wrap.addEventListener('mouseenter', () => startAnim(true));
             wrap.addEventListener('mouseleave', () => startAnim(false));
 
-            applyFrame(REST_W, REST_H, REST_W);
+            const isFixedSide = wrap.dataset.navFixedSide === 'true';
+            if (isFixedSide) {
+                window._navScrolled = true;
+                const dw = 90;
+                applyFrame(dw, REST_H, dw);
+            } else {
+                applyFrame(REST_W, REST_H, REST_W);
+            }
 
             // Expose for scroll parallax system
             window._navApplyFrame = applyFrame;
             window._navCancelAnim = function () {
                 if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; startTime = null; }
             };
+            // Lets the scroll handler collapse the pill to the compact docked
+            // width when it crosses the threshold. Without this the pill stays
+            // at REST_W while the anchor math assumes the docked width, so it
+            // sits jammed against the left edge until the first hover.
             window._navStartAnim = startAnim;
-
-            // Active link tracking on click
-            document.querySelectorAll('.nav-item[data-section]').forEach(item => {
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                });
-            });
-
-            // Active link tracking via IntersectionObserver (scroll-based)
-            const sections = document.querySelectorAll('section[id]');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        document.querySelectorAll('.nav-item[data-section]').forEach(i => {
-                            i.classList.toggle('active', i.dataset.section === id);
-                        });
-                    }
-                });
-            }, { threshold: 0.4 });
-            sections.forEach(s => observer.observe(s));
         })();
     </script>
     <script src="js/vsl-scroll.js?v=20"></script>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,9 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=258.0">
+    <link rel="stylesheet" href="css/styles.css?v=279.0">
     <link rel="stylesheet" href="css/animations.css?v=40.0">
-    <link rel="stylesheet" href="css/about-page.css?v=13.1">
+    <link rel="stylesheet" href="css/about-page.css?v=15.0">
     <!-- Lottie Player -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
@@ -40,6 +40,15 @@
             <img src="assets/logo.png" alt="" class="veil-logo">
             <div class="veil-loader"><span class="veil-progress-fill"></span></div>
             <span class="veil-percent">0%</span>
+            <div class="veil-loading-text" aria-hidden="true">
+                <span class="veil-letter" style="--i:0">L</span>
+                <span class="veil-letter" style="--i:1">O</span>
+                <span class="veil-letter" style="--i:2">A</span>
+                <span class="veil-letter" style="--i:3">D</span>
+                <span class="veil-letter" style="--i:4">I</span>
+                <span class="veil-letter" style="--i:5">N</span>
+                <span class="veil-letter" style="--i:6">G</span>
+            </div>
         </div>
     </div>
 
@@ -47,8 +56,8 @@
     <div class="nav-wrap" id="navWrap" data-nav-rest="center" data-nav-fixed-side="true">
         <div class="nav-svg-container" id="navContainer">
             <svg class="nav-bg" id="navSvg" xmlns="http://www.w3.org/2000/svg">
-                <path id="navFill" fill="#0d1a1f" stroke="none" />
-                <path id="navStroke" fill="none" stroke="rgba(0,210,200,0.5)" stroke-width="1.5" />
+                <path id="navFill" fill="#16252c" stroke="none" />
+                <path id="navStroke" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="0.5" />
             </svg>
             <div class="nav-content">
                 <div class="logo-row">
@@ -110,34 +119,98 @@
             </div>
         </div>
     </div>
+
+    <!-- Pinned Header CTA -->
+    <a href="index.html#contact" class="pinned-header-cta" id="pinnedHeaderCta">
+        <svg class="phone-ring-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+            </path>
+        </svg>
+        <span>Book a Call</span>
+    </a>
+
     <main class="about-page-main">
 
         <!-- Hero -->
         <section class="abt-hero" id="about">
             <div class="abt-shell">
-                <div class="abt-hero-inner">
-                    <div class="hero-eyebrow animate-on-scroll">
-                        <span>Adzio</span>
+                <div class="ed-hero">
+                    <div class="ed-masthead animate-on-scroll">
+                        <span class="ed-masthead-rule" aria-hidden="true"></span>
+                        <span class="ed-masthead-brand">Adzio</span>
                     </div>
-                    <h1 class="abt-hero-title animate-on-scroll">
-                        We're the growth partner<br>local businesses<br><span class="text-gradient">actually keep.</span>
-                    </h1>
-                    <p class="abt-hero-lead animate-on-scroll">
-                        Adzio exists for one reason: to help great local businesses compete and win online, without
-                        the jargon, the bloated retainers, or the agency runaround. We run the marketing, you run
-                        the business.
-                    </p>
-                    <div class="abt-hero-cta animate-on-scroll">
-                        <a href="index.html#contact" class="btn btn-primary btn-lg">
-                            <span>Work With Us</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                        </a>
-                        <a href="services.html" class="btn btn-ghost btn-lg">
-                            <span>See What We Do</span>
-                        </a>
+
+                    <div class="ed-hero-body">
+                        <h1 class="ed-hero-title animate-on-scroll">
+                            <span class="ed-line">We're the growth partner</span>
+                            <span class="ed-line">local businesses</span>
+                            <span class="ed-line ed-line--accent">actually keep.</span>
+                        </h1>
+
+                        <div class="ed-hero-aside animate-on-scroll">
+                            <p class="ed-hero-lead">
+                                Adzio exists for one reason: to help great local businesses compete and win online,
+                                without the jargon, the bloated retainers, or the agency runaround. We run the
+                                marketing, you run the business.
+                            </p>
+                            <div class="ed-hero-cta">
+                                <a href="index.html#contact" class="btn btn-primary btn-lg">
+                                    <span>Work With Us</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                                <a href="services.html" class="btn btn-ghost btn-lg">
+                                    <span>See What We Do</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- Logo Carousel Section -->
+        <section class="logo-slider">
+            <div class="logo-slider-shell">
+                <div class="slider-head">
+                    <span class="eyebrow eyebrow--center svc-platform-heading">THE PLATFORMS POWERING OUR <span>GROWTH
+                            SYSTEMS</span></span>
+                </div>
+
+                <div class="logo-slider-viewport">
+                    <div class="slide-track slide-track-top" data-carousel-row="top">
+                        <div class="slide"><img src="business-logos/google.png" alt="Google"></div>
+                        <div class="slide"><img src="business-logos/meta.png" alt="Meta"></div>
+                        <div class="slide"><img src="business-logos/amazon.png" alt="Amazon"></div>
+                        <div class="slide"><img src="business-logos/microsoft.png" alt="Microsoft"></div>
+                        <div class="slide"><img src="business-logos/apple.png" alt="Apple"></div>
+                        <div class="slide"><img src="business-logos/stripe.png" alt="Stripe"></div>
+                        <div class="slide"><img src="business-logos/shopify.png" alt="Shopify"></div>
+                        <div class="slide"><img src="business-logos/salesforce.png" alt="Salesforce"></div>
+                        <div class="slide"><img src="business-logos/hubspot.png" alt="HubSpot"></div>
+                        <div class="slide"><img src="business-logos/quickbooks.png" alt="QuickBooks"></div>
+                    </div>
+                </div>
+
+                <div class="logo-slider-viewport">
+                    <div class="slide-track slide-track-bottom" data-carousel-row="bottom">
+                        <div class="slide"><img src="business-logos/visa.png" alt="Visa"></div>
+                        <div class="slide"><img src="business-logos/mastercard.png" alt="Mastercard"></div>
+                        <div class="slide"><img src="business-logos/amex.png" alt="American Express"></div>
+                        <div class="slide"><img src="business-logos/ups.png" alt="UPS"></div>
+                        <div class="slide"><img src="business-logos/fedex.png" alt="FedEx"></div>
+                        <div class="slide"><img src="business-logos/square.png" alt="Square"></div>
+                        <div class="slide"><img src="business-logos/paypal.png" alt="PayPal"></div>
+                        <div class="slide"><img src="business-logos/zoom.png" alt="Zoom"></div>
+                        <div class="slide"><img src="business-logos/slack.png" alt="Slack"></div>
+                        <div class="slide"><img src="business-logos/notion.png" alt="Notion"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -146,7 +219,8 @@
             <div class="abt-shell">
                 <div class="abt-story-grid">
                     <div class="abt-story-copy animate-on-scroll">
-                        <h2 class="abt-section-title">Built because too many good businesses were being let down.</h2>
+                        <h2 class="abt-section-title">Built because too many proficient businesses were <span
+                                class="abt-grad">being let down.</span></h2>
                         <p>
                             We kept seeing the same thing: skilled, hard-working local businesses losing customers to
                             competitors who simply marketed better, not because their product was worse, but because
@@ -161,20 +235,26 @@
                     </div>
 
                     <div class="abt-story-visual animate-on-scroll">
-                        <div class="growth-console" data-growth-console aria-label="Interactive marketing growth dashboard">
+                        <div class="growth-console" data-growth-console
+                            aria-label="Interactive marketing growth dashboard">
                             <div class="growth-console-glow" aria-hidden="true"></div>
                             <div class="growth-console-head">
                                 <div>
-                                    <span class="growth-console-kicker"><i aria-hidden="true"></i> Client Performance Dashboard</span>
+                                    <span class="growth-console-kicker"><i aria-hidden="true"></i> Client Performance
+                                        Dashboard</span>
                                     <strong>See what drives booked revenue</strong>
-                                    <p>Explore each report view to see how demand turns into qualified leads and revenue.</p>
+                                    <p>Explore each report view to see how demand turns into qualified leads and
+                                        revenue.</p>
                                 </div>
                                 <div class="growth-view-picker">
                                     <span>Choose a report view</span>
                                     <div class="growth-periods" aria-label="Select reporting period">
-                                        <button type="button" data-period="7" aria-label="Show 7-day report"><b>7D</b><small>Week</small></button>
-                                        <button type="button" data-period="30" class="active" aria-label="Show 30-day report"><b>30D</b><small>Month</small></button>
-                                        <button type="button" data-period="90" aria-label="Show 90-day report"><b>90D</b><small>Quarter</small></button>
+                                        <button type="button" data-period="7"
+                                            aria-label="Show 7-day report"><b>7D</b><small>Week</small></button>
+                                        <button type="button" data-period="30" class="active"
+                                            aria-label="Show 30-day report"><b>30D</b><small>Month</small></button>
+                                        <button type="button" data-period="90"
+                                            aria-label="Show 90-day report"><b>90D</b><small>Quarter</small></button>
                                     </div>
                                 </div>
                             </div>
@@ -183,64 +263,73 @@
                                 <div class="growth-kpi growth-kpi--primary">
                                     <span>Booked revenue</span>
                                     <strong data-metric="revenue">$38.4K</strong>
-                                    <em data-delta="revenue">+28.6%</em>
+                                    <em data-delta="revenue">+60% vs baseline</em>
+                                    <small>Baseline <b data-base="revenue">$24.2K</b></small>
                                 </div>
                                 <div class="growth-kpi">
                                     <span>Qualified leads</span>
                                     <strong data-metric="leads">126</strong>
-                                    <em data-delta="leads">+34</em>
+                                    <em data-delta="leads">+37% vs baseline</em>
+                                    <small>Baseline <b data-base="leads">92</b></small>
                                 </div>
                                 <div class="growth-kpi">
-                                    <span>Return on ad spend</span>
-                                    <strong data-metric="roas">5.8x</strong>
-                                    <em data-delta="roas">+1.3x</em>
+                                    <span>Cost per booked job</span>
+                                    <strong data-metric="cpa">$41</strong>
+                                    <em data-delta="cpa" class="is-down">&minus;34% vs baseline</em>
+                                    <small>Baseline <b data-base="cpa">$62</b></small>
                                 </div>
                             </div>
 
                             <div class="growth-chart-wrap">
                                 <div class="growth-chart-head">
-                                    <span>Growth velocity</span>
-                                    <span class="growth-chart-status"><i aria-hidden="true"></i> Compounding</span>
+                                    <span>Booked revenue per <b data-chart-unit>week</b></span>
+                                    <span class="growth-legend">
+                                        <i><s class="growth-swatch growth-swatch--base"></s>Baseline</i>
+                                        <i><s class="growth-swatch growth-swatch--adzio"></s>With Adzio</i>
+                                    </span>
                                 </div>
-                                <svg class="growth-chart" viewBox="0 0 500 170" role="img" aria-label="Increasing marketing performance chart">
+                                <svg class="growth-chart" viewBox="0 0 520 196" role="img" data-chart-svg
+                                    aria-label="Booked revenue with Adzio compared against the pre-Adzio baseline">
                                     <defs>
                                         <linearGradient id="growthArea" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stop-color="#00b8d4" stop-opacity="0.32"></stop>
-                                            <stop offset="100%" stop-color="#00b8d4" stop-opacity="0"></stop>
-                                        </linearGradient>
-                                        <linearGradient id="growthLine" x1="0" y1="0" x2="1" y2="0">
-                                            <stop offset="0%" stop-color="#3b82f6"></stop>
-                                            <stop offset="100%" stop-color="#33d6ee"></stop>
+                                            <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.26"></stop>
+                                            <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"></stop>
                                         </linearGradient>
                                     </defs>
-                                    <g class="growth-grid" aria-hidden="true">
-                                        <line x1="0" y1="30" x2="500" y2="30"></line>
-                                        <line x1="0" y1="82" x2="500" y2="82"></line>
-                                        <line x1="0" y1="134" x2="500" y2="134"></line>
-                                    </g>
-                                    <path class="growth-area" data-chart-area d="M0 145 C48 142 66 126 106 130 C151 134 166 103 210 108 C253 113 276 79 319 84 C365 89 386 51 425 58 C459 64 478 30 500 23 L500 170 L0 170 Z"></path>
-                                    <path class="growth-line" data-chart-line d="M0 145 C48 142 66 126 106 130 C151 134 166 103 210 108 C253 113 276 79 319 84 C365 89 386 51 425 58 C459 64 478 30 500 23"></path>
-                                    <circle class="growth-chart-end" data-chart-end cx="500" cy="23" r="5"></circle>
+                                    <g class="growth-grid" data-chart-grid aria-hidden="true"></g>
+                                    <g class="growth-ylabels" data-chart-ylabels aria-hidden="true"></g>
+                                    <g class="growth-xlabels" data-chart-xlabels aria-hidden="true"></g>
+                                    <path class="growth-area" data-chart-area d=""></path>
+                                    <path class="growth-baseline" data-chart-baseline d=""></path>
+                                    <path class="growth-line" data-chart-line d=""></path>
+                                    <g data-chart-dots></g>
                                 </svg>
                             </div>
 
                             <div class="growth-channels">
-                                <div class="growth-channel">
-                                    <span><i class="growth-channel-dot growth-channel-dot--meta"></i>Meta Ads</span>
+                                <div class="growth-channels-head">
+                                    <span>Booked jobs by channel</span>
+                                    <span data-channel-total>126 total</span>
+                                </div>
+                                <div class="growth-channel" style="--channel-color: #3B78E0">
+                                    <span><i class="growth-channel-dot"></i>Meta Ads</span>
                                     <div><b style="--channel-width: 46%"></b></div>
-                                    <strong data-channel="meta">46%</strong>
+                                    <strong data-channel="meta">58</strong>
                                 </div>
-                                <div class="growth-channel">
-                                    <span><i class="growth-channel-dot growth-channel-dot--google"></i>Google Ads</span>
+                                <div class="growth-channel" style="--channel-color: #C08420">
+                                    <span><i class="growth-channel-dot"></i>Google Ads</span>
                                     <div><b style="--channel-width: 34%"></b></div>
-                                    <strong data-channel="google">34%</strong>
+                                    <strong data-channel="google">43</strong>
                                 </div>
-                                <div class="growth-channel">
-                                    <span><i class="growth-channel-dot growth-channel-dot--organic"></i>Organic</span>
+                                <div class="growth-channel" style="--channel-color: #129FB0">
+                                    <span><i class="growth-channel-dot"></i>Organic / SEO</span>
                                     <div><b style="--channel-width: 20%"></b></div>
-                                    <strong data-channel="organic">20%</strong>
+                                    <strong data-channel="organic">25</strong>
                                 </div>
                             </div>
+
+                            <p class="growth-console-note">Illustrative sample dashboard, not a specific client
+                                account.</p>
                         </div>
                     </div>
                 </div>
@@ -256,23 +345,39 @@
                 <div class="abt-values-list">
                     <div class="abt-value-row animate-on-scroll">
                         <span class="abt-value-num" aria-hidden="true">01</span>
-                        <h3>Data-driven, not guesswork</h3>
-                        <p>Every decision is backed by numbers. We test, measure, and double down on what actually drives bookings.</p>
+                        <h3>Data-driven, not <span class="val-accent">guesswork</span></h3>
+                        <p>Every decision is backed by numbers. We test, measure, and double down on what actually
+                            drives bookings.</p>
+                        <a href="index.html#contact" class="row-book-call">
+                            <span class="type-text">Book a Call &rarr;</span>
+                        </a>
                     </div>
                     <div class="abt-value-row animate-on-scroll">
                         <span class="abt-value-num" aria-hidden="true">02</span>
-                        <h3>Exclusive leads</h3>
-                        <p>Every lead we generate belongs to you alone &mdash; never shared, split, or resold to the competitor down the road. Your pipeline stays yours.</p>
+                        <h3>Exclusive, high-intent <span class="val-accent">leads</span></h3>
+                        <p>Every lead we generate belongs to you alone &mdash; never shared, split, or resold to the
+                            competitor down the road. Your pipeline stays yours.</p>
+                        <a href="index.html#contact" class="row-book-call">
+                            <span class="type-text">Book a Call &rarr;</span>
+                        </a>
                     </div>
                     <div class="abt-value-row animate-on-scroll">
                         <span class="abt-value-num" aria-hidden="true">03</span>
-                        <h3>24/7 performance tracking</h3>
-                        <p>Monitor campaign metrics, bookings, and ROI live at any time through our interactive tracking dashboard.</p>
+                        <h3>24/7 performance <span class="val-accent">tracking</span></h3>
+                        <p>Monitor campaign metrics, bookings, and ROI live at any time through our interactive tracking
+                            dashboard.</p>
+                        <a href="index.html#contact" class="row-book-call">
+                            <span class="type-text">Book a Call &rarr;</span>
+                        </a>
                     </div>
                     <div class="abt-value-row animate-on-scroll">
                         <span class="abt-value-num" aria-hidden="true">04</span>
-                        <h3>A team that's actually yours</h3>
-                        <p>You work directly with the people running your campaigns, not a rotating queue of support reps.</p>
+                        <h3>A team that's actually <span class="val-accent">yours</span></h3>
+                        <p>You work directly with the people running your campaigns, not a rotating queue of support
+                            reps.</p>
+                        <a href="index.html#contact" class="row-book-call">
+                            <span class="type-text">Book a Call &rarr;</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -282,68 +387,52 @@
         <section class="abt-team">
             <div class="abt-shell">
                 <div class="abt-team-heading animate-on-scroll">
-                    <div class="abt-eyebrow">People</div>
                     <h2 class="abt-section-title">Meet the <span class="abt-grad">Founders.</span></h2>
                 </div>
                 <div class="abt-team-layout">
-                    <div class="abt-team-intro animate-on-scroll">
-                        <div class="abt-eyebrow">Founders</div>
-                        <p class="abt-section-sub">A select team of senior, hands-on specialists dedicated to performance. At Adzio, you partner directly with our growth architects.</p>
-                    </div>
                     <div class="abt-team-grid">
                         <article class="abt-team-card animate-on-scroll">
-                            <div class="abt-team-photo abt-team-photo-placeholder">
-                                <span>Image will go here</span>
+                            <div class="abt-team-photo abt-team-photo-placeholder abt-team-photo-devyn">
+                                <img src="assets/instagram/carsbydevyn/devyn_headshot.jpg" alt="Devyn Schroeder">
                             </div>
                             <div class="abt-team-info">
                                 <div>
                                     <h3>Devyn Schroeder</h3>
                                     <span class="abt-role">Co-Founder &amp; Head of Paid Media</span>
                                 </div>
-                                <a href="mailto:devyn@adzio.io" class="abt-team-arrow" aria-label="Email Devyn">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
+                                <a href="mailto:devyn@adzio.io" class="abt-team-email-link" aria-label="Email Devyn">
+                                    EMAIL DEVYN
+                                    <span class="abt-team-email-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
                                 </a>
                             </div>
                         </article>
-                        <article class="abt-team-card animate-on-scroll">
+                        <article class="abt-team-card abt-team-card--anton animate-on-scroll">
                             <div class="abt-team-photo abt-team-photo-placeholder">
-                                <span>Image will go here</span>
+                                <img src="assets/instagram/twanwhips/anton_headshot.png" alt="Anton Veliu">
                             </div>
                             <div class="abt-team-info">
                                 <div>
                                     <h3>Anton Veliu</h3>
                                     <span class="abt-role">Co-Founder &amp; Lead Strategist</span>
                                 </div>
-                                <a href="mailto:anton@adzio.io" class="abt-team-arrow" aria-label="Email Anton">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
+                                <a href="mailto:anton@adzio.io" class="abt-team-email-link" aria-label="Email Anton">
+                                    EMAIL ANTON
+                                    <span class="abt-team-email-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            <polyline points="12 5 19 12 12 19"></polyline>
+                                        </svg>
+                                    </span>
                                 </a>
                             </div>
                         </article>
-                    </div>
-                </div>
-
-                <!-- Get in Touch -->
-                <div class="abt-team-cta animate-on-scroll">
-                    <div class="abt-team-cta-text">
-                        <h3>Want to talk to us directly?</h3>
-                        <p>Reach out to Devyn or Anton personally, or get in touch with the team.</p>
-                    </div>
-                    <div class="abt-team-cta-actions">
-                        <a href="index.html#contact" class="btn btn-primary btn-lg" data-magnetic>
-                            <span>Book a Strategy Call</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                        <a href="mailto:Marketing@Adzio.io" class="btn btn-ghost btn-lg" data-magnetic>
-                            <span>Email the Team</span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -353,88 +442,114 @@
         <section class="abt-proof">
             <div class="abt-shell">
                 <div class="abt-section-head abt-section-head--wide animate-on-scroll">
-                    <div class="abt-eyebrow">Proof, Not Promises</div>
                     <h2 class="abt-section-title">We grew our own audiences first.</h2>
-                     <p class="abt-section-sub">Before we ever ran a campaign for a client, we built large, engaged car communities from zero, on the same platforms we now scale other businesses on.</p>
+                    <p class="abt-section-sub">Before we ever ran a campaign for a client, we built large, engaged car
+                        communities from zero, on the same platforms we now scale other businesses on.</p>
                 </div>
                 <div class="abt-proof-grid">
                     <div class="abt-proof-card abt-proof-card--cyan animate-on-scroll">
-                        <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
+                        <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer"
+                            class="abt-proof-header-link">
                             <div class="abt-proof-head">
                                 <div class="abt-proof-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    <img src="assets/instagram/carsbydevyn/devyn_ig_pfp.jpg"
+                                        alt="@carsbydevyn profile picture" class="abt-proof-avatar">
+                                </div>
+                                <div class="abt-proof-meta">
+                                    <span class="abt-proof-handle">@carsbydevyn</span>
+                                    <span class="abt-proof-by">Built by Devyn</span>
+                                </div>
+                                <svg class="abt-proof-ig" viewBox="0 0 24 24" fill="none" role="img"
+                                    aria-label="Instagram">
+                                    <defs>
+                                        <linearGradient id="igGradCardA" x1="0%" y1="100%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#f09433" />
+                                            <stop offset="25%" stop-color="#e6683c" />
+                                            <stop offset="50%" stop-color="#dc2743" />
+                                            <stop offset="75%" stop-color="#cc2366" />
+                                            <stop offset="100%" stop-color="#bc1888" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#igGradCardA)"
+                                        stroke-width="2.2"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#igGradCardA)"
+                                        stroke-width="2.2"></path>
+                                    <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igGradCardA)"></circle>
+                                </svg>
+                            </div>
+                        </a>
+                        <p class="abt-proof-text">An automotive page Devyn grew and monetized himself, mastering
+                            the content hooks, posting cadence, and audience targeting that turn casual scrollers
+                            into a loyal, engaged following.</p>
+
+                        <!-- Instagram Feed Grid -->
+                        <div class="abt-proof-feed">
+                            <a href="https://www.instagram.com/reel/DWxJXIFje5G/" target="_blank"
+                                rel="noopener noreferrer" class="abt-feed-item">
+                                <img src="assets/instagram/carsbydevyn/ig-1.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
-                                <div class="abt-proof-meta">
-                                    <span class="abt-proof-handle">@carsbydevyn</span>
-                                    <span class="abt-proof-by">Built by Devyn</span>
-                                </div>
-                            </div>
-                        </a>
-                        <p class="abt-proof-text">An automotive page Devyn grew and monetized himself, mastering
-                            the content hooks, posting cadence, and audience targeting that turn casual scrollers
-                            into a loyal, engaged following.</p>
-                        
-                        <!-- Instagram Feed Grid -->
-                        <div class="abt-proof-feed">
-                            <a href="https://www.instagram.com/reel/DWxJXIFje5G/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
-                                <img src="assets/instagram/carsbydevyn/ig-1.jpg" alt="Instagram Post" loading="lazy">
-                                <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                    </svg>
-                                </div>
                             </a>
-                            <a href="https://www.instagram.com/reel/DNv8_0UZAbW/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/reel/DNv8_0UZAbW/" target="_blank"
+                                rel="noopener noreferrer" class="abt-feed-item">
                                 <img src="assets/instagram/carsbydevyn/ig-2.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/reel/DQLBExQDFhH/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/reel/DQLBExQDFhH/" target="_blank"
+                                rel="noopener noreferrer" class="abt-feed-item">
                                 <img src="assets/instagram/carsbydevyn/ig-3.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/reel/C5oFpGkLwvq/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/reel/C5oFpGkLwvq/" target="_blank"
+                                rel="noopener noreferrer" class="abt-feed-item">
                                 <img src="assets/instagram/carsbydevyn/ig-4.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/reel/DXe68iwkRMg/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/reel/DXe68iwkRMg/" target="_blank"
+                                rel="noopener noreferrer" class="abt-feed-item">
                                 <img src="assets/instagram/carsbydevyn/ig-5.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/p/DZiz9G4man0/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/p/DZiz9G4man0/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
                                 <img src="assets/instagram/carsbydevyn/ig-6.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -443,7 +558,8 @@
                             </a>
                         </div>
 
-                        <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer" class="abt-proof-cta">
+                        <a href="https://www.instagram.com/carsbydevyn/" target="_blank" rel="noopener noreferrer"
+                            class="abt-proof-cta">
                             <span>View the page</span>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -453,82 +569,108 @@
                         </a>
                     </div>
                     <div class="abt-proof-card abt-proof-card--purple animate-on-scroll">
-                        <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-header-link">
+                        <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer"
+                            class="abt-proof-header-link">
                             <div class="abt-proof-head">
                                 <div class="abt-proof-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    <img src="assets/instagram/twanwhips/anton_ig_pfp.jpg"
+                                        alt="@twanwhips profile picture" class="abt-proof-avatar">
+                                </div>
+                                <div class="abt-proof-meta">
+                                    <span class="abt-proof-handle">@twanwhips</span>
+                                    <span class="abt-proof-by">Built by Anton</span>
+                                </div>
+                                <svg class="abt-proof-ig" viewBox="0 0 24 24" fill="none" role="img"
+                                    aria-label="Instagram">
+                                    <defs>
+                                        <linearGradient id="igGradCardB" x1="0%" y1="100%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#f09433" />
+                                            <stop offset="25%" stop-color="#e6683c" />
+                                            <stop offset="50%" stop-color="#dc2743" />
+                                            <stop offset="75%" stop-color="#cc2366" />
+                                            <stop offset="100%" stop-color="#bc1888" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#igGradCardB)"
+                                        stroke-width="2.2"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#igGradCardB)"
+                                        stroke-width="2.2"></path>
+                                    <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igGradCardB)"></circle>
+                                </svg>
+                            </div>
+                        </a>
+                        <p class="abt-proof-text">Anton's automotive brand, scaled through sharp content and
+                            community building, the same playbook he now uses to grow local businesses and turn
+                            their attention into booked revenue.</p>
+
+                        <!-- Instagram Feed Grid -->
+                        <div class="abt-proof-feed">
+                            <a href="https://www.instagram.com/p/DYcjQhgNava/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
+                                <img src="assets/instagram/twanwhips/ig-1.jpg" alt="Instagram Post" loading="lazy">
+                                <div class="abt-feed-overlay">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
-                                <div class="abt-proof-meta">
-                                    <span class="abt-proof-handle">@twanwhips</span>
-                                    <span class="abt-proof-by">Built by Anton</span>
-                                </div>
-                            </div>
-                        </a>
-                        <p class="abt-proof-text">Anton's automotive brand, scaled through sharp content and
-                            community building, the same playbook he now uses to grow local businesses and turn
-                            their attention into booked revenue.</p>
-                        
-                        <!-- Instagram Feed Grid -->
-                        <div class="abt-proof-feed">
-                            <a href="https://www.instagram.com/p/DYcjQhgNava/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
-                                <img src="assets/instagram/twanwhips/ig-1.jpg" alt="Instagram Post" loading="lazy">
-                                <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                    </svg>
-                                </div>
                             </a>
-                            <a href="https://www.instagram.com/p/DQzRIX1jaH0/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/p/DQzRIX1jaH0/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
                                 <img src="assets/instagram/twanwhips/ig-2.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/p/DZLemaPBNVF/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/p/DZLemaPBNVF/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
                                 <img src="assets/instagram/twanwhips/ig-3.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/p/DYiPIfrBLid/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/p/DYiPIfrBLid/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
                                 <img src="assets/instagram/twanwhips/ig-4.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/p/DYxPc03Bs0m/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/p/DYxPc03Bs0m/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
                                 <img src="assets/instagram/twanwhips/ig-5.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                                     </svg>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/p/DQdSjEVjYx1/" target="_blank" rel="noopener noreferrer" class="abt-feed-item">
+                            <a href="https://www.instagram.com/p/DQdSjEVjYx1/" target="_blank" rel="noopener noreferrer"
+                                class="abt-feed-item">
                                 <img src="assets/instagram/twanwhips/ig-6.jpg" alt="Instagram Post" loading="lazy">
                                 <div class="abt-feed-overlay">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -537,7 +679,8 @@
                             </a>
                         </div>
 
-                        <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer" class="abt-proof-cta">
+                        <a href="https://www.instagram.com/twanwhips/" target="_blank" rel="noopener noreferrer"
+                            class="abt-proof-cta">
                             <span>View the page</span>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -558,7 +701,7 @@
             </div>
             <div class="container">
                 <div class="cta-content cta-content--wide-form">
-                    <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Private Client Application</span>
+                    <span class="eyebrow eyebrow--center cta-eyebrow animate-on-scroll">Book a Call</span>
                     <h2 class="cta-title animate-on-scroll">
                         Ready to <span class="text-gradient">Own Your Market?</span>
                     </h2>
@@ -583,35 +726,48 @@
                             <!-- Step 1: Contact Details -->
                             <div class="quiz-step active" data-step="1">
                                 <h2 class="quiz-step-title">Introduce yourself</h2>
-                                <p class="quiz-step-subtitle">Tell us who you are so we can prepare your private strategy
+                                <p class="quiz-step-subtitle">Tell us who you are so we can prepare your private
+                                    strategy
                                     session.</p>
                                 <div class="quiz-form-grid">
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label for="first-name">First Name <span class="label-required">*</span></label>
+                                            <label for="first-name">First Name <span
+                                                    class="label-required">*</span></label>
                                             <input type="text" id="first-name" name="first_name" placeholder="John"
                                                 required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="last-name">Last Name <span class="label-required">*</span></label>
-                                            <input type="text" id="last-name" name="last_name" placeholder="Smith" required>
+                                            <label for="last-name">Last Name <span
+                                                    class="label-required">*</span></label>
+                                            <input type="text" id="last-name" name="last_name" placeholder="Smith"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label for="phone">Phone Number <span class="label-required">*</span></label>
-                                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+                                            <label for="phone">Phone Number <span
+                                                    class="label-required">*</span></label>
+                                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567"
+                                                required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="email">Email Address <span class="label-required">*</span></label>
+                                            <label for="email">Email Address <span
+                                                    class="label-required">*</span></label>
                                             <input type="email" id="email" name="email" placeholder="john@example.com"
                                                 required>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="website">Website <span class="label-optional">(Optional)</span></label>
-                                        <input type="url" id="website" name="website"
-                                            placeholder="e.x. www.yourbusiness.com">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="website">Website <span
+                                                    class="label-optional">(Optional)</span></label>
+                                            <input type="url" id="website" name="website"
+                                                placeholder="e.x. www.yourbusiness.com">
+                                        </div>
+                                        <!-- On desktop step 1 the nav buttons are moved in here so Next
+                                             sits beside the website field instead of on its own row. -->
+                                        <div class="quiz-nav-slot" id="quizNavSlot"></div>
                                     </div>
                                 </div>
                             </div>
@@ -633,7 +789,8 @@
                                             results.</option>
                                         <option value="want-to-scale">I have a steady flow of leads and want to scale.
                                         </option>
-                                        <option value="in-house-team">I have an in-house marketing team and need additional
+                                        <option value="in-house-team">I have an in-house marketing team and need
+                                            additional
                                             support.</option>
                                         <option value="exploring">I'm just exploring options right now.</option>
                                     </select>
@@ -643,10 +800,12 @@
                             <!-- Step 3: Service Type -->
                             <div class="quiz-step" data-step="3">
                                 <h2 class="quiz-step-title">Which service do you need first?</h2>
-                                <p class="quiz-step-subtitle">Select the channel you want to scale first &ndash; we'll map
+                                <p class="quiz-step-subtitle">Select the channel you want to scale first &ndash; we'll
+                                    map
                                     the rest on the call.</p>
                                 <div class="form-group">
-                                    <label for="service">Interested Service <span class="label-required">*</span></label>
+                                    <label for="service">Interested Service <span
+                                            class="label-required">*</span></label>
                                     <select id="service" name="service" required>
                                         <option value="">Select a service</option>
                                         <option value="meta">Meta Ad Management</option>
@@ -690,7 +849,8 @@
                             <!-- Step 4: Revenue -->
                             <div class="quiz-step" data-step="4">
                                 <h2 class="quiz-step-title">What is your approximate monthly revenue?</h2>
-                                <p class="quiz-step-subtitle">This calibrates your growth plan &ndash; and confirms we're
+                                <p class="quiz-step-subtitle">This calibrates your growth plan &ndash; and confirms
+                                    we're
                                     the right fit for each other.</p>
                                 <div class="form-group">
                                     <label for="revenue">Business Monthly Revenue <span
@@ -738,8 +898,10 @@
                                 </div>
                                 <p class="quiz-form-terms-note">
                                     By submitting you agree to our <button type="button" class="legal-link"
-                                        onclick="typeof openLegal==='function'&&openLegal('terms')">Terms</button> and <button type="button"
-                                        class="legal-link" onclick="typeof openLegal==='function'&&openLegal('privacy')">Privacy Policy</button>
+                                        onclick="typeof openLegal==='function'&&openLegal('terms')">Terms</button> and
+                                    <button type="button" class="legal-link"
+                                        onclick="typeof openLegal==='function'&&openLegal('privacy')">Privacy
+                                        Policy</button>
                                 </p>
                             </div>
 
@@ -773,7 +935,8 @@
                             <h3 class="success-title">You're All Set, <span id="quizSuccessName">Friend</span>!</h3>
                             <p class="success-subtitle" style="margin-bottom: 2rem;">Your strategy call assessment is
                                 complete. We're excited to help scale your business.</p>
-                            <div class="success-details" style="margin: 0 auto 2rem; max-width: 480px; text-align: left;">
+                            <div class="success-details"
+                                style="margin: 0 auto 2rem; max-width: 480px; text-align: left;">
                                 <div class="success-detail-item">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -805,20 +968,63 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=4"></script>
+    <script src="js/footer.js?v=5"></script>
 
     <!-- VSL Modal -->
     <div class="vsl-modal" id="vslModal">
         <div class="vsl-modal-overlay" id="vslModalOverlay"></div>
         <div class="vsl-modal-content">
-            <button class="vsl-modal-close" id="vslModalClose" aria-label="Close Video">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-            <div class="vsl-modal-video-container">
-                <video id="vslModalVideo" src="Adzio%20VSL.mov" controls playsinline controlsList="nodownload"></video>
+            <div class="vsl-modal-video-container" id="vslVideoContainer">
+                <video id="vslModalVideo" src="Adzio%20VSL.mov" playsinline></video>
+                <div class="vsl-controls" id="vslControls">
+                    <!-- Top Left: White Close Button -->
+                    <button class="vsl-corner-btn vsl-corner-btn--close" id="vslModalClose" type="button"
+                        aria-label="Close Video">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+
+                    <!-- Top Right: White Fullscreen Button -->
+                    <button class="vsl-corner-btn vsl-corner-btn--fs" id="vslFullscreen" type="button"
+                        aria-label="Fullscreen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                        </svg>
+                    </button>
+
+                    <div class="vsl-bottombar">
+                        <!-- Play / Pause: White card -->
+                        <button class="vsl-ctrl-btn" id="vslPlayPause" type="button" aria-label="Play / Pause">
+                            <svg class="vsl-ic vsl-ic-play" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            <svg class="vsl-ic vsl-ic-pause" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                            </svg>
+                        </button>
+
+                        <div class="vsl-progress" id="vslProgress">
+                            <div class="vsl-progress-track"></div>
+                            <div class="vsl-progress-fill" id="vslProgressFill"></div>
+                            <div class="vsl-progress-pill" id="vslProgressPill">0:00</div>
+                        </div>
+
+                        <!-- Mute / Music Note: White card -->
+                        <button class="vsl-ctrl-btn" id="vslMute" type="button" aria-label="Mute / Unmute">
+                            <svg class="vsl-ic vsl-ic-music" viewBox="0 0 512 512" fill="currentColor">
+                                <path
+                                    d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1 28.3 5z" />
+                                <line class="vsl-mute-slash-cut" x1="44" y1="468" x2="468" y2="44" />
+                                <line class="vsl-mute-slash" x1="44" y1="468" x2="468" y2="44" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -830,9 +1036,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="js/smooth-scroll.js?v=1"></script>
-    <script src="js/main.js?v=51.0"></script>
-    <script src="js/about-growth.js?v=1"></script>
-    <script src="js/problem.js?v=1.6"></script>
+    <script src="js/main.js?v=58.0"></script>
+    <script src="js/about-growth.js?v=2"></script>
+    <script src="js/problem.js?v=13.0"></script>
     <script src="js/silk-bg.js?v=1"></script>
 
     <!-- Navbar Morphing Script -->

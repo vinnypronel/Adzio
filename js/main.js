@@ -21,7 +21,90 @@ document.addEventListener('DOMContentLoaded', () => {
     initLottieAnimations();
     initHeroLeftScroll();
     initProblemReveal();
+    initPinnedCtaAccent();
+    initAboutAccordion();
 });
+
+/* ============================================
+   About Section Accordion
+   ============================================ */
+
+function initAboutAccordion() {
+    const accordion = document.getElementById('aboutAccordion');
+    if (!accordion) return;
+
+    accordion.addEventListener('click', (e) => {
+        const header = e.target.closest('.accordion-header');
+        if (!header) return;
+
+        const item = header.closest('.accordion-item');
+        if (!item) return;
+
+        const isOpen = item.classList.contains('is-open');
+
+        // Close all other items
+        accordion.querySelectorAll('.accordion-item').forEach(other => {
+            if (other !== item) {
+                other.classList.remove('is-open');
+                const btn = other.querySelector('.accordion-header');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Toggle clicked item
+        if (isOpen) {
+            item.classList.remove('is-open');
+            header.setAttribute('aria-expanded', 'false');
+        } else {
+            item.classList.add('is-open');
+            header.setAttribute('aria-expanded', 'true');
+        }
+    });
+}
+
+/* ============================================
+   Pinned CTA Accent (services page)
+   ============================================ */
+
+// The fixed Book a Call button adopts the accent of the service section it is
+// sitting over. Colors live in services-page.css, keyed off data-cta-accent.
+function initPinnedCtaAccent() {
+    const cta = document.getElementById('pinnedHeaderCta');
+    const sections = document.querySelectorAll('.svc-detail[data-accent]');
+    if (!cta || !sections.length) return;
+
+    let ticking = false;
+
+    function update() {
+        ticking = false;
+        // Probe a third of the way down the viewport rather than at the button
+        // itself, so the button picks up a section's accent while that section
+        // is still moving up into view instead of only once it clears the top.
+        const probe = window.innerHeight * 0.35;
+
+        let accent = '';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= probe && rect.bottom > probe) accent = section.dataset.accent;
+        });
+
+        if (accent) {
+            cta.dataset.ctaAccent = accent;
+        } else {
+            delete cta.dataset.ctaAccent;
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', update, { passive: true });
+    update();
+}
 
 /* ============================================
    Problem Section Stagger Reveal
@@ -97,6 +180,9 @@ function initNavParallax() {
         window._navScrolled = true;
         wrap.classList.add('scrolled');
         window._navCurW = window._navDockedW;
+        if (typeof window._navApplyFrame === 'function') {
+            window._navApplyFrame(window._navDockedW, 50, window._navDockedW);
+        }
     } else {
         window._navScrollProgress = 0;
         window._navCurW = REST_W;
@@ -111,12 +197,17 @@ function initNavParallax() {
         // the SVG geometry / centering math stays untouched.
         const navScale = 1 + Math.min(Math.max((vw - 1440) / 1120, 0), 1) * 0.28;
         document.documentElement.style.setProperty('--nav-scale', navScale.toFixed(3));
+        window._navScale = navScale;
 
         const restMode = wrap.dataset.navRest || 'left';
         const anchorL = restMode === 'center'
             ? vw / 2
             : vw * 0.17; // Home starts above the 'e' in 'Help'
-        const anchorDocked = DOCKED_LEFT + (window._navDockedW / 2); // Compact pill docks flush to the top-left
+        // The pill is centred on this point, but .nav-svg-container scales about
+        // its top-centre, so its visual half-width is (W / 2 * navScale). Offset
+        // by the scaled half-width or the docked pill slides left off-screen
+        // once navScale climbs past 1 (viewports wider than 1440px).
+        const anchorDocked = DOCKED_LEFT + (window._navDockedW / 2) * navScale;
 
         document.documentElement.style.setProperty('--nav-shift-from', `${anchorL}px`);
         document.documentElement.style.setProperty('--nav-shift-to', `${anchorDocked}px`);
@@ -160,7 +251,7 @@ function initNavParallax() {
     window._navReframe = function (navW) {
         const p = window._navScrollProgress || 0;
         const anchorL = window._navShiftFrom || 0;
-        const dockedLeft = DOCKED_LEFT + ((navW || window._navDockedW || REST_W) / 2);
+        const dockedLeft = DOCKED_LEFT + ((navW || window._navDockedW || REST_W) / 2) * (window._navScale || 1);
         const currentTarget = p >= 1 ? dockedLeft : anchorL + (dockedLeft - anchorL) * p;
         
         // Keep the left edge pinned while the nav morphs between compact and expanded docked states.
@@ -231,12 +322,8 @@ async function prepareCarouselTracks(slider) {
         safeViewportWidth = Math.min(safeViewportWidth, baseWidth - 24);
     });
 
-    const viewportMax = Number.isFinite(safeViewportWidth) && safeViewportWidth > 0
-        ? `${Math.floor(safeViewportWidth)}px`
-        : '';
-
     viewports.forEach(viewport => {
-        viewport.style.maxWidth = viewportMax;
+        viewport.style.maxWidth = '100%';
     });
 
     tracks.forEach(track => {
@@ -473,18 +560,132 @@ function initVSLPlayer() {
     }
     */
 
-    const openModal = () => {
+    const vslModalContent = vslModal.querySelector('.vsl-modal-content');
+    let originRect = null;
+
+    // Clip-path reveal (the ribbit.dk technique). The panel is always laid out at
+    // its final size and never scaled; only the visible rectangle animates, so the
+    // video never squashes or drifts the way a transform-scale expand does.
+    // Timings mirror theirs: 0.8s expo-out with a 50ms delay.
+    const EXPAND_MS = 800;
+    const EXPAND_DELAY = 50;
+    const EXPAND_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'; // expo.out
+    const COLLAPSE_MS = 450;
+    const PANEL_RADIUS = 16; // matches .vsl-modal-content border-radius
+
+    const CLIP_FULL = `inset(0px 0px 0px 0px round ${PANEL_RADIUS}px)`;
+
+    // Expresses a viewport rect as a clip-path inset on the expanded panel, so the
+    // reveal starts exactly on top of whatever frame was clicked. Because it reads
+    // the source's live bounding rect, it works identically at full hero size and
+    // at the shrunk corner dock (which is scaled by transform).
+    const clipFromRect = (rect) => {
+        const panel = vslModalContent.getBoundingClientRect();
+        if (!panel.width || !panel.height) return null;
+        // clip-path insets resolve against the panel's own unzoomed box, while
+        // getBoundingClientRect reports visual px. The desktop down-scale sets
+        // `zoom` on :root, so convert the deltas or the reveal starts 1/zoom too big.
+        const ow = vslModalContent.offsetWidth;
+        const oh = vslModalContent.offsetHeight;
+        const k = ow ? panel.width / ow : 1;
+        const s = k > 0 ? k : 1;
+
+        // Source rect in the panel's own coordinate space.
+        let vl = (rect.left - panel.left) / s;
+        let vt = (rect.top - panel.top) / s;
+        let vr = (rect.right - panel.left) / s;
+        let vb = (rect.bottom - panel.top) / s;
+
+        // The panel is a centred 16:9 box, so the scroll-docked corner thumbnail can
+        // sit completely outside it. A clip can only reveal the panel's own pixels,
+        // so keep a sliver alive on the nearest edge - the reveal then grows out of
+        // the corner the thumbnail sits in instead of starting from nothing.
+        const MIN = 24;
+        vl = Math.min(vl, ow - MIN);
+        vt = Math.min(vt, oh - MIN);
+        vr = Math.max(vr, vl + MIN, MIN);
+        vb = Math.max(vb, vt + MIN, MIN);
+        vl = Math.min(vl, vr - MIN);
+        vt = Math.min(vt, vb - MIN);
+
+        const t = vt, l = vl, r = ow - vr, b = oh - vb;
+        return `inset(${t.toFixed(1)}px ${r.toFixed(1)}px ${b.toFixed(1)}px ${l.toFixed(1)}px round ${PANEL_RADIUS}px)`;
+    };
+
+    let playTimer = null;
+
+    const openModal = (e) => {
+        // Find click source or active video element (hero frame or corner dock)
+        const activePip = document.querySelector('.vsl-pip-active');
+        const heroContainer = document.getElementById('vslHeroContainer') || document.querySelector('.hero-vsl');
+        const sourceEl = activePip || (e && e.currentTarget && e.currentTarget.closest('.hero-vsl')) || heroContainer;
+
         vslModal.classList.add('is-open');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
         if (vslThumbnail) vslThumbnail.pause(); // Pause thumbnail
         vslModalVideo.currentTime = 0; // Reset video to start
-        vslModalVideo.muted = false;   // play with sound (this is a user gesture)
-        vslModalVideo.play();
+        vslModalVideo.muted = false;   // play with sound
+
+        if (sourceEl && vslModalContent) {
+            originRect = sourceEl.getBoundingClientRect();
+
+            vslModalContent.style.transition = 'none';
+            vslModalContent.style.opacity = '1';
+            // The panel must sit at its real, unscaled size before measuring —
+            // the clip does all the animating, so no transform is ever applied.
+            vslModalContent.style.transform = 'none';
+
+            const startClip = clipFromRect(originRect);
+            if (startClip) {
+                vslModalContent.style.clipPath = startClip;
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        vslModalContent.style.transition =
+                            `clip-path ${EXPAND_MS}ms ${EXPAND_EASE} ${EXPAND_DELAY}ms`;
+                        vslModalContent.style.clipPath = CLIP_FULL;
+                    });
+                });
+            }
+        }
+
+        // Start playback once the panel has finished opening, so the expansion
+        // reads as the frame growing rather than a video already running.
+        clearTimeout(playTimer);
+        playTimer = setTimeout(() => {
+            const p = vslModalVideo.play();
+            // Autoplay with sound can still be refused; fall back to muted.
+            if (p && p.catch) {
+                p.catch(() => {
+                    vslModalVideo.muted = true;
+                    const retry = vslModalVideo.play();
+                    if (retry && retry.catch) retry.catch(() => {});
+                });
+            }
+        }, sourceEl && vslModalContent ? EXPAND_MS : 0);
     };
+
     // Let the big hero video / PiP click open the modal too (vsl-scroll.js calls this)
     window.openVSLModal = openModal;
 
     const closeModal = () => {
+        clearTimeout(playTimer);
+
+        if (originRect && vslModalContent) {
+            // Collapse back into the same corner it grew out of. The source may
+            // have scrolled since it opened, so re-read it when it is still around.
+            const sourceEl = document.querySelector('.vsl-pip-active')
+                || document.getElementById('vslHeroContainer')
+                || document.querySelector('.hero-vsl');
+            const rect = sourceEl ? sourceEl.getBoundingClientRect() : originRect;
+            const endClip = clipFromRect(rect);
+
+            vslModalContent.style.transition =
+                `clip-path ${COLLAPSE_MS}ms ${EXPAND_EASE}, opacity 0.35s ease`;
+            if (endClip) vslModalContent.style.clipPath = endClip;
+            vslModalContent.style.opacity = '0';
+        }
+
         vslModal.classList.remove('is-open');
         document.body.style.overflow = ''; // Restore scrolling
         vslModalVideo.pause();
@@ -497,6 +698,9 @@ function initVSLPlayer() {
 
     // Events
     playBtn.addEventListener('click', openModal);
+    const vslHeroContainer = document.getElementById('vslHeroContainer');
+    if (vslHeroContainer) vslHeroContainer.addEventListener('click', openModal);
+    if (vslThumbnail) vslThumbnail.addEventListener('click', openModal);
 
     // Close modal handlers
     if (vslModalClose) vslModalClose.addEventListener('click', closeModal);
@@ -608,6 +812,26 @@ function initVSLPlayer() {
                 (fsEl.requestFullscreen || fsEl.webkitRequestFullscreen || fsEl.msRequestFullscreen || function () {}).call(fsEl);
             }
         });
+
+        // Fade the chrome out during uninterrupted playback, same as a
+        // standard cinematic player - reappears instantly on any pointer
+        // activity, and always stays visible while paused.
+        let idleTimer = null;
+        const showControls = () => {
+            vslControls.classList.remove('is-idle');
+            clearTimeout(idleTimer);
+            if (!vslModalVideo.paused) {
+                idleTimer = setTimeout(() => vslControls.classList.add('is-idle'), 2500);
+            }
+        };
+        vslModalVideo.addEventListener('play', showControls);
+        vslModalVideo.addEventListener('pause', showControls);
+        if (vslVideoContainer) {
+            vslVideoContainer.addEventListener('pointermove', showControls);
+            vslVideoContainer.addEventListener('mouseleave', () => {
+                if (!vslModalVideo.paused) idleTimer = setTimeout(() => vslControls.classList.add('is-idle'), 600);
+            });
+        }
     }
 }
 
@@ -887,6 +1111,21 @@ function initFormHandling() {
         return isValid;
     }
 
+    // On desktop, step 1 parks the nav buttons next to the website field (half
+    // width each). Every other step, and all mobile widths, keep them on their
+    // own row at the end of the form.
+    function positionNavButtons(stepNum) {
+        const navButtons = quizForm.querySelector('.quiz-nav-buttons');
+        const navSlot = quizForm.querySelector('#quizNavSlot');
+        if (!navButtons || !navSlot) return;
+
+        const inline = stepNum === 1 && window.innerWidth > 768;
+        const target = inline ? navSlot : quizForm;
+        if (navButtons.parentElement !== target) target.appendChild(navButtons);
+    }
+
+    window.addEventListener('resize', () => positionNavButtons(currentStep));
+
     // Step Rendering function
     function showStep(stepNum) {
         // Toggle steps visibility
@@ -919,6 +1158,8 @@ function initFormHandling() {
                 nextBtn.querySelector('span').textContent = 'Next';
             }
         }
+
+        positionNavButtons(stepNum);
     }
 
     function nextStep() {
@@ -955,6 +1196,9 @@ function initFormHandling() {
 
     if (nextBtn) nextBtn.addEventListener('click', nextStep);
     if (prevBtn) prevBtn.addEventListener('click', prevStep);
+
+    // Initial placement (step 1 renders from markup, showStep isn't called yet)
+    positionNavButtons(currentStep);
 
     // Submit handler
     async function submitQuizForm() {
@@ -1157,11 +1401,16 @@ function initCustomSelects() {
         const list = document.createElement('ul');
         list.className = 'custom-select-list';
         list.setAttribute('role', 'listbox');
+        // Keep Lenis smooth scroll off this element so the wheel scrolls the
+        // options, not the page.
+        list.setAttribute('data-lenis-prevent', '');
 
         Array.from(select.options).forEach(opt => {
+            // The empty option is the trigger's placeholder text only, it is not
+            // a selectable row in the list.
+            if (!opt.value) return;
             const li = document.createElement('li');
             li.className = 'custom-select-item';
-            if (!opt.value) li.classList.add('is-placeholder');
             if (opt.value === '5k-10k') li.classList.add('is-ineligible');
             li.dataset.value = opt.value;
             li.textContent = opt.text;
@@ -1198,6 +1447,18 @@ function initCustomSelects() {
                 trigger.setAttribute('aria-expanded', 'true');
             }
         });
+
+        // While the dropdown is open, the wheel belongs to the options list.
+        // stopPropagation keeps the event away from the Lenis listener on
+        // window; over the trigger itself we forward the delta into the list.
+        wrapper.addEventListener('wheel', e => {
+            if (!wrapper.classList.contains('is-open')) return;
+            e.stopPropagation();
+            if (!list.contains(e.target)) {
+                list.scrollTop += e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+                e.preventDefault();
+            }
+        }, { passive: false });
 
         list.addEventListener('click', e => {
             const item = e.target.closest('.custom-select-item');

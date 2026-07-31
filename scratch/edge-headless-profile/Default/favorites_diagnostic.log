@@ -1,0 +1,74 @@
+2026-07-21 22:24:24.597: [INFO] OnDoneLoading sync enabled: 0
+2026-07-21 22:24:24.601: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-07-21 22:24:24.949: [INFO] VisibilityChanged: 0
+2026-07-21 22:24:26.160: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 0
+2026-07-21 22:24:26.181: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-07-21 22:24:26.191: [INFO] Primary account changed.
+2026-07-21 22:24:26.191: [INFO] OnPrimaryAccountChanged PrimaryAccountChangeEvent::Type::kSet
+2026-07-21 22:24:26.209: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-07-21 22:24:26.259: [INFO] RecordSyncInitDuration has_sync_been_enabled: 0 state: 3
+2026-07-21 22:24:28.301: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.305: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.311: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.314: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.317: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.320: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.324: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.331: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.331: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.332: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.334: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.337: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.342: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.344: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.347: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.350: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.352: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.355: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.357: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.360: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.362: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.365: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.366: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.368: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.371: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.376: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.377: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.377: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.380: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.383: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.385: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.389: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.395: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.398: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.401: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.405: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.407: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.414: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.417: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.417: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.421: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.423: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.426: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.428: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.431: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.433: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.436: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.438: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.440: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.446: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.451: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.454: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.456: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.459: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:28.472: [INFO] BookmarkNodeAdded, ABU: 0
+2026-07-21 22:24:29.315: [INFO] Sync initialization duration: 2808ms
+2026-07-22 15:58:16.571: [INFO] OnDoneLoading sync enabled: 1
+2026-07-22 15:58:16.779: [INFO] VisibilityChanged: 0
+2026-07-22 15:58:17.137: [INFO] Sync initialization duration: 141ms
+2026-07-28 18:59:41.711: [INFO] OnDoneLoading sync enabled: 1
+2026-07-28 18:59:41.888: [INFO] VisibilityChanged: 0
+2026-07-28 18:59:42.020: [INFO] Sync initialization duration: 66ms
+2026-07-30 03:24:05.862: [INFO] OnDoneLoading sync enabled: 1
+2026-07-30 03:24:06.058: [INFO] VisibilityChanged: 0
+2026-07-30 03:24:06.202: [INFO] Sync initialization duration: 72ms
