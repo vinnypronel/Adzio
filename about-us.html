@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=295.0">
+    <link rel="stylesheet" href="css/styles.css?v=298.0">
     <link rel="stylesheet" href="css/animations.css?v=40.0">
     <link rel="stylesheet" href="css/about-page.css?v=17.0">
     <!-- Lottie Player -->
@@ -160,6 +160,10 @@
                                 </a>
                                 <a href="services.html" class="btn btn-ghost btn-lg">
                                     <span>See What We Do</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                    </svg>
                                 </a>
                             </div>
                         </div>
@@ -236,44 +240,72 @@
         <section class="abt-values">
             <div class="abt-shell">
                 <div class="abt-section-head animate-on-scroll">
-                    <h2 class="abt-section-title">The way we work is the <span class="abt-section-title-accent">whole difference</span></h2>
+                    <h2 class="abt-section-title">The way we work is the <span class="abt-section-title-accent"><span
+                                class="abt-mobile-white">whole</span> difference</span></h2>
                 </div>
-                <div class="abt-values-list">
-                    <div class="abt-value-row animate-on-scroll">
-                        <span class="abt-value-num" aria-hidden="true">01</span>
-                        <h3>Data-driven, not <span class="val-accent">guesswork</span></h3>
-                        <p>Every decision is backed by numbers. We test, measure, and double down on what actually
-                            drives bookings.</p>
-                        <a href="index.html#contact" class="row-book-call">
-                            <span class="type-text">Book a Call &rarr;</span>
-                        </a>
+                <div class="about-accordion home-about-accordion animate-on-scroll" id="aboutValuesAccordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" type="button" aria-expanded="false"
+                            aria-controls="val-detail-1">
+                            <span class="accordion-num" aria-hidden="true">01</span>
+                            <span class="accordion-title">Data-driven, not <span
+                                    class="val-accent">guesswork</span></span>
+                            <span class="accordion-icon" aria-hidden="true">+</span>
+                        </button>
+                        <div class="accordion-body" id="val-detail-1">
+                            <p class="accordion-content">Every decision is backed by numbers. We test, measure, and
+                                double down on what actually drives bookings.</p>
+                        </div>
+                        <a href="index.html#contact" class="accordion-book-call"><span class="type-text">Book a Call
+                                &rarr;</span></a>
                     </div>
-                    <div class="abt-value-row animate-on-scroll">
-                        <span class="abt-value-num" aria-hidden="true">02</span>
-                        <h3>Exclusive, high-intent <span class="val-accent">leads</span></h3>
-                        <p>Every lead we generate belongs to you alone &mdash; never shared, split, or resold to the
-                            competitor down the road. Your pipeline stays yours.</p>
-                        <a href="index.html#contact" class="row-book-call">
-                            <span class="type-text">Book a Call &rarr;</span>
-                        </a>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" type="button" aria-expanded="false"
+                            aria-controls="val-detail-2">
+                            <span class="accordion-num" aria-hidden="true">02</span>
+                            <span class="accordion-title">Exclusive, high-intent <span
+                                    class="val-accent">leads</span></span>
+                            <span class="accordion-icon" aria-hidden="true">+</span>
+                        </button>
+                        <div class="accordion-body" id="val-detail-2">
+                            <p class="accordion-content">Every lead we generate belongs to you alone, never shared,
+                                split, or resold to the competitor down the road. Your pipeline stays yours.</p>
+                        </div>
+                        <a href="index.html#contact" class="accordion-book-call"><span class="type-text">Book a Call
+                                &rarr;</span></a>
                     </div>
-                    <div class="abt-value-row animate-on-scroll">
-                        <span class="abt-value-num" aria-hidden="true">03</span>
-                        <h3>24/7 performance <span class="val-accent">tracking</span></h3>
-                        <p>Monitor campaign metrics, bookings, and ROI live at any time through our interactive tracking
-                            dashboard.</p>
-                        <a href="index.html#contact" class="row-book-call">
-                            <span class="type-text">Book a Call &rarr;</span>
-                        </a>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" type="button" aria-expanded="false"
+                            aria-controls="val-detail-3">
+                            <span class="accordion-num" aria-hidden="true">03</span>
+                            <span class="accordion-title">24/7 performance <span
+                                    class="val-accent">tracking</span></span>
+                            <span class="accordion-icon" aria-hidden="true">+</span>
+                        </button>
+                        <div class="accordion-body" id="val-detail-3">
+                            <p class="accordion-content">Monitor campaign metrics, bookings, and ROI live at any time
+                                through our interactive tracking dashboard.</p>
+                        </div>
+                        <a href="index.html#contact" class="accordion-book-call"><span class="type-text">Book a Call
+                                &rarr;</span></a>
                     </div>
-                    <div class="abt-value-row animate-on-scroll">
-                        <span class="abt-value-num" aria-hidden="true">04</span>
-                        <h3>A team that's actually <span class="val-accent">yours</span></h3>
-                        <p>You work directly with the people running your campaigns, not a rotating queue of support
-                            reps.</p>
-                        <a href="index.html#contact" class="row-book-call">
-                            <span class="type-text">Book a Call &rarr;</span>
-                        </a>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header" type="button" aria-expanded="false"
+                            aria-controls="val-detail-4">
+                            <span class="accordion-num" aria-hidden="true">04</span>
+                            <span class="accordion-title">A team that's actually <span
+                                    class="val-accent">yours</span></span>
+                            <span class="accordion-icon" aria-hidden="true">+</span>
+                        </button>
+                        <div class="accordion-body" id="val-detail-4">
+                            <p class="accordion-content">You work directly with the people running your campaigns, not a
+                                rotating queue of support reps.</p>
+                        </div>
+                        <a href="index.html#contact" class="accordion-book-call"><span class="type-text">Book a Call
+                                &rarr;</span></a>
                     </div>
                 </div>
             </div>
@@ -334,11 +366,12 @@
             </div>
         </section>
 
-        <!-- Proof: founder-built audiences -->
+
         <section class="abt-proof">
             <div class="abt-shell">
                 <div class="abt-section-head abt-section-head--wide animate-on-scroll">
-                    <h2 class="abt-section-title">We grew our own audiences first.</h2>
+                    <h2 class="abt-section-title">We grew <span class="abt-section-title-accent">our own</span>
+                        audiences first.</h2>
                     <p class="abt-section-sub">Before we ever ran a campaign for a client, we built large, engaged car
                         communities from zero, on the same platforms we now scale other businesses on.</p>
                 </div>
@@ -374,6 +407,11 @@
                                 </svg>
                             </div>
                         </a>
+                        <div class="abt-proof-stats" aria-label="@carsbydevyn social media results">
+                            <div class="abt-proof-stat"><strong>27.1K</strong><span>Followers</span></div>
+                            <div class="abt-proof-stat"><strong>19K</strong><span>Avg. Likes</span></div>
+                            <div class="abt-proof-stat"><strong>11.2M</strong><span>Monthly Reach</span></div>
+                        </div>
                         <p class="abt-proof-text">An automotive page Devyn grew and monetized himself, mastering
                             the content hooks, posting cadence, and audience targeting that turn casual scrollers
                             into a loyal, engaged following.</p>
@@ -495,6 +533,11 @@
                                 </svg>
                             </div>
                         </a>
+                        <div class="abt-proof-stats" aria-label="@twanwhips social media results">
+                            <div class="abt-proof-stat"><strong>40.3K</strong><span>Followers</span></div>
+                            <div class="abt-proof-stat"><strong>25K</strong><span>Avg. Likes</span></div>
+                            <div class="abt-proof-stat"><strong>6.4M</strong><span>Monthly Reach</span></div>
+                        </div>
                         <p class="abt-proof-text">Anton's automotive brand, scaled through sharp content and
                             community building, the same playbook he now uses to grow local businesses and turn
                             their attention into booked revenue.</p>
@@ -603,8 +646,7 @@
                     </h2>
                     <p class="cta-subtitle animate-on-scroll">
                         We partner with a limited number of local businesses each quarter. Apply for a
-                        private strategy session &ndash; if we're the right fit, you'll leave with a
-                        custom growth plan. Free, and yours to keep.
+                        free private strategy session to see if you are the right fit.
                     </p>
 
                     <!-- Inline Quiz -->

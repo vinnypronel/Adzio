@@ -30,35 +30,37 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================ */
 
 function initAboutAccordion() {
-    const accordion = document.getElementById('aboutAccordion');
-    if (!accordion) return;
+    const accordions = document.querySelectorAll('.about-accordion');
+    if (!accordions.length) return;
 
-    accordion.addEventListener('click', (e) => {
-        const header = e.target.closest('.accordion-header');
-        if (!header) return;
+    accordions.forEach(accordion => {
+        accordion.addEventListener('click', (e) => {
+            const header = e.target.closest('.accordion-header');
+            if (!header) return;
 
-        const item = header.closest('.accordion-item');
-        if (!item) return;
+            const item = header.closest('.accordion-item');
+            if (!item) return;
 
-        const isOpen = item.classList.contains('is-open');
+            const isOpen = item.classList.contains('is-open');
 
-        // Close all other items
-        accordion.querySelectorAll('.accordion-item').forEach(other => {
-            if (other !== item) {
-                other.classList.remove('is-open');
-                const btn = other.querySelector('.accordion-header');
-                if (btn) btn.setAttribute('aria-expanded', 'false');
+            // Close all other items
+            accordion.querySelectorAll('.accordion-item').forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('is-open');
+                    const btn = other.querySelector('.accordion-header');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Toggle clicked item
+            if (isOpen) {
+                item.classList.remove('is-open');
+                header.setAttribute('aria-expanded', 'false');
+            } else {
+                item.classList.add('is-open');
+                header.setAttribute('aria-expanded', 'true');
             }
         });
-
-        // Toggle clicked item
-        if (isOpen) {
-            item.classList.remove('is-open');
-            header.setAttribute('aria-expanded', 'false');
-        } else {
-            item.classList.add('is-open');
-            header.setAttribute('aria-expanded', 'true');
-        }
     });
 }
 

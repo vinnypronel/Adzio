@@ -1119,6 +1119,12 @@
     margin-left: calc(-1 * clamp(32px, 4.7vw, 90px));
 }
 
+@media (min-width: 1001px) {
+    .abt-team-heading {
+        margin-left: clamp(72px, 7vw, 140px);
+    }
+}
+
 @media (max-width: 768px) {
     .abt-team-heading {
         margin-left: 0;
@@ -1187,16 +1193,15 @@
     text-align: left;
     overflow: hidden;
     border-radius: 10px;
-    border: 1px solid var(--hairline);
+    border: none;
     background: rgba(13, 19, 24, 0.7);
     transition:
         transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
         background-color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
         box-shadow 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    will-change: transform, border-color, background-color, box-shadow;
+    will-change: transform, background-color, box-shadow;
 }
 
 .abt-team-card--anton {
@@ -1205,7 +1210,6 @@
 
 .abt-team-card:hover {
     transform: translate3d(0, -6px, 0);
-    border-color: color-mix(in srgb, var(--team-accent) 40%, var(--hairline));
     background-color: rgba(15, 23, 29, 0.78);
     box-shadow: 0 20px 42px rgba(0, 0, 0, 0.24);
 }
@@ -1394,15 +1398,37 @@
     padding: clamp(5rem, 9vh, 9rem) 0 2rem;
 }
 
+@media (min-width: 1001px) {
+    .abt-proof {
+        padding-top: clamp(2rem, 3.5vh, 3.5rem);
+    }
+
+    .abt-proof .abt-section-head {
+        margin-bottom: clamp(1.45rem, 2.4vw, 2.2rem);
+    }
+
+    .abt-proof .abt-section-title {
+        font-size: clamp(2.35rem, 3vw, 3.75rem);
+        line-height: 0.98;
+    }
+
+    .abt-proof .abt-section-sub {
+        margin-top: 0.55rem;
+        font-size: clamp(0.92rem, 1.02vw, 1.06rem);
+        line-height: 1.42;
+    }
+}
+
 .abt-proof .abt-shell {
     max-width: min(1750px, 96vw);
 }
 
 .abt-proof-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(20px, 2.4vw, 36px);
-    max-width: min(1680px, 94vw);
+    grid-template-columns: repeat(2, minmax(0, 550px));
+    justify-content: center;
+    gap: clamp(24px, 2.7vw, 44px);
+    max-width: min(1190px, 88vw);
     margin: 0 auto;
 }
 
@@ -1416,11 +1442,11 @@
     }
 
     .abt-proof-grid {
-        max-width: 100%;
+        max-width: min(1160px, 100%);
     }
 
     .abt-proof-card {
-        padding: clamp(22px, 2.1vw, 30px);
+        padding: clamp(22px, 1.55vw, 28px);
     }
 }
 
@@ -1433,11 +1459,11 @@
     }
 
     .abt-proof-grid {
-        max-width: 100%;
+        max-width: min(1190px, 100%);
     }
 
     .abt-proof-card {
-        padding: clamp(22px, 2.1vw, 32px);
+        padding: clamp(24px, 1.65vw, 30px);
     }
 }
 
@@ -1446,8 +1472,12 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: clamp(26px, 2.6vw, 36px);
-    border-radius: 10px;
+    justify-content: space-between;
+    aspect-ratio: 1.62 / 1;
+    width: min(100%, 550px);
+    justify-self: center;
+    padding: clamp(24px, 1.65vw, 30px);
+    border-radius: clamp(52px, 4.8vw, 68px);
     text-decoration: none;
     background: transparent;
     border: none;
@@ -1458,14 +1488,12 @@
 .abt-proof-card::before {
     content: '';
     position: absolute;
-    inset: 0 14px;
+    inset: 0;
     z-index: -1;
-    border-radius: 8px;
-    border: 1px solid color-mix(in srgb, var(--proof) 44%, transparent);
+    border-radius: inherit;
+    border: none;
     background: linear-gradient(145deg, color-mix(in srgb, var(--proof) 8%, rgba(16, 24, 30, 0.92)), rgba(9, 13, 18, 0.92));
     box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
-    transform: skewX(6deg);
-    transform-origin: center;
 }
 
 /* Match the Twan Whips proof card to its blue treatment on the Services page. */
@@ -1476,8 +1504,8 @@
 .abt-proof-head {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 1.3rem;
+    gap: 11px;
+    margin-bottom: 0.62rem;
 }
 
 /* Instagram mark in the card's top corner, so the account source is obvious
@@ -1498,8 +1526,8 @@
 }
 
 .abt-proof-icon {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -1533,7 +1561,7 @@
 .abt-proof-handle {
     font-family: 'Archivo', sans-serif;
     font-weight: 800;
-    font-size: 1.25rem;
+    font-size: 1.08rem;
     letter-spacing: -0.02em;
     color: var(--text-primary);
     transition: color 0.3s ease;
@@ -1541,7 +1569,7 @@
 
 .abt-proof-by {
     font-family: 'Archivo', sans-serif;
-    font-size: 0.66rem;
+    font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -1549,10 +1577,50 @@
 }
 
 .abt-proof-text {
-    font-size: 0.98rem;
-    line-height: 1.7;
+    font-size: 0.76rem;
+    line-height: 1.43;
     color: var(--text-secondary);
-    margin-bottom: 1.6rem;
+    margin-bottom: 0.7rem;
+}
+
+/* Follower/engagement stat row, matching the compact strip used on the
+   services page's version of these same proof cards. */
+.abt-proof-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 0.75rem;
+    padding: 0.46rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.abt-proof-stat {
+    text-align: center;
+}
+
+.abt-proof-stat + .abt-proof-stat {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.abt-proof-stat strong {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(0.86rem, 1.05vw, 1rem);
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.abt-proof-stat span {
+    display: block;
+    margin-top: 4px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
 }
 
 .abt-proof-cta {
@@ -1743,14 +1811,14 @@
 .abt-proof-feed {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(8px, 1.2vw, 14px);
-    margin: 1.3rem 0 1.5rem;
+    gap: clamp(6px, 0.58vw, 8px);
+    margin: 0.62rem 0 0.68rem;
 }
 
 .abt-feed-item {
     position: relative;
     aspect-ratio: 4 / 3;
-    border-radius: 12px;
+    border-radius: 9px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -1887,6 +1955,10 @@
    ============================================ */
 @media (max-width: 768px) {
 
+    .abt-mobile-white {
+        color: var(--text-primary);
+    }
+
     /* Story paragraphs were 15.6px. :not([class]) deliberately excludes
        .abt-story-kicker, which is a p in the same block already sitting at
        17.25px - a blanket rule would have shrunk it. */
@@ -1920,5 +1992,66 @@
        against 35px right) while every other block on the page was symmetric. */
     .abt-story-grid {
         padding-left: 0;
+    }
+}
+
+
+/* ============================================
+   Story section: fill the screen + paragraph link arrow (desktop only)
+   Scoped to min-width: 1001px, which is exactly where .abt-story-grid stops
+   being a single column, so the phone/tablet layout is untouched. The arrow is
+   drawn with ::before/::after on the second paragraph rather than added to the
+   markup, so there is no new element that could reach mobile at all.
+   ============================================ */
+@media (min-width: 1001px) {
+
+    /* Was 499px tall in a 1000px viewport. Grid rather than flex so the block
+       children keep their own widths and only the vertical placement changes. */
+    .abt-story {
+        min-height: 100svh;
+        display: grid;
+        align-content: center;
+    }
+
+    /* Was font-weight 300 at 14.56px, which read as very light once the section
+       filled the screen. */
+    .abt-story-copy > p:nth-of-type(1),
+    .abt-story-copy > p:nth-of-type(2) {
+        font-weight: 500;
+        font-size: clamp(1.02rem, 1.08vw, 1.24rem);
+        line-height: 1.75;
+        max-width: 74ch;
+    }
+
+    /* Room for the arrow to sit between the two paragraphs. */
+    .abt-story-copy > p:nth-of-type(2) {
+        position: relative;
+        margin-top: 0.6rem;
+        padding-top: 68px;
+    }
+
+    /* Stem: fades in from nothing so it reads as flowing out of paragraph one. */
+    .abt-story-copy > p:nth-of-type(2)::before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 11px;
+        width: 2px;
+        height: 34px;
+        background: linear-gradient(180deg, rgba(0, 184, 212, 0), var(--cyan, #00b8d4));
+        border-radius: 1px;
+    }
+
+    /* Chevron head pointing down into paragraph two. */
+    .abt-story-copy > p:nth-of-type(2)::after {
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 5px;
+        width: 13px;
+        height: 13px;
+        border-right: 2px solid var(--cyan, #00b8d4);
+        border-bottom: 2px solid var(--cyan, #00b8d4);
+        transform: rotate(45deg);
     }
 }

@@ -607,28 +607,31 @@
     margin: 0 0 2.4rem;
     display: grid;
     gap: 1rem;
+    counter-reset: svc-feature;
 }
 
 .svc-list li {
     position: relative;
-    padding-left: 1.85rem;
+    padding-left: 3.05rem;
     color: var(--dust-grey);
     font-size: 1.13rem;
     line-height: 1.55;
+    counter-increment: svc-feature;
 }
 
 .svc-list li::before {
-    content: '';
+    content: counter(svc-feature, decimal-leading-zero) '.';
     position: absolute;
     left: 0;
-    top: 6px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 11px no-repeat,
-        linear-gradient(135deg, var(--svc-bright), var(--svc));
-    box-shadow: none;
+    top: 0.02em;
+    min-width: 2.25rem;
+    color: var(--svc-bright);
+    font-family: var(--font-heading);
+    font-size: 1.02em;
+    font-weight: 900;
+    line-height: inherit;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 14px rgba(var(--svc-rgb), 0.22);
 }
 
 /* Themed CTA per service — single flat color, no gradient, no glow */
@@ -776,7 +779,7 @@
 .svc-proof-stack {
     display: flex;
     flex-direction: column;
-    gap: clamp(1.25rem, 1.45vw, 1.65rem);
+    gap: clamp(0.9rem, 1.05vw, 1.25rem);
     /* Expanded width so all 3 stat columns sit comfortably without right
        clipping, and so the cards close the gap toward the nav. */
     width: min(100%, clamp(600px, 47vw, 920px));
@@ -784,7 +787,10 @@
 }
 
 .svc-proof-stack .abt-proof-card {
-    padding: clamp(18px, 1.55vw, 24px) clamp(30px, 2.45vw, 44px) clamp(18px, 1.6vw, 26px);
+    aspect-ratio: auto;
+    width: 100%;
+    justify-self: auto;
+    padding: clamp(14px, 1.25vw, 20px) clamp(24px, 2vw, 34px) clamp(14px, 1.3vw, 20px);
     border-radius: 10px;
 }
 
@@ -799,11 +805,11 @@
 }
 
 .svc-proof-stack .abt-proof-head {
-    margin-bottom: clamp(0.75rem, 1vw, 1.05rem);
+    margin-bottom: clamp(0.55rem, 0.75vw, 0.85rem);
 }
 
 .svc-proof-stack .abt-proof-card--cyan {
-    top: -14px;
+    top: 0;
 }
 
 /* The second card ships purple from the about page. On services it sits inside
@@ -814,8 +820,8 @@
 
 .svc-proof-stack .abt-proof-feed {
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(10px, 1.05vw, 16px);
-    margin: clamp(0.75rem, 0.95vw, 1rem) 0 clamp(0.65rem, 0.85vw, 0.9rem);
+    gap: clamp(8px, 0.8vw, 12px);
+    margin: clamp(0.55rem, 0.7vw, 0.8rem) 0 clamp(0.5rem, 0.65vw, 0.7rem);
     transform: translateX(-5px);
     width: calc(100% - 5px);
 }
@@ -825,32 +831,32 @@
 }
 
 .svc-proof-stack .abt-feed-item {
-    aspect-ratio: 16 / 9.4;
+    aspect-ratio: 16 / 8.5;
 }
 
 /* Compact social proof metrics in the unused profile-header space. */
 .svc-proof-stack .svc-proof-stats {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    gap: clamp(12px, 1.35vw, 22px);
+    gap: clamp(9px, 1vw, 16px);
     margin-left: auto;
     text-align: center;
 }
 
 .svc-proof-stack .svc-proof-stat {
-    min-width: clamp(76px, 5.3vw, 98px);
+    min-width: clamp(64px, 4.4vw, 82px);
 }
 
 .svc-proof-stack .svc-proof-stat + .svc-proof-stat {
     border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding-left: clamp(12px, 1.35vw, 22px);
+    padding-left: clamp(9px, 1vw, 16px);
 }
 
 .svc-proof-stack .svc-proof-stat strong {
     display: block;
     color: var(--text-primary);
     font-family: 'Archivo', sans-serif;
-    font-size: clamp(1.22rem, 1.55vw, 1.5rem);
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
     font-weight: 900;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -861,7 +867,7 @@
     margin-top: 4px;
     color: var(--text-muted);
     font-family: 'Archivo', sans-serif;
-    font-size: clamp(0.6rem, 0.6vw, 0.72rem);
+    font-size: clamp(0.52rem, 0.52vw, 0.62rem);
     font-weight: 700;
     letter-spacing: 0.08em;
     line-height: 1.2;
@@ -1370,6 +1376,13 @@
     align-items: flex-end;
     gap: clamp(10px, 1.1vw, 18px);
     width: 100%;
+}
+
+/* Desktop only: close the gap so the browser mock's edge touches the phone. */
+@media (min-width: 541px) {
+    .svc-web-stage {
+        gap: 0;
+    }
 }
 
 .svc-web-stage .svc-browser {
@@ -3066,6 +3079,201 @@
 .svc-ig-likes {
     position: absolute;
     bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+/* Profile header */
+.svc-ig-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.svc-ig-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--svc-bright), var(--svc));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 0.78rem;
+    color: #051014;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(var(--svc-rgb), 0.4), 0 0 14px rgba(var(--svc-rgb), 0.28);
+}
+
+.svc-ig-profile {
+    flex: 1;
+    min-width: 0;
+}
+
+.svc-ig-profile strong {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 0.84rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.svc-ig-profile span {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.svc-ig-follow {
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: var(--svc-bright);
+    background: rgba(var(--svc-rgb), 0.12);
+    border: 1px solid rgba(var(--svc-rgb), 0.3);
+    padding: 4px 9px;
+    border-radius: 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Stats strip */
+.svc-ig-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.svc-ig-stat {
+    text-align: center;
+    padding: 9px 6px;
+    background: rgba(10, 16, 22, 0.7);
+}
+
+.svc-ig-stat strong {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.svc-ig-stat span {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+/* Posting cadence metric (right column) */
+.svc-ig-metric {
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(var(--svc-rgb), 0.14), rgba(var(--svc-rgb), 0.03));
+    border: 1px solid rgba(var(--svc-rgb), 0.22);
+}
+
+.svc-ig-metric em {
+    display: block;
+    font-style: normal;
+    font-family: 'Archivo', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: var(--svc-bright);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.svc-ig-metric span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* Avg likes metric */
+.svc-ig-avg {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.svc-ig-avg strong {
+    display: block;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.svc-ig-avg span {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+/* Image grid — 3 cols × 2 rows, fixed height so it doesn't overflow */
+.svc-ig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 4px;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 220px;
+}
+
+.svc-ig-post {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    height: 100%;
+}
+
+.svc-ig-post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+    opacity: 0.88;
+}
+
+.svc-ig-post:hover img {
+    transform: scale(1.08);
+    opacity: 1;
+}
+
+.svc-ig-reel-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 0.48rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.svc-ig-likes {
+    position: absolute;
+    bottom: 5px;
     left: 5px;
     font-size: 0.52rem;
     font-weight: 800;
@@ -3088,7 +3296,7 @@
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
-    border-radius: 9px;
+    border-radius: 99px;
     background: rgba(var(--svc-rgb), 0.07);
     border: 1px solid rgba(var(--svc-rgb), 0.18);
     font-size: 0.65rem;
@@ -3135,7 +3343,8 @@
 
     .svc-index { order: 1; }
     .svc-detail-title { order: 2; }
-    .svc-visual {
+    .svc-visual,
+    .svc-detail--reverse .svc-visual {
         order: 3;
         width: 100%;
         margin: 0 0 2rem;
@@ -3183,21 +3392,15 @@
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
-        padding-left: 1.55rem;
+        padding-left: 2.65rem;
         min-width: 0;
     }
 
     .svc-list li::before {
-        width: 14px;
-        height: 14px;
-        top: 2px;
+        top: 0;
+        min-width: 2rem;
     }
 }
-
-
-/* ============================================
-   HERO SCALE-UP (desktop)
-   The nowrap headline was already filling its column, so the only way to make
    this type meaningfully larger was to give the hero more canvas. The shell is
    widened for THIS SECTION ONLY, so every .svc-detail below keeps the 1440px
    measure. Vertical paddings are trimmed by roughly what the taller headline
@@ -3219,7 +3422,7 @@
    rule keeps its tuned size and is allowed to wrap, so it is left alone. */
 @media (min-width: 1400px) {
     .svc-hero .ed-hero-title {
-        font-size: clamp(3.4rem, 5.1vw, 6.6rem);
+        font-size: clamp(3.6rem, 5.35vw, 6.95rem);
     }
 }
 
@@ -3234,19 +3437,74 @@
     }
 
     .svc-hero .ed-hero-body {
+        grid-template-columns: minmax(0, 1fr);
         padding: clamp(28px, 4vh, 48px) 0 clamp(20px, 3vh, 36px);
     }
 
+    .svc-hero .ed-hero-copy {
+        max-width: min(1120px, calc(100% - clamp(300px, 25vw, 430px)));
+    }
+
     .svc-hero .ed-masthead {
-        padding-bottom: clamp(10px, 1.5vh, 18px);
+        padding-bottom: clamp(16px, 2vh, 28px);
     }
 
     .svc-hero .ed-masthead-brand {
-        font-size: clamp(1.5rem, 2vw, 2.15rem);
+        position: relative;
+        display: inline-block;
+        font-family: 'Cormorant Garamond', 'Bodoni Moda', serif;
+        font-size: clamp(3.1rem, 4.2vw, 5.35rem);
+        font-weight: 700;
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        color: #F8F4EC;
+        text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
+    }
+
+    .svc-hero .ed-masthead-brand::after {
+        content: '';
+        position: absolute;
+        left: 0.08em;
+        right: -0.12em;
+        bottom: -0.16em;
+        height: clamp(9px, 0.75vw, 14px);
+        background:
+            radial-gradient(ellipse at 15% 50%, rgba(248, 244, 236, 0.85) 0 2px, transparent 3px),
+            linear-gradient(90deg, rgba(0, 184, 212, 0), rgba(0, 184, 212, 0.95) 18%, rgba(248, 244, 236, 0.72) 48%, rgba(0, 184, 212, 0.8) 78%, rgba(0, 184, 212, 0));
+        background-size: 100% 100%, 220% 100%;
+        clip-path: polygon(0 58%, 12% 34%, 28% 48%, 45% 28%, 63% 46%, 81% 32%, 100% 55%, 100% 74%, 80% 50%, 63% 64%, 45% 44%, 28% 66%, 12% 50%, 0 76%);
+        opacity: 0.9;
+        filter: drop-shadow(0 8px 14px rgba(0, 184, 212, 0.2));
+        animation: adzioUnderlineWave 3.2s ease-in-out infinite;
+        pointer-events: none;
     }
 
     .svc-hero .ed-hero-lead {
         font-size: clamp(1.05rem, 1.25vw, 1.35rem);
+    }
+
+    .svc-hero .ed-hero-aside {
+        position: absolute;
+        right: clamp(72px, 7vw, 132px);
+        bottom: clamp(42px, 6.5vh, 82px);
+        width: clamp(220px, 17vw, 300px);
+        padding-left: clamp(20px, 2vw, 34px);
+        margin-bottom: 0;
+        z-index: 2;
+    }
+
+    .svc-hero .ed-hero-aside::before {
+        top: -18px;
+        bottom: -18px;
+    }
+
+    .svc-hero .ed-hero-cta {
+        width: 100%;
+        margin-left: 0;
+        transform: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 7px !important;
     }
 
     /* The aside is centre-aligned against the headline row, so growing these
