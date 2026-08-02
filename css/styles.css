@@ -909,21 +909,6 @@ p {
 .ed-hero-title {
     font-family: 'Archivo', sans-serif;
     font-weight: 900;
-    font-size: clamp(2.4rem, 4.2vw, 5.2rem);
-    line-height: 1.02;
-    letter-spacing: -0.04em;
-    margin: 0;
-    color: #F8F4EC;
-    text-align: left;
-}
-
-.ed-hero-title .ed-line {
-    display: block;
-    white-space: nowrap;
-}
-
-.ed-hero-title .ed-line--accent {
-    color: var(--cyan);
 }
 
 .d-mobile-only {
@@ -2302,6 +2287,27 @@ body.vsl-active .hero-vsl {
 }
 
 .hero-cta .btn-glow:hover svg {
+    max-width: 20px;
+    margin-left: 0;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-cta .btn-ghost svg {
+    width: 20px;
+    height: 20px;
+    max-width: 0;
+    margin-left: -0.6rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: max-width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-left 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease;
+}
+
+.hero-cta .btn-ghost:hover svg,
+.hero-cta .btn-ghost:focus-visible svg {
     max-width: 20px;
     margin-left: 0;
     opacity: 1;
@@ -7887,19 +7893,43 @@ html.silk-active .hero-bg {
     }
 }
 
-.home-about-btn {
-    min-width: 270px;
-    font-size: 1.02rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 1.3rem 2.6rem;
-    background: var(--cyan);
-    border: 1px solid var(--cyan);
-    color: #06120F;
-    border-radius: var(--radius-sm);
-    box-shadow: none;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+.home-about-accordion .accordion-item.is-open {
+    background: transparent;
+}
+
+.ed-hero-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.4rem, 4.2vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: #F8F4EC;
+    text-align: left;
+}
+
+.ed-hero-title .ed-line {
+    display: block;
+    white-space: nowrap;
+}
+
+.ed-hero-title .ed-line--accent {
+    color: var(--cyan);
+}
+
+.d-mobile-only {
+    display: none;
+}
+
+.home-about-accordion .accordion-header {
+    display: grid;
+    grid-template-columns: clamp(64px, 7vw, 110px) minmax(0, 1fr) 30px;
+    align-items: start;
+    gap: clamp(18px, 3vw, 52px);
+    padding: clamp(30px, 4.5vh, 48px) clamp(4px, 1vw, 12px);
+}
+
+.home-about-accordion .accordion-num {
     padding-top: 0.35em;
     color: var(--row-accent);
     font-family: 'Archivo', sans-serif;
@@ -8211,7 +8241,6 @@ html.silk-active .hero-bg {
         top: -18px;
         bottom: -18px;
     }
-}
 
 /* ── Closing meta strip: the agency's own facts, hairline separated ── */
 .ed-hero-meta {
@@ -8846,5 +8875,84 @@ html.silk-active .hero-bg {
         width: max-content;
         margin: 0 1.6rem 1.25rem auto;
         opacity: 1;
+    }
+}
+
+/* Compact the home-page value menu so its three choices remain scannable
+   together on phones while retaining a comfortable touch target. */
+@media (max-width: 768px) {
+    .home-about-accordion .accordion-header {
+        grid-template-columns: 34px minmax(0, 1fr) 22px;
+        gap: 10px;
+        min-height: 44px;
+        padding: 14px 0;
+    }
+
+    .home-about-accordion .accordion-num {
+        font-size: 1rem;
+        padding-top: 0.2em;
+    }
+
+    .home-about-accordion .accordion-title {
+        font-size: clamp(1.15rem, 5.3vw, 1.5rem);
+        line-height: 1.05;
+    }
+
+    .home-about-accordion .accordion-icon {
+        font-size: 1.65rem;
+    }
+}
+
+/* Enlarge the mobile-menu social marks without changing their layout slots. */
+@media (max-width: 768px) {
+    .m-nav-socials svg {
+        transform: scale(1.55);
+        transform-origin: center;
+    }
+
+    .m-nav-socials a:active svg {
+        transform: translateY(-2px) scale(1.55);
+    }
+}
+
+/* Match the top-right call CTA's phone reveal inside the mobile menu. */
+@media (max-width: 768px) {
+    .m-nav-cta {
+        gap: 0;
+        transition: opacity 0.4s ease 0.22s,
+            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.22s,
+            filter 0.2s ease,
+            gap 0.35s ease,
+            color 0.3s ease;
+    }
+
+    .m-nav-cta .phone-ring-icon {
+        width: 0;
+        height: 16px;
+        opacity: 0;
+        flex-shrink: 0;
+        transform: scale(0.4) rotate(0deg);
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.3s ease,
+            transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .m-nav-cta:hover,
+    .m-nav-cta:focus-visible {
+        color: #ffffff !important;
+        gap: 8px;
+    }
+
+    .m-nav-cta:hover::before,
+    .m-nav-cta:focus-visible::before {
+        background: #005b73;
+    }
+
+    .m-nav-cta:hover .phone-ring-icon,
+    .m-nav-cta:focus-visible .phone-ring-icon {
+        width: 16px;
+        opacity: 1;
+        transform: scale(1);
+        animation: phoneRing 0.6s ease-in-out infinite alternate;
     }
 }

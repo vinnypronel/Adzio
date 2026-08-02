@@ -3427,6 +3427,44 @@
         min-width: 2rem;
     }
 }
+
+@media (min-width: 769px) {
+    .svc-hero .ed-hero-cta .btn {
+        position: relative;
+        white-space: nowrap;
+        transition-property: padding-right, transform, color, box-shadow;
+    }
+
+    .svc-hero .ed-hero-cta .btn:hover,
+    .svc-hero .ed-hero-cta .btn:focus-visible {
+        padding-right: calc(clamp(20px, 1.9vw, 32px) + 34px);
+        transform: none;
+    }
+
+    .svc-hero .ed-hero-cta .btn:hover > span,
+    .svc-hero .ed-hero-cta .btn:focus-visible > span {
+        transform: translateX(-17px);
+    }
+
+    .svc-hero .ed-hero-cta .btn svg {
+        position: absolute;
+        right: clamp(20px, 1.9vw, 32px);
+    }
+
+    .svc-hero .ed-hero-cta .btn-primary:hover,
+    .svc-hero .ed-hero-cta .btn-primary:focus-visible {
+        --btn-bg: var(--accent-gradient);
+        --btn-ring: none;
+        color: var(--bg-primary);
+    }
+
+    .svc-hero .ed-hero-cta .btn-ghost:hover,
+    .svc-hero .ed-hero-cta .btn-ghost:focus-visible {
+        --btn-bg: transparent;
+        --btn-ring: inset 0 0 0 1px rgba(244, 241, 234, 0.22);
+        color: var(--text-primary);
+    }
+}
    this type meaningfully larger was to give the hero more canvas. The shell is
    widened for THIS SECTION ONLY, so every .svc-detail below keeps the 1440px
    measure. Vertical paddings are trimmed by roughly what the taller headline
@@ -3449,6 +3487,54 @@
 @media (min-width: 1400px) {
     .svc-hero .ed-hero-title {
         font-size: clamp(3.6rem, 5.35vw, 6.95rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .svc-hero .ed-hero-cta {
+        --svc-hero-cta-reveal: 34px;
+        width: min(100%, 350px);
+        margin-left: auto;
+        align-items: flex-start;
+    }
+
+    .svc-hero .ed-hero-cta .btn {
+        inline-size: calc(100% - var(--svc-hero-cta-reveal));
+        min-width: 0;
+        justify-content: center;
+        white-space: nowrap;
+        position: relative;
+        transition-property: inline-size, transform, color, box-shadow;
+    }
+
+    .svc-hero .ed-hero-cta .btn:hover,
+    .svc-hero .ed-hero-cta .btn:focus-visible {
+        inline-size: 100%;
+        transform: none;
+    }
+
+    .svc-hero .ed-hero-cta .btn:hover > span,
+    .svc-hero .ed-hero-cta .btn:focus-visible > span {
+        transform: translateX(-17px);
+    }
+
+    .svc-hero .ed-hero-cta .btn svg {
+        position: absolute;
+        right: clamp(18px, 5vw, 24px);
+    }
+
+    .svc-hero .ed-hero-cta .btn-primary:hover,
+    .svc-hero .ed-hero-cta .btn-primary:focus-visible {
+        --btn-bg: var(--accent-gradient);
+        --btn-ring: none;
+        color: var(--bg-primary);
+    }
+
+    .svc-hero .ed-hero-cta .btn-ghost:hover,
+    .svc-hero .ed-hero-cta .btn-ghost:focus-visible {
+        --btn-bg: transparent;
+        --btn-ring: inset 0 0 0 1px rgba(244, 241, 234, 0.22);
+        color: var(--text-primary);
     }
 }
 

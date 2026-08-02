@@ -1918,3 +1918,13 @@
         padding-right: 0;
     }
 }
+
+/* The panel already supplies the mobile page gutter. Keep the problem cards
+   flush to that same alignment line as the service cards. */
+@media (max-width: 900px) {
+    .problem-card-grid {
+        width: 100%;
+        margin-inline: 0;
+        padding-inline: 0;
+    }
+}

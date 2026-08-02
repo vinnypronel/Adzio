@@ -1344,6 +1344,47 @@
     }
 }
 
+/* Separate the stacked mobile display title without changing the desktop lockup. */
+@media (max-width: 900px) {
+    #process-slide-0 .process-s0-label .process,
+    .process-s0-label .process {
+        transform: translateY(3px);
+        margin-top: 0;
+        line-height: 0.78;
+    }
+
+    .process-s0-subhead {
+        margin-top: 10px;
+    }
+}
+
+/* Keep the mobile process cards as compact as the service cards. */
+@media (max-width: 900px) {
+    .process-slide:not(#process-slide-0) {
+        padding: 26px clamp(18px, 5vw, 24px) 24px;
+        margin-bottom: 18px;
+    }
+
+    .process-pain-inner {
+        gap: 20px;
+    }
+
+    .process-pain-visual {
+        margin-top: 4px;
+        margin-bottom: 10px;
+    }
+
+    .process-icon-ring {
+        width: clamp(92px, 28vw, 120px);
+        height: clamp(92px, 28vw, 120px);
+    }
+
+    .process-pain-heading {
+        font-size: clamp(1.65rem, 6.6vw, 2rem);
+        line-height: 1.1;
+    }
+}
+
 /* ============================================
    DESKTOP STEP CARDS
    The four step slides get the same glass outline card the mobile stack uses,

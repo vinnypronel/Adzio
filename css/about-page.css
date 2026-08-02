@@ -116,6 +116,52 @@
     min-width: 210px;
 }
 
+.abt-hero .ed-hero-cta .btn {
+    inline-size: min(216px, 100%);
+    justify-content: center;
+    white-space: nowrap;
+    position: relative;
+    transition: inline-size 0.36s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.abt-hero .ed-hero-cta .btn > span {
+    position: absolute;
+    left: 108px;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.abt-hero .ed-hero-cta .btn:hover,
+.abt-hero .ed-hero-cta .btn:focus-visible {
+    inline-size: min(250px, 100%);
+    transform: none;
+}
+
+.abt-hero .ed-hero-cta .btn svg {
+    position: absolute;
+    right: 2rem;
+}
+
+.abt-hero .ed-hero-cta .btn-primary:hover,
+.abt-hero .ed-hero-cta .btn-primary:focus-visible {
+    --btn-bg: var(--accent-gradient);
+    --btn-ring: none;
+    color: var(--bg-primary);
+}
+
+.abt-hero .ed-hero-cta .btn-ghost:hover,
+.abt-hero .ed-hero-cta .btn-ghost:focus-visible {
+    --btn-bg: transparent;
+    --btn-ring: inset 0 0 0 1px rgba(244, 241, 234, 0.22);
+    color: var(--text-primary);
+}
+
+@media (min-width: 1001px) {
+    .abt-hero .ed-hero-title .d-mobile-only {
+        display: none !important;
+    }
+}
+
 /* Stat band */
 .abt-stats {
     display: grid;
@@ -1796,6 +1842,7 @@
 @media (max-width: 768px) {
     .abt-hero {
         padding-top: clamp(22px, 6vw, 34px);
+        min-height: calc(100svh - 60px);
         text-align: left;
     }
 
@@ -1805,7 +1852,7 @@
         bottom: auto;
         width: auto;
         margin: 0;
-        padding: 0;
+        padding: clamp(16px, 2.6vh, 24px) 0 0;
     }
 
     .abt-hero .ed-hero-aside::before {
@@ -1813,13 +1860,23 @@
     }
 
     .abt-hero .ed-hero-cta {
+        --abt-hero-cta-reveal: 34px;
+        width: min(100%, 250px);
+        margin-left: auto;
         align-items: flex-start;
     }
 
     .abt-hero .ed-hero-cta .btn {
+        inline-size: calc(100% - var(--abt-hero-cta-reveal));
+        min-width: 0;
         min-height: 54px;
         padding-inline: 2rem;
         font-size: 1.1rem;
+    }
+
+    .abt-hero .ed-hero-cta .btn:hover,
+    .abt-hero .ed-hero-cta .btn:focus-visible {
+        inline-size: 100%;
     }
 }
 
@@ -2151,5 +2208,56 @@
         width: 18px;
         height: 18px;
         flex-basis: 18px;
+    }
+}
+
+
+/* ============================================
+   Proof cards: make the mobile collapse actually take effect
+   There is already a max-width: 720px rule setting grid-template-columns: 1fr,
+   but `1fr` is shorthand for minmax(auto, 1fr) and that `auto` floor resolves to
+   the card's min-content. The stats and feed rows are repeat(3, 1fr) whose items
+   default to min-width: auto, so the card could not shrink below ~764px and
+   rendered 550px wide hanging ~78px off BOTH edges of a 393px screen.
+   minmax(0, 1fr) plus min-width: 0 on the shrinkable descendants is what
+   actually lets the card fit.
+   ============================================ */
+@media (max-width: 720px) {
+
+    .abt-proof-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .abt-proof-card,
+    .abt-proof-header-link,
+    .abt-proof-head,
+    .abt-proof-meta,
+    .abt-proof-text,
+    .abt-proof-stat {
+        min-width: 0;
+    }
+
+    /* Same implicit-auto-minimum problem one level down: these are what pinned
+       the card's min-content in the first place. */
+    .abt-proof-stats,
+    .abt-proof-feed {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    /* Long handles would otherwise re-introduce a content floor. */
+    .abt-proof-handle,
+    .abt-proof-by {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Tighter chrome once the card is genuinely full-bleed on a phone. */
+@media (max-width: 480px) {
+    .abt-proof-card {
+        padding: 18px 16px;
+    }
+
+    .abt-proof-stats {
+        padding: 0.55rem 0;
     }
 }

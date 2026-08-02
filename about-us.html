@@ -23,9 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=299.0">
+    <link rel="stylesheet" href="css/styles.css?v=303.0">
     <link rel="stylesheet" href="css/animations.css?v=40.0">
-    <link rel="stylesheet" href="css/about-page.css?v=21.0">
+    <link rel="stylesheet" href="css/about-page.css?v=30.0">
     <!-- Lottie Player -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
@@ -144,8 +144,15 @@
 
                     <div class="ed-hero-body">
                         <h1 class="ed-hero-title animate-on-scroll">
-                            <span class="ed-line">We're the growth partner</span>
-                            <span class="ed-line">local businesses</span>
+                            <span class="ed-line">
+                                <span class="d-desktop-only">We're the growth partner</span>
+                                <span class="d-mobile-only">We're the growth</span>
+                            </span>
+                            <span class="ed-line">
+                                <span class="d-desktop-only">local businesses</span>
+                                <span class="d-mobile-only">partner local</span>
+                            </span>
+                            <span class="ed-line d-mobile-only">businesses</span>
                             <span class="ed-line ed-line--accent">actually keep.</span>
                         </h1>
 
@@ -906,7 +913,7 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=7"></script>
+    <script src="js/footer.js?v=8"></script>
 
     <!-- VSL Modal -->
     <div class="vsl-modal" id="vslModal">
