@@ -4508,6 +4508,19 @@ body.vsl-active .hero-vsl {
     transition: transform 0.35s ease;
 }
 
+.service-cta-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    stroke: currentColor;
+    fill: none;
+    flex-shrink: 0;
+}
+
+.service-cta:hover .service-cta-icon {
+    transform: translateX(4px);
+}
+
 /* Fluid Desktop Responsive Sizing down to tablet */
 @media (max-width: 1280px) {
     .services-section .container {
@@ -4564,6 +4577,7 @@ body.vsl-active .hero-vsl {
     .service-card {
         padding: clamp(20px, 2.5vw, 28px) clamp(16px, 2vw, 22px);
         border-radius: 14px;
+        min-height: auto;
     }
 
     .services-section .service-title {
@@ -4583,7 +4597,17 @@ body.vsl-active .hero-vsl {
     }
 
     .service-cta {
-        font-size: 0.72rem;
+        font-size: 0.76rem;
+        margin-left: auto;
+        margin-right: 0;
+        align-self: flex-end;
+        margin-top: 1.2rem;
+    }
+
+    .service-cta-icon {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 16px;
     }
 
     .services-section .service-icon {
@@ -4607,11 +4631,17 @@ body.vsl-active .hero-vsl {
         grid-template-columns: 1fr;
     }
 
-    /* Match the process section's step cards so both single-column card
-       stacks read as the same height rhythm on mobile. */
     .service-card {
-        min-height: 590px;
-        justify-content: space-between;
+        min-height: auto;
+        justify-content: flex-start;
+        padding: 24px 20px;
+    }
+
+    .service-cta {
+        margin-left: auto;
+        margin-right: 0;
+        align-self: flex-end;
+        margin-top: 1.4rem;
     }
 }
 
@@ -8812,7 +8842,7 @@ html.silk-active .hero-bg {
     }
 
     .accordion-item.is-open .accordion-book-call {
-        display: inline-flex;
+        display: flex;
         width: max-content;
         margin: 0 1.6rem 1.25rem auto;
         opacity: 1;

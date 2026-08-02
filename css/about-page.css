@@ -1767,7 +1767,7 @@
     }
 
     .about-page-main {
-        padding-top: 96px;
+        padding-top: 60px;
     }
 
     .abt-hero-cta {
@@ -1789,6 +1789,37 @@
 
     .abt-story-visual {
         padding: 0.5rem;
+    }
+}
+
+/* Match the single-column mobile composition used by the Services hero. */
+@media (max-width: 768px) {
+    .abt-hero {
+        padding-top: clamp(22px, 6vw, 34px);
+        text-align: left;
+    }
+
+    .abt-hero .ed-hero-aside {
+        position: static;
+        right: auto;
+        bottom: auto;
+        width: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .abt-hero .ed-hero-aside::before {
+        display: none;
+    }
+
+    .abt-hero .ed-hero-cta {
+        align-items: flex-start;
+    }
+
+    .abt-hero .ed-hero-cta .btn {
+        min-height: 54px;
+        padding-inline: 2rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -2053,5 +2084,72 @@
         border-right: 2px solid var(--cyan, #00b8d4);
         border-bottom: 2px solid var(--cyan, #00b8d4);
         transform: rotate(45deg);
+    }
+}
+
+/* Keep the founder introduction readable in one mobile viewport. */
+@media (max-width: 768px) {
+    .abt-team {
+        padding: 3rem 0 3.5rem;
+    }
+
+    .abt-team-heading {
+        margin-bottom: 1.75rem;
+    }
+
+    .abt-team-heading .abt-section-title {
+        font-size: clamp(2.6rem, 11vw, 3.25rem);
+    }
+
+    .abt-team-layout {
+        margin-bottom: 0;
+    }
+
+    .abt-team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .abt-team-photo {
+        aspect-ratio: 1.42 / 1;
+    }
+
+    .abt-team-info {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 20px;
+        align-items: end;
+        gap: 6px;
+        min-height: 0;
+        padding: 12px;
+    }
+
+    .abt-team-card h3 {
+        font-size: 1rem;
+        line-height: 1.1;
+        margin-bottom: 0.25rem;
+    }
+
+    .abt-team .abt-role {
+        font-size: clamp(0.66rem, 2.3vw, 0.8rem);
+        line-height: 1.3;
+        white-space: nowrap;
+    }
+
+    .abt-team-email-link {
+        align-self: end;
+        padding: 2px;
+        font-size: 0;
+    }
+
+    .abt-team-email-link::after {
+        display: none;
+    }
+
+    .abt-team-email-icon {
+        width: 18px;
+        height: 18px;
+        flex-basis: 18px;
     }
 }
