@@ -117,45 +117,57 @@
 }
 
 .abt-hero .ed-hero-cta .btn {
+    --abt-hero-cta-reveal: 34px;
     position: relative;
     justify-content: center;
     white-space: nowrap;
     overflow: visible !important;
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .abt-hero .ed-hero-cta .btn > span {
-    position: static;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
     transform: none !important;
+    transition: none;
     pointer-events: none;
 }
 
-.abt-hero .ed-hero-cta .btn:hover,
-.abt-hero .ed-hero-cta .btn:focus-visible {
-    transform: translate(5px, -5px) !important;
-}
-
-.abt-hero .ed-hero-cta .btn:hover > span,
-.abt-hero .ed-hero-cta .btn:focus-visible > span {
-    transform: none !important;
+.abt-hero .ed-hero-cta .btn::before {
+    right: 7px;
+    transition: right 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .abt-hero .ed-hero-cta .btn svg {
     position: absolute;
-    right: 12px;
+    right: clamp(16px, 1.5vw, 24px);
     top: 50%;
     width: 20px;
     height: 20px;
     opacity: 0;
     transform: translateY(-50%) translateX(-8px);
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+    transition: right 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.28s ease;
     pointer-events: none;
 }
 
 .abt-hero .ed-hero-cta .btn:hover svg,
 .abt-hero .ed-hero-cta .btn:focus-visible svg {
+    right: calc(clamp(16px, 1.5vw, 24px) - var(--abt-hero-cta-reveal));
     opacity: 1;
-    transform: translateY(-50%) translateX(24px);
+    transform: translateY(-50%) translateX(0);
+}
+
+.abt-hero .ed-hero-cta .btn:hover::before,
+.abt-hero .ed-hero-cta .btn:focus-visible::before {
+    right: calc(7px - var(--abt-hero-cta-reveal));
 }
 
 .abt-hero .ed-hero-cta .btn-primary:hover,
@@ -1889,14 +1901,12 @@
         white-space: nowrap;
         position: relative;
         overflow: visible !important;
-        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+            color 0.25s ease,
+            background 0.25s ease,
+            box-shadow 0.25s ease;
     }
 
-    .abt-hero .ed-hero-cta .btn:hover,
-    .abt-hero .ed-hero-cta .btn:focus-visible {
-        inline-size: 100%;
-        transform: translate(5px, -5px) !important;
-    }
 }
 
 

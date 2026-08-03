@@ -500,13 +500,15 @@ body {
     -webkit-backdrop-filter: blur(8px);
 }
 
-.legal-modal__panel {  justify-content: center;
-    background: #090D11;
-    pointer-events: none;
-    animation: pageVeilOut 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+/* ── Page load veil — content reveals from charcoal ── */
+/* The bar is driven by transform (compositor) rather than width, so it keeps
+   moving even while the arriving page's scripts are hogging the main thread. */
+@property --veil-inv {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: false;
 }
 
-/* ── Page load veil — content reveals from charcoal ── */
 .page-veil {
     position: fixed;
     inset: 0;
@@ -516,7 +518,17 @@ body {
     justify-content: center;
     background: #090D11;
     pointer-events: none;
-    animation: pageVeilOut 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+    opacity: 1;
+    /* Safety net only: if footer.js never runs, the veil still clears itself.
+       JS normally hides it well before this fires. */
+    animation: pageVeilOut 0.5s cubic-bezier(0.22, 1, 0.36, 1) 2.6s forwards;
+}
+
+.page-veil.is-hidden {
+    animation: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.5s;
 }
 
 @keyframes pageVeilOut {
@@ -538,7 +550,7 @@ body {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.36s ease, visibility 0.36s ease;
+    transition: opacity 0.34s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.34s;
 }
 
 .pt-veil.is-active {
@@ -579,15 +591,20 @@ body {
 
 .veil-progress-fill {
     display: block;
-    width: 0%;
+    width: 100%;
     height: 100%;
     border-radius: 999px;
     background: linear-gradient(90deg, #00b8d4 0%, #4285F4 50%, #0866FF 100%);
     box-shadow: 0 0 16px rgba(0, 184, 212, 0.8), 0 0 28px rgba(8, 102, 255, 0.6);
     position: relative;
-    transition: width 0.15s ease-out;
+    transform: scaleX(0.02);
+    transform-origin: left center;
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1),
+                --veil-inv 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
+/* Counter-scaled so the leading glow keeps its real width while the bar stretches. */
 .veil-progress-fill::after {
     content: '';
     position: absolute;
@@ -599,10 +616,15 @@ body {
     border-radius: 999px;
     box-shadow: 0 0 12px #ffffff, 0 0 20px #00b8d4;
     opacity: 0.9;
+    transform: scaleX(var(--veil-inv, 1));
+    transform-origin: right center;
 }
 
 .veil-percent {
     margin-top: 14px;
+    min-width: 4.6em;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
     color: rgba(255, 255, 255, 0.95);
     font-family: 'Archivo', sans-serif;
     font-size: 0.85rem;
@@ -627,31 +649,42 @@ body {
     text-transform: uppercase;
 }
 
+/* One bounce travels left to right, then the row rests before the next pass.
+   Only transform and opacity animate — animating color/text-shadow repainted
+   every letter every frame, which is what made the wave stutter and stall. */
 .veil-letter {
     display: inline-block;
-    animation: veilLetterBounce 1.4s ease-in-out infinite;
-    animation-delay: calc(var(--i, 0) * 0.12s);
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(0, 184, 212, 0.75), 0 0 24px rgba(0, 184, 212, 0.45);
+    opacity: 0.45;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    animation: veilLetterBounce 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: calc(var(--i, 0) * 0.09s);
 }
 
 @keyframes veilLetterBounce {
-    0%, 100% {
-        transform: translateY(0);
+    0% {
+        transform: translate3d(0, 0, 0);
         opacity: 0.45;
-        color: #00b8d4;
-        text-shadow: none;
     }
-    40% {
-        transform: translateY(-9px);
+    18% {
+        transform: translate3d(0, -9px, 0);
         opacity: 1;
-        color: #ffffff;
-        text-shadow: 0 0 12px rgba(0, 184, 212, 0.9), 0 0 24px rgba(0, 184, 212, 0.6);
+    }
+    36%, 100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0.45;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .pt-veil,
     .page-veil { transition-duration: 0.001s; animation-duration: 0.001s; }
-    .veil-logo { animation: none; }
+    .veil-logo,
+    .veil-letter { animation: none; }
+    .veil-letter { opacity: 1; }
+    .veil-progress-fill { transition-duration: 0.001s; }
 }
 
 
@@ -1710,23 +1743,48 @@ input.btn {
     top: 0;
 }
 
-/* Home hero wordmark uses the custom Retro Floral display font */
+/* Home hero brand now matches the serif "Adzio" wordmark used on
+   services/about, instead of the old AD-logo + "ZIO" lockup. */
 .hero .hero-eyebrow {
-    font-family: 'Retro Floral', 'Cormorant Garamond', serif;
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    gap: 10px;
+    font-family: 'Cormorant Garamond', 'Bodoni Moda', serif;
+    font-size: clamp(3.1rem, 4.2vw, 5.35rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: #F8F4EC;
+    text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
+    gap: 0;
+}
+
+@media (min-width: 769px) {
+    .hero .hero-eyebrow {
+        top: -10px;
+    }
+}
+
+/* Flag-wave underline: a live inline SVG (not a CSS background/mask), so its
+   SMIL <animate> actually plays — SMIL is unreliable when the SVG is only
+   referenced from background-image/mask-image. */
+.adzio-wave {
+    position: absolute;
+    left: 0;
+    bottom: -0.2em;
+    /* SVG is a replaced element: width:auto with left/right set does NOT
+       stretch it the way it would a block box, it just sizes to the
+       viewBox's intrinsic aspect ratio off the height. Set width explicitly. */
+    width: 100%;
+    height: 0.13em;
+    overflow: visible;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 10px rgba(0, 184, 212, 0.25));
 }
 
 .hero-wordmark-mobile {
-    display: none;
-}
-
-.hero-logo {
-    height: clamp(2.25rem, min(3.9vw, 6.9vh), 6.4rem);
-    width: auto;
-    object-fit: contain;
-    margin-right: -0.08em;
+    position: relative;
+    display: inline-block;
+    color: #F8F4EC;
+    -webkit-text-fill-color: #F8F4EC;
 }
 
 .hero-eyebrow-dot {
@@ -2918,57 +2976,16 @@ body.vsl-active .hero-vsl {
         opacity: 1;
     }
 
-    /* Top-left: ADZIO brand, vertically centred against the video thumbnail */
+    /* Top-left: Adzio brand, vertically centred against the video thumbnail.
+       Mobile gets a larger relative size than the shared desktop clamp. */
     .hero .hero-eyebrow {
         grid-area: brand;
         display: inline-block;
         justify-self: start;
         align-self: start;
         margin: clamp(2px, 1.2vh, 8px) 0 clamp(4px, 1.5vh, 10px);
-        font-family: 'Cormorant Garamond', 'Bodoni Moda', serif;
         font-size: clamp(3.1rem, 13vw, 4.35rem);
-        font-weight: 700;
-        line-height: 0.92;
-        letter-spacing: -0.03em;
-        color: #F8F4EC;
-        text-transform: none;
-        text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
         z-index: 3;
-    }
-
-    .hero .hero-logo,
-    .hero .hero-logo-suffix {
-        display: none;
-    }
-
-    .hero .hero-wordmark-mobile {
-        position: relative;
-        display: inline-block;
-        top: 0;
-        left: 0;
-        color: #F8F4EC;
-        -webkit-text-fill-color: #F8F4EC;
-    }
-
-    .hero .hero-wordmark-mobile::after {
-        content: '';
-        position: absolute;
-        left: 0.08em;
-        right: -0.12em;
-        bottom: -0.2em;
-        height: clamp(9px, 2.4vw, 13px);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 24' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3Cstop offset='16%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='50%25' stop-color='%233ba5b5'/%3E%3Cstop offset='84%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='100%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 12C20 3,40 3,60 12C80 21,100 21,118 12' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'%3E%3Canimate attributeName='d' dur='2.6s' repeatCount='indefinite' calcMode='spline' keySplines='.45 0 .55 1;.45 0 .55 1' values='M2 12C20 3,40 3,60 12C80 21,100 21,118 12;M2 12C20 21,40 21,60 12C80 3,100 3,118 12;M2 12C20 3,40 3,60 12C80 21,100 21,118 12'/%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        filter: drop-shadow(0 6px 10px rgba(0, 184, 212, 0.25));
-        pointer-events: none;
-    }
-
-    /* The logo PNG has built-in whitespace around the "AD" mark, so a plain
-       gap:0 still leaves a visible break — pull "ZIO" in to close it, so
-       AD + ZIO reads as one continuous wordmark. */
-    .hero-eyebrow .hero-logo {
-        margin-right: -0.3em;
     }
 
     .hero-eyebrow-dot {
@@ -5970,10 +5987,11 @@ body.vsl-active .hero-vsl {
 }
 
 .contact-names {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-optical-sizing: auto;
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     color: #d7dde4;
     line-height: 1.3;
 }
@@ -6077,6 +6095,7 @@ body.vsl-active .hero-vsl {
 
     .footer-main {
         gap: 34px;
+        transform: translateY(12px);
     }
 
     .footer-brand {
@@ -6219,6 +6238,21 @@ body.vsl-active .hero-vsl {
 }
 
 @media (max-width: 768px) {
+    .footer-social {
+        gap: 16px;
+        margin-top: 0.5rem;
+    }
+
+    .social-link {
+        width: 48px;
+        height: 48px;
+    }
+
+    .social-link svg {
+        width: 24px;
+        height: 24px;
+    }
+
     html {
         font-size: 15px;
     }
@@ -7409,6 +7443,50 @@ html.silk-active .hero-bg {
     max-width: 320px;
 }
 
+.success-finish-cta {
+    --success-finish-reveal: 32px;
+}
+
+.success-finish-cta > span {
+    position: relative;
+    z-index: 1;
+}
+
+.success-finish-cta::before {
+    top: 0;
+    right: 7px;
+    bottom: 0;
+    left: 7px;
+    transition: left 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.25s ease;
+}
+
+.success-finish-cta svg {
+    position: absolute;
+    top: 50%;
+    left: 7px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(8px, -50%);
+    transition: left 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.28s ease;
+}
+
+.success-finish-cta:hover::before,
+.success-finish-cta:focus-visible::before {
+    left: calc(7px - var(--success-finish-reveal));
+}
+
+.success-finish-cta:hover svg,
+.success-finish-cta:focus-visible svg {
+    left: calc(13px - var(--success-finish-reveal));
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+
 .success-cta-group .btn-ghost {
     --btn-ring: none;
     background: transparent;
@@ -8321,20 +8399,6 @@ html.silk-active .hero-bg {
         text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
     }
 
-    .abt-hero .ed-masthead-brand::after {
-        content: '';
-        position: absolute;
-        left: 0.08em;
-        right: -0.12em;
-        bottom: -0.2em;
-        height: clamp(9px, 0.75vw, 14px);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 24' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3Cstop offset='16%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='50%25' stop-color='%233ba5b5'/%3E%3Cstop offset='84%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='100%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 12C20 3,40 3,60 12C80 21,100 21,118 12' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'%3E%3Canimate attributeName='d' dur='2.6s' repeatCount='indefinite' calcMode='spline' keySplines='.45 0 .55 1;.45 0 .55 1' values='M2 12C20 3,40 3,60 12C80 21,100 21,118 12;M2 12C20 21,40 21,60 12C80 3,100 3,118 12;M2 12C20 3,40 3,60 12C80 21,100 21,118 12'/%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        filter: drop-shadow(0 6px 10px rgba(0, 184, 212, 0.25));
-        pointer-events: none;
-    }
-
     .abt-hero .ed-hero-aside::before,
     .svc-hero .ed-hero-aside::before {
         top: -12rem;
@@ -8799,17 +8863,19 @@ html.silk-active .hero-bg {
         transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
     }
 
-    /* Email's tip sits above the icon row instead of below, so it doesn't
-       collide with the phone row directly beneath it. */
-    .contact-tip-above {
-        top: auto;
-        bottom: calc(100% + 10px);
-        transform: translateY(3px);
+    /* Contact tooltips open horizontally so they stay alongside their
+       respective email and phone rows. */
+    .contact-item .social-tip {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: calc(100% + 10px);
+        transform: translate(-3px, -50%);
     }
 
-    .contact-item:hover .contact-tip-above,
-    .contact-item:focus-visible .contact-tip-above {
-        transform: translateY(0);
+    .contact-item:hover .social-tip,
+    .contact-item:focus-visible .social-tip {
+        transform: translate(0, -50%);
     }
 
     @keyframes social-tip-caret {
@@ -9010,16 +9076,22 @@ html.silk-active .hero-bg {
 /* Give the mobile-menu social row a stronger visual presence above its contact links. */
 @media (max-width: 768px) {
     .m-nav-socials {
+        gap: 38px;
         transform: translateY(-10px);
     }
 
     .m-nav-socials svg {
-        transform: scale(1.8);
-        transform-origin: center;
+        width: 46px;
+        height: 46px;
+        transform: none;
     }
 
+    .m-nav-socials a:nth-child(1) { color: #E4405F; }
+    .m-nav-socials a:nth-child(2) { color: #1877F2; }
+    .m-nav-socials a:nth-child(3) { color: #ffffff; }
+
     .m-nav-socials a:active svg {
-        transform: translateY(-2px) scale(1.8);
+        transform: translateY(-2px);
     }
 }
 
@@ -9062,5 +9134,65 @@ html.silk-active .hero-bg {
         opacity: 1;
         transform: scale(1);
         animation: phoneRing 0.6s ease-in-out infinite alternate;
+    }
+}
+
+/* Keep the first application step within a phone viewport without reducing
+   field readability or iOS-safe input sizing. */
+@media (max-width: 768px) {
+    .quiz-inline-card {
+        padding: 1.3rem 1.5rem 1.15rem;
+    }
+
+    .quiz-progress-wrapper {
+        margin-bottom: 0.8rem;
+    }
+
+    .quiz-inline-card .quiz-step-title {
+        font-size: 1.7rem;
+        margin-bottom: 0.45rem;
+    }
+
+    .quiz-inline-card .quiz-step-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.45;
+        margin-bottom: 1.25rem;
+    }
+
+    .quiz-inline-card .form-group {
+        margin-bottom: 0.55rem;
+    }
+
+    .quiz-inline-card .form-group label {
+        margin-bottom: 0.35rem;
+    }
+
+    .quiz-inline-card .form-group input,
+    .quiz-inline-card .custom-select-trigger,
+    .quiz-inline-card .form-group textarea {
+        padding: 0.78rem 0.95rem;
+    }
+
+    .quiz-nav-buttons {
+        margin-top: 0.7rem;
+        padding-top: 0.7rem;
+        padding-bottom: 0.25rem;
+    }
+
+    .quiz-nav-buttons .btn {
+        min-height: 44px;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (min-width: 769px) {
+    #quizInlineCard {
+        max-width: 780px;
+    }
+
+    #quizSuccess .success-subtitle {
+        max-width: 68ch;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }

@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=305.0">
+    <link rel="stylesheet" href="css/styles.css?v=315.0">
     <link rel="stylesheet" href="css/animations.css?v=215.0">
     <link rel="stylesheet" href="css/problem.css?v=227.0">
     <link rel="stylesheet" href="css/process.css?v=247.0">
@@ -142,9 +142,7 @@
             <div class="hero-split">
                 <div class="hero-left-col">
                     <div class="hero-eyebrow animate-fade-up delay-1">
-                        <img src="assets/logo.png" alt="AD" class="hero-logo">
-                        <span class="hero-logo-suffix">ZIO</span>
-                        <span class="hero-wordmark-mobile">Adzio</span>
+                        <span class="hero-wordmark-mobile">Adzio<svg class="adzio-wave" viewBox="0 0 120 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><defs><linearGradient id="adzioWaveHero" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00b8d4" stop-opacity="0"/><stop offset="16%" stop-color="#00b8d4" stop-opacity=".95"/><stop offset="50%" stop-color="#3ba5b5"/><stop offset="84%" stop-color="#00b8d4" stop-opacity=".95"/><stop offset="100%" stop-color="#00b8d4" stop-opacity="0"/></linearGradient></defs><path d="M2 12C20 3,40 3,60 12C80 21,100 21,118 12" fill="none" stroke="url(#adzioWaveHero)" stroke-width="3" stroke-linecap="round"><animate attributeName="d" dur="2.6s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" values="M2 12C20 3,40 3,60 12C80 21,100 21,118 12;M2 12C20 21,40 21,60 12C80 3,100 3,118 12;M2 12C20 3,40 3,60 12C80 21,100 21,118 12"/></path></svg></span>
                     </div>
 
                     <h1 class="hero-title animate-fade-up delay-2">
@@ -1066,8 +1064,11 @@
                                 target="_blank" rel="noopener" class="btn btn-glow" style="min-width: 220px;">
                                 <span>Schedule Your Call</span>
                             </a>
-                            <button type="button" class="btn btn-ghost" id="quizSuccessCloseBtn"
-                                style="min-width: 180px;">
+                            <button type="button" class="btn btn-glow success-finish-cta" id="quizSuccessCloseBtn"
+                                style="min-width: 220px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                                </svg>
                                 <span>Finish</span>
                             </button>
                         </div>
@@ -1117,7 +1118,7 @@
 
     <!-- Footer (shared component) -->
     <div id="site-footer"></div>
-    <script src="js/footer.js?v=8"></script>
+    <script src="js/footer.js?v=9"></script>
 
     <!-- VSL Modal -->
     <div class="vsl-modal" id="vslModal">

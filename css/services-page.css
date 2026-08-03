@@ -424,6 +424,7 @@
 
 .logo-slider {
     margin-top: 1.5rem !important;
+    border-bottom: 0;
 }
 
 .svc-platform-heading {
@@ -439,6 +440,14 @@
 
 .svc-platform-heading > span {
     color: var(--cyan);
+}
+
+.svc-platform-arrow {
+    width: 28px;
+    height: 28px;
+    margin-top: -0.35rem;
+    color: var(--cyan);
+    filter: drop-shadow(0 4px 8px rgba(0, 184, 212, 0.2));
 }
 
 /* Hidden stats backup */
@@ -577,10 +586,14 @@
     border: none;
     color: var(--svc-bright);
     font-family: 'Archivo', sans-serif;
-    font-size: 1.07rem;
+    font-size: clamp(1.2rem, 1.25vw, 1.35rem);
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+}
+
+.svc-index--mobile {
+    display: none;
 }
 
 .svc-detail-title {
@@ -703,6 +716,14 @@
     transform: translateY(16px);
 }
 
+#social-media-management .svc-visual .svc-index--visual {
+    position: absolute;
+    top: -42px;
+    left: 10px;
+    z-index: 3;
+    margin: 0;
+}
+
 @media (min-width: 1201px) {
     /* minmax(0, …) rather than fixed 640/560 minimums: those plus the gap came
        to 1282px, more than the shell's content box below ~1450px, so the grid
@@ -775,6 +796,19 @@
     color: var(--text-primary);
 }
 
+#social-media-management .svc-proof-tag span {
+    font-size: clamp(0.7rem, 0.78vw, 0.78rem);
+}
+
+#social-media-management .svc-proof-header {
+    margin-left: 10px;
+}
+
+#social-media-management .svc-ig-gradient-icon {
+    width: 20px;
+    height: 20px;
+}
+
 /* Real founder social case studies, stacked in the visual column */
 .svc-proof-stack {
     display: flex;
@@ -832,6 +866,65 @@
 
 .svc-proof-stack .abt-feed-item {
     aspect-ratio: 16 / 8.5;
+}
+
+/* Social post links share the footer's typed tooltip, while the image keeps
+   its contained zoom and darkened hover state. */
+#social-media-management .abt-feed-item {
+    overflow: visible;
+}
+
+#social-media-management .abt-feed-frame {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+#social-media-management .abt-feed-frame img {
+    border-radius: inherit;
+}
+
+#social-media-management .abt-feed-item:hover img,
+#social-media-management .abt-feed-item:focus-visible img {
+    transform: scale(1.06);
+}
+
+#social-media-management .abt-feed-overlay {
+    display: block;
+    background: rgba(0, 0, 0, 0.34);
+    pointer-events: none;
+}
+
+#social-media-management .abt-feed-overlay::after {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #social-media-management .abt-feed-item .social-tip {
+        top: auto;
+        right: auto;
+        bottom: calc(100% + 9px);
+        left: 50%;
+        z-index: 5;
+        transform: translate(-50%, 3px);
+    }
+
+    #social-media-management .abt-feed-item:hover,
+    #social-media-management .abt-feed-item:focus-visible {
+        border-color: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 4;
+    }
+
+    #social-media-management .abt-feed-item:hover .social-tip,
+    #social-media-management .abt-feed-item:focus-visible .social-tip {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
+    }
 }
 
 /* Compact social proof metrics in the unused profile-header space. */
@@ -952,6 +1045,27 @@
     transform: translateX(-50%);
     width: min(100%, clamp(410px, 31.5vw, 645px));
     justify-content: flex-start;
+}
+
+/* The Meta section uses its actual service index as the ad-grid header rather
+   than a second, redundant channel label. */
+#ad-management .svc-visual .svc-index--visual {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    z-index: 3;
+    width: min(100%, clamp(410px, 31.5vw, 645px));
+    margin: 0;
+    transform: translateX(-50%);
+    justify-content: flex-start;
+}
+
+#lead-generation .svc-visual .svc-index--visual {
+    position: absolute;
+    top: -36px;
+    left: 0;
+    z-index: 3;
+    margin: 0;
 }
 
 @keyframes svc-float {
@@ -1344,6 +1458,12 @@
     margin: 0 auto 0 0;
 }
 
+@media (min-width: 769px) {
+    .svc-card--google {
+        max-width: clamp(380px, 29.5vw, 600px);
+    }
+}
+
 /* This section carries two devices instead of one, so its visual column is
    sized explicitly rather than by fr. An fr ratio wide enough for the devices
    squeezed the copy column past the manual line breaks in the headline. */
@@ -1390,15 +1510,21 @@
     min-width: 0;
 }
 
-/* The Stripe chip rides directly above the browser mock's top-left corner, so
-   it shares the browser's column instead of being positioned off the card. */
+/* Browser mock column. */
 .svc-browser-col {
     flex: 1 1 auto;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
     position: relative;
+}
+
+#landing-pages .svc-browser-col .svc-index--visual {
+    position: absolute;
+    top: -125px;
+    left: 70px;
+    z-index: 3;
+    margin: 0;
 }
 
 /* Soft ambient light halo straddling the bottom-left corner of the browser
@@ -1433,11 +1559,6 @@
     z-index: 0;
     mask-image: linear-gradient(to top right, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
     -webkit-mask-image: linear-gradient(to top right, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
-}
-
-.svc-float-chip--stacked {
-    position: static;
-    align-self: flex-start;
 }
 
 .svc-browser {
@@ -2843,6 +2964,32 @@
 .svc-ad-tile .badge--cpl .badge-num { color: #ffffff; }
 .svc-ad-tile .badge--bookings .badge-num { color: #9ca3af; }
 
+/* Keep the Meta artwork compact on desktop while preserving a comfortably
+   readable performance signal. Phone sizing remains unchanged. */
+@media (min-width: 769px) {
+    .svc-ad-grid {
+        max-width: clamp(390px, 29.5vw, 605px);
+    }
+
+    #ad-management .svc-visual .svc-index--visual {
+        width: min(100%, clamp(390px, 29.5vw, 605px));
+    }
+
+    .svc-ad-tile .ad-tile-badge {
+        top: 13px;
+        left: 13px;
+        padding: 7px 11px;
+    }
+
+    .svc-ad-tile .badge-lbl {
+        font-size: 0.56rem;
+    }
+
+    .svc-ad-tile .badge-num {
+        font-size: 1.04rem;
+    }
+}
+
 /* Ad Details Overlay */
 .svc-ad-tile .ad-tile-overlay {
     position: absolute;
@@ -3442,6 +3589,42 @@
     }
 
     .svc-index { order: 1; }
+
+    #ad-management .svc-visual .svc-index--visual {
+        display: none;
+    }
+
+    #ad-management .svc-index--mobile {
+        display: inline-flex;
+        margin: 0 0 1.2rem;
+    }
+
+    #lead-generation .svc-visual .svc-index--visual {
+        display: none;
+    }
+
+    #lead-generation .svc-index--mobile {
+        display: inline-flex;
+        margin: 0 0 1.2rem;
+    }
+
+    #landing-pages .svc-browser-col .svc-index--visual {
+        display: none;
+    }
+
+    #landing-pages .svc-index--mobile {
+        display: inline-flex;
+        margin: 0 0 1.2rem;
+    }
+
+    #social-media-management .svc-visual .svc-index--visual {
+        display: none;
+    }
+
+    #social-media-management .svc-index--mobile {
+        display: inline-flex;
+        margin: 0 0 1rem;
+    }
     .svc-detail-title { order: 2; }
     .svc-visual,
     .svc-detail--reverse .svc-visual {
@@ -3613,20 +3796,6 @@
         text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
     }
 
-    .svc-hero .ed-masthead-brand::after {
-        content: '';
-        position: absolute;
-        left: 0.08em;
-        right: -0.12em;
-        bottom: -0.2em;
-        height: clamp(9px, 2.4vw, 13px);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 24' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3Cstop offset='16%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='50%25' stop-color='%233ba5b5'/%3E%3Cstop offset='84%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='100%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 12C20 3,40 3,60 12C80 21,100 21,118 12' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'%3E%3Canimate attributeName='d' dur='2.6s' repeatCount='indefinite' calcMode='spline' keySplines='.45 0 .55 1;.45 0 .55 1' values='M2 12C20 3,40 3,60 12C80 21,100 21,118 12;M2 12C20 21,40 21,60 12C80 3,100 3,118 12;M2 12C20 3,40 3,60 12C80 21,100 21,118 12'/%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        filter: drop-shadow(0 6px 10px rgba(0, 184, 212, 0.25));
-        pointer-events: none;
-    }
-
     .svc-hero .ed-hero-cta {
         --svc-hero-cta-reveal: 34px;
         width: min(100%, 235px);
@@ -3723,26 +3892,6 @@
         text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
     }
 
-    .svc-hero .ed-masthead-brand::after {
-        content: '';
-        position: absolute;
-        left: 0.08em;
-        right: -0.12em;
-        bottom: -0.16em;
-        height: clamp(9px, 0.75vw, 14px);
-        background: linear-gradient(90deg, rgba(0, 184, 212, 0.15), rgba(0, 184, 212, 0.95) 20%, rgba(248, 244, 236, 0.85) 50%, rgba(0, 184, 212, 0.95) 80%, rgba(0, 184, 212, 0.15));
-        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 12'%3E%3Cpath d='M0 6C4 0 12 0 16 6C20 12 28 12 32 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
-        -webkit-mask-repeat: repeat-x;
-        -webkit-mask-size: 32px 100%;
-        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 12'%3E%3Cpath d='M0 6C4 0 12 0 16 6C20 12 28 12 32 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
-        mask-repeat: repeat-x;
-        mask-size: 32px 100%;
-        opacity: 0.95;
-        filter: drop-shadow(0 8px 14px rgba(0, 184, 212, 0.2));
-        animation: adzioUnderlineWave 2.8s linear infinite;
-        pointer-events: none;
-    }
-
     .svc-hero .ed-hero-lead {
         font-size: clamp(1.05rem, 1.25vw, 1.35rem);
     }
@@ -3780,4 +3929,64 @@
         padding-inline: clamp(14px, 1.3vw, 20px);
         white-space: nowrap;
     }
+}
+
+/* Services hero CTAs keep their labels fixed while the button face opens to
+   the right for the incoming arrow. Kept after breakpoint rules so it wins
+   at every viewport size. */
+.svc-hero .ed-hero-cta .btn {
+    --svc-hero-cta-reveal: 34px;
+    position: relative;
+    overflow: visible !important;
+    transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.svc-hero .ed-hero-cta .btn > span {
+    position: relative;
+    z-index: 1;
+    transform: none !important;
+    transition: none;
+}
+
+.svc-hero .ed-hero-cta .btn:hover,
+.svc-hero .ed-hero-cta .btn:focus-visible {
+    transform: translate(4px, -4px) !important;
+}
+
+.svc-hero .ed-hero-cta .btn::before {
+    right: 7px;
+    transition: right 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.svc-hero .ed-hero-cta .btn:hover::before,
+.svc-hero .ed-hero-cta .btn:focus-visible::before {
+    right: calc(7px - var(--svc-hero-cta-reveal));
+}
+
+.svc-hero .ed-hero-cta .btn svg {
+    position: absolute;
+    top: 50%;
+    right: clamp(16px, 1.5vw, 24px);
+    width: 20px;
+    height: 20px;
+    max-width: 20px;
+    margin-left: 0;
+    opacity: 0;
+    transform: translateY(-50%) translateX(-8px);
+    transition: right 0.46s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.28s ease;
+    pointer-events: none;
+}
+
+.svc-hero .ed-hero-cta .btn:hover svg,
+.svc-hero .ed-hero-cta .btn:focus-visible svg {
+    right: calc(clamp(16px, 1.5vw, 24px) - var(--svc-hero-cta-reveal));
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
 }

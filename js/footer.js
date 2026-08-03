@@ -199,35 +199,87 @@
     // ── Seamless page transitions ──
     // Cover the screen on leave; the .page-veil on the next page reveals on arrive.
     function setupPageTransitions() {
-        function animateVeilProgress(target, duration) {
-            if (!target) return;
-            var fill = target.querySelector('.veil-progress-fill');
-            var percent = target.querySelector('.veil-percent');
-            if (!fill || !percent) return;
+        var navKey = 'adzio_nav_intent';
+        var LEAVE_TARGET = 0.68;  // where the leaving page hands the bar off
+        var LEAVE_MS = 600;       // bar travel before the browser navigates
+        var ARRIVE_MS = 520;      // the rest of the bar, drawn on the new page
+        var MIN_HOLD = 460;       // never flash the veil away instantly
+        var MAX_HOLD = 1500;      // but never wait on one slow asset either
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            var start = null;
-            fill.style.width = '0%';
-            percent.textContent = '0%';
-
-            function update(now) {
-                if (!start) start = now;
-                var progress = Math.min((now - start) / duration, 1);
-                var value = Math.round(progress * 100);
-                fill.style.width = value + '%';
-                percent.textContent = value + '%';
-                if (progress < 1) requestAnimationFrame(update);
-            }
-            requestAnimationFrame(update);
+        function now() {
+            return window.performance && performance.now ? performance.now() : Date.now();
         }
 
-        // Only animate the initial page-veil if navigation was triggered by an
-        // actual link click (not a resize, monitor move, or direct URL entry).
+        // The bar is a CSS transition on transform, so it keeps gliding on the
+        // compositor even while page scripts block the main thread. Driving it
+        // per frame from rAF (the old approach) froze whenever GSAP or Lottie
+        // took the thread, which is what made the loader look broken.
+        function setBar(veil, from, to, duration) {
+            if (!veil) return;
+            var fill = veil.querySelector('.veil-progress-fill');
+            var percent = veil.querySelector('.veil-percent');
+            if (fill) {
+                fill.style.transitionDuration = '0s';
+                fill.style.transform = 'scaleX(' + from + ')';
+                fill.style.setProperty('--veil-inv', 1 / from);
+                void fill.offsetWidth; // commit the start frame before transitioning
+                fill.style.transitionDuration = duration + 'ms';
+                fill.style.transform = 'scaleX(' + to + ')';
+                fill.style.setProperty('--veil-inv', 1 / to);
+            }
+            if (percent) countTo(percent, from, to, duration);
+        }
+
+        // Matches the bar's cubic-bezier(0.33, 1, 0.68, 1) easing so the number
+        // and the fill stay in step.
+        function countTo(el, from, to, duration) {
+            var token = (el._veilToken || 0) + 1;
+            el._veilToken = token;
+            var start = null;
+            function step(t) {
+                if (el._veilToken !== token) return;
+                if (start === null) start = t;
+                var p = duration <= 0 ? 1 : Math.min((t - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round((from + (to - from) * eased) * 100) + '%';
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Arrival: pick the bar up where the previous page dropped it so the two
+        // veils read as one continuous loader across the navigation.
         var initialVeil = document.querySelector('.page-veil');
-        var navKey = 'adzio_nav_intent';
-        var wasIntentional = sessionStorage.getItem(navKey) === '1';
+        var handoff = parseFloat(sessionStorage.getItem(navKey));
         sessionStorage.removeItem(navKey);
-        if (wasIntentional && initialVeil) {
-            animateVeilProgress(initialVeil, 320);
+
+        if (initialVeil) {
+            var wasIntentional = handoff > 0 && handoff < 1;
+            var from = wasIntentional ? handoff : 0.12;
+            var arriveMs = reduce ? 0 : (wasIntentional ? ARRIVE_MS : 340);
+            var startedAt = now();
+            var hidden = false;
+
+            setBar(initialVeil, from, 1, arriveMs);
+
+            var hideVeil = function () {
+                if (hidden) return;
+                hidden = true;
+                initialVeil.classList.add('is-hidden');
+                setTimeout(function () {
+                    if (initialVeil.parentNode) initialVeil.parentNode.removeChild(initialVeil);
+                }, 700);
+            };
+            var finish = function () {
+                // Hold until the bar has actually reached 100%, then fade.
+                var wait = Math.max(arriveMs + 80, MIN_HOLD) - (now() - startedAt);
+                setTimeout(hideVeil, wait > 0 ? wait : 0);
+            };
+
+            if (document.readyState === 'complete') finish();
+            else window.addEventListener('load', finish);
+            setTimeout(hideVeil, MAX_HOLD);
         }
 
         var veil = document.createElement('div');
@@ -243,8 +295,31 @@
             return normPath(url.pathname) === normPath(location.pathname);
         }
 
+        // Warm the next document on hover so the frozen gap between the two
+        // veils (where nothing can animate) is as short as possible.
+        var prefetched = {};
+        function prefetch(a) {
+            if (!a || !a.href) return;
+            var url;
+            try { url = new URL(a.getAttribute('href') || '', location.href); } catch (err) { return; }
+            if (url.origin !== location.origin || samePage(url)) return;
+            var key = url.pathname;
+            if (prefetched[key]) return;
+            prefetched[key] = true;
+            var link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url.pathname + url.search;
+            document.head.appendChild(link);
+        }
+        document.addEventListener('pointerover', function (e) {
+            var a = e.target && e.target.closest ? e.target.closest('a') : null;
+            if (a) prefetch(a);
+        });
+
+        var navigating = false;
+
         document.addEventListener('click', function (e) {
-            if (e.defaultPrevented) return;
+            if (e.defaultPrevented || navigating) return;
             if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
             var a = e.target.closest('a');
             if (!a) return;
@@ -271,18 +346,24 @@
                 return;
             }
 
-            // Mark this as an intentional navigation so the next page shows its veil.
-            sessionStorage.setItem(navKey, '1');
+            // Hand the bar's position to the next page so it resumes instead of
+            // snapping back to 0%.
+            sessionStorage.setItem(navKey, String(LEAVE_TARGET));
 
             e.preventDefault();
-            animateVeilProgress(veil, 320);
+            navigating = true;
+            setBar(veil, 0.04, LEAVE_TARGET, reduce ? 0 : LEAVE_MS);
             veil.classList.add('is-active');
-            setTimeout(function () { window.location.href = url.href; }, 370);
+            setTimeout(function () { window.location.href = url.href; }, reduce ? 60 : LEAVE_MS + 40);
         });
 
         // Reset the cover if the user returns via back/forward cache.
         window.addEventListener('pageshow', function (ev) {
-            if (ev.persisted) veil.classList.remove('is-active');
+            if (!ev.persisted) return;
+            navigating = false;
+            veil.classList.remove('is-active');
+            setBar(veil, 0.04, 0.04, 0);
+            if (initialVeil) initialVeil.classList.add('is-hidden');
         });
     }
 
@@ -293,7 +374,7 @@
     // box's final width — without it the panel would grow character by character
     // and shove itself sideways while you read it.
     function initSocialTips() {
-        var links = document.querySelectorAll('.social-link, .contact-item');
+        var links = document.querySelectorAll('.social-link, .contact-item, .abt-feed-item');
         if (!links.length) return;
 
         // Touch devices fire a sticky :hover on tap, which would leave a tooltip
@@ -304,6 +385,26 @@
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         Array.prototype.forEach.call(links, function (link) {
+            var isInstagramPost = link.classList.contains('abt-feed-item');
+
+            if (isInstagramPost) {
+                var postImage = link.querySelector('img');
+                if (postImage && !postImage.parentElement.classList.contains('abt-feed-frame')) {
+                    var frame = document.createElement('span');
+                    frame.className = 'abt-feed-frame';
+                    postImage.parentNode.insertBefore(frame, postImage);
+                    frame.appendChild(postImage);
+                }
+
+                if (!link.querySelector('.social-tip')) {
+                    var postTip = document.createElement('span');
+                    postTip.className = 'social-tip social-tip--instagram';
+                    postTip.setAttribute('aria-hidden', 'true');
+                    postTip.innerHTML = '<span class="social-tip-sizer">Open in Instagram</span><span class="social-tip-text"></span>';
+                    link.appendChild(postTip);
+                }
+            }
+
             var tip = link.querySelector('.social-tip');
             var sizer = tip && tip.querySelector('.social-tip-sizer');
             var out = tip && tip.querySelector('.social-tip-text');
