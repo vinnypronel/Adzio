@@ -25,8 +25,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css?v=315.0">
     <link rel="stylesheet" href="css/animations.css?v=215.0">
-    <link rel="stylesheet" href="css/problem.css?v=227.0">
-    <link rel="stylesheet" href="css/process.css?v=247.0">
+    <link rel="stylesheet" href="css/problem.css?v=232.0">
+    <link rel="stylesheet" href="css/process.css?v=251.0">
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -291,16 +291,7 @@
                                     customers.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="12" cy="12" r="10" class="icon-clock-face" />
-                                            <g class="icon-clock-hand icon-clock-hand--hour">
-                                                <line x1="12" y1="12" x2="12" y2="8.2" />
-                                            </g>
-                                            <g class="icon-clock-hand icon-clock-hand--minute">
-                                                <line x1="12" y1="12" x2="15.3" y2="13.9" />
-                                            </g>
-                                        </svg>
+                                        <div class="problem-history-lottie" aria-hidden="true"></div>
                                     </div>
                                 </div>
                             </div>
@@ -315,12 +306,7 @@
                                     It compounds against you.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <line x1="12" y1="1.5" x2="12" y2="22.5" class="icon-money-stem" />
-                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-                                                class="icon-money-curve" />
-                                        </svg>
+                                        <div class="problem-invoice-lottie" aria-hidden="true"></div>
                                     </div>
                                 </div>
                                 <div class="pain-text">
@@ -342,17 +328,7 @@
                                     surrendered &ndash; and it gets harder to reclaim the longer you wait.</p>
                                 <div class="pain-visual">
                                     <div class="icon-ring">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <circle cx="9" cy="7" r="4"
-                                                class="icon-people-head icon-people-head--main" />
-                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-                                                class="icon-people-body icon-people-body--main" />
-                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"
-                                                class="icon-people-head icon-people-head--alt" />
-                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"
-                                                class="icon-people-body icon-people-body--alt" />
-                                        </svg>
+                                        <div class="problem-customers-lottie" aria-hidden="true"></div>
                                     </div>
                                 </div>
                             </div>
@@ -676,11 +652,15 @@
                             </div>
                             <div class="process-s1-card-item" data-step="2" role="button" tabindex="0" aria-label="Go to Step 02 Custom Strategy">
                                 <span class="process-s1-card-icon" aria-hidden="true">
-                                    <!-- star - matches slide 02 -->
+                                    <!-- Custom Strategy Sliders -->
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <polygon
-                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                        stroke-linecap="round" stroke-linejoin="round" class="process-sliders-svg">
+                                        <line x1="6" y1="3" x2="6" y2="21" opacity="0.4" />
+                                        <line x1="12" y1="3" x2="12" y2="21" opacity="0.4" />
+                                        <line x1="18" y1="3" x2="18" y2="21" opacity="0.4" />
+                                        <circle class="slider-knob knob-1" cx="6" cy="14" r="2.5" fill="var(--bg-primary, #0d141a)" stroke="currentColor" stroke-width="1.6" />
+                                        <circle class="slider-knob knob-2" cx="12" cy="7" r="2.5" fill="var(--bg-primary, #0d141a)" stroke="currentColor" stroke-width="1.6" />
+                                        <circle class="slider-knob knob-3" cx="18" cy="16" r="2.5" fill="var(--bg-primary, #0d141a)" stroke="currentColor" stroke-width="1.6" />
                                     </svg>
                                 </span>
                                 <span class="process-s1-card-num">02</span>
@@ -748,9 +728,13 @@
                         <div class="process-pain-visual">
                             <div class="process-icon-ring">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon
-                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                    stroke-linecap="round" stroke-linejoin="round" class="process-sliders-svg">
+                                    <line x1="6" y1="3" x2="6" y2="21" opacity="0.4" />
+                                    <line x1="12" y1="3" x2="12" y2="21" opacity="0.4" />
+                                    <line x1="18" y1="3" x2="18" y2="21" opacity="0.4" />
+                                    <circle class="slider-knob knob-1" cx="6" cy="14" r="2.5" fill="var(--bg-primary, #0d141a)" stroke="currentColor" stroke-width="1.6" />
+                                    <circle class="slider-knob knob-2" cx="12" cy="7" r="2.5" fill="var(--bg-primary, #0d141a)" stroke="currentColor" stroke-width="1.6" />
+                                    <circle class="slider-knob knob-3" cx="18" cy="16" r="2.5" fill="var(--bg-primary, #0d141a)" stroke="currentColor" stroke-width="1.6" />
                                 </svg>
                             </div>
                         </div>
@@ -1257,7 +1241,7 @@
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="js/smooth-scroll.js?v=1"></script>
     <script src="js/main.js?v=58.0"></script>
-    <script src="js/problem.js?v=15.0"></script>
+    <script src="js/problem.js?v=18.0"></script>
 
 
     <!-- Navbar Morphing Script -->

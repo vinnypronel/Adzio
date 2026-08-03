@@ -653,7 +653,31 @@ function initProcessIconScrollPlay() {
     rings.forEach(ring => observer.observe(ring));
 }
 
+function initProblemLottie(hostSelector, path) {
+    const host = document.querySelector(hostSelector);
+    const ring = host?.closest('.icon-ring');
+    if (!host || !ring || !window.lottie) return;
+
+    const animation = window.lottie.loadAnimation({
+        container: host,
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        path,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid meet' }
+    });
+
+    animation.setSpeed(0.85);
+
+    const replay = () => animation.goToAndPlay(0, true);
+    ring.addEventListener('mouseenter', replay);
+    ring.addEventListener('click', replay);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initProblemLottie('.problem-history-lottie', 'assets/animations/history-hover.json');
+    initProblemLottie('.problem-invoice-lottie', 'assets/animations/invoice-euro-hover.json');
+    initProblemLottie('.problem-customers-lottie', 'assets/animations/attract-customers-hover.json');
     initProblemSection();
     initProcessSection();
     initProcessIconReplay();

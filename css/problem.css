@@ -337,21 +337,11 @@
 }
 
 .icon-ring::before {
-    content: '';
-    position: absolute;
-    inset: -12px;
-    border-radius: 50%;
-    border: 1px solid currentColor;
-    opacity: 0.16;
+    display: none;
 }
 
 .icon-ring::after {
-    content: '';
-    position: absolute;
-    inset: -26px;
-    border-radius: 50%;
-    border: 1px dashed currentColor;
-    opacity: 0.08;
+    display: none;
 }
 
 .icon-ring svg,
@@ -1407,6 +1397,55 @@
     animation: problemClockHourSweep 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* The history Lottie occupies the original clock's space inside the ring. */
+#problem-card-time .problem-history-lottie {
+    width: 46%;
+    height: 46%;
+    filter: invert(48%) sepia(91%) saturate(2900%) hue-rotate(200deg) brightness(102%) contrast(102%);
+}
+
+#problem-card-time .problem-history-lottie svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#problem-card-time .icon-ring .problem-history-lottie svg {
+    animation: none;
+}
+
+#problem-card-budget .problem-invoice-lottie {
+    width: 48%;
+    height: 48%;
+    filter: invert(48%) sepia(91%) saturate(2900%) hue-rotate(200deg) brightness(102%) contrast(102%);
+}
+
+#problem-card-budget .problem-invoice-lottie svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#problem-card-budget .icon-ring .problem-invoice-lottie svg {
+    animation: none;
+}
+
+#problem-card-competition .problem-customers-lottie {
+    width: 48%;
+    height: 48%;
+    filter: invert(64%) sepia(85%) saturate(1650%) hue-rotate(140deg) brightness(94%) contrast(101%);
+}
+
+#problem-card-competition .problem-customers-lottie svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#problem-card-competition .icon-ring .problem-customers-lottie svg {
+    animation: none;
+}
+
 #problem-card-budget .icon-ring.icon-animate svg {
     animation: problemIconMoneyPop 0.9s ease-out forwards;
 }
@@ -1927,4 +1966,10 @@
         margin-inline: 0;
         padding-inline: 0;
     }
+}
+
+/* Keep the pain-card chrome neutral: the color still belongs to the copy and
+   icons, without a separate accent bar across the card edge. */
+.problem-card::before {
+    display: none;
 }
