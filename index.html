@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=303.0">
+    <link rel="stylesheet" href="css/styles.css?v=305.0">
     <link rel="stylesheet" href="css/animations.css?v=215.0">
     <link rel="stylesheet" href="css/problem.css?v=227.0">
     <link rel="stylesheet" href="css/process.css?v=247.0">
@@ -143,7 +143,8 @@
                 <div class="hero-left-col">
                     <div class="hero-eyebrow animate-fade-up delay-1">
                         <img src="assets/logo.png" alt="AD" class="hero-logo">
-                        <span>ZIO</span>
+                        <span class="hero-logo-suffix">ZIO</span>
+                        <span class="hero-wordmark-mobile">Adzio</span>
                     </div>
 
                     <h1 class="hero-title animate-fade-up delay-2">
@@ -965,11 +966,11 @@
                                         class="label-required">*</span></label>
                                 <select id="revenue" name="revenue" required>
                                     <option value="">Select your revenue range</option>
-                                    <option value="5k-10k">$5,000 â€“ $10,000</option>
-                                    <option value="10k-25k">$10,000 â€“ $25,000</option>
-                                    <option value="25k-50k">$25,000 â€“ $50,000</option>
-                                    <option value="50k-100k">$50,000 â€“ $100,000</option>
-                                    <option value="100k-200k">$100,000 â€“ $200,000</option>
+                                    <option value="5k-10k">$5,000 - $10,000</option>
+                                    <option value="10k-25k">$10,000 - $25,000</option>
+                                    <option value="25k-50k">$25,000 - $50,000</option>
+                                    <option value="50k-100k">$50,000 - $100,000</option>
+                                    <option value="100k-200k">$100,000 - $200,000</option>
                                     <option value="200k+">$200,000+</option>
                                 </select>
                             </div>
@@ -1040,7 +1041,8 @@
                         </div>
                         <h3 class="success-title">You're All Set, <span id="quizSuccessName">Friend</span>!</h3>
                         <p class="success-subtitle" style="margin-bottom: 2rem;">Your strategy call assessment is
-                            complete. We're excited to help scale your business.</p>
+                            complete, and we're excited to help scale your business. As your last step, pick a time
+                            for your call below.</p>
                         <div class="success-details" style="margin: 0 auto 2rem; max-width: 480px; text-align: left;">
                             <div class="success-detail-item">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1059,10 +1061,16 @@
                                 <span>Devyn or Anton will contact you directly</span>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" id="quizSuccessCloseBtn"
-                            style="min-width: 180px;">
-                            <span>Finish</span>
-                        </button>
+                        <div class="success-cta-group">
+                            <a href="https://api.leadconnectorhq.com/widget/booking/yb8FFF2wKDQ4FpECWGy2"
+                                target="_blank" rel="noopener" class="btn btn-glow" style="min-width: 220px;">
+                                <span>Schedule Your Call</span>
+                            </a>
+                            <button type="button" class="btn btn-ghost" id="quizSuccessCloseBtn"
+                                style="min-width: 180px;">
+                                <span>Finish</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

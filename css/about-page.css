@@ -117,29 +117,45 @@
 }
 
 .abt-hero .ed-hero-cta .btn {
-    inline-size: min(216px, 100%);
+    position: relative;
     justify-content: center;
     white-space: nowrap;
-    position: relative;
-    transition: inline-size 0.36s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease, box-shadow 0.2s ease;
+    overflow: visible !important;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .abt-hero .ed-hero-cta .btn > span {
-    position: absolute;
-    left: 108px;
-    transform: translateX(-50%);
+    position: static;
+    transform: none !important;
     pointer-events: none;
 }
 
 .abt-hero .ed-hero-cta .btn:hover,
 .abt-hero .ed-hero-cta .btn:focus-visible {
-    inline-size: min(250px, 100%);
-    transform: none;
+    transform: translate(5px, -5px) !important;
+}
+
+.abt-hero .ed-hero-cta .btn:hover > span,
+.abt-hero .ed-hero-cta .btn:focus-visible > span {
+    transform: none !important;
 }
 
 .abt-hero .ed-hero-cta .btn svg {
     position: absolute;
-    right: 2rem;
+    right: 12px;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: translateY(-50%) translateX(-8px);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+    pointer-events: none;
+}
+
+.abt-hero .ed-hero-cta .btn:hover svg,
+.abt-hero .ed-hero-cta .btn:focus-visible svg {
+    opacity: 1;
+    transform: translateY(-50%) translateX(24px);
 }
 
 .abt-hero .ed-hero-cta .btn-primary:hover,
@@ -1861,22 +1877,25 @@
 
     .abt-hero .ed-hero-cta {
         --abt-hero-cta-reveal: 34px;
-        width: min(100%, 250px);
+        width: min(100%, 235px);
         margin-left: auto;
-        align-items: flex-start;
+        align-items: flex-end;
     }
 
     .abt-hero .ed-hero-cta .btn {
-        inline-size: calc(100% - var(--abt-hero-cta-reveal));
+        inline-size: 100%;
         min-width: 0;
-        min-height: 54px;
-        padding-inline: 2rem;
-        font-size: 1.1rem;
+        justify-content: center;
+        white-space: nowrap;
+        position: relative;
+        overflow: visible !important;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     }
 
     .abt-hero .ed-hero-cta .btn:hover,
     .abt-hero .ed-hero-cta .btn:focus-visible {
         inline-size: 100%;
+        transform: translate(5px, -5px) !important;
     }
 }
 

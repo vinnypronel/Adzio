@@ -2508,6 +2508,88 @@
     padding: 0.85rem 0.9rem;
 }
 
+@media (max-width: 768px) {
+    body.services-page #contact {
+        padding: 0.75rem 0 2.5rem;
+    }
+
+    body.services-page #contact .cta-title {
+        margin-bottom: 0.65rem;
+    }
+
+    body.services-page #contact .cta-subtitle {
+        margin-bottom: 0.95rem;
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    body.services-page #contact .quiz-inline-card {
+        padding: 1rem clamp(0.95rem, 4vw, 1.25rem) 0.9rem;
+        border-radius: 12px;
+    }
+
+    body.services-page #contact .quiz-progress-wrapper {
+        margin-bottom: 0.8rem;
+    }
+
+    body.services-page #contact .quiz-progress-text {
+        margin-bottom: 0.45rem;
+        font-size: 0.58rem;
+    }
+
+    body.services-page #contact .quiz-step-title {
+        font-size: clamp(1.35rem, 5.3vw, 1.55rem);
+        line-height: 1.08;
+        margin-bottom: 0.42rem;
+    }
+
+    body.services-page #contact .quiz-step-subtitle {
+        margin-bottom: 0.95rem;
+        font-size: 0.92rem;
+        line-height: 1.38;
+    }
+
+    body.services-page #contact .quiz-form-grid > .form-row:first-child {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+    }
+
+    body.services-page #contact .form-row {
+        gap: 0.55rem;
+    }
+
+    body.services-page #contact .form-group {
+        margin-bottom: 0.52rem;
+    }
+
+    body.services-page #contact .form-group label {
+        margin-bottom: 0.32rem;
+        font-size: 0.54rem;
+        letter-spacing: 0.12em;
+        white-space: nowrap;
+    }
+
+    body.services-page #contact .form-group input,
+    body.services-page #contact .custom-select-trigger,
+    body.services-page #contact .form-group textarea {
+        min-height: 42px;
+        padding: 0.64rem 0.78rem;
+        border-radius: 7px;
+    }
+
+    body.services-page #contact .quiz-nav-buttons {
+        margin-top: 0.62rem;
+        padding-top: 0.62rem;
+        padding-bottom: 0.15rem;
+    }
+
+    body.services-page #contact .quiz-nav-buttons .btn {
+        min-height: 44px;
+        padding: 0.72rem 1.35rem;
+        font-size: 0.92rem;
+    }
+}
+
 @media (min-width: 769px) {
     .services-cta-shell h2 {
         max-width: none;
@@ -3384,11 +3466,19 @@
     /* Founders Instagram Cards on mobile */
     .svc-proof-header {
         justify-content: flex-start;
-        margin-left: 14px;
+        margin-left: 0;
         margin-right: 0;
         margin-bottom: 0.75rem;
         transform: translateY(-4px);
         width: 100%;
+    }
+
+    /* Card's visible surface is its ::before layer (the element itself is
+       borderless/transparent), inset 10px on desktop for a floating look.
+       On phones that inset reads as the whole card being shifted right of
+       the heading above it, so pull it back flush. */
+    .svc-proof-stack .abt-proof-card::before {
+        inset: 0;
     }
 
     .svc-proof-stack .abt-proof-card--cyan {
@@ -3432,23 +3522,36 @@
     .svc-hero .ed-hero-cta .btn {
         position: relative;
         white-space: nowrap;
-        transition-property: padding-right, transform, color, box-shadow;
+        overflow: visible !important;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     }
 
     .svc-hero .ed-hero-cta .btn:hover,
     .svc-hero .ed-hero-cta .btn:focus-visible {
-        padding-right: calc(clamp(20px, 1.9vw, 32px) + 34px);
-        transform: none;
+        transform: translate(5px, -5px) !important;
     }
 
     .svc-hero .ed-hero-cta .btn:hover > span,
     .svc-hero .ed-hero-cta .btn:focus-visible > span {
-        transform: translateX(-17px);
+        transform: none !important;
     }
 
     .svc-hero .ed-hero-cta .btn svg {
         position: absolute;
-        right: clamp(20px, 1.9vw, 32px);
+        right: 12px;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        transform: translateY(-50%) translateX(-8px);
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+        pointer-events: none;
+    }
+
+    .svc-hero .ed-hero-cta .btn:hover svg,
+    .svc-hero .ed-hero-cta .btn:focus-visible svg {
+        opacity: 1;
+        transform: translateY(-50%) translateX(24px);
     }
 
     .svc-hero .ed-hero-cta .btn-primary:hover,
@@ -3465,7 +3568,10 @@
         color: var(--text-primary);
     }
 }
-   this type meaningfully larger was to give the hero more canvas. The shell is
+
+/* ============================================
+   WIDE DESKTOP HERO
+   The only way to make the headline in this type meaningfully larger was to give the hero more canvas. The shell is
    widened for THIS SECTION ONLY, so every .svc-detail below keeps the 1440px
    measure. Vertical paddings are trimmed by roughly what the taller headline
    adds, so the section's height stays put and nothing below it moves.
@@ -3491,36 +3597,80 @@
 }
 
 @media (max-width: 768px) {
+    .svc-hero .ed-masthead {
+        padding-bottom: clamp(16px, 2.8vh, 26px);
+    }
+
+    .svc-hero .ed-masthead-brand {
+        position: relative;
+        display: inline-block;
+        font-family: 'Cormorant Garamond', 'Bodoni Moda', serif;
+        font-size: clamp(3.1rem, 13vw, 4.35rem);
+        font-weight: 700;
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        color: #F8F4EC;
+        text-shadow: 0 10px 30px rgba(0, 184, 212, 0.12);
+    }
+
+    .svc-hero .ed-masthead-brand::after {
+        content: '';
+        position: absolute;
+        left: 0.08em;
+        right: -0.12em;
+        bottom: -0.2em;
+        height: clamp(9px, 2.4vw, 13px);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 24' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3Cstop offset='16%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='50%25' stop-color='%233ba5b5'/%3E%3Cstop offset='84%25' stop-color='%2300b8d4' stop-opacity='.95'/%3E%3Cstop offset='100%25' stop-color='%2300b8d4' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 12C20 3,40 3,60 12C80 21,100 21,118 12' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round'%3E%3Canimate attributeName='d' dur='2.6s' repeatCount='indefinite' calcMode='spline' keySplines='.45 0 .55 1;.45 0 .55 1' values='M2 12C20 3,40 3,60 12C80 21,100 21,118 12;M2 12C20 21,40 21,60 12C80 3,100 3,118 12;M2 12C20 3,40 3,60 12C80 21,100 21,118 12'/%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        filter: drop-shadow(0 6px 10px rgba(0, 184, 212, 0.25));
+        pointer-events: none;
+    }
+
     .svc-hero .ed-hero-cta {
         --svc-hero-cta-reveal: 34px;
-        width: min(100%, 350px);
+        width: min(100%, 235px);
         margin-left: auto;
-        align-items: flex-start;
+        align-items: flex-end;
     }
 
     .svc-hero .ed-hero-cta .btn {
-        inline-size: calc(100% - var(--svc-hero-cta-reveal));
+        inline-size: 100%;
         min-width: 0;
         justify-content: center;
         white-space: nowrap;
         position: relative;
-        transition-property: inline-size, transform, color, box-shadow;
+        overflow: visible !important;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     }
 
     .svc-hero .ed-hero-cta .btn:hover,
     .svc-hero .ed-hero-cta .btn:focus-visible {
         inline-size: 100%;
-        transform: none;
+        transform: translate(5px, -5px) !important;
     }
 
     .svc-hero .ed-hero-cta .btn:hover > span,
     .svc-hero .ed-hero-cta .btn:focus-visible > span {
-        transform: translateX(-17px);
+        transform: none !important;
     }
 
     .svc-hero .ed-hero-cta .btn svg {
         position: absolute;
-        right: clamp(18px, 5vw, 24px);
+        right: 12px;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        transform: translateY(-50%) translateX(-8px);
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+        pointer-events: none;
+    }
+
+    .svc-hero .ed-hero-cta .btn:hover svg,
+    .svc-hero .ed-hero-cta .btn:focus-visible svg {
+        opacity: 1;
+        transform: translateY(-50%) translateX(24px);
     }
 
     .svc-hero .ed-hero-cta .btn-primary:hover,
@@ -3580,14 +3730,16 @@
         right: -0.12em;
         bottom: -0.16em;
         height: clamp(9px, 0.75vw, 14px);
-        background:
-            radial-gradient(ellipse at 15% 50%, rgba(248, 244, 236, 0.85) 0 2px, transparent 3px),
-            linear-gradient(90deg, rgba(0, 184, 212, 0), rgba(0, 184, 212, 0.95) 18%, rgba(248, 244, 236, 0.72) 48%, rgba(0, 184, 212, 0.8) 78%, rgba(0, 184, 212, 0));
-        background-size: 100% 100%, 220% 100%;
-        clip-path: polygon(0 58%, 12% 34%, 28% 48%, 45% 28%, 63% 46%, 81% 32%, 100% 55%, 100% 74%, 80% 50%, 63% 64%, 45% 44%, 28% 66%, 12% 50%, 0 76%);
-        opacity: 0.9;
+        background: linear-gradient(90deg, rgba(0, 184, 212, 0.15), rgba(0, 184, 212, 0.95) 20%, rgba(248, 244, 236, 0.85) 50%, rgba(0, 184, 212, 0.95) 80%, rgba(0, 184, 212, 0.15));
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 12'%3E%3Cpath d='M0 6C4 0 12 0 16 6C20 12 28 12 32 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
+        -webkit-mask-repeat: repeat-x;
+        -webkit-mask-size: 32px 100%;
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 12'%3E%3Cpath d='M0 6C4 0 12 0 16 6C20 12 28 12 32 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
+        mask-repeat: repeat-x;
+        mask-size: 32px 100%;
+        opacity: 0.95;
         filter: drop-shadow(0 8px 14px rgba(0, 184, 212, 0.2));
-        animation: adzioUnderlineWave 3.2s ease-in-out infinite;
+        animation: adzioUnderlineWave 2.8s linear infinite;
         pointer-events: none;
     }
 
@@ -3597,10 +3749,10 @@
 
     .svc-hero .ed-hero-aside {
         position: absolute;
-        right: clamp(72px, 7vw, 132px);
+        right: clamp(40px, 4.5vw, 90px);
         bottom: clamp(42px, 6.5vh, 82px);
-        width: clamp(280px, 18vw, 340px);
-        padding-left: clamp(20px, 2vw, 34px);
+        width: clamp(240px, 15vw, 290px);
+        padding-left: clamp(16px, 1.5vw, 24px);
         margin-bottom: 0;
         z-index: 2;
     }
@@ -3622,10 +3774,10 @@
     /* The aside is centre-aligned against the headline row, so growing these
        does not add to the section's height. */
     .svc-hero .ed-hero-cta .btn {
-        min-width: clamp(260px, 17vw, 320px);
-        min-height: clamp(52px, 6.6vh, 62px);
-        font-size: clamp(0.82rem, 0.95vw, 0.95rem);
-        padding-inline: clamp(20px, 1.9vw, 32px);
+        min-width: clamp(190px, 12vw, 235px);
+        min-height: clamp(46px, 5.5vh, 54px);
+        font-size: clamp(0.76rem, 0.85vw, 0.85rem);
+        padding-inline: clamp(14px, 1.3vw, 20px);
         white-space: nowrap;
     }
 }
