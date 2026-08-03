@@ -123,8 +123,10 @@
             '    silk += near * 0.70;',
             '#endif',
             '',
-            '    float mTitle = mix(1.0, rectMask(p, uRectTitle, aspect, 0.12),',
-            '                       uMaskStrength * uTitleWeight);',
+            '    // Keep a quieter pocket behind the headline, but retain enough silk',
+            '    // for the copy area to feel connected to the surrounding canvas.',
+            '    float titleShape = mix(0.42, 1.0, rectMask(p, uRectTitle, aspect, 0.075));',
+            '    float mTitle = mix(1.0, titleShape, uMaskStrength * uTitleWeight);',
             '    float mVsl = mix(1.0, rectMask(p, uRectVsl, aspect, 0.035), uMaskStrength);',
             '    silk *= mTitle * mVsl;',
             '',
@@ -407,7 +409,7 @@
             var shift = this.isMobile ? 100 * p : 0;
             rectTitle = rectToUv(
                 this.titleDoc.left, this.titleDoc.top - y + shift,
-                this.titleDoc.w, this.titleDoc.h, cssW, cssH, 28);
+                this.titleDoc.w, this.titleDoc.h, cssW, cssH, 14);
         }
         var vr = window._vslRect;
         if (vr) {

@@ -1527,10 +1527,9 @@
         padding-top: 8px;
     }
 
-    /* Trim the section's own leading padding too - between the two there was
-       ~100px of empty screen above "THE". */
+    /* Give the carousel and Problem section distinct breathing room on phones. */
     .problem-section {
-        padding-top: 10px !important;
+        padding-top: clamp(56px, 10vw, 76px) !important;
     }
 
     .problem-stage {
@@ -1955,6 +1954,18 @@
        and 3. */
     #problem-card-budget .pain-body {
         padding-right: 0;
+    }
+
+    /* Keep body copy as a proper reading block on phones: the card content
+       follows the same left edge while the justified lines fill the measure. */
+    #problem-card-time .pain-body,
+    #problem-card-budget .pain-body,
+    #problem-card-competition .pain-body {
+        width: 100%;
+        max-width: none !important;
+        text-align: justify !important;
+        text-align-last: left;
+        text-justify: inter-word;
     }
 }
 

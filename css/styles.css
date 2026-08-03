@@ -2983,7 +2983,7 @@ body.vsl-active .hero-vsl {
         display: inline-block;
         justify-self: start;
         align-self: start;
-        margin: clamp(2px, 1.2vh, 8px) 0 clamp(4px, 1.5vh, 10px);
+        margin: clamp(52px, 7vh, 70px) 0 clamp(4px, 1.5vh, 10px);
         font-size: clamp(3.1rem, 13vw, 4.35rem);
         z-index: 3;
     }
@@ -3121,6 +3121,26 @@ body.vsl-active .hero-vsl {
        the right column instead of leaving a side gap. */
     .hero-vsl {
         max-width: min(62vw, calc((100svh - 150px) * 16 / 9));
+    }
+}
+
+/* Wide desktop displays have ample horizontal room for the VSL. Let the frame
+   scale into that space while keeping its 16:9 height within the hero fold. */
+@media (min-width: 1800px) {
+    .hero-left-col {
+        left: calc(-1 * clamp(120px, 9vw, 220px));
+    }
+
+    .hero .hero-eyebrow {
+        margin-left: clamp(38px, 2.6vw, 64px);
+        font-size: clamp(4.25rem, 5.4vw, 7rem);
+        top: -22px;
+    }
+
+    .hero-vsl {
+        width: calc(100% + clamp(240px, 14vw, 360px));
+        max-width: min(88vw, calc((100svh - 30px) * 16 / 9));
+        margin-left: calc(-1 * clamp(240px, 14vw, 360px));
     }
 }
 
@@ -4627,6 +4647,15 @@ body.vsl-active .hero-vsl {
 
 .service-cta:hover .service-cta-icon {
     transform: translateX(4px);
+}
+
+/* On desktop, anchor the service-card action to the lower-right edge. */
+@media (min-width: 769px) {
+    .service-cta {
+        margin-left: auto;
+        margin-right: 0;
+        align-self: flex-end;
+    }
 }
 
 /* Fluid Desktop Responsive Sizing down to tablet */

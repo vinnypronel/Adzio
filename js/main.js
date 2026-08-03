@@ -204,7 +204,7 @@ function initNavParallax() {
         const restMode = wrap.dataset.navRest || 'left';
         const anchorL = restMode === 'center'
             ? vw / 2
-            : vw * 0.17; // Home starts above the 'e' in 'Help'
+            : vw * (vw >= 1800 ? 0.13 : 0.17); // Align with the wide-screen hero wordmark.
         // The pill is centred on this point, but .nav-svg-container scales about
         // its top-centre, so its visual half-width is (W / 2 * navScale). Offset
         // by the scaled half-width or the docked pill slides left off-screen
