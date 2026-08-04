@@ -2307,3 +2307,12 @@
     color: var(--cyan);
     filter: drop-shadow(0 4px 8px rgba(0, 184, 212, 0.2));
 }
+
+@media (max-width: 768px) {
+    /* Let the carousel follow the hero's actual content instead of reserving
+       nearly a full viewport of empty space below the CTA stack. */
+    .abt-hero {
+        min-height: 0;
+        padding-bottom: clamp(4.5rem, 10svh, 6rem);
+    }
+}
