@@ -2313,6 +2313,6 @@
        nearly a full viewport of empty space below the CTA stack. */
     .abt-hero {
         min-height: 0;
-        padding-bottom: clamp(4.5rem, 10svh, 6rem);
+        padding-bottom: clamp(3rem, 7svh, 4.5rem);
     }
 }
