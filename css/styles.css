@@ -438,6 +438,34 @@ body {
         text-underline-offset: 4px;
     }
 
+    .m-nav-contact .m-nav-contact-icon {
+        display: inline-grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        text-decoration: none;
+    }
+
+    .m-nav-contact .m-nav-contact-icon svg {
+        width: 34px;
+        height: 34px;
+    }
+
+    .m-nav-contact-icon--phone {
+        color: var(--cyan);
+    }
+
+    .m-nav-contact-icon--phone svg {
+        stroke: currentColor;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .m-nav-contact-icon:active {
+        transform: translateY(-2px);
+    }
+
     .m-nav-socials a {
         display: inline-flex;
         align-items: center;
@@ -9129,6 +9157,21 @@ html.silk-active .hero-bg {
     .m-nav-socials a:nth-child(1) { color: #E4405F; }
     .m-nav-socials a:nth-child(2) { color: #1877F2; }
     .m-nav-socials a:nth-child(3) { color: #ffffff; }
+
+    .m-nav-socials .m-nav-instagram-icon {
+        stroke: none;
+    }
+
+    .m-nav-socials .m-nav-instagram-icon rect,
+    .m-nav-socials .m-nav-instagram-icon circle {
+        stroke: url(#m-nav-instagram-gradient);
+    }
+
+    .m-nav-socials .m-nav-facebook-icon {
+        fill: currentColor;
+        stroke: none;
+        transform: scaleX(1.1);
+    }
 
     .m-nav-socials a:active svg {
         transform: translateY(-2px);

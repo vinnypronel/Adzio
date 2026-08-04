@@ -716,7 +716,14 @@ function initVSLPlayer() {
 
     // Close modal handlers
     if (vslModalClose) vslModalClose.addEventListener('click', closeModal);
-    if (vslModalOverlay) vslModalOverlay.addEventListener('click', closeModal);
+    if (vslModalOverlay) {
+        vslModalOverlay.addEventListener('click', () => {
+            // Keep the mobile player open during playback. On smaller touch
+            // screens, the surrounding space is easy to hit accidentally.
+            if (window.matchMedia('(max-width: 768px)').matches) return;
+            closeModal();
+        });
+    }
 
     // Close modal when video ends
     vslModalVideo.addEventListener('ended', closeModal);
@@ -844,6 +851,16 @@ function initVSLPlayer() {
                 if (!vslModalVideo.paused) idleTimer = setTimeout(() => vslControls.classList.add('is-idle'), 600);
             });
         }
+
+        // Touch devices do not generate a useful hover/pointer-move state.
+        // When the chrome has faded, the first tap on the video brings the
+        // corner controls back instead of pausing playback.
+        vslModalVideo.addEventListener('click', (event) => {
+            if (!window.matchMedia('(max-width: 768px)').matches || !vslControls.classList.contains('is-idle')) return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            showControls();
+        }, true);
     }
 }
 
