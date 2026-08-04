@@ -2298,3 +2298,12 @@
         padding: 0.55rem 0;
     }
 }
+/* Match the Services carousel cue: it sits directly beneath the platform
+   heading and signals that the moving logo rows continue below. */
+.logo-slider .svc-platform-arrow {
+    width: 28px;
+    height: 28px;
+    margin-top: -0.35rem;
+    color: var(--cyan);
+    filter: drop-shadow(0 4px 8px rgba(0, 184, 212, 0.2));
+}
