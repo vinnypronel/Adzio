@@ -5550,6 +5550,13 @@ body.vsl-active .hero-vsl {
     animation: errorFadeIn 0.15s ease;
 }
 
+/* Keep quiz options in the card's document flow while open. The card then
+   expands to the list on both desktop and mobile instead of clipping it. */
+.quiz-inline-card .custom-select.is-open .custom-select-list {
+    position: static;
+    max-height: min(280px, 36vh);
+}
+
 .custom-select-item {
     padding: 0.6rem 0.85rem;
     font-family: var(--font-body);
@@ -9175,6 +9182,11 @@ html.silk-active .hero-bg {
 @media (max-width: 768px) {
     .quiz-inline-card {
         padding: 1.3rem 1.5rem 1.15rem;
+    }
+
+    /* A slightly shorter cap keeps the expanded list practical on phones. */
+    .quiz-inline-card .custom-select.is-open .custom-select-list {
+        max-height: min(240px, 32svh);
     }
 
     .quiz-progress-wrapper {
