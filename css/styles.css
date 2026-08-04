@@ -1791,6 +1791,32 @@ input.btn {
     gap: 0;
 }
 
+/* If a scroll starts while the top nav is expanded, JS collapses and docks it
+   immediately. Keep hover-only content hidden until the pointer leaves the
+   old footprint, preventing the outgoing logo or links from escaping. */
+@media (min-width: 769px) {
+    .nav-wrap.nav-scroll-locked:hover .nav-links-row {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition-delay: 0s !important;
+    }
+
+    .nav-wrap.scrolled.nav-scroll-locked:hover .nav-content {
+        flex-direction: row !important;
+        align-items: stretch !important;
+        height: auto !important;
+    }
+
+    .nav-wrap.scrolled.nav-scroll-locked:hover .logo-row {
+        width: auto !important;
+        min-width: 88px !important;
+        height: 46px !important;
+        flex: 0 0 auto !important;
+        justify-content: flex-start !important;
+        padding: 0 8px 0 12px !important;
+    }
+}
+
 @media (min-width: 769px) {
     .hero .hero-eyebrow {
         top: -10px;
@@ -2554,10 +2580,10 @@ body.vsl-active .hero-vsl {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     transition: clip-path 0.42s cubic-bezier(0.16, 1, 0.3, 1);
-    /* drop-shadow tracks the clipped silhouette; a box-shadow would be cut away
-       by the clip along with the hidden part of the box. */
+    /* Keep the play control clean against the VSL thumbnail. A drop-shadow on
+       the clipped element left a visible gray edge beside the white button. */
     box-shadow: none;
-    filter: drop-shadow(0 9px 16px rgba(0, 0, 0, 0.45));
+    filter: none;
 }
 
 /* Only the button itself opens up, not a hover anywhere on the video. The clip
@@ -7908,7 +7934,7 @@ html.silk-active .hero-bg {
 }
 
 .accordion-item.is-open .accordion-body {
-    max-height: 220px;
+    max-height: 800px;
     opacity: 1;
     padding: 0 1.6rem 1.4rem 3.5rem;
 }
@@ -8022,16 +8048,60 @@ html.silk-active .hero-bg {
 }
 
 .home-about-accordion .accordion-item.is-open .accordion-body {
-    max-height: 360px;
+    max-height: 800px;
     padding: 0 0 clamp(30px, 4.5vh, 48px);
 }
 
 .home-about-accordion .accordion-content {
-    max-width: 62ch;
+    max-width: 68ch;
     border-top: 0;
     padding: 0;
     color: rgba(244, 241, 234, 0.82);
     font-size: clamp(0.98rem, 1.1vw, 1.1rem);
+    font-weight: 400;
+    line-height: 1.65;
+}
+
+.accordion-lead {
+    font-size: clamp(0.98rem, 1.1vw, 1.12rem);
+    line-height: 1.65;
+    color: rgba(244, 241, 234, 0.92);
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+}
+
+.accordion-sublist {
+    list-style: none;
+    padding: 0;
+    margin: 0.8rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.accordion-sublist li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: clamp(0.9rem, 1vw, 1rem);
+    line-height: 1.55;
+    color: rgba(244, 241, 234, 0.78);
+    font-weight: 400;
+}
+
+.accordion-sublist li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--row-accent, #2DF0D8);
+    box-shadow: 0 0 6px var(--row-accent, #2DF0D8);
+}
+
+.accordion-sublist li strong {
+    color: #ffffff;
     font-weight: 600;
     line-height: 1.65;
 }
@@ -9012,6 +9082,48 @@ html.silk-active .hero-bg {
     .home-about-accordion .accordion-item.is-open .accordion-body {
         max-height: 200px;
         padding-bottom: clamp(16px, 2.4vh, 24px);
+    }
+}
+
+/* 900px-class desktop windows need one more small step down than the broad
+   mid-height treatment above. This keeps the agency statement and all four
+   closed rows inside a single view without making normal-height desktops feel
+   compressed. */
+@media (min-width: 769px) and (min-height: 851px) and (max-height: 1000px) {
+    .home-about {
+        padding: clamp(30px, 4vh, 42px) 0;
+    }
+
+    .home-about .about-header {
+        margin-bottom: clamp(18px, 2.25vh, 24px);
+    }
+
+    .home-about .about-header .home-about-eyebrow {
+        margin-bottom: 0.65rem;
+        font-size: clamp(0.74rem, 0.82vw, 0.84rem);
+    }
+
+    .home-about .about-header .section-title {
+        font-size: clamp(2.35rem, min(3vw, 5.2vh), 3.5rem);
+        margin-bottom: 0.65rem;
+    }
+
+    .home-about .about-header .about-text {
+        max-width: 880px;
+        font-size: clamp(0.96rem, 1vw, 1.08rem);
+        line-height: 1.48;
+    }
+
+    .home-about-accordion .accordion-header {
+        padding: clamp(16px, 2.35vh, 24px) clamp(4px, 1vw, 12px);
+    }
+
+    .home-about-accordion .accordion-title {
+        font-size: clamp(1.45rem, min(2vw, 3.55vh), 2rem);
+    }
+
+    .home-about-accordion .accordion-icon {
+        font-size: 1.65rem;
     }
 }
 

@@ -1490,6 +1490,12 @@
         margin-top: 0.55rem;
         font-size: clamp(0.92rem, 1.02vw, 1.06rem);
         line-height: 1.42;
+        /* Narrower measure plus balancing so the copy splits evenly over two
+           lines instead of running long then dropping a short tail. */
+        max-width: 62ch;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: balance;
     }
 }
 

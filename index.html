@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=340.0">
+    <link rel="stylesheet" href="css/styles.css?v=343.0">
     <link rel="stylesheet" href="css/animations.css?v=215.0">
     <link rel="stylesheet" href="css/problem.css?v=234.0">
     <link rel="stylesheet" href="css/process.css?v=252.0">
@@ -363,7 +363,7 @@
                     </div>
                     <h3 class="service-title">Meta Ad <span class="highlight">Management</span></h3>
                     <p class="service-description">Facebook &amp; Instagram campaigns engineered to put your business
-                        in front of the right people &ndash; and turn attention into booked revenue.</p>
+                        in front of the right people to turn attention into booked revenue.</p>
                     <ul class="service-features">
                         <li>Audience research &amp; lookalikes</li>
                         <li>High-performing creative hooks</li>
@@ -435,7 +435,7 @@
                         </div>
                     </div>
                     <h3 class="service-title">Website <span class="highlight">Development</span></h3>
-                    <p class="service-description">Digital architecture designed to convert &ndash; fast, precise
+                    <p class="service-description">Digital architecture designed to convert with fast, precise
                         websites that turn visitors into paying customers.</p>
                     <ul class="service-features">
                         <li>Responsive &amp; Conversion-First Design</li>
@@ -488,7 +488,7 @@
                         </div>
                     </div>
                     <h3 class="service-title">Social Media <span class="highlight">Management</span></h3>
-                    <p class="service-description">A commanding brand presence &ndash; strategic content that builds
+                    <p class="service-description">A commanding brand presence with strategic content that builds
                         authority and keeps your business top of mind.</p>
                     <ul class="service-features">
                         <li>Content creation</li>
@@ -1240,7 +1240,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="js/smooth-scroll.js?v=1"></script>
-    <script src="js/main.js?v=62.0"></script>
+    <script src="js/main.js?v=64.0"></script>
     <script src="js/problem.js?v=18.0"></script>
 
 
@@ -1339,6 +1339,7 @@
             }
 
             function startAnim(toHover) {
+                window._navIsExpanded = toHover;
                 startW = curW; startH = curH; startTabW = curTabW;
                 if (window._navScrolled && toHover) {
                     // Docked state keeps a fixed width and only expands downward.
@@ -1362,7 +1363,10 @@
             }
 
             wrap.addEventListener('mouseenter', () => startAnim(true));
-            wrap.addEventListener('mouseleave', () => startAnim(false));
+            wrap.addEventListener('mouseleave', () => {
+                wrap.classList.remove('nav-scroll-locked');
+                startAnim(false);
+            });
 
             const isFixedSide = wrap.dataset.navFixedSide === 'true';
             if (isFixedSide) {
@@ -1377,6 +1381,27 @@
             window._navApplyFrame = applyFrame;
             window._navCancelAnim = function () {
                 if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; startTime = null; }
+            };
+            // Scroll changes use an instant compact frame and hand positioning
+            // straight back to the CSS scroll animation. This keeps the logo,
+            // SVG pill, and links moving as one piece instead of overlapping
+            // two separate animation systems.
+            window._navSetScrollFrame = function (isScrolled) {
+                window._navCancelAnim();
+                window._navIsExpanded = false;
+                wrap.classList.remove('nav-vertical');
+                const width = isScrolled ? (window._navDockedW || REST_W) : REST_W;
+                applyFrame(width, REST_H, width);
+                wrap.style.transform = '';
+                wrap.classList.remove('nav-morphing');
+            };
+
+            // Scrolling from an expanded top state uses the same compact frame
+            // handoff before the scroll animation starts translating the nav.
+            window._navCollapseForScroll = function () {
+                if (!window._navIsExpanded) return;
+                wrap.classList.add('nav-scroll-locked');
+                window._navSetScrollFrame(false);
             };
             // Lets the scroll handler collapse the pill to the compact docked
             // width when it crosses the threshold. Without this the pill stays

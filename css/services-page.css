@@ -903,12 +903,12 @@
 
 @media (hover: hover) and (pointer: fine) {
     #social-media-management .abt-feed-item .social-tip {
-        top: auto;
+        top: 50%;
         right: auto;
-        bottom: calc(100% + 9px);
+        bottom: auto;
         left: 50%;
         z-index: 5;
-        transform: translate(-50%, 3px);
+        transform: translate(-50%, calc(-50% + 3px));
     }
 
     #social-media-management .abt-feed-item:hover,
@@ -922,7 +922,7 @@
     #social-media-management .abt-feed-item:focus-visible .social-tip {
         opacity: 1;
         visibility: visible;
-        transform: translate(-50%, 0);
+        transform: translate(-50%, -50%);
         transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0s;
     }
 }
@@ -3016,6 +3016,17 @@
     opacity: 0;
     transform: translateY(5px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.svc-ad-tile .ad-tile-tag::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    flex: 0 0 5px;
+    border-radius: 50%;
+    background: #00e58b;
+    box-shadow: 0 0 6px #00e58b;
+    animation: tagPulseGlow 1.5s infinite alternate;
 }
 
 .svc-ad-tile:hover .ad-tile-tag,

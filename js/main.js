@@ -231,7 +231,19 @@ function initNavParallax() {
         if (isFixedSide) return;
         if (!ticking) {
             requestAnimationFrame(() => {
-                const raw = window.scrollY / SCROLL_DIST;
+                const scrollY = window.scrollY;
+
+                // Hand an open top nav back to its compact frame before scroll
+                // positioning begins. The old path forced it all the way left
+                // while its wide hover frame was still morphing, which split the
+                // logo away from the pill for a frame or two.
+                if (scrollY > 0 && window._navIsExpanded) {
+                    if (typeof window._navCollapseForScroll === 'function') {
+                        window._navCollapseForScroll();
+                    }
+                }
+
+                const raw = scrollY / SCROLL_DIST;
                 const progress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
                 window._navScrollProgress = progress;
 
@@ -240,7 +252,9 @@ function initNavParallax() {
                     wasScrolled = isScrolled;
                     window._navScrolled = isScrolled;
                     wrap.classList.toggle('scrolled', isScrolled);
-                    if (typeof window._navStartAnim === 'function') window._navStartAnim(false);
+                    if (typeof window._navSetScrollFrame === 'function') {
+                        window._navSetScrollFrame(isScrolled);
+                    }
                 }
                 ticking = false;
             });
