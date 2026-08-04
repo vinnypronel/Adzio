@@ -2315,4 +2315,8 @@
         min-height: 0;
         padding-bottom: clamp(3rem, 7svh, 4.5rem);
     }
+
+    .svc-platform-heading > span {
+        white-space: nowrap;
+    }
 }
