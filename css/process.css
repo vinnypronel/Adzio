@@ -1393,6 +1393,74 @@
     }
 }
 
+/* Compact the overview so the complete Adzio process reads in one phone view. */
+@media (max-width: 768px) {
+    #process-slide-0 {
+        gap: 4px;
+    }
+
+    #process-slide-0 .process-s0-label,
+    .process-s0-label {
+        font-size: clamp(3.25rem, 17vw, 5.5rem);
+        line-height: 0.78;
+    }
+
+    .process-s0-subhead {
+        font-size: clamp(1.18rem, 6.2vw, 1.6rem);
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+
+    .process-s0-desc {
+        font-size: 0.94rem;
+        line-height: 1.45;
+    }
+
+    .process-s0-right {
+        gap: 10px;
+    }
+
+    .process-s0-stat {
+        padding: 14px 16px;
+    }
+
+    .process-s0-stat-icon {
+        top: 18px;
+        right: 18px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .process-s0-stat-num {
+        font-size: 2.6rem;
+        margin-bottom: 4px;
+    }
+
+    .process-s0-stat-label {
+        font-size: 0.68rem;
+    }
+
+    .process-s1-card-item {
+        padding: 10px 52px 10px 16px;
+    }
+
+    .process-s1-card-icon {
+        right: 18px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .process-s1-card-num {
+        font-size: 2.1rem;
+        margin-bottom: 0;
+    }
+
+    .process-s1-card-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+    }
+}
+
 /* ============================================
    DESKTOP STEP CARDS
    The four step slides get the same glass outline card the mobile stack uses,
