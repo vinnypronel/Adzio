@@ -451,6 +451,11 @@ body {
         height: 34px;
     }
 
+    .m-nav-contact .m-nav-contact-icon--email svg {
+        width: 39px;
+        height: 39px;
+    }
+
     .m-nav-contact-icon--phone {
         color: var(--cyan);
     }
