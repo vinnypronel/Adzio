@@ -137,20 +137,25 @@
         <div class="m-nav-socials" aria-label="Social media">
             <a href="https://www.instagram.com/adzio.io/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <svg class="m-nav-instagram-icon" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="m-nav-instagram-gradient" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse"><stop stop-color="#FEDA75"/><stop offset="0.28" stop-color="#FA7E1E"/><stop offset="0.52" stop-color="#D62976"/><stop offset="0.76" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="m-nav-social-dot"/></svg>
+                <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Follow on Instagram</span><span class="social-tip-text"></span></span>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61583384871237" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <svg class="m-nav-facebook-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.75 22v-8.14h2.98l.45-3.48h-3.43V8.16c0-1.01.28-1.69 1.73-1.69H18.3V3.36c-.32-.04-1.41-.14-2.68-.14-2.66 0-4.49 1.63-4.49 4.61v2.55H8.12v3.48h3.01V22h3.62Z"/></svg>
+                <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Follow Adzio on Facebook</span><span class="social-tip-text"></span></span>
             </a>
             <a href="https://x.com/AdzioMarketing" target="_blank" rel="noopener noreferrer" aria-label="X">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor" stroke="none"/></svg>
+                <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Follow on X</span><span class="social-tip-text"></span></span>
             </a>
         </div>
         <div class="m-nav-contact" aria-label="Contact information">
             <a class="m-nav-contact-icon m-nav-contact-icon--email" href="mailto:Marketing@Adzio.io" aria-label="Email Adzio">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M3 6.25v11.5h3V9.02l6 4.55 6-4.55v8.73h3V6.25a2.1 2.1 0 0 0-2.1-2.1h-1.04L12 8.55 6.14 4.15H5.1A2.1 2.1 0 0 0 3 6.25Z"/><path fill="#4285F4" d="M18 9.02v8.73h.9a2.1 2.1 0 0 0 2.1-2.1V6.25L18 9.02Z"/><path fill="#34A853" d="M3 6.25v9.4a2.1 2.1 0 0 0 2.1 2.1H6V9.02L3 6.25Z"/><path fill="#FBBC04" d="M3.43 4.58 12 11.05l8.57-6.47A2.1 2.1 0 0 0 18.9 4.15h-1.04L12 8.55 6.14 4.15H5.1c-.63 0-1.2.17-1.67.43Z"/></svg>
+                <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Email Adzio</span><span class="social-tip-text"></span></span>
             </a>
             <a class="m-nav-contact-icon m-nav-contact-icon--phone" href="tel:7326546635" aria-label="Call Adzio">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+                <span class="social-tip" aria-hidden="true"><span class="social-tip-sizer">Call Adzio</span><span class="social-tip-text"></span></span>
             </a>
         </div>
     </div>
@@ -378,7 +383,7 @@
     // box's final width — without it the panel would grow character by character
     // and shove itself sideways while you read it.
     function initSocialTips() {
-        var links = document.querySelectorAll('.social-link, .contact-item, .abt-feed-item');
+        var links = document.querySelectorAll('.social-link, .contact-item, .abt-feed-item, .m-nav-socials a, .m-nav-contact-icon');
         if (!links.length) return;
 
         // Touch devices fire a sticky :hover on tap, which would leave a tooltip

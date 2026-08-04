@@ -447,13 +447,14 @@ body {
     }
 
     .m-nav-contact .m-nav-contact-icon svg {
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
+        transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .m-nav-contact .m-nav-contact-icon--email svg {
-        width: 39px;
-        height: 39px;
+        width: 43px;
+        height: 43px;
     }
 
     .m-nav-contact-icon--phone {
@@ -479,8 +480,8 @@ body {
     }
 
     .m-nav-socials svg {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         fill: none;
         stroke: currentColor;
         stroke-width: 1.8;
@@ -9150,12 +9151,12 @@ html.silk-active .hero-bg {
 @media (max-width: 768px) {
     .m-nav-socials {
         gap: 38px;
-        transform: translateY(-10px);
+        transform: translateY(0);
     }
 
     .m-nav-socials svg {
-        width: 46px;
-        height: 46px;
+        width: 50px;
+        height: 50px;
         transform: none;
     }
 
@@ -9287,5 +9288,103 @@ html.silk-active .hero-bg {
         max-width: 68ch;
         margin-left: auto !important;
         margin-right: auto !important;
+    }
+}
+
+/* Desktop-pointer hover treatment for the compact mobile navigation. The menu
+   is still available at narrow browser widths, where these directional labels
+   make each contact action readable without covering its neighbours. */
+@media (max-width: 768px) and (hover: hover) and (pointer: fine) {
+    .m-nav-links a:hover,
+    .m-nav-links a:focus-visible {
+        color: var(--cyan);
+    }
+
+    .m-nav-socials a,
+    .m-nav-contact .m-nav-contact-icon {
+        position: relative;
+        transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .m-nav-socials a:hover,
+    .m-nav-socials a:focus-visible,
+    .m-nav-contact .m-nav-contact-icon:hover,
+    .m-nav-contact .m-nav-contact-icon:focus-visible {
+        z-index: 20;
+        transform: translateY(-2px);
+    }
+
+    .m-nav-socials a:hover svg,
+    .m-nav-socials a:focus-visible svg,
+    .m-nav-contact .m-nav-contact-icon:hover svg,
+    .m-nav-contact .m-nav-contact-icon:focus-visible svg {
+        transform: scale(1.12);
+    }
+
+    .m-nav-socials a:hover .social-tip,
+    .m-nav-socials a:focus-visible .social-tip,
+    .m-nav-contact .m-nav-contact-icon:hover .social-tip,
+    .m-nav-contact .m-nav-contact-icon:focus-visible .social-tip {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    .m-nav-socials .social-tip,
+    .m-nav-contact .social-tip {
+        text-transform: none;
+    }
+
+    /* Gmail and phone open horizontally. Instagram, Facebook, and X open
+       above their icons so their labels stay inside the narrow menu. */
+    .m-nav-contact-icon--email .social-tip {
+        top: 50%;
+        right: calc(100% + 10px);
+        bottom: auto;
+        left: auto;
+        transform: translate(3px, -50%);
+    }
+
+    .m-nav-contact-icon--email:hover .social-tip,
+    .m-nav-contact-icon--email:focus-visible .social-tip {
+        transform: translate(0, -50%);
+    }
+
+    /* The Gmail mark is wider than the link's layout box. Give its label a
+       little more breathing room so it never runs into the colored logo. */
+    .m-nav-contact-icon--email .social-tip {
+        right: calc(100% + 22px);
+    }
+
+    .m-nav-socials a:nth-child(1) .social-tip,
+    .m-nav-socials a:nth-child(2) .social-tip,
+    .m-nav-socials a:nth-child(3) .social-tip {
+        top: auto;
+        right: auto;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translate(-50%, 3px);
+    }
+
+    .m-nav-socials a:nth-child(1):hover .social-tip,
+    .m-nav-socials a:nth-child(1):focus-visible .social-tip,
+    .m-nav-socials a:nth-child(2):hover .social-tip,
+    .m-nav-socials a:nth-child(2):focus-visible .social-tip,
+    .m-nav-socials a:nth-child(3):hover .social-tip,
+    .m-nav-socials a:nth-child(3):focus-visible .social-tip {
+        transform: translate(-50%, 0);
+    }
+
+    .m-nav-contact-icon--phone .social-tip {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: calc(100% + 10px);
+        transform: translate(-3px, -50%);
+    }
+
+    .m-nav-contact-icon--phone:hover .social-tip,
+    .m-nav-contact-icon--phone:focus-visible .social-tip {
+        transform: translate(0, -50%);
     }
 }
