@@ -1495,3 +1495,65 @@
     }
 
 }
+
+/* ============================================
+   LARGE DESKTOP AND ULTRAWIDE
+   The slide-0 arrow is flex:1 1 auto so it absorbs whatever space the title
+   and the step cards leave behind. Past ~2000px that dead space balloons and
+   the arrow rendered wider than the title block it points away from, while
+   its -8.5vw lift threw it toward the top of the section. Cap both, and let
+   the title and cards take back some of the width instead.
+   ============================================ */
+@media (min-width: 2000px) {
+    .process-s0-arrow {
+        max-width: 30vw;
+        margin-inline: auto;
+    }
+
+    .process-s0-arrow-svg {
+        transform: translateY(calc(-1 * min(8.5vw, 190px)));
+    }
+
+    .process-s0-right {
+        width: min(23vw, 720px);
+    }
+
+    #process-slide-0 .process-s0-label {
+        font-size: min(12.5vw, 19rem);
+    }
+}
+
+/* ============================================
+   PROCESS STEP CARDS ON LARGE DESKTOP AND ULTRAWIDE
+   Two problems past ~2000px. The outer grid columns are 1.25fr and 1fr, so
+   the icon column sat 135px right of the card's centre on a 3440px display.
+   And the ring, body copy and tag are all clamp-capped by ~1800px, so at
+   3440px the card was 130% wider than at 1536px while those three were
+   pixel-identical. Even the columns out and let the contents scale.
+   ============================================ */
+@media (min-width: 2000px) {
+    /* minmax(0, 1fr) rather than 1fr: a bare 1fr track floors at min-content,
+       and the body's 130px margin-left inflated that floor, so the two outer
+       columns did not split evenly and the icon drifted off centre. */
+    .process-pain-inner {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    }
+
+    .process-icon-ring {
+        width: max(215px, min(12vw, 36vh));
+        height: max(215px, min(12vw, 36vh));
+    }
+
+    .process-pain-heading {
+        font-size: max(61.6px, min(3vw, 6.5rem));
+    }
+
+    .process-pain-body {
+        font-size: max(21px, 1.2vw);
+        max-width: 46ch;
+    }
+
+    .process-pain-tag {
+        font-size: max(16.1px, 0.95vw);
+    }
+}

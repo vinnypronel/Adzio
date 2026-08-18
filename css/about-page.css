@@ -2326,3 +2326,59 @@
         white-space: nowrap;
     }
 }
+
+/* ============================================
+   LARGE DESKTOP AND ULTRAWIDE
+   Shell widths widen from 2000px so ordinary large monitors (2560px 1440p
+   panels especially) are covered, not just ultrawides. max() guards mean a
+   value can only grow past the approved cap, never shrink below it.
+   Type only grows past 2600px.
+   ============================================ */
+@media (min-width: 2000px) {
+    .abt-shell {
+        max-width: max(1500px, 64vw);
+    }
+
+    .abt-hero .abt-shell {
+        max-width: max(1680px, 72vw);
+    }
+
+    .abt-section-head {
+        max-width: max(720px, 44vw);
+    }
+
+    .abt-section-head--wide {
+        max-width: max(980px, 50vw);
+    }
+}
+
+@media (min-width: 2601px) {
+    .abt-section-title {
+        font-size: min(2.8vw, 7rem);
+    }
+
+    .abt-section-sub {
+        font-size: max(1.35rem, min(1.15vw, 1.9rem));
+    }
+
+    .abt-team-heading .abt-section-title {
+        font-size: max(6.8rem, min(4.4vw, 9rem));
+    }
+
+    .abt-proof .abt-section-title {
+        font-size: max(3.75rem, min(2.4vw, 6rem));
+    }
+
+    .abt-proof .abt-section-sub {
+        font-size: max(1.06rem, min(1vw, 1.6rem));
+        max-width: 74ch;
+    }
+
+    .abt-story-copy .abt-section-title {
+        max-width: 20ch;
+    }
+
+    .abt-story-copy p {
+        font-size: max(1.05rem, min(1.1vw, 1.8rem));
+    }
+}

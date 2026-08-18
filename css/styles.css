@@ -3202,6 +3202,38 @@ body.vsl-active .hero-vsl {
     }
 }
 
+/* Ultrawide. Past the 2600px cap the hero would otherwise stop growing and
+   centre itself, leaving a dead gap that pushed the left copy toward the
+   middle of the screen. Drop the cap and keep the edge padding proportional
+   so the approved layout just scales up. */
+@media (min-width: 2601px) {
+    .hero-content {
+        max-width: none;
+        margin-inline: 0;
+        padding-right: 3.4vw;
+        padding-left: 3.5vw;
+    }
+
+    /* Sit the wordmark flush with the headline. The 2000px rule indents it,
+       which reads as a misalignment once the copy column is this wide. */
+    .hero .hero-eyebrow {
+        margin-left: 0;
+    }
+
+    /* Hold the VSL clear of the fold bottom. The 30px budget let the frame
+       run past the viewport here, which pinned the copy against the bottom
+       edge; 220px leaves matching breathing room above and below. */
+    .hero-vsl {
+        max-width: min(100%, calc((100svh - 220px) * 16 / 9));
+    }
+
+    /* The frame no longer fills its column, so anchor it to the right edge
+       the way it sits at the reference desktop widths. */
+    .hero-right-col {
+        justify-content: flex-end;
+    }
+}
+
 .stat {
     position: relative;
     display: flex;
@@ -9519,5 +9551,147 @@ html.silk-active .hero-bg {
     .m-nav-contact-icon--phone:hover .social-tip,
     .m-nav-contact-icon--phone:focus-visible .social-tip {
         transform: translate(0, -50%);
+    }
+}
+
+/* ============================================
+   ULTRAWIDE (2601px+) — SHARED SHELLS
+   Kept at the end of the file on purpose. The base rules for these selectors
+   live further down than the hero band above, so an earlier override loses on
+   source order. Every shell here caps out in px around 1100-1680px, which left
+   the page occupying roughly a quarter of a 3440px display while the headings
+   stopped growing entirely. Only the caps and font ceilings change; nothing at
+   or below 2600px is affected.
+   ============================================ */
+/* Widths start widening at 2000px so ordinary large monitors are covered, not
+   just ultrawides. A 2560px display is the common 27in 1440p panel and was
+   otherwise getting the un-widened layout. Every value is wrapped in max() so
+   it can only ever grow past the approved cap, never shrink below it. */
+@media (min-width: 2000px) {
+    .container {
+        max-width: max(1200px, 72vw);
+    }
+
+    /* Both of these are section-scoped and outrank the bare .container above,
+       so they need naming explicitly. */
+    .services-section .container {
+        max-width: min(max(1680px, 72vw), calc(100vw - clamp(176px, 11.5vw, 220px)));
+    }
+
+    .home-about .container {
+        max-width: max(1750px, 76vw);
+    }
+
+    .cta-content {
+        max-width: max(1100px, 64vw);
+    }
+
+    .quiz-inline-card,
+    #quizInlineCard,
+    .cta-content--wide-form .quiz-inline-card {
+        max-width: max(780px, 58vw);
+    }
+
+    .footer-content {
+        max-width: max(1400px, 66vw);
+    }
+
+    .problem-grid-spotlight {
+        max-width: max(1200px, 68vw);
+    }
+}
+
+/* Type only grows past 2600px. Between 2000 and 2600 the headings stay at the
+   approved sizes and simply sit in a wider shell. */
+@media (min-width: 2601px) {
+    .cta-title {
+        font-size: min(2.6vw, 6vh);
+    }
+
+    /* Deliberately restrained next to the headline above it. The 560px cap
+       broke this into four stacked lines on a wide screen, which read as a
+       narrow column floating under a very large title. */
+    .cta-subtitle {
+        font-size: max(1.05rem, min(0.55vw, 1.45vh));
+        max-width: min(30vw, 900px);
+    }
+}
+
+/* ============================================
+   SERVICE CARDS ON LARGE DESKTOP AND ULTRAWIDE
+   The grid gives each card ~88% more width past 2000px, but the type inside
+   barely moved, so the cards flattened from a 0.68 width/height ratio at
+   1536px into near squares. Scale the card's own contents with the viewport
+   so the cards grow taller as they grow wider and keep the original shape.
+   Every value is guarded with max() so it can never fall below the size it
+   already had.
+   ============================================ */
+@media (min-width: 2000px) {
+    /* Selectors are prefixed with .services-section to match the specificity
+       of the base rules; a bare .service-title would lose to them no matter
+       where this block sits in the file. */
+    .services-section .service-card {
+        padding: max(24.3px, 1.5vw) max(20.7px, 1.3vw) max(20.7px, 1.35vw);
+    }
+
+    .services-section .service-number {
+        font-size: max(39.2px, 1.9vw);
+    }
+
+    .services-section .service-title {
+        font-size: max(22.4px, 1.08vw);
+    }
+
+    .services-section .service-description {
+        font-size: max(15.12px, 0.78vw);
+    }
+
+    .services-section .service-features li {
+        font-size: max(14.7px, 0.76vw);
+        /* The base padding is vh-based and caps at 11px, so the feature rows
+           stayed tight while everything around them grew. */
+        padding: max(11px, 0.55vw) 0;
+        padding-left: max(20px, 0.9vw);
+    }
+
+    .services-section .service-features {
+        margin-bottom: max(22.4px, 0.9vw);
+    }
+
+    .services-section .service-cta {
+        font-size: max(12.6px, 0.62vw);
+    }
+}
+
+/* ============================================
+   HOME ACCORDION ON LARGE DESKTOP AND ULTRAWIDE
+   The accordion is capped at 1280px, so on a 3440px display it occupied 37%
+   of the screen and its body copy never grew at all. Widen the shell and let
+   the type track it. Selectors match the base rules' specificity so they win.
+   ============================================ */
+@media (min-width: 2000px) {
+    .home-about-accordion {
+        max-width: min(max(1280px, 46vw), 94vw);
+    }
+
+    .home-about-accordion .accordion-title {
+        font-size: max(32.9px, 1.05vw);
+    }
+
+    .home-about-accordion .accordion-num {
+        font-size: max(17.5px, 0.52vw);
+    }
+
+    .home-about-accordion .accordion-content {
+        font-size: max(17.6px, 0.57vw);
+        max-width: 78ch;
+    }
+
+    .accordion-lead {
+        font-size: max(17.92px, 0.57vw);
+    }
+
+    .accordion-sublist li {
+        font-size: max(14px, 0.5vw);
     }
 }

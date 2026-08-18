@@ -1984,3 +1984,58 @@
 .problem-card::before {
     display: none;
 }
+
+/* ============================================
+   PROBLEM CARDS ON LARGE DESKTOP AND ULTRAWIDE
+   Every size inside these cards is clamp-capped and hits its ceiling by about
+   1550px, so past that the rows kept getting wider while the contents stayed
+   put: at 3440px the card was 81% wider than at 1536px but only 3% taller,
+   flattening the 6.79 width/height ratio to 11.92.
+
+   The per-card ID selectors below are deliberate. The base sizes are set by
+   "#problem-card-time .pain-heading, #problem-card-budget ..., ..." at
+   specificity (1,1,0), so a .problem-card .pain-heading rule loses to them no
+   matter where it sits in the file. max() guards keep every value at or above
+   what it already was.
+   ============================================ */
+@media (min-width: 2000px) {
+    /* The stage caps at 2560px, so the rows spanned 95% of the screen at
+       2560px but only 74% at 3440px. With the width fraction moving around,
+       no single font scale can hold the shape. Normalise it first. */
+    .problem-stage {
+        max-width: 88vw;
+    }
+
+    .problem-card {
+        padding: max(23px, min(1.2vw, 3.2vh)) max(40px, 2.1vw);
+    }
+
+    .problem-card .pain-tag {
+        font-size: max(11.48px, 0.75vw);
+    }
+
+    #problem-card-time .pain-heading,
+    #problem-card-budget .pain-heading,
+    #problem-card-competition .pain-heading {
+        font-size: max(31.5px, 2vw);
+        max-width: 22ch;
+    }
+
+    /* !important only because the base rule for these three declares it; a
+       normal declaration loses to it regardless of specificity or order. */
+    #problem-card-time .pain-body,
+    #problem-card-budget .pain-body,
+    #problem-card-competition .pain-body {
+        font-size: max(14.7px, 0.96vw) !important;
+        max-width: 54ch;
+    }
+
+    /* Height-aware like the base rule, so a short ultrawide window cannot
+       push the ring past the row. */
+    #problem-card-time .icon-ring,
+    #problem-card-budget .icon-ring,
+    #problem-card-competition .icon-ring {
+        width: max(160px, min(10vw, 21vh));
+        height: max(160px, min(10vw, 21vh));
+    }
+}
